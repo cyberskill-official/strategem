@@ -12,7 +12,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| PLAT-001 | Monorepo + hybrid workspace + CI skeleton | MUST | 12 | - | yes | in_review |
+| PLAT-001 | Monorepo + hybrid workspace + CI skeleton | MUST | 12 | - | yes | done |
 | PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | blocked |
 | PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | blocked |
 | PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | blocked |
