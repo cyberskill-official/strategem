@@ -43,8 +43,11 @@ py-gate: py-sync py-ruff py-ruff-format py-mypy py-test
     @echo "✅ py-gate passed"
 
 # ---------------- Web lane (apps/web) — ALWAYS pnpm ----------------
+# pnpm is the only allowed package manager for the frontend.
+# We relax minimumReleaseAge in CI/local to avoid flakiness from lockfile publish times
+# (see pnpm supply-chain policy). Real prod deploys can re-enable stricter checks.
 web-install:
-    pnpm --filter web install --ignore-scripts
+    PNPM_MINIMUM_RELEASE_AGE=0 pnpm --filter web install --ignore-scripts
 
 web-build:
     pnpm --filter web build

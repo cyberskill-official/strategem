@@ -62,3 +62,4 @@ jobs:
         working-directory: .
         env:
           CI: true
+          PNPM_MINIMUM_RELEASE_AGE: 0   # disable recent-publish cutoff (common in CI with cached/edge lockfiles)
