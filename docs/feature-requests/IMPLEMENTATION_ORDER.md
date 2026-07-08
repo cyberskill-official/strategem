@@ -13,7 +13,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
 | PLAT-001 | Monorepo + hybrid workspace + CI skeleton | MUST | 12 | - | yes | done |
-| PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | blocked |
+| PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | done |
 | PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | blocked |
 | PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | blocked |
 | CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | blocked |
@@ -177,7 +177,7 @@ Do not open P1 until all of these are `done` and the live demo passes:
 
 ## Phase P1 - second engine and strategic surface (MVP completion)
 
-Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. All FR bodies are authored; implement each per its FR spec (per PROMPT.md).
+Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. All FR bodies are authored; implement each per its FR spec (via the strategem-implement skill).
 
 ## Tracks
 

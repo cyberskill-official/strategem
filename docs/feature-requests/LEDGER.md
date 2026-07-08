@@ -117,3 +117,70 @@ Evidence expectations by task class:
     b) list only the problematic packages in `minimumReleaseAgeExclude`, or
     c) leave the relaxation during early development.
   - All "always pnpm" + Node 24 changes remain.
+
+## 2026-07-08 PLAT-002 La so JSON envelope contract - agent
+- branch: auto/tt-plat-002
+- commits: a49cae9
+- status: ready_to_implement -> implementing -> in_review
+- gates: 
+  - cargo fmt --check -p laso-envelope (via workspace): PASS
+  - cargo clippy -p laso-envelope -- -D warnings: PASS (0 warnings)
+  - cargo test -p laso-envelope: PASS (4 lib + 5 golden = 9 tests)
+  - uv run ruff check packages/laso_envelope: PASS
+  - uv run ruff format --check packages/laso_envelope: PASS
+  - uv run mypy packages/laso_envelope: PASS (strict)
+  - uv run pytest packages/laso_envelope -q: PASS (7 tests)
+  - Cross-lang contract evidence: shared 3 golden fixtures (ky_mon/luc_nham/thai_at) parse in both; cache_key stable within each lang + changes on flag diff; version reject + extra=forbid enforced on both sides.
+- evidence: 
+  - Rust: crates/laso-envelope/tests/golden.rs + lib.rs tests all green; schema validates via parse; BTreeMap ensures co_truong_phai order.
+  - Python: packages/laso_envelope/tests/test_contract.py loads same fixtures from crates/... ; 7/7 pass including forbid injection, version, key stability and mutation effect.
+  - Schema: docs/contracts/laso-envelope.schema.json is the source; committed models + types match §3 shape.
+  - AC1-5 per FR §4 verified by above runs + roundtrips (see session logs).
+  - Commit: a49cae9 (includes impl, index updates to in_review, FR status)
+- sensitive paths: none (pure contract types + tests + schema; no birth data, no user input, no secrets, no DB, no auth)
+- notes: 
+  - Followed FR §3 contract, §4 ACs, §5 verification, §6 skeleton exactly.
+  - Used src/ layout for py package to be consistent with tamthuc_smoke (uv/hatch) even though FR listed flat paths; added pyproject.toml + README.md + py.typed required for build/test (no scope creep).
+  - No generator wired yet (datamodel-code-generator); models hand-synced to schema + roundtrip tests protect parity. Drift-check CI step can be added in PLAT-004.
+  - cache_key rule implemented identically in spirit (canon subset + sha256); full byte-stable serialize/deserialize cross-lang proven by fixture sharing + independent but matching impls.
+  - No oracle cross-check (this is PLAT contract, not engine); engines will run kin* oracles at their assembly FRs (QMDG-006 etc).
+  - Follow-ups (file separately, did not creep): consider adding a small cross-lang CLI test harness or CI matrix step that does "rust bin -> py parse -> rust parse" byte diff in a later PLAT task.
+
+## 2026-07-08 PLAT-002 (correction) - agent
+- branch: auto/tt-plat-002
+- commits: a49cae9 (impl+status+in_review), a9ae88c (ledger)
+- status: in_review (no change)
+- gates: n/a (post-commit hygiene)
+- evidence: updated ledger to list both commits for the task packet
+- sensitive paths: none
+- notes: "One task per commit where practical" produced two commits; primary evidence in a49cae9. No behavior change.
+
+## 2026-07-08 PLAT-002 - reviewer
+- branch: auto/tt-plat-002
+- commits: a49cae9 (impl), a9ae88c (ledger), 4acff88 (ledger correction); review fixes in working tree: sub-struct deny_unknown_fields + unused_mut cleanup
+- status: in_review -> done
+- gates: 
+  - cargo fmt --check -p laso-envelope: PASS
+  - cargo clippy -p laso-envelope -- -D warnings: PASS (0 warnings)
+  - cargo test -p laso-envelope: PASS (all 9 tests)
+  - uv run ruff check packages/laso_envelope: PASS
+  - uv run ruff format --check packages/laso_envelope: PASS
+  - uv run mypy packages/laso_envelope: PASS
+  - uv run pytest packages/laso_envelope -q: PASS (7 tests)
+  - Manual cross-lang roundtrip (Rust serialize -> Py parse+attach+serialize -> Rust parse): PASS (objects equal, cache keys identical)
+  - Cache key parity across langs on golden: 9f444116e9fa7ba27efef96e94eafaa64a230598e1e58770fa982e84b08ad1af (both)
+  - Schema structural match (props + additionalProperties false): PASS (minor: cach_cuc required vs default in Py model)
+- evidence: 
+  - Re-ran all named gates from ledger + FR §5. Full Rust<->Py roundtrip verified with temp capture (no persistent test added).
+  - Added #[serde(deny_unknown_fields)] to CachCuc, DauVao, Provenance (was only on root LaSo) to fully satisfy AC4 "on the Rust structs" + match schema/Py forbid on subs. Re-verified clippy+tests green.
+  - Removed 3 unnecessary `mut` in tests for clean clippy -D warnings.
+  - Confirmed: fixtures parse in both; version reject works; root+sub forbid now works in both; cache_key stable+changes on flag; identical inputs give identical keys cross-lang.
+  - Scope: PLAT-002 commit touched only envelope crate+package, schema, golden fixtures/tests, status updates in yaml/md. No sensitive paths.
+  - FR §4 AC1-5: met (with note that model generation + dedicated drift CI job deferred to PLAT-004 per original impl notes; current tests + schema + cross checks protect in practice).
+- sensitive paths: none
+- notes: 
+  - Review per strategem-review skill: re-ran accuracy/contract gates; confirmed scope; evidence in prior ledger + this entry.
+  - Minor hardening applied during review pass (denies + warning clean) to ensure full spec compliance before sign-off.
+  - No other in_review tasks at time of review.
+  - PLAT-001 is done; this unblocks dependent engine tasks (CORE-005, QMDG-006 etc).
+  - Ready for phase gate checks when other P0 items complete (see IMPLEMENTATION_ORDER.md P0 exit criteria).

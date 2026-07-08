@@ -1,0 +1,49 @@
+{
+  "envelope_version": 1,
+  "he": "ky_mon",
+  "dau_vao": {
+    "datetime": "2004-01-01T10:30:00",
+    "tz": "+07:00",
+    "kinh_do": 106.7,
+    "loai_cau_hoi": "trach_thoi"
+  },
+  "lich_phap": {
+    "tu_tru": { "nam": "癸未", "thang": "甲子", "ngay": "戊午", "gio": "丁巳" },
+    "tiet_khi": { "hien_hanh": "冬至", "bat_dau": "2003-12-22T08:04:00Z", "tam_nguyen": "thuong" },
+    "chan_thai_duong": { "ap_dung": true, "gio_that": "2004-01-01T10:33:18", "hieu_chinh_phut": 3.3 },
+    "phai_sinh": { "tuan_khong": ["申", "酉"], "vuong_suy": {}, "truong_sinh": {} },
+    "co_lich_phap": {
+      "use_true_solar_time": true,
+      "longitude": 106.7,
+      "zi_hour_day_rollover": "23:00",
+      "late_zi_handling": "tao_zi",
+      "truong_sinh_phai": "ngu_hanh",
+      "delta_t_model": "espenak_meeus"
+    }
+  },
+  "ban": {
+    "cuu_cung": [
+      { "vi_tri": 1, "note": "placeholder" }
+    ]
+  },
+  "cach_cuc": [
+    {
+      "id": "qimen_thanh_long_hoi_dau",
+      "name": "青龍返首",
+      "cung": 1,
+      "polarity": "cat",
+      "score": 0.9,
+      "citations": ["Yen Ba Dieu Tau Ca"]
+    }
+  ],
+  "co_truong_phai": {
+    "dingju_method": "chaibu",
+    "pan_method": "zhuan",
+    "yin_yang_pan": "duong"
+  },
+  "provenance": {
+    "engine": "qmdg",
+    "engine_version": "0.1.0",
+    "cast_at": "2026-07-08T12:00:00Z"
+  }
+}
