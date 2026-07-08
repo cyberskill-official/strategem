@@ -6,20 +6,20 @@ TaiYi chu Thien (主天): it is the macro, long-cycle system - the fate of a sta
 
 ## Summary
 
-Six FRs, all P2, ~68 engineering-hours. One (TAT-001, tich nien + ky nguyen) is authored in full here as the module exemplar; the other five are listed for the dependency picture and are planned (authored later). The pipeline runs tich nien -> an Thai At + 16 than -> bat tuong + cac toan -> {bon phep, cach cuc + chu-khach} -> assembly, and TAT-006 emits the la so JSON envelope (FR-PLAT-002, he = "thai_at") and gates the whole engine 100% against the kintaiyi oracle, per epoch and per time level.
+Six FRs, all P2, ~68 engineering-hours. One (TAT-001, tich nien + ky nguyen) is authored; the other five are authored. The pipeline runs tich nien -> an Thai At + 16 than -> bat tuong + cac toan -> {bon phep, cach cuc + chu-khach} -> assembly, and TAT-006 emits the la so JSON envelope (FR-PLAT-002, he = "thai_at") and gates the whole engine 100% against the kintaiyi oracle, per epoch and per time level.
 
 ## FR list
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | [TAT-001](FR-TAT-001-tich-nien.md) | MUST | P2 | 12 | Tich nien + ky nguyen (3 reduction methods, flag) |
-| TAT-002 (planned, authored later) | MUST | P2 | 12 | An Thai At qua cuu cung + 16 than (chinh cung / gian than) |
-| TAT-003 (planned, authored later) | MUST | P2 | 14 | Bat tuong + cac toan (Van Xuong, Thuy Kich, ke than, chu/khach toan) |
-| TAT-004 (planned, authored later) | SHOULD | P2 | 8 | Bon phep (nien/nguyet/nhat/thoi ke) |
-| TAT-005 (planned, authored later) | SHOULD | P2 | 10 | Cach cuc + chu-khach thang bai (tam tai, truong/doan toan) |
-| TAT-006 (planned, authored later) | MUST | P2 | 12 | Engine assembly + JSON + flags + kintaiyi oracle gate |
+| TAT-002 | MUST | P2 | 12 | An Thai At qua cuu cung + 16 than (chinh cung / gian than) |
+| TAT-003 | MUST | P2 | 14 | Bat tuong + cac toan (Van Xuong, Thuy Kich, ke than, chu/khach toan) |
+| TAT-004 | SHOULD | P2 | 8 | Bon phep (nien/nguyet/nhat/thoi ke) |
+| TAT-005 | SHOULD | P2 | 10 | Cach cuc + chu-khach thang bai (tam tai, truong/doan toan) |
+| TAT-006 | MUST | P2 | 12 | Engine assembly + JSON + flags + kintaiyi oracle gate |
 
-Total P2: 68h. Only TAT-001 is authored in full; the rest are planned (authored later).
+Total P2: 68h. Only TAT-001 is authored in full; the rest are authored.
 
 ## Cross-module dependencies
 

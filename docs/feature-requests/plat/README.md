@@ -12,14 +12,14 @@ PLAT is where the hybrid-stack decision (DEC-2) is made real: a Rust cargo works
 | PLAT-002 | MUST | P0 | 10 | PLAT-001 | [FR-PLAT-002](FR-PLAT-002-la-so-json-envelope.md) | La so JSON envelope contract (Rust+Python shared types, versioned, contract test) |
 | PLAT-003 | MUST | P0 | 12 | PLAT-001 | [FR-PLAT-003](FR-PLAT-003-db-schema-migrations.md) | DB schema + migrations + RLS + indexes (users/queries/charts/patterns/reports/audit) |
 | PLAT-004 | MUST | P0 | 10 | PLAT-001 | [FR-PLAT-004](FR-PLAT-004-cicd-pipeline.md) | CI/CD pipeline (lint/type/test, docker, security scan, staging->prod gate) |
-| PLAT-005 | MUST | P1 | 10 | PLAT-004 | (planned) | Observability (Prometheus/Grafana, Sentry, structured logs, alerting) |
-| PLAT-006 | SHOULD | P1 | 8 | PLAT-003 | (planned) | Redis caching (chart cache 24h TTL, invalidation, warming) |
-| PLAT-007 | MUST | P1 | 12 | PLAT-004, AUTH-002 | (planned) | Security hardening (STRIDE controls, TLS 1.3, secrets, dep scan) |
-| PLAT-008 | MUST | P1 | 8 | PLAT-005 | (planned) | Resilience (circuit breaker, retry/backoff, graceful degradation) |
-| PLAT-009 | SHOULD | P2 | 8 | PLAT-003 | (planned) | Backup + DR (daily backup, PITR, RPO 1h / RTO 4h, restore drill) |
-| PLAT-010 | SHOULD | P2 | 10 | PLAT-004 | (planned) | Infra as code (Terraform + K8s manifests, autoscaling) |
+| PLAT-005 | MUST | P1 | 10 | PLAT-004 | [FR-PLAT-005](FR-PLAT-005-observability.md) | Observability (Prometheus/Grafana, Sentry, structured logs, alerting) |
+| PLAT-006 | SHOULD | P1 | 8 | PLAT-003 | [FR-PLAT-006](FR-PLAT-006-caching.md) | Redis caching (chart cache 24h TTL, invalidation, warming) |
+| PLAT-007 | MUST | P1 | 12 | PLAT-004, AUTH-002 | [FR-PLAT-007](FR-PLAT-007-security-hardening.md) | Security hardening (STRIDE controls, TLS 1.3, secrets, dep scan) |
+| PLAT-008 | MUST | P1 | 8 | PLAT-005 | [FR-PLAT-008](FR-PLAT-008-resilience.md) | Resilience (circuit breaker, retry/backoff, graceful degradation) |
+| PLAT-009 | SHOULD | P2 | 8 | PLAT-003 | [FR-PLAT-009](FR-PLAT-009-backup-dr.md) | Backup + DR (daily backup, PITR, RPO 1h / RTO 4h, restore drill) |
+| PLAT-010 | SHOULD | P2 | 10 | PLAT-004 | [FR-PLAT-010](FR-PLAT-010-iac.md) | Infra as code (Terraform + K8s manifests, autoscaling) |
 
-Four are authored in full: PLAT-001 (the monorepo + hybrid workspace + CI skeleton), PLAT-002 (the la so envelope, the cross-language contract), PLAT-003 (the DB schema + fail-closed RLS), and PLAT-004 (the CI/CD pipeline). Six are listed for the dependency picture and authored later: PLAT-005 (observability, P1), PLAT-006 (Redis chart cache, P1), PLAT-007 (STRIDE security hardening, P1), PLAT-008 (resilience, P1), PLAT-009 (backup/DR, P2), and PLAT-010 (Terraform + K8s, P2).
+Four are authored in full: PLAT-001 (the monorepo + hybrid workspace + CI skeleton), PLAT-002 (the la so envelope, the cross-language contract), PLAT-003 (the DB schema + fail-closed RLS), and PLAT-004 (the CI/CD pipeline). Six are authored: PLAT-005 (observability, P1), PLAT-006 (Redis chart cache, P1), PLAT-007 (STRIDE security hardening, P1), PLAT-008 (resilience, P1), PLAT-009 (backup/DR, P2), and PLAT-010 (Terraform + K8s, P2).
 
 ## Internal build order
 

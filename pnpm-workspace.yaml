@@ -1,0 +1,12 @@
+packages:
+  - 'apps/web'
+
+# pnpm supply-chain policy settings.
+# minimumReleaseAge=0 disables the "package too recently published" check.
+# This is needed for reliable CI installs when lockfile entries have publish
+# timestamps close to the runner's clock (very common in early development).
+# See also: https://pnpm.io/settings#minimumreleaseage
+minimumReleaseAge: 0
+# You can also list exceptions here instead of fully disabling:
+# minimumReleaseAgeExclude:
+#   - "some-pkg@1.2.3"

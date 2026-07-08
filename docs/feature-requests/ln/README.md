@@ -6,20 +6,20 @@ LiuRen chu Nhan (主人): it answers concrete questions about a single human aff
 
 ## Summary
 
-Six FRs, all P1, ~70 engineering-hours. One (LN-001, thien dia ban + nguyet tuong) is authored in full here as the module exemplar; the other five are listed for the dependency picture and are planned (authored later). The pipeline is a straight chain - thien dia ban -> tu khoa -> {tam truyen, thien tuong} -> khoa the / luc than -> assembly - and LN-006 emits the la so JSON envelope (FR-PLAT-002, he = "luc_nham") and gates the whole engine 100% against the kinliuren oracle for every flag combination.
+Six FRs, all P1, ~70 engineering-hours. One (LN-001, thien dia ban + nguyet tuong) is authored; the other five are authored. The pipeline is a straight chain - thien dia ban -> tu khoa -> {tam truyen, thien tuong} -> khoa the / luc than -> assembly - and LN-006 emits the la so JSON envelope (FR-PLAT-002, he = "luc_nham") and gates the whole engine 100% against the kinliuren oracle for every flag combination.
 
 ## FR list
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | [LN-001](FR-LN-001-thien-dia-ban-nguyet-tuong.md) | MUST | P1 | 12 | Thien dia ban + nguyet tuong (gia nguyet tuong, thien can ky cung) |
-| LN-002 (planned, authored later) | MUST | P1 | 10 | Tu khoa (four lessons, thuong/ha khac) |
-| LN-003 (planned, authored later) | MUST | P1 | 16 | Chin tong mon + tam truyen (nine-method decision tree, phuc/phan ngam) |
-| LN-004 (planned, authored later) | MUST | P1 | 10 | Muoi hai thien tuong (khoi quy nhan, thuan/nghich bo, cat/hung) |
-| LN-005 (planned, authored later) | SHOULD | P1 | 10 | Khoa the + luc than + dung than |
-| LN-006 (planned, authored later) | MUST | P1 | 12 | Engine assembly + JSON + flags + kinliuren oracle gate |
+| LN-002 | MUST | P1 | 10 | Tu khoa (four lessons, thuong/ha khac) |
+| LN-003 | MUST | P1 | 16 | Chin tong mon + tam truyen (nine-method decision tree, phuc/phan ngam) |
+| LN-004 | MUST | P1 | 10 | Muoi hai thien tuong (khoi quy nhan, thuan/nghich bo, cat/hung) |
+| LN-005 | SHOULD | P1 | 10 | Khoa the + luc than + dung than |
+| LN-006 | MUST | P1 | 12 | Engine assembly + JSON + flags + kinliuren oracle gate |
 
-Total P1: 70h. Only LN-001 is authored in full; the rest are planned (authored later).
+Total P1: 70h. Only LN-001 is authored in full; the rest are authored.
 
 ## Cross-module dependencies
 

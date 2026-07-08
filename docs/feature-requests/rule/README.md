@@ -11,9 +11,9 @@ The one hard rule of this module: patterns are data, not code. A pattern is a ro
 | RULE-001 | MUST | P0 | 8 | PLAT-003 | [FR-RULE-001](FR-RULE-001-pattern-schema.md) | Pattern-as-data schema + knowledge_patterns table + versioning |
 | RULE-002 | MUST | P0 | 12 | RULE-001 | [FR-RULE-002](FR-RULE-002-condition-dsl.md) | Condition DSL (AND/OR/NOT, field operators) + evaluator + scoring |
 | RULE-003 | MUST | P0 | 6 | RULE-002 | [FR-RULE-003](FR-RULE-003-pattern-loader.md) | Pattern loader + per-system filter + match API |
-| RULE-004 | COULD | P2 | 8 | RULE-002 | (planned) | Cross-system pattern support (nested, multi-system) |
+| RULE-004 | COULD | P2 | 8 | RULE-002 | [FR-RULE-004](FR-RULE-004-cross-system.md) | Cross-system pattern support (nested, multi-system) |
 
-Three P0 FRs are authored. RULE-004 (cross-system patterns) is P2 / COULD, listed here for the dependency picture and authored later; it extends the FR-RULE-002 DSL and the FR-RULE-003 matcher for multi-system, nested patterns and the reserved per-node `weight`.
+Three P0 FRs are authored. RULE-004 (cross-system patterns) is P2 / COULD, authored; it extends the FR-RULE-002 DSL and the FR-RULE-003 matcher for multi-system, nested patterns and the reserved per-node `weight`.
 
 ## Internal spine
 

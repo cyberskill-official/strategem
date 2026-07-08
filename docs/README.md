@@ -15,7 +15,7 @@ This folder holds the sources and the engineering plan for the Tam Thuc Stratege
 | `Claude/` | Source doc set A - 8 dense Markdown/PDF volumes (engines, calendar core, architecture, product/UI). Authoritative on algorithms and design. |
 | `Grok/` | Source doc set B - 51 outline PDFs + UI mockups (PRD, backend, DB, API, ops, security, testing, i18n, legal). Authoritative on product breadth. |
 | `strategy/` | The unified plan and source reconciliation - the anchor report. |
-| `feature-requests/` | 87 FRs across 16 modules. Each module has a README index; each FR is a heavyweight contract (section 1-11). 40 authored, 47 planned. |
+| `feature-requests/` | 87 FRs across 16 modules. Each module has a README index; each FR is a heavyweight contract (section 1-11), all 87 authored. |
 | `feature-requests/` (also) | The build-order and trigger layer, folded in alongside the FRs: `IMPLEMENTATION_ORDER.md` (status + phase waves), `backlog.yaml`, `PROMPT.md`, `LEDGER.md`. `docs/improvement/` is intentionally not created; it is reserved for the post-launch audit and evolution stage. |
 
 ## The one principle
@@ -24,6 +24,6 @@ Everything is built around a hard split: a deterministic engine casts the chart 
 
 ## Status (2026-07-08)
 
-Plan complete and validated. 40 FR bodies authored (the full P0 critical path plus one seed exemplar in every later-phase module); 47 FR bodies enumerated and scheduled as `draft` tasks to author before implementation. The backlog is acyclic, single-rooted at PLAT-001, and agent-runnable via `feature-requests/PROMPT.md`.
+Plan complete and validated. All 87 FR bodies are authored as heavyweight contracts across the 16 modules. The backlog is acyclic, single-rooted at PLAT-001, and agent-runnable via `feature-requests/PROMPT.md`.
 
 Hien Thuc Hoa Y Chi.

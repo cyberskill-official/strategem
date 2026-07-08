@@ -1,0 +1,64 @@
+name: CI
+
+on:
+  push:
+    branches: [main, "auto/**"]
+  pull_request:
+    branches: [main]
+
+jobs:
+  rust:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+      - name: Rust gate
+        run: |
+          cargo fmt --check
+          cargo clippy --workspace -- -D warnings
+          cargo test --workspace
+        shell: bash
+
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+      - name: Set up Python
+        run: uv python pin 3.12
+      - name: Python gate
+        run: |
+          uv sync --all-packages
+          uv run ruff check
+          uv run ruff format --check
+          uv run mypy packages/
+          uv run pytest -q
+        shell: bash
+
+  web:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        # version resolved from root package.json "packageManager" field
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+          cache-dependency-path: 'pnpm-lock.yaml'
+      - name: Web gate
+        run: |
+          pnpm --filter web install --ignore-scripts
+          pnpm --filter web build
+          pnpm --filter web lint
+          pnpm --filter web test
+        shell: bash
+        working-directory: .
+        env:
+          CI: true

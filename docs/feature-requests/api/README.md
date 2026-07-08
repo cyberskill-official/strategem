@@ -7,11 +7,11 @@ The FastAPI gateway that fronts the whole platform: it authenticates and authori
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | API-001 | MUST | P0 | 14 | [Query orchestration + endpoint contracts (calculate/*, error envelope)](FR-API-001-query-orchestration.md) |
-| API-002 | SHOULD | P1 | 6 | API versioning + deprecation policy (URL v1, header) (planned) |
+| API-002 | SHOULD | P1 | 6 | API versioning + deprecation policy (URL v1, header) |
 | API-003 | MUST | P0 | 8 | [Rate limiting + abuse detection (per tier)](FR-API-003-rate-limiting.md) |
 | API-004 | MUST | P0 | 8 | [Query/chart/report persistence + audit rows](FR-API-004-persistence-audit.md) |
 
-Three P0 FRs are authored (API-001 the orchestrator + contracts, API-003 rate limiting + abuse, API-004 persistence + audit). One is listed for the dependency picture and authored later: API-002 (URL-`v1` plus header API versioning and the deprecation policy, P1).
+Three P0 FRs are authored (API-001 the orchestrator + contracts, API-003 rate limiting + abuse, API-004 persistence + audit). Also authored: API-002 (URL-`v1` plus header API versioning and the deprecation policy, P1).
 
 ## Internal spine
 

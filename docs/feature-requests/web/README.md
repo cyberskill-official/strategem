@@ -11,13 +11,13 @@ The frontend is a thin client over the one orchestrator (strategy 4.2): screens 
 | WEB-001 | MUST | P0 | 18 | PLAT-001 | [FR-WEB-001](FR-WEB-001-app-shell-design-system.md) | App shell + Design System v1.3.0 tokens + component library (incl. AIDisclosureBadge, HumanReviewGate) |
 | WEB-002 | MUST | P0 | 12 | WEB-001, API-001 | [FR-WEB-002](FR-WEB-002-query-input-screen.md) | Query input screen (datetime, place, question type, system tabs) |
 | WEB-003 | MUST | P0 | 14 | WEB-002, CHART-001, RAG-003 | [FR-WEB-003](FR-WEB-003-results-screen.md) | Results screen (chart + patterns + cited interpretation + AIDisclosure) |
-| WEB-004 | SHOULD | P1 | 8 | WEB-001 | (planned) | Dashboard |
-| WEB-005 | SHOULD | P1 | 8 | WEB-003, REPORT-001 | (planned) | Report view screen |
-| WEB-006 | MUST | P1 | 10 | WEB-001 | (planned) | i18n (VN + EN, next-intl, content/label split) |
-| WEB-007 | SHOULD | P2 | 12 | WEB-003 | (planned) | Management flow (history, school-flag config, share/export) |
-| WEB-008 | COULD | P3 | 10 | WEB-006 | (planned) | Chinese i18n + RTL-ready |
+| WEB-004 | SHOULD | P1 | 8 | WEB-001 | [FR-WEB-004](FR-WEB-004-dashboard.md) | Dashboard |
+| WEB-005 | SHOULD | P1 | 8 | WEB-003, REPORT-001 | [FR-WEB-005](FR-WEB-005-report-view.md) | Report view screen |
+| WEB-006 | MUST | P1 | 10 | WEB-001 | [FR-WEB-006](FR-WEB-006-i18n.md) | i18n (VN + EN, next-intl, content/label split) |
+| WEB-007 | SHOULD | P2 | 12 | WEB-003 | [FR-WEB-007](FR-WEB-007-management-flow.md) | Management flow (history, school-flag config, share/export) |
+| WEB-008 | COULD | P3 | 10 | WEB-006 | [FR-WEB-008](FR-WEB-008-zh-i18n.md) | Chinese i18n + RTL-ready |
 
-Three P0 FRs are authored (WEB-001..003, the app-shell -> query -> results spine). Five are listed for the dependency picture and authored later: WEB-004 (dashboard, P1), WEB-005 (report view, P1), WEB-006 (VN+EN i18n, P1), WEB-007 (the management flow - history, school-flag config, share/export, P2), and WEB-008 (Chinese i18n + RTL-ready, P3).
+Three P0 FRs are authored (WEB-001..003, the app-shell -> query -> results spine). Five are authored: WEB-004 (dashboard, P1), WEB-005 (report view, P1), WEB-006 (VN+EN i18n, P1), WEB-007 (the management flow - history, school-flag config, share/export, P2), and WEB-008 (Chinese i18n + RTL-ready, P3).
 
 ## Internal spine
 

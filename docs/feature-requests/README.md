@@ -274,7 +274,7 @@ Task id = FR id (task `QMDG-001` implements `FR-QMDG-001`). No second numbering 
 
 ### Lifecycle
 
-`draft` (FR body not yet authored - 40 of 87 are authored, 47 are `draft`) -> `ready_to_implement` -> `blocked` (unmet deps) -> `implementing` -> `in_review` -> `done` (human only) -> `superseded`. A `draft` task's first unit of work is to author the FR body from its module README plus the cited primary source plus the two exemplars (`FR-PLAT-002`, `FR-CORE-001`). Eligibility: FR is `ready_to_implement`, status not `done`, every `depends_on` is `done`. Pick order: phase, dependency spine, id.
+`draft` (FR body not yet authored - none at this snapshot; all 87 are authored) -> `ready_to_implement` -> `blocked` (unmet deps) -> `implementing` -> `in_review` -> `done` (human only) -> `superseded`. A `draft` task's first unit of work is to author the FR body from its module README plus the cited primary source plus the two exemplars (`FR-PLAT-002`, `FR-CORE-001`). Eligibility: FR is `ready_to_implement`, status not `done`, every `depends_on` is `done`. Pick order: phase, dependency spine, id.
 
 ### Conventions and gates
 
