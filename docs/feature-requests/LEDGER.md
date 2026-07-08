@@ -101,7 +101,7 @@ Evidence expectations by task class:
 
 ## 2026-07-08 PLAT-001 (fix) - pnpm supply chain policy via workspace config - agent
 - branch: auto/tt-plat-001
-- commits: (to be updated)
+- commits: da282dc046adb74bd66ce9127b0bb99ccf881e88
 - status: in_review
 - gates: web gate now passes "✓ Lockfile passes supply-chain policies"
 - evidence:
