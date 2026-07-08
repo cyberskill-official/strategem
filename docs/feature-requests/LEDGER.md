@@ -145,3 +145,12 @@ Evidence expectations by task class:
   - cache_key rule implemented identically in spirit (canon subset + sha256); full byte-stable serialize/deserialize cross-lang proven by fixture sharing + independent but matching impls.
   - No oracle cross-check (this is PLAT contract, not engine); engines will run kin* oracles at their assembly FRs (QMDG-006 etc).
   - Follow-ups (file separately, did not creep): consider adding a small cross-lang CLI test harness or CI matrix step that does "rust bin -> py parse -> rust parse" byte diff in a later PLAT task.
+
+## 2026-07-08 PLAT-002 (correction) - agent
+- branch: auto/tt-plat-002
+- commits: a49cae9 (impl+status+in_review), a9ae88c (ledger)
+- status: in_review (no change)
+- gates: n/a (post-commit hygiene)
+- evidence: updated ledger to list both commits for the task packet
+- sensitive paths: none
+- notes: "One task per commit where practical" produced two commits; primary evidence in a49cae9. No behavior change.
