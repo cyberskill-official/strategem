@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://cyber skill.example/tamthuc/laso-envelope.schema.json",
+  "title": "Tam Thuc La So Envelope",
+  "description": "Versioned JSON envelope for all Tam Thuc engine outputs. Every engine (he) emits exactly this shape. Interpretation layers read but never write ban/cach_cuc/lich_phap/co_truong_phai. See strategy 4.3.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "envelope_version",
+    "he",
+    "dau_vao",
+    "lich_phap",
+    "ban",
+    "cach_cuc",
+    "co_truong_phai",
+    "provenance"
+  ],
+  "properties": {
+    "envelope_version": {
+      "type": "integer",
+      "minimum": 1,
+      "description": "Envelope contract version. Consumers must reject unknown major versions with typed error."
+    },
+    "he": {
+      "type": "string",
+      "enum": ["luc_nham", "ky_mon", "thai_at"],
+      "description": "Which Tam Thuc system produced this chart."
+    },
+    "dau_vao": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["datetime", "tz", "kinh_do"],
+      "properties": {
+        "datetime": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Local datetime of the query (ISO8601, no Z assumed local to tz)."
+        },
+        "tz": {
+          "type": "string",
+          "pattern": "^[+-]\\d{2}:\\d{2}$",
+          "description": "IANA offset or numeric tz, e.g. +07:00"
+        },
+        "kinh_do": {
+          "type": "number",
+          "minimum": -180,
+          "maximum": 180,
+          "description": "Longitude in decimal degrees. VN default ~106.7 for HCMC."
+        },
+        "loai_cau_hoi": {
+          "type": "string",
+          "description": "Question category for dung-than selection (optional at envelope level)."
+        }
+      }
+    },
+    "lich_phap": {
+      "type": "object",
+      "description": "Full CORE calendar/ganzhi output and flags (see FR-CORE-005). Opaque here but must be stamped completely.",
+      "additionalProperties": true
+    },
+    "ban": {
+      "type": "object",
+      "description": "Engine-specific plate data. Opaque at envelope level; typed readers per `he` value. Engines write; AI layer reads only.",
+      "additionalProperties": true
+    },
+    "cach_cuc": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CachCuc"
+      },
+      "description": "Detected patterns (cach cuc / khoa the). RULE or engine fills; must carry citations."
+    },
+    "co_truong_phai": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "string"
+      },
+      "description": "All school / flag choices that affected this chart. Sorted BTreeMap in Rust / sorted dict in Python for stable cache keys. Engines MUST stamp every flag used.",
+      "example": {
+        "dingju_method": "chaibu",
+        "pan_method": "zhuan",
+        "yin_yang_pan": "duong"
+      }
+    },
+    "provenance": {
+      "$ref": "#/$defs/Provenance"
+    }
+  },
+  "$defs": {
+    "CachCuc": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "name", "polarity"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "cung": { "type": ["integer", "null"], "minimum": 1, "maximum": 9 },
+        "polarity": {
+          "type": "string",
+          "enum": ["cat", "hung", "trung"]
+        },
+        "score": { "type": ["number", "null"], "minimum": 0, "maximum": 1 },
+        "citations": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "Provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["engine", "engine_version", "cast_at"],
+      "properties": {
+        "engine": { "type": "string", "enum": ["qmdg", "ln", "tat", "core"] },
+        "engine_version": { "type": "string" },
+        "cast_at": { "type": "string", "format": "date-time" },
+        "cache_key": { "type": "string" }
+      }
+    }
+  }
+}

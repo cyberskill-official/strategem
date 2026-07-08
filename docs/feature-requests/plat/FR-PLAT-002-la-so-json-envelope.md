@@ -3,7 +3,7 @@ id: FR-PLAT-002
 title: "La so JSON envelope contract - one shape for all three engines, Rust+Python shared types, versioned, contract-tested on both sides"
 module: PLAT
 priority: MUST
-status: ready_to_implement
+status: in_review
 phase: P0
 slice: 1
 lang: rust

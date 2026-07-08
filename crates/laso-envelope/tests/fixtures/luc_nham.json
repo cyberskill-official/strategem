@@ -1,0 +1,34 @@
+{
+  "envelope_version": 1,
+  "he": "luc_nham",
+  "dau_vao": {
+    "datetime": "1990-05-15T14:00:00",
+    "tz": "+07:00",
+    "kinh_do": 105.85,
+    "loai_cau_hoi": "hon_nhan"
+  },
+  "lich_phap": {
+    "tu_tru": { "nam": "庚午", "thang": "乙巳", "ngay": "戊戌", "gio": "戊午" },
+    "tiet_khi": { "hien_hanh": "立夏", "bat_dau": "1990-05-05T20:46:00Z", "tam_nguyen": "trung" },
+    "co_lich_phap": {
+      "use_true_solar_time": true,
+      "longitude": 105.85
+    }
+  },
+  "ban": {
+    "thien_dia_ban": {},
+    "tu_khoa": [],
+    "tam_truyen": [],
+    "thien_tuong": []
+  },
+  "cach_cuc": [],
+  "co_truong_phai": {
+    "khoi_quy_nhan": "trú_quý",
+    "truong_sinh_phai": "ngu_hanh"
+  },
+  "provenance": {
+    "engine": "ln",
+    "engine_version": "0.1.0",
+    "cast_at": "2026-07-08T12:00:00Z"
+  }
+}

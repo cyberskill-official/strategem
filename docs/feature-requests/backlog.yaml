@@ -12,7 +12,7 @@ branch_prefix: auto/tt-
 tasks:
   # ---------------- Phase P0 - core and QiMen flagship ----------------
   - {id: PLAT-001, phase: P0, status: ready_to_implement, priority: MUST, body: authored, est_h: 12, deps: [], fr: feature-requests/plat/FR-PLAT-001-monorepo-workspace.md, accept: "cargo workspace + uv packages + Next.js app build; 3-lane CI runs"}
-  - {id: PLAT-002, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-002-la-so-json-envelope.md, accept: "Rust+Python round-trip byte-stable; schema drift fails CI; version + cache-key tests pass"}
+  - {id: PLAT-002, phase: P0, status: in_review, priority: MUST, body: authored, est_h: 10, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-002-la-so-json-envelope.md, accept: "Rust+Python round-trip byte-stable; schema drift fails CI; version + cache-key tests pass"}
   - {id: PLAT-003, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-003-db-schema-migrations.md, accept: "6 tables migrated; GIN on JSONB; fail-closed RLS proven by no-GUC zero-row probe"}
   - {id: PLAT-004, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-004-cicd-pipeline.md, accept: "lint/test/docker/scan run; staging auto, prod behind approval gate"}
   - {id: CORE-001, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 20, deps: [PLAT-001], fr: feature-requests/core/FR-CORE-001-solar-longitude-tiet-khi.md, accept: "24 tiet khi within 60s of sxwnl over 1900-2100; inverse solve round-trips; jie/trung kinds correct"}

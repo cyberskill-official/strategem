@@ -1,0 +1,30 @@
+{
+  "envelope_version": 1,
+  "he": "thai_at",
+  "dau_vao": {
+    "datetime": "2025-03-20T09:15:00",
+    "tz": "+07:00",
+    "kinh_do": 106.7,
+    "loai_cau_hoi": "macro"
+  },
+  "lich_phap": {
+    "tu_tru": { "nam": "乙巳", "thang": "丙辰", "ngay": "甲子", "gio": "辛巳" },
+    "tiet_khi": { "hien_hanh": "春分", "bat_dau": "2025-03-20T15:01:00Z", "tam_nguyen": "ha" },
+    "co_lich_phap": { "tich_nien_epoch": "hien_tai" }
+  },
+  "ban": {
+    "thai_at_cung": 5,
+    "than": [],
+    "tuong": []
+  },
+  "cach_cuc": [],
+  "co_truong_phai": {
+    "tich_nien_method": "giam_3",
+    "epoch": "hien_tai"
+  },
+  "provenance": {
+    "engine": "tat",
+    "engine_version": "0.1.0",
+    "cast_at": "2026-07-08T12:00:00Z"
+  }
+}
