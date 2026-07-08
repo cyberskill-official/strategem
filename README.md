@@ -14,16 +14,23 @@ See `docs/strategy/tam-thuc-unified-plan-2026-07-08.md` and the FR catalog under
 
 ## Getting started (dev)
 
+Requires:
+
+- **Node 24** (see `.node-version`)
+- **pnpm 9+** (used for all web / frontend work; declared via `packageManager`)
+- Rust (via `rust-toolchain.toml`)
+- Python 3.12+ + uv
+
 ```bash
 # after clone
-just install   # or: uv sync ; pnpm -C apps/web install --ignore-scripts
+just install   # or: uv sync ; pnpm install
 just all       # runs the three gates exactly as CI
 ```
 
 Gates (must stay green on every change):
 - Rust: fmt, clippy -D warnings, test
 - Python: ruff, format, mypy, pytest
-- Web: build, lint, test (typecheck)
+- Web: pnpm build, pnpm lint, pnpm test (typecheck)
 
 ## Layout
 

@@ -46,11 +46,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with:
-          version: 9
+        # version resolved from root package.json "packageManager" field
       - uses: actions/setup-node@v4
         with:
-          node-version: 22
+          node-version: 24
           cache: 'pnpm'
           cache-dependency-path: 'pnpm-lock.yaml'
       - name: Web gate
@@ -61,3 +60,5 @@ jobs:
           pnpm --filter web test
         shell: bash
         working-directory: .
+        env:
+          CI: true

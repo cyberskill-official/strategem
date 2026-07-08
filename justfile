@@ -1,6 +1,9 @@
 # Tam Thuc Strategem - root justfile
 # One entry point per gate. CI and devs run the identical recipes.
 # See docs/feature-requests/README.md "Gates".
+#
+# Frontend / web work ALWAYS uses pnpm (never npm).
+# Runtime: Node 24 (see .node-version), pnpm 9+.
 
 set shell := ["bash", "-cu"]
 
@@ -39,7 +42,7 @@ py-test:
 py-gate: py-sync py-ruff py-ruff-format py-mypy py-test
     @echo "✅ py-gate passed"
 
-# ---------------- Web lane (apps/web, pnpm) ----------------
+# ---------------- Web lane (apps/web) — ALWAYS pnpm ----------------
 web-install:
     pnpm --filter web install --ignore-scripts
 
@@ -61,4 +64,4 @@ all: rust-gate py-gate web-gate
 
 # Developer convenience
 install: py-sync web-install
-    @echo "deps installed for py + web (rust uses cargo)"
+    @echo "deps installed for py + web (pnpm for frontend; rust uses cargo)"
