@@ -1,0 +1,9 @@
+{
+  "name": "strategem",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Tam Thuc Strategem monorepo root (pnpm workspace for web lane)",
+  "packageManager": "pnpm@9.0.0",
+  "devDependencies": {},
+  "scripts": {}
+}

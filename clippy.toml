@@ -1,0 +1,6 @@
+# Workspace clippy config for Tam Thuc Strategem
+# See https://doc.rust-lang.org/clippy/
+warn-on-all-wildcard-imports = true
+disallowed-macros = []
+disallowed-types = []
+disallowed-methods = []
