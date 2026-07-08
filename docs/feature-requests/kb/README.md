@@ -8,11 +8,11 @@ The structured-knowledge layer of the interpretation branch: the graph of the th
 |---|---|---|--:|---|
 | KB-001 | SHOULD | P0 | 12 | [Knowledge-graph schema (node + edge taxonomy) + storage](FR-KB-001-knowledge-graph.md) |
 | KB-002 | MUST | P0 | 16 | [Pattern seeding (150-200 patterns, 3 systems, JSON conditions + citations)](FR-KB-002-pattern-seeding.md) |
-| KB-003 | MUST | P1 | 12 | Classical-text three-layer store (Han/bach thoai/dich) + chunking (planned) |
-| KB-004 | SHOULD | P2 | 10 | KB curation workflow + expert review + versioning (planned) |
-| KB-005 | SHOULD | P2 | 12 | Knowledge-graph hybrid-retrieval query API (planned) |
+| KB-003 | MUST | P1 | 12 | Classical-text three-layer store (Han/bach thoai/dich) + chunking |
+| KB-004 | SHOULD | P2 | 10 | KB curation workflow + expert review + versioning |
+| KB-005 | SHOULD | P2 | 12 | Knowledge-graph hybrid-retrieval query API |
 
-Two P0 FRs are authored (KB-001 the graph schema, KB-002 the pattern seed). Three are listed for the dependency picture and authored later: KB-003 (the three-layer classical-text store RAG-001 ingests, P1), KB-004 (the expert-review and versioning workflow over the seeded patterns, P2), and KB-005 (the graph query API that is RAG-002's graph arm, P2).
+Two P0 FRs are authored (KB-001 the graph schema, KB-002 the pattern seed). Three are authored: KB-003 (the three-layer classical-text store RAG-001 ingests, P1), KB-004 (the expert-review and versioning workflow over the seeded patterns, P2), and KB-005 (the graph query API that is RAG-002's graph arm, P2).
 
 ## Internal spine
 

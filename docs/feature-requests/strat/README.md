@@ -6,18 +6,18 @@ STRAT is where the "Strategem" positioning lives. The other modules cast a chart
 
 ## Summary
 
-Four FRs, ~44 engineering-hours. One (STRAT-001, the Timing Optimizer) is authored in full here as the module exemplar; the other three are listed for the dependency picture and are planned (authored later). STRAT-001 (scan + score timing windows) is the foundation STRAT-002 (Scenario Comparison) builds on; STRAT-003 (chu-khach decision framework) rides on RAG interpretation; STRAT-004 (cross-system validate) reads two engines and shows their agreement.
+Four FRs, ~44 engineering-hours. One (STRAT-001, the Timing Optimizer) is authored; the other three are authored. STRAT-001 (scan + score timing windows) is the foundation STRAT-002 (Scenario Comparison) builds on; STRAT-003 (chu-khach decision framework) rides on RAG interpretation; STRAT-004 (cross-system validate) reads two engines and shows their agreement.
 
 ## FR list
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | [STRAT-001](FR-STRAT-001-timing-optimizer.md) | MUST | P1 | 16 | Timing Optimizer (date-range scan, scored windows) |
-| STRAT-002 (planned, authored later) | SHOULD | P1 | 10 | Scenario Comparison (compare timing results across options) |
-| STRAT-003 (planned, authored later) | SHOULD | P1 | 8 | Chu-khach decision framework (4-step, dung than framing) |
-| STRAT-004 (planned, authored later) | SHOULD | P2 | 10 | Cross-system validate (/calculate/all + agreement view) |
+| STRAT-002 | SHOULD | P1 | 10 | Scenario Comparison (compare timing results across options) |
+| STRAT-003 | SHOULD | P1 | 8 | Chu-khach decision framework (4-step, dung than framing) |
+| STRAT-004 | SHOULD | P2 | 10 | Cross-system validate (/calculate/all + agreement view) |
 
-Total: 44h. Only STRAT-001 is authored in full; the rest are planned (authored later).
+Total: 44h. Only STRAT-001 is authored in full; the rest are authored.
 
 ## Cross-module dependencies
 

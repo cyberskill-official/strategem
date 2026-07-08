@@ -1,7 +1,7 @@
 # Tam Thuc Strategem - machine-readable backlog. Mirror of IMPLEMENTATION_ORDER.md.
 # Report: docs/strategy/tam-thuc-unified-plan-2026-07-08.md
 # Catalog: docs/feature-requests/README.md
-# status: draft | ready_to_implement | blocked | implementing | in_review | done | superseded
+# status: blocked | ready_to_implement | blocked | implementing | in_review | done | superseded
 # body: authored (FR spec written) | planned (FR spec to be authored first)
 # Rules: see IMPLEMENTATION_ORDER.md. Agents update status; only a human reviewer sets done.
 version: 1
@@ -11,7 +11,7 @@ branch_prefix: auto/tt-
 
 tasks:
   # ---------------- Phase P0 - core and QiMen flagship ----------------
-  - {id: PLAT-001, phase: P0, status: in_review, priority: MUST, body: authored, est_h: 12, deps: [], fr: feature-requests/plat/FR-PLAT-001-monorepo-workspace.md, accept: "cargo workspace + uv packages + Next.js app build; 3-lane CI runs"}
+  - {id: PLAT-001, phase: P0, status: ready_to_implement, priority: MUST, body: authored, est_h: 12, deps: [], fr: feature-requests/plat/FR-PLAT-001-monorepo-workspace.md, accept: "cargo workspace + uv packages + Next.js app build; 3-lane CI runs"}
   - {id: PLAT-002, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-002-la-so-json-envelope.md, accept: "Rust+Python round-trip byte-stable; schema drift fails CI; version + cache-key tests pass"}
   - {id: PLAT-003, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-003-db-schema-migrations.md, accept: "6 tables migrated; GIN on JSONB; fail-closed RLS proven by no-GUC zero-row probe"}
   - {id: PLAT-004, phase: P0, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [PLAT-001], fr: feature-requests/plat/FR-PLAT-004-cicd-pipeline.md, accept: "lint/test/docker/scan run; staging auto, prod behind approval gate"}
@@ -49,60 +49,60 @@ tasks:
 
   # ---------------- Phase P1 - second engine and strategic surface ----------------
   - {id: LN-001, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [CORE-005], fr: feature-requests/ln/FR-LN-001-thien-dia-ban-nguyet-tuong.md, accept: "dia ban + rotating thien ban; nguyet tuong by trung khi; gia nguyet tuong; ky cung; envelope he=luc_nham"}
-  - {id: LN-002, phase: P1, status: draft, priority: MUST, body: planned, est_h: 10, deps: [LN-001], fr: feature-requests/ln/FR-LN-002-tu-khoa.md, accept: "four lessons from day stem/branch + hour; thuong/ha khac"}
-  - {id: LN-003, phase: P1, status: draft, priority: MUST, body: planned, est_h: 16, deps: [LN-002], fr: feature-requests/ln/FR-LN-003-tam-truyen.md, accept: "nine-method tam truyen decision tree; phuc/phan ngam"}
-  - {id: LN-004, phase: P1, status: draft, priority: MUST, body: planned, est_h: 10, deps: [LN-002], fr: feature-requests/ln/FR-LN-004-thien-tuong.md, accept: "12 thien tuong; khoi quy nhan day/night; thuan/nghich bo; cat/hung"}
-  - {id: LN-005, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [LN-003, LN-004], fr: feature-requests/ln/FR-LN-005-khoa-the.md, accept: "named khoa the + luc than + dung than selection"}
-  - {id: LN-006, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [LN-003, LN-004, CORE-006], fr: feature-requests/ln/FR-LN-006-engine-assembly.md, accept: "emits envelope he=luc_nham; matches kinliuren across flags"}
-  - {id: QMDG-007, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 6, deps: [QMDG-006], fr: feature-requests/qmdg/FR-QMDG-007-dung-than.md, accept: "dung than mapping by question type"}
-  - {id: KB-003, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [PLAT-001], fr: feature-requests/kb/FR-KB-003-classical-text-store.md, accept: "Han/bach thoai/dich 3-layer store; chunk by dieu/phap/khoa/cau; citation ids"}
-  - {id: RAG-004, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [RAG-003], fr: feature-requests/rag/FR-RAG-004-human-review-gate.md, accept: "review queue; approve/reject; audit; gate before user for flagged judgments"}
-  - {id: RAG-007, phase: P1, status: draft, priority: MUST, body: planned, est_h: 8, deps: [RAG-003], fr: feature-requests/rag/FR-RAG-007-fallback.md, accept: "LLM timeout/circuit breaker; rule-based degraded interpretation"}
+  - {id: LN-002, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [LN-001], fr: feature-requests/ln/FR-LN-002-tu-khoa.md, accept: "four lessons from day stem/branch + hour; thuong/ha khac"}
+  - {id: LN-003, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 16, deps: [LN-002], fr: feature-requests/ln/FR-LN-003-tam-truyen.md, accept: "nine-method tam truyen decision tree; phuc/phan ngam"}
+  - {id: LN-004, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [LN-002], fr: feature-requests/ln/FR-LN-004-thien-tuong.md, accept: "12 thien tuong; khoi quy nhan day/night; thuan/nghich bo; cat/hung"}
+  - {id: LN-005, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [LN-003, LN-004], fr: feature-requests/ln/FR-LN-005-khoa-the.md, accept: "named khoa the + luc than + dung than selection"}
+  - {id: LN-006, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [LN-003, LN-004, CORE-006], fr: feature-requests/ln/FR-LN-006-engine-assembly.md, accept: "emits envelope he=luc_nham; matches kinliuren across flags"}
+  - {id: QMDG-007, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 6, deps: [QMDG-006], fr: feature-requests/qmdg/FR-QMDG-007-dung-than.md, accept: "dung than mapping by question type"}
+  - {id: KB-003, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [PLAT-001], fr: feature-requests/kb/FR-KB-003-classical-text-store.md, accept: "Han/bach thoai/dich 3-layer store; chunk by dieu/phap/khoa/cau; citation ids"}
+  - {id: RAG-004, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [RAG-003], fr: feature-requests/rag/FR-RAG-004-human-review-gate.md, accept: "review queue; approve/reject; audit; gate before user for flagged judgments"}
+  - {id: RAG-007, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 8, deps: [RAG-003], fr: feature-requests/rag/FR-RAG-007-fallback.md, accept: "LLM timeout/circuit breaker; rule-based degraded interpretation"}
   - {id: REPORT-001, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [RAG-003], fr: feature-requests/report/FR-REPORT-001-structured-report.md, accept: "assembles chart+patterns+interpretation+citations; persists per PLAT-003; read-only invariant"}
-  - {id: REPORT-002, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [REPORT-001], fr: feature-requests/report/FR-REPORT-002-pdf-export.md, accept: "templated branded bilingual PDF"}
+  - {id: REPORT-002, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [REPORT-001], fr: feature-requests/report/FR-REPORT-002-pdf-export.md, accept: "templated branded bilingual PDF"}
   - {id: STRAT-001, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 16, deps: [QMDG-006, RULE-003], fr: feature-requests/strat/FR-STRAT-001-timing-optimizer.md, accept: "scan date-range; cast QiMen per candidate; score windows by cat/hung; top-n explainable"}
-  - {id: STRAT-002, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [STRAT-001], fr: feature-requests/strat/FR-STRAT-002-scenario-comparison.md, accept: "compare timing results across options side by side"}
-  - {id: STRAT-003, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [RAG-003], fr: feature-requests/strat/FR-STRAT-003-chu-khach-framework.md, accept: "4-step chu-khach decision framing over interpretation"}
-  - {id: CHART-002, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [CHART-001, LN-006], fr: feature-requests/chart/FR-CHART-002-liuren-view.md, accept: "thien dia ban + tu khoa + tam truyen + thien tuong view"}
-  - {id: CHART-004, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [CHART-001], fr: feature-requests/chart/FR-CHART-004-export-a11y.md, accept: "PNG/SVG/print export; diacritics + screen-reader accessibility"}
-  - {id: WEB-004, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [WEB-001], fr: feature-requests/web/FR-WEB-004-dashboard.md, accept: "dashboard landing"}
-  - {id: WEB-005, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [WEB-003, REPORT-001], fr: feature-requests/web/FR-WEB-005-report-view.md, accept: "report view screen from REPORT-001"}
-  - {id: WEB-006, phase: P1, status: draft, priority: MUST, body: planned, est_h: 10, deps: [WEB-001], fr: feature-requests/web/FR-WEB-006-i18n.md, accept: "VN+EN via next-intl; UI-label vs domain-content split"}
-  - {id: AUTH-003, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 6, deps: [AUTH-001], fr: feature-requests/auth/FR-AUTH-003-email-verify.md, accept: "email verification + password reset"}
-  - {id: API-002, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 6, deps: [API-001], fr: feature-requests/api/FR-API-002-versioning.md, accept: "URL v1 + header versioning; deprecation policy"}
-  - {id: PLAT-005, phase: P1, status: draft, priority: MUST, body: planned, est_h: 10, deps: [PLAT-004], fr: feature-requests/plat/FR-PLAT-005-observability.md, accept: "Prometheus/Grafana metrics; Sentry; structured logs; alerting"}
-  - {id: PLAT-006, phase: P1, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [PLAT-003], fr: feature-requests/plat/FR-PLAT-006-caching.md, accept: "Redis chart cache 24h TTL; invalidate on pattern update; warming"}
-  - {id: PLAT-007, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [PLAT-004, AUTH-002], fr: feature-requests/plat/FR-PLAT-007-security-hardening.md, accept: "STRIDE controls; TLS 1.3; secret manager; dep scanning"}
-  - {id: PLAT-008, phase: P1, status: draft, priority: MUST, body: planned, est_h: 8, deps: [PLAT-005], fr: feature-requests/plat/FR-PLAT-008-resilience.md, accept: "circuit breaker; retry/backoff; graceful degradation across engines"}
-  - {id: LEGAL-002, phase: P1, status: draft, priority: MUST, body: planned, est_h: 12, deps: [AUTH-001], fr: feature-requests/legal/FR-LEGAL-002-pdpd-gdpr.md, accept: "consent; retention schedule; erasure + export contracts"}
-  - {id: LEGAL-003, phase: P1, status: draft, priority: MUST, body: planned, est_h: 8, deps: [RAG-003], fr: feature-requests/legal/FR-LEGAL-003-ethical-ai.md, accept: "language rules; school fairness; source attribution guardrails"}
-  - {id: LEGAL-004, phase: P1, status: draft, priority: MUST, body: planned, est_h: 4, deps: [LEGAL-001], fr: feature-requests/legal/FR-LEGAL-004-vn-legal-review.md, accept: "counsel checklist + sign-off gate before launch"}
+  - {id: STRAT-002, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [STRAT-001], fr: feature-requests/strat/FR-STRAT-002-scenario-comparison.md, accept: "compare timing results across options side by side"}
+  - {id: STRAT-003, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [RAG-003], fr: feature-requests/strat/FR-STRAT-003-chu-khach-framework.md, accept: "4-step chu-khach decision framing over interpretation"}
+  - {id: CHART-002, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [CHART-001, LN-006], fr: feature-requests/chart/FR-CHART-002-liuren-view.md, accept: "thien dia ban + tu khoa + tam truyen + thien tuong view"}
+  - {id: CHART-004, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [CHART-001], fr: feature-requests/chart/FR-CHART-004-export-a11y.md, accept: "PNG/SVG/print export; diacritics + screen-reader accessibility"}
+  - {id: WEB-004, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [WEB-001], fr: feature-requests/web/FR-WEB-004-dashboard.md, accept: "dashboard landing"}
+  - {id: WEB-005, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [WEB-003, REPORT-001], fr: feature-requests/web/FR-WEB-005-report-view.md, accept: "report view screen from REPORT-001"}
+  - {id: WEB-006, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [WEB-001], fr: feature-requests/web/FR-WEB-006-i18n.md, accept: "VN+EN via next-intl; UI-label vs domain-content split"}
+  - {id: AUTH-003, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 6, deps: [AUTH-001], fr: feature-requests/auth/FR-AUTH-003-email-verify.md, accept: "email verification + password reset"}
+  - {id: API-002, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 6, deps: [API-001], fr: feature-requests/api/FR-API-002-versioning.md, accept: "URL v1 + header versioning; deprecation policy"}
+  - {id: PLAT-005, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 10, deps: [PLAT-004], fr: feature-requests/plat/FR-PLAT-005-observability.md, accept: "Prometheus/Grafana metrics; Sentry; structured logs; alerting"}
+  - {id: PLAT-006, phase: P1, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [PLAT-003], fr: feature-requests/plat/FR-PLAT-006-caching.md, accept: "Redis chart cache 24h TTL; invalidate on pattern update; warming"}
+  - {id: PLAT-007, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [PLAT-004, AUTH-002], fr: feature-requests/plat/FR-PLAT-007-security-hardening.md, accept: "STRIDE controls; TLS 1.3; secret manager; dep scanning"}
+  - {id: PLAT-008, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 8, deps: [PLAT-005], fr: feature-requests/plat/FR-PLAT-008-resilience.md, accept: "circuit breaker; retry/backoff; graceful degradation across engines"}
+  - {id: LEGAL-002, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [AUTH-001], fr: feature-requests/legal/FR-LEGAL-002-pdpd-gdpr.md, accept: "consent; retention schedule; erasure + export contracts"}
+  - {id: LEGAL-003, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 8, deps: [RAG-003], fr: feature-requests/legal/FR-LEGAL-003-ethical-ai.md, accept: "language rules; school fairness; source attribution guardrails"}
+  - {id: LEGAL-004, phase: P1, status: blocked, priority: MUST, body: authored, est_h: 4, deps: [LEGAL-001], fr: feature-requests/legal/FR-LEGAL-004-vn-legal-review.md, accept: "counsel checklist + sign-off gate before launch"}
 
   # ---------------- Phase P2 - third engine and depth ----------------
   - {id: TAT-001, phase: P2, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [CORE-005], fr: feature-requests/tat/FR-TAT-001-tich-nien.md, accept: "tich nien + 3 reductions + epoch flag; 9-palace movement skipping center; envelope he=thai_at"}
-  - {id: TAT-002, phase: P2, status: draft, priority: MUST, body: planned, est_h: 12, deps: [TAT-001], fr: feature-requests/tat/FR-TAT-002-an-thai-at-than.md, accept: "an Thai At + 16 than (chinh cung / gian than)"}
-  - {id: TAT-003, phase: P2, status: draft, priority: MUST, body: planned, est_h: 14, deps: [TAT-002], fr: feature-requests/tat/FR-TAT-003-bat-tuong-toan.md, accept: "bat tuong + chu/khach toan + ke than + Van Xuong/Thuy Kich"}
-  - {id: TAT-004, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [TAT-002], fr: feature-requests/tat/FR-TAT-004-bon-phep.md, accept: "nien/nguyet/nhat/thoi ke"}
-  - {id: TAT-005, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [TAT-003], fr: feature-requests/tat/FR-TAT-005-cach-cuc.md, accept: "cach cuc + chu-khach thang bai; tam tai; truong/doan toan"}
-  - {id: TAT-006, phase: P2, status: draft, priority: MUST, body: planned, est_h: 12, deps: [TAT-003, CORE-006], fr: feature-requests/tat/FR-TAT-006-engine-assembly.md, accept: "emits envelope; matches kintaiyi"}
-  - {id: KB-004, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [KB-002], fr: feature-requests/kb/FR-KB-004-curation.md, accept: "curation workflow + expert review + versioning"}
-  - {id: KB-005, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 12, deps: [KB-001, KB-003], fr: feature-requests/kb/FR-KB-005-graph-retrieval.md, accept: "knowledge-graph hybrid-retrieval query API (RAG-002 graph arm)"}
-  - {id: RAG-005, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [RAG-002], fr: feature-requests/rag/FR-RAG-005-term-sense.md, accept: "term-sense expansion (ban nghia/dan than/gia ta/dien tich)"}
-  - {id: RAG-006, phase: P2, status: draft, priority: MUST, body: planned, est_h: 12, deps: [RAG-003, KB-002], fr: feature-requests/rag/FR-RAG-006-eval-loop.md, accept: "faithfulness/relevance/citation eval + CI gate on regression"}
-  - {id: RULE-004, phase: P2, status: draft, priority: COULD, body: planned, est_h: 8, deps: [RULE-002], fr: feature-requests/rule/FR-RULE-004-cross-system.md, accept: "nested + multi-system patterns"}
-  - {id: CHART-003, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 12, deps: [CHART-001, TAT-006], fr: feature-requests/chart/FR-CHART-003-taiyi-view.md, accept: "cuu cung + 16 than + tuong view"}
-  - {id: WEB-007, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 12, deps: [WEB-003], fr: feature-requests/web/FR-WEB-007-management-flow.md, accept: "history + school-flag config + share/export"}
-  - {id: STRAT-004, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [QMDG-006, LN-006], fr: feature-requests/strat/FR-STRAT-004-cross-system-validate.md, accept: "calculate/all + agreement view across systems"}
-  - {id: REPORT-003, phase: P2, status: draft, priority: COULD, body: planned, est_h: 6, deps: [REPORT-001], fr: feature-requests/report/FR-REPORT-003-templates.md, accept: "sample templates per question type"}
-  - {id: AUTH-004, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [AUTH-001, LEGAL-002], fr: feature-requests/auth/FR-AUTH-004-dsar.md, accept: "self-service data export + erasure"}
-  - {id: PLAT-009, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 8, deps: [PLAT-003], fr: feature-requests/plat/FR-PLAT-009-backup-dr.md, accept: "daily backup + PITR; RPO 1h/RTO 4h; restore drill"}
-  - {id: PLAT-010, phase: P2, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [PLAT-004], fr: feature-requests/plat/FR-PLAT-010-iac.md, accept: "Terraform + K8s manifests; autoscaling"}
+  - {id: TAT-002, phase: P2, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [TAT-001], fr: feature-requests/tat/FR-TAT-002-an-thai-at-than.md, accept: "an Thai At + 16 than (chinh cung / gian than)"}
+  - {id: TAT-003, phase: P2, status: blocked, priority: MUST, body: authored, est_h: 14, deps: [TAT-002], fr: feature-requests/tat/FR-TAT-003-bat-tuong-toan.md, accept: "bat tuong + chu/khach toan + ke than + Van Xuong/Thuy Kich"}
+  - {id: TAT-004, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [TAT-002], fr: feature-requests/tat/FR-TAT-004-bon-phep.md, accept: "nien/nguyet/nhat/thoi ke"}
+  - {id: TAT-005, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [TAT-003], fr: feature-requests/tat/FR-TAT-005-cach-cuc.md, accept: "cach cuc + chu-khach thang bai; tam tai; truong/doan toan"}
+  - {id: TAT-006, phase: P2, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [TAT-003, CORE-006], fr: feature-requests/tat/FR-TAT-006-engine-assembly.md, accept: "emits envelope; matches kintaiyi"}
+  - {id: KB-004, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [KB-002], fr: feature-requests/kb/FR-KB-004-curation.md, accept: "curation workflow + expert review + versioning"}
+  - {id: KB-005, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 12, deps: [KB-001, KB-003], fr: feature-requests/kb/FR-KB-005-graph-retrieval.md, accept: "knowledge-graph hybrid-retrieval query API (RAG-002 graph arm)"}
+  - {id: RAG-005, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [RAG-002], fr: feature-requests/rag/FR-RAG-005-term-sense.md, accept: "term-sense expansion (ban nghia/dan than/gia ta/dien tich)"}
+  - {id: RAG-006, phase: P2, status: blocked, priority: MUST, body: authored, est_h: 12, deps: [RAG-003, KB-002], fr: feature-requests/rag/FR-RAG-006-eval-loop.md, accept: "faithfulness/relevance/citation eval + CI gate on regression"}
+  - {id: RULE-004, phase: P2, status: blocked, priority: COULD, body: authored, est_h: 8, deps: [RULE-002], fr: feature-requests/rule/FR-RULE-004-cross-system.md, accept: "nested + multi-system patterns"}
+  - {id: CHART-003, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 12, deps: [CHART-001, TAT-006], fr: feature-requests/chart/FR-CHART-003-taiyi-view.md, accept: "cuu cung + 16 than + tuong view"}
+  - {id: WEB-007, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 12, deps: [WEB-003], fr: feature-requests/web/FR-WEB-007-management-flow.md, accept: "history + school-flag config + share/export"}
+  - {id: STRAT-004, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [QMDG-006, LN-006], fr: feature-requests/strat/FR-STRAT-004-cross-system-validate.md, accept: "calculate/all + agreement view across systems"}
+  - {id: REPORT-003, phase: P2, status: blocked, priority: COULD, body: authored, est_h: 6, deps: [REPORT-001], fr: feature-requests/report/FR-REPORT-003-templates.md, accept: "sample templates per question type"}
+  - {id: AUTH-004, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [AUTH-001, LEGAL-002], fr: feature-requests/auth/FR-AUTH-004-dsar.md, accept: "self-service data export + erasure"}
+  - {id: PLAT-009, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 8, deps: [PLAT-003], fr: feature-requests/plat/FR-PLAT-009-backup-dr.md, accept: "daily backup + PITR; RPO 1h/RTO 4h; restore drill"}
+  - {id: PLAT-010, phase: P2, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [PLAT-004], fr: feature-requests/plat/FR-PLAT-010-iac.md, accept: "Terraform + K8s manifests; autoscaling"}
 
   # ---------------- Phase P3 - training platform and hardening ----------------
   - {id: EDU-001, phase: P3, status: blocked, priority: SHOULD, body: authored, est_h: 12, deps: [WEB-001], fr: feature-requests/edu/FR-EDU-001-curriculum.md, accept: "four-level curriculum + measurable progression criteria; engine-as-grader hooks"}
-  - {id: EDU-002, phase: P3, status: draft, priority: SHOULD, body: planned, est_h: 16, deps: [QMDG-006, LN-006], fr: feature-requests/edu/FR-EDU-002-auto-grade.md, accept: "auto-graded chart practice; per-step diff vs engine chart"}
-  - {id: EDU-003, phase: P3, status: draft, priority: SHOULD, body: planned, est_h: 10, deps: [KB-003], fr: feature-requests/edu/FR-EDU-003-library.md, accept: "bilingual classical library with search + citation"}
-  - {id: EDU-004, phase: P3, status: draft, priority: COULD, body: planned, est_h: 8, deps: [WEB-001], fr: feature-requests/edu/FR-EDU-004-onboarding.md, accept: "onboarding + help center"}
-  - {id: WEB-008, phase: P3, status: draft, priority: COULD, body: planned, est_h: 10, deps: [WEB-006], fr: feature-requests/web/FR-WEB-008-zh-i18n.md, accept: "Chinese i18n + RTL-ready"}
+  - {id: EDU-002, phase: P3, status: blocked, priority: SHOULD, body: authored, est_h: 16, deps: [QMDG-006, LN-006], fr: feature-requests/edu/FR-EDU-002-auto-grade.md, accept: "auto-graded chart practice; per-step diff vs engine chart"}
+  - {id: EDU-003, phase: P3, status: blocked, priority: SHOULD, body: authored, est_h: 10, deps: [KB-003], fr: feature-requests/edu/FR-EDU-003-library.md, accept: "bilingual classical library with search + citation"}
+  - {id: EDU-004, phase: P3, status: blocked, priority: COULD, body: authored, est_h: 8, deps: [WEB-001], fr: feature-requests/edu/FR-EDU-004-onboarding.md, accept: "onboarding + help center"}
+  - {id: WEB-008, phase: P3, status: blocked, priority: COULD, body: authored, est_h: 10, deps: [WEB-006], fr: feature-requests/web/FR-WEB-008-zh-i18n.md, accept: "Chinese i18n + RTL-ready"}
 
 icebox: []

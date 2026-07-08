@@ -8,10 +8,10 @@ The identity and authorization layer: registration and login (email/password plu
 |---|---|---|--:|---|
 | AUTH-001 | MUST | P0 | 14 | [Auth (JWT + refresh, email + Google/Apple) + birth-data AES-256 + profile](FR-AUTH-001-auth-user.md) |
 | AUTH-002 | MUST | P0 | 8 | [RBAC tiers (Free/Premium/Enterprise/Admin) + rate-limit tiers](FR-AUTH-002-rbac-tiers.md) |
-| AUTH-003 | SHOULD | P1 | 6 | Email verification + password reset (planned) |
-| AUTH-004 | SHOULD | P2 | 8 | DSAR self-service (export + erasure) (planned) |
+| AUTH-003 | SHOULD | P1 | 6 | Email verification + password reset |
+| AUTH-004 | SHOULD | P2 | 8 | DSAR self-service (export + erasure) |
 
-Two P0 FRs are authored (AUTH-001 identity + crypto, AUTH-002 tiers + quotas). Two are listed for the dependency picture and authored later: AUTH-003 (email verification and password reset, P1) and AUTH-004 (DSAR self-service export and erasure, P2, gated on FR-LEGAL-002).
+Two P0 FRs are authored (AUTH-001 identity + crypto, AUTH-002 tiers + quotas). Two are authored: AUTH-003 (email verification and password reset, P1) and AUTH-004 (DSAR self-service export and erasure, P2, gated on FR-LEGAL-002).
 
 ## Internal spine
 

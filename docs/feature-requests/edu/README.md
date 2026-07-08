@@ -6,18 +6,18 @@ Tam Thuc is hard to learn: it needs a solid ganzhi foundation, many memorized ta
 
 ## Summary
 
-Four FRs, all P3, ~46 engineering-hours. One (EDU-001, the four-level curriculum + progression criteria) is authored in full here as the module exemplar; the other three are listed for the dependency picture and are planned (authored later). EDU-001 defines the levels and gates; EDU-002 wires the engine-as-grader; EDU-003 is the bilingual library; EDU-004 is onboarding and help.
+Four FRs, all P3, ~46 engineering-hours. One (EDU-001, the four-level curriculum + progression criteria) is authored; the other three are authored. EDU-001 defines the levels and gates; EDU-002 wires the engine-as-grader; EDU-003 is the bilingual library; EDU-004 is onboarding and help.
 
 ## FR list
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | [EDU-001](FR-EDU-001-curriculum.md) | SHOULD | P3 | 12 | Four-level curriculum structure + progression criteria |
-| EDU-002 (planned, authored later) | SHOULD | P3 | 16 | Auto-graded chart practice (engine as grader, step diff) |
-| EDU-003 (planned, authored later) | SHOULD | P3 | 10 | Bilingual classical library (search, cite) |
-| EDU-004 (planned, authored later) | COULD | P3 | 8 | Onboarding + help center |
+| EDU-002 | SHOULD | P3 | 16 | Auto-graded chart practice (engine as grader, step diff) |
+| EDU-003 | SHOULD | P3 | 10 | Bilingual classical library (search, cite) |
+| EDU-004 | COULD | P3 | 8 | Onboarding + help center |
 
-Total P3: 46h. Only EDU-001 is authored in full; the rest are planned (authored later).
+Total P3: 46h. Only EDU-001 is authored in full; the rest are authored.
 
 ## Cross-module dependencies
 

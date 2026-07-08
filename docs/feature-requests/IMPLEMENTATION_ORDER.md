@@ -4,9 +4,9 @@ Single source of truth for task status and eligibility. Task id = FR id; the spe
 
 Status: `draft` (FR body not yet authored) | `ready_to_implement` | `blocked` (unmet deps) | `implementing` | `in_review` | `done` | `superseded`. Only a human sets `done`. Eligibility: FR is `ready_to_implement`, status not `done`, every `depends_on` is `done`. Pick order: phase, then dependency spine, then id.
 
-At this snapshot (2026-07-08) nothing is `done`, so the only immediately eligible task is the root PLAT-001; everything else is `blocked` on it or its descendants, or `draft` (body to author). 40 of 87 FR bodies are authored; 47 are `draft`.
+At this snapshot (2026-07-08) nothing is `done`, so the only immediately eligible task is the root PLAT-001; everything else is `blocked` until its deps clear. All 87 FR bodies are authored.
 
-Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is written (yes) or planned (draft).
+Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is written; all 87 are yes at this snapshot.
 
 ## Phase P0 - core and QiMen flagship (MVP critical path, ~320h)
 
@@ -57,79 +57,79 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
 | LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | blocked |
-| LN-002 | Tu khoa | MUST | 10 | LN-001 | draft | draft |
-| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | draft | draft |
-| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | draft | draft |
-| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | draft | draft |
-| LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | draft | draft |
-| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | draft | draft |
-| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | draft | draft |
-| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | draft | draft |
-| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | draft | draft |
+| LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | blocked |
+| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | blocked |
+| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | blocked |
+| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | blocked |
+| LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | blocked |
+| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
+| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | blocked |
+| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | blocked |
+| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | blocked |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | blocked |
-| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | draft | draft |
+| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | blocked |
-| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | draft | draft |
-| STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | draft | draft |
-| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | draft | draft |
-| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | draft | draft |
-| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | draft | draft |
-| WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | draft | draft |
-| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | draft | draft |
-| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | draft | draft |
-| API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | draft | draft |
-| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | draft | draft |
-| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | draft | draft |
-| PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | draft | draft |
-| PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | draft | draft |
-| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | draft | draft |
-| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | draft | draft |
-| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | draft | draft |
+| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | blocked |
+| STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | blocked |
+| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | blocked |
+| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | blocked |
+| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | blocked |
+| WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | blocked |
+| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | blocked |
+| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | blocked |
+| API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | blocked |
+| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | blocked |
+| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | blocked |
+| PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | blocked |
+| PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | blocked |
+| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | blocked |
+| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | blocked |
+| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | blocked |
 
 ## Phase P2 - third engine and depth (~180h)
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
 | TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | blocked |
-| TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | draft | draft |
-| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | draft | draft |
-| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | draft | draft |
-| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | draft | draft |
-| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | draft | draft |
-| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | draft | draft |
-| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | draft | draft |
-| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | draft | draft |
-| RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | draft | draft |
-| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | draft | draft |
-| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | draft | draft |
-| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | draft | draft |
-| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | draft | draft |
-| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | draft | draft |
-| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | draft | draft |
-| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | draft | draft |
-| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | draft | draft |
+| TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | blocked |
+| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | blocked |
+| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |
+| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | blocked |
+| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | blocked |
+| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | blocked |
+| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | blocked |
+| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | blocked |
+| RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | blocked |
+| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | blocked |
+| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | blocked |
+| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | blocked |
+| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | blocked |
+| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | blocked |
+| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | yes | blocked |
+| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | yes | blocked |
+| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | yes | blocked |
 
 ## Phase P3 - training platform and hardening (~130h)
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
 | EDU-001 | Four-level curriculum + progression criteria | SHOULD | 12 | WEB-001 | yes | blocked |
-| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | draft | draft |
-| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | draft | draft |
-| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | draft | draft |
-| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | draft | draft |
+| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | yes | blocked |
+| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | yes | blocked |
+| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | yes | blocked |
+| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | yes | blocked |
 
 ## Rollup
 
 | Phase | tasks | hours | bodies authored |
 |---|--:|--:|--:|
 | P0 | 35 | ~430 | 35 |
-| P1 | 29 | ~280 | 3 |
-| P2 | 18 | ~185 | 1 |
-| P3 | 5 | ~55 | 1 |
-| Total | 87 | ~950 | 40 |
+| P1 | 29 | ~280 | 29 |
+| P2 | 18 | ~185 | 18 |
+| P3 | 5 | ~55 | 5 |
+| Total | 87 | ~950 | 87 |
 
-(A few SHOULD items sit at phase edges; the phase docs under `tasks/` carry the wave detail. Authored P1-P3 bodies are the seed exemplars LN-001, TAT-001, REPORT-001, STRAT-001, EDU-001.)
+(A few SHOULD items sit at phase edges; the phase docs under `tasks/` carry the wave detail. All 87 FR bodies are authored.)
 
 ---
 
@@ -177,7 +177,7 @@ Do not open P1 until all of these are `done` and the live demo passes:
 
 ## Phase P1 - second engine and strategic surface (MVP completion)
 
-Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. One FR body authored (LN-001, the seed exemplar); the rest are `draft` - author each body from its module README plus the cited Claude/Grok source before implementing (per PROMPT.md).
+Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. All FR bodies are authored; implement each per its FR spec (per PROMPT.md).
 
 ## Tracks
 
@@ -195,7 +195,7 @@ LN-006 matches kinliuren in CI; the Timing Optimizer returns scored windows for 
 
 ## Phase P2 - third engine and depth
 
-Goal: all three engines live, and the interpretation branch deepened to production quality. 18 tasks, roughly 185 hours. One FR body authored (TAT-001, the seed exemplar); the rest are `draft`.
+Goal: all three engines live, and the interpretation branch deepened to production quality. 18 tasks, roughly 185 hours. All FR bodies are authored.
 
 ## Tracks
 
@@ -212,7 +212,7 @@ TAT-006 matches kintaiyi in CI; RAG-006 eval loop is gating; the management flow
 
 ## Phase P3 - training platform and hardening
 
-Goal: turn the app into a heritage-education platform and finish the hardening pass. 5 tasks in this phase's core plus the security/compliance items that continue from P1-P2. Roughly 55 hours for the P3-tagged tasks. One FR body authored (EDU-001, the seed exemplar); the rest are `draft`.
+Goal: turn the app into a heritage-education platform and finish the hardening pass. 5 tasks in this phase's core plus the security/compliance items that continue from P1-P2. Roughly 55 hours for the P3-tagged tasks. All FR bodies are authored.
 
 ## Tracks
 

@@ -6,7 +6,7 @@ QiMen chu Dia (主地): it answers questions of direction and timing - which way
 
 ## Summary
 
-Seven FRs. Six (QMDG-001..006) are the P0 casting pipeline and are authored in full here; QMDG-007 (dung than by question type, P1) is listed below for completeness and is authored later. The pipeline is a straight chain - dinh cuc -> bo dia ban -> truc phu / truc su -> sao / mon / than -> cach cuc -> assembly - and QMDG-006 emits the la so JSON envelope (FR-PLAT-002, `he = "ky_mon"`) and gates the whole engine 100% against the kinqimen oracle for every flag combination.
+Seven FRs. Six (QMDG-001..006) are the P0 casting pipeline and are authored in full here; QMDG-007 (dung than by question type, P1) is authored. The pipeline is a straight chain - dinh cuc -> bo dia ban -> truc phu / truc su -> sao / mon / than -> cach cuc -> assembly - and QMDG-006 emits the la so JSON envelope (FR-PLAT-002, `he = "ky_mon"`) and gates the whole engine 100% against the kinqimen oracle for every flag combination.
 
 ## FR list
 
@@ -18,7 +18,7 @@ Seven FRs. Six (QMDG-001..006) are the P0 casting pipeline and are authored in f
 | [QMDG-004](FR-QMDG-004-sao-mon-than.md) | MUST | P0 | 12 | Cuu tinh / bat mon / bat than placement (am/duong ban than swap) |
 | [QMDG-005](FR-QMDG-005-cach-cuc.md) | MUST | P0 | 16 | Cach cuc detection (thap can khac ung, cat/hung, nhap mo / khong vong / phan-phuc ngam) |
 | [QMDG-006](FR-QMDG-006-engine-assembly.md) | MUST | P0 | 12 | Engine assembly + JSON envelope + full flag set + kinqimen oracle gate |
-| QMDG-007 (authored later) | SHOULD | P1 | 6 | Dung than by question type (mapping table) |
+| QMDG-007 | SHOULD | P1 | 6 | Dung than by question type (mapping table) |
 
 Total P0: 80h across QMDG-001..006. QMDG-007 adds 6h in P1.
 

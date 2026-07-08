@@ -6,17 +6,17 @@ REPORT sits at the join point of the two branches: it reads the la so envelope t
 
 ## Summary
 
-Three FRs, ~26 engineering-hours. One (REPORT-001, structured report assembly) is authored in full here as the module exemplar; the other two are listed for the dependency picture and are planned (authored later). The spine is REPORT-001 (assemble + persist the structured report object) -> REPORT-002 (PDF export) with REPORT-003 (per-question sample templates) alongside.
+Three FRs, ~26 engineering-hours. One (REPORT-001, structured report assembly) is authored; the other two are authored. The spine is REPORT-001 (assemble + persist the structured report object) -> REPORT-002 (PDF export) with REPORT-003 (per-question sample templates) alongside.
 
 ## FR list
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
 | [REPORT-001](FR-REPORT-001-structured-report.md) | MUST | P1 | 10 | Structured report assembly (chart + patterns + interpretation + citations) |
-| REPORT-002 (planned, authored later) | SHOULD | P1 | 10 | PDF export (templated, branded, bilingual) |
-| REPORT-003 (planned, authored later) | COULD | P2 | 6 | Sample report templates per question type |
+| REPORT-002 | SHOULD | P1 | 10 | PDF export (templated, branded, bilingual) |
+| REPORT-003 | COULD | P2 | 6 | Sample report templates per question type |
 
-Total: 26h. Only REPORT-001 is authored in full; the rest are planned (authored later).
+Total: 26h. Only REPORT-001 is authored in full; the rest are authored.
 
 ## Cross-module dependencies
 
