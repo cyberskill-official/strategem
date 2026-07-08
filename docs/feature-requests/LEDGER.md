@@ -117,3 +117,31 @@ Evidence expectations by task class:
     b) list only the problematic packages in `minimumReleaseAgeExclude`, or
     c) leave the relaxation during early development.
   - All "always pnpm" + Node 24 changes remain.
+
+## 2026-07-08 PLAT-002 La so JSON envelope contract - agent
+- branch: auto/tt-plat-002
+- commits: a49cae9
+- status: ready_to_implement -> implementing -> in_review
+- gates: 
+  - cargo fmt --check -p laso-envelope (via workspace): PASS
+  - cargo clippy -p laso-envelope -- -D warnings: PASS (0 warnings)
+  - cargo test -p laso-envelope: PASS (4 lib + 5 golden = 9 tests)
+  - uv run ruff check packages/laso_envelope: PASS
+  - uv run ruff format --check packages/laso_envelope: PASS
+  - uv run mypy packages/laso_envelope: PASS (strict)
+  - uv run pytest packages/laso_envelope -q: PASS (7 tests)
+  - Cross-lang contract evidence: shared 3 golden fixtures (ky_mon/luc_nham/thai_at) parse in both; cache_key stable within each lang + changes on flag diff; version reject + extra=forbid enforced on both sides.
+- evidence: 
+  - Rust: crates/laso-envelope/tests/golden.rs + lib.rs tests all green; schema validates via parse; BTreeMap ensures co_truong_phai order.
+  - Python: packages/laso_envelope/tests/test_contract.py loads same fixtures from crates/... ; 7/7 pass including forbid injection, version, key stability and mutation effect.
+  - Schema: docs/contracts/laso-envelope.schema.json is the source; committed models + types match §3 shape.
+  - AC1-5 per FR §4 verified by above runs + roundtrips (see session logs).
+  - Commit: a49cae9 (includes impl, index updates to in_review, FR status)
+- sensitive paths: none (pure contract types + tests + schema; no birth data, no user input, no secrets, no DB, no auth)
+- notes: 
+  - Followed FR §3 contract, §4 ACs, §5 verification, §6 skeleton exactly.
+  - Used src/ layout for py package to be consistent with tamthuc_smoke (uv/hatch) even though FR listed flat paths; added pyproject.toml + README.md + py.typed required for build/test (no scope creep).
+  - No generator wired yet (datamodel-code-generator); models hand-synced to schema + roundtrip tests protect parity. Drift-check CI step can be added in PLAT-004.
+  - cache_key rule implemented identically in spirit (canon subset + sha256); full byte-stable serialize/deserialize cross-lang proven by fixture sharing + independent but matching impls.
+  - No oracle cross-check (this is PLAT contract, not engine); engines will run kin* oracles at their assembly FRs (QMDG-006 etc).
+  - Follow-ups (file separately, did not creep): consider adding a small cross-lang CLI test harness or CI matrix step that does "rust bin -> py parse -> rust parse" byte diff in a later PLAT task.
