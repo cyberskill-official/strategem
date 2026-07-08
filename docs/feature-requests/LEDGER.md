@@ -86,7 +86,7 @@ Evidence expectations by task class:
 
 ## 2026-07-08 PLAT-001 (fix) - pnpm minimumReleaseAge CI failure - agent
 - branch: auto/tt-plat-001
-- commits: (next commit after this edit)
+- commits: f7cc2e0eb1526930f6d8447352f2dd90ab69c9c1
 - status: in_review
 - gates: web job was failing on install step with ERR_PNPM_MINIMUM_RELEASE_AGE_VIOLATION (brace-expansion, electron-to-chromium)
 - evidence:
