@@ -177,7 +177,7 @@ Do not open P1 until all of these are `done` and the live demo passes:
 
 ## Phase P1 - second engine and strategic surface (MVP completion)
 
-Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. All FR bodies are authored; implement each per its FR spec (per PROMPT.md).
+Goal: complete the MVP - a second engine (LiuRen), the headline strategic tools, reports, and the operability floor. 29 tasks, roughly 280 hours. All FR bodies are authored; implement each per its FR spec (via the strategem-implement skill).
 
 ## Tracks
 

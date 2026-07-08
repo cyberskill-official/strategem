@@ -265,7 +265,7 @@ Files in this folder:
 |---|---|
 | `IMPLEMENTATION_ORDER.md` | Master status index of every FR-as-task, grouped by phase, plus the per-phase wave/track sequencing and exit gates. The human-readable single source of order. |
 | `backlog.yaml` | Machine-readable mirror of the status index (agents update it; humans audit it). |
-| `PROMPT.md` | The trigger prompt for an implementation agent, plus the human review protocol. |
+| `PROMPT.md` | Pointer to the two trigger skills `strategem-implement` and `strategem-review` (under `.claude/skills/`). |
 | `LEDGER.md` | Append-only execution ledger; every task run adds an entry (populated once implementation starts). |
 
 ### One ID space
@@ -296,8 +296,8 @@ Task id = FR id (task `QMDG-001` implements `FR-QMDG-001`). No second numbering 
 
 ### How to trigger
 
-Paste `PROMPT.md` into a fresh agent session, or say:
+Invoke the `strategem-implement` skill in a fresh agent session (for sign-off, invoke `strategem-review`), or say:
 
-> Implement TT task PLAT-001 per docs/feature-requests/PROMPT.md
+> Implement TT task PLAT-001 (runs the strategem-implement skill)
 
 With no id, the agent takes the next eligible task in `IMPLEMENTATION_ORDER.md` order. At this snapshot only PLAT-001 is eligible (the single root); everything else cascades from it.

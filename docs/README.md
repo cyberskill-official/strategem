@@ -6,7 +6,7 @@ This folder holds the sources and the engineering plan for the Tam Thuc Stratege
 
 - New to the project: read `strategy/tam-thuc-unified-plan-2026-07-08.md`. It analyzes the two source doc sets, reconciles them, and fixes the architecture, module taxonomy, phases, and risks. Everything else refs it.
 - Building a feature: open `feature-requests/README.md` (the catalog), then the module folder for the FR you want.
-- Running the program with agents: open `feature-requests/PROMPT.md` to trigger, and `feature-requests/IMPLEMENTATION_ORDER.md` for build order and status.
+- Running the program with agents: invoke the `strategem-implement` skill to build the next task and `strategem-review` to sign it off (both under `.claude/skills/`); `feature-requests/IMPLEMENTATION_ORDER.md` is the build order and status.
 
 ## Layout
 
