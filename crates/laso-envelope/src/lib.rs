@@ -40,7 +40,7 @@ pub enum Polarity {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
-#[serde(rename_all = "snake_case")]
+#[serde(deny_unknown_fields, rename_all = "snake_case")]
 pub struct CachCuc {
     pub id: String,
     pub name: String,
@@ -54,6 +54,7 @@ pub struct CachCuc {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
 pub struct DauVao {
     pub datetime: String,
     pub tz: String,
@@ -63,6 +64,7 @@ pub struct DauVao {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize, PartialEq)]
+#[serde(deny_unknown_fields)]
 pub struct Provenance {
     pub engine: String,
     pub engine_version: String,
@@ -234,7 +236,7 @@ mod tests {
 
     #[test]
     fn deny_unknown_fields() {
-        let mut la = minimal_ky_mon();
+        let la = minimal_ky_mon();
         let mut v = serde_json::to_value(&la).unwrap();
         if let Value::Object(ref mut m) = v {
             m.insert("unexpected_field".into(), json!("boom"));

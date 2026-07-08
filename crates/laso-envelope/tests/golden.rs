@@ -44,7 +44,7 @@ fn ky_mon_golden_roundtrip_and_key() {
 
 #[test]
 fn luc_nham_golden_roundtrip() {
-    let mut la = load_fixture("luc_nham.json");
+    let la = load_fixture("luc_nham.json");
     require_supported_version(&la).unwrap();
     let _ = cache_key(&la);
     let json = serde_json::to_string(&la).unwrap();
@@ -55,7 +55,7 @@ fn luc_nham_golden_roundtrip() {
 
 #[test]
 fn thai_at_golden_roundtrip() {
-    let mut la = load_fixture("thai_at.json");
+    let la = load_fixture("thai_at.json");
     require_supported_version(&la).unwrap();
     let _ = cache_key(&la);
     let json = serde_json::to_string(&la).unwrap();

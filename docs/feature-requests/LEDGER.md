@@ -154,3 +154,33 @@ Evidence expectations by task class:
 - evidence: updated ledger to list both commits for the task packet
 - sensitive paths: none
 - notes: "One task per commit where practical" produced two commits; primary evidence in a49cae9. No behavior change.
+
+## 2026-07-08 PLAT-002 - reviewer
+- branch: auto/tt-plat-002
+- commits: a49cae9 (impl), a9ae88c (ledger), 4acff88 (ledger correction); review fixes in working tree: sub-struct deny_unknown_fields + unused_mut cleanup
+- status: in_review -> done
+- gates: 
+  - cargo fmt --check -p laso-envelope: PASS
+  - cargo clippy -p laso-envelope -- -D warnings: PASS (0 warnings)
+  - cargo test -p laso-envelope: PASS (all 9 tests)
+  - uv run ruff check packages/laso_envelope: PASS
+  - uv run ruff format --check packages/laso_envelope: PASS
+  - uv run mypy packages/laso_envelope: PASS
+  - uv run pytest packages/laso_envelope -q: PASS (7 tests)
+  - Manual cross-lang roundtrip (Rust serialize -> Py parse+attach+serialize -> Rust parse): PASS (objects equal, cache keys identical)
+  - Cache key parity across langs on golden: 9f444116e9fa7ba27efef96e94eafaa64a230598e1e58770fa982e84b08ad1af (both)
+  - Schema structural match (props + additionalProperties false): PASS (minor: cach_cuc required vs default in Py model)
+- evidence: 
+  - Re-ran all named gates from ledger + FR §5. Full Rust<->Py roundtrip verified with temp capture (no persistent test added).
+  - Added #[serde(deny_unknown_fields)] to CachCuc, DauVao, Provenance (was only on root LaSo) to fully satisfy AC4 "on the Rust structs" + match schema/Py forbid on subs. Re-verified clippy+tests green.
+  - Removed 3 unnecessary `mut` in tests for clean clippy -D warnings.
+  - Confirmed: fixtures parse in both; version reject works; root+sub forbid now works in both; cache_key stable+changes on flag; identical inputs give identical keys cross-lang.
+  - Scope: PLAT-002 commit touched only envelope crate+package, schema, golden fixtures/tests, status updates in yaml/md. No sensitive paths.
+  - FR §4 AC1-5: met (with note that model generation + dedicated drift CI job deferred to PLAT-004 per original impl notes; current tests + schema + cross checks protect in practice).
+- sensitive paths: none
+- notes: 
+  - Review per strategem-review skill: re-ran accuracy/contract gates; confirmed scope; evidence in prior ledger + this entry.
+  - Minor hardening applied during review pass (denies + warning clean) to ensure full spec compliance before sign-off.
+  - No other in_review tasks at time of review.
+  - PLAT-001 is done; this unblocks dependent engine tasks (CORE-005, QMDG-006 etc).
+  - Ready for phase gate checks when other P0 items complete (see IMPLEMENTATION_ORDER.md P0 exit criteria).

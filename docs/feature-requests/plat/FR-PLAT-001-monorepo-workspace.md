@@ -3,7 +3,7 @@ id: FR-PLAT-001
 title: "Monorepo + hybrid workspace - one repo holding a Rust cargo workspace (crates/), uv-managed Python packages (packages/), and a Next.js app (apps/web), with a root CI skeleton that gates all three toolchains"
 module: PLAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: iac
