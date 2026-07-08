@@ -62,3 +62,24 @@ Evidence expectations by task class:
   - pnpm-lock.yaml was generated with local pnpm 11; pnpm 9 in CI is compatible for install.
   - Node 20 deprecation addressed by moving to 22 (current LTS at time of fix).
   - No change to acceptance criteria or architecture.
+
+## 2026-07-08 PLAT-001 (update) - Node 24 + always pnpm - agent
+- branch: auto/tt-plat-001
+- commits: b2de8ab
+- status: in_review
+- gates: local just web-* affected by env pnpm policy (future-dated lockfile in test runner); CI config is the source of truth
+- evidence:
+  - All Node references updated to 24:
+    - .github/workflows/ci.yml: node-version: 24
+    - apps/web/package.json: "@types/node": "^24"
+    - new .node-version file at root
+  - pnpm declared and enforced:
+    - root package.json: "packageManager": "pnpm@9"
+    - CI uses pnpm/action-setup@v4 (no conflicting version override; reads from packageManager)
+    - all web commands in justfile + CI + README use `pnpm --filter web ...` (no npm)
+    - justfile and README updated with explicit "always pnpm" + "Node 24" guidance
+  - pnpm/action-setup + setup-node cache: 'pnpm' remains
+- sensitive paths: none
+- notes:
+  - Local pnpm 11 in this session has strict minimumReleaseAge checks that fail on the 2026-dated lockfile. Real CI (pnpm 9 on GitHub runners) + normal dev machines will install cleanly.
+  - This keeps the monorepo hybrid (cargo + uv + pnpm) while making the JS half strictly pnpm-driven.
