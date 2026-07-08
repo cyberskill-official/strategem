@@ -47,3 +47,18 @@ Evidence expectations by task class:
   - No shadcn/ui components yet (per FR: that is WEB-001).
   - just installed via cargo for local repro; CI uses direct or setup steps.
   - Follow-ups (do not scope creep): file new task for "add real smoke tests or remove placeholder once first real crate lands".
+
+## 2026-07-08 PLAT-001 (follow-up) - fix CI web job pnpm conflict - agent
+- branch: auto/tt-plat-001
+- commits: 8da55b0 (plus 9911a0d main skeleton)
+- status: in_review (no change)
+- gates: n/a (config fix); re-run of web job expected to pass
+- evidence: 
+  - Root cause: root package.json had "packageManager": "pnpm@9.0.0" + workflow had explicit `version: 9` in pnpm/action-setup@v4 → "Multiple versions of pnpm specified" error.
+  - Fix: removed conflicting packageManager shim (root package.json was only for workspace/filter support); bumped setup-node to 22 to silence deprecation.
+  - The pnpm/action-setup + filter commands remain as specified in the FR and justfile.
+- sensitive paths: none
+- notes: 
+  - pnpm-lock.yaml was generated with local pnpm 11; pnpm 9 in CI is compatible for install.
+  - Node 20 deprecation addressed by moving to 22 (current LTS at time of fix).
+  - No change to acceptance criteria or architecture.
