@@ -54,7 +54,7 @@ Evidence expectations by task class:
 - status: in_review (no change)
 - gates: n/a (config fix); re-run of web job expected to pass
 - evidence: 
-  - Root cause: root package.json had "packageManager": "pnpm@9.0.0" + workflow had explicit `version: 9` in pnpm/action-setup@v4 → "Multiple versions of pnpm specified" error.
+  - Root cause: root package.json had "packageManager": "pnpm@11.8.0" + workflow had explicit `version: 9` in pnpm/action-setup@v4 → "Multiple versions of pnpm specified" error.
   - Fix: removed conflicting packageManager shim (root package.json was only for workspace/filter support); bumped setup-node to 22 to silence deprecation.
   - The pnpm/action-setup + filter commands remain as specified in the FR and justfile.
 - sensitive paths: none
@@ -74,7 +74,7 @@ Evidence expectations by task class:
     - apps/web/package.json: "@types/node": "^24"
     - new .node-version file at root
   - pnpm declared and enforced:
-    - root package.json: "packageManager": "pnpm@9"
+    - root package.json: "packageManager": "pnpm@11.8.0"
     - CI uses pnpm/action-setup@v4 (no conflicting version override; reads from packageManager)
     - all web commands in justfile + CI + README use `pnpm --filter web ...` (no npm)
     - justfile and README updated with explicit "always pnpm" + "Node 24" guidance
