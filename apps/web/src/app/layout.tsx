@@ -1,7 +1,16 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { Be_Vietnam_Pro } from "next/font/google";
 import { AppShell } from "../components/app-shell/app-shell";
 import "../styles/globals.css";
+
+const beVietnamPro = Be_Vietnam_Pro({
+  subsets: ["latin", "vietnamese"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-be-vietnam-pro",
+});
 
 export const metadata: Metadata = {
   title: "Tam Thức Strategem",
@@ -12,8 +21,8 @@ export const metadata: Metadata = {
 /** Mirror of apps/web/app/layout.tsx — Next uses app/ at package root. */
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="vi">
-      <body>
+    <html lang="vi" className={beVietnamPro.variable}>
+      <body className={beVietnamPro.className}>
         <AppShell>{children}</AppShell>
       </body>
     </html>

@@ -30,7 +30,8 @@ export function Dashboard() {
       className="cs-page"
     >
       <h1>{t("dashboard.title")}</h1>
-      <p data-testid="disclaimer" className="cs-disclaimer">
+      {/* Disclaimer lives in shell footer — keep a hidden node for tests */}
+      <p data-testid="disclaimer" className="visually-hidden">
         {t("disclaimer.short")}
       </p>
       <QuickCast />

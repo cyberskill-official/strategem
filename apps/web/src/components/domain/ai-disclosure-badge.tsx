@@ -47,7 +47,7 @@ export function AIDisclosureBadge({
           fontFamily: "inherit",
         }}
       >
-        {t("disclosure.ai")} · {reviewStatus}
+        {t("disclosure.ai")} · {t(`disclosure.status.${reviewStatus}`)}
       </button>
       {open ? (
         <div

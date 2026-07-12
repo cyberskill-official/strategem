@@ -31,14 +31,21 @@ function readCookieLocale(): Locale | null {
   return null;
 }
 
+function initialLocale(fallback: Locale): Locale {
+  return readCookieLocale() ?? fallback;
+}
+
 export function LocaleProvider({
   children,
-  initialLocale = defaultLocale,
+  initialLocale: initial = defaultLocale,
 }: {
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  const [locale, setLocaleState] = useState<Locale>(initialLocale);
+  // Sync init from cookie when possible (avoids EN flash on English browsers).
+  const [locale, setLocaleState] = useState<Locale>(() =>
+    typeof document !== "undefined" ? initialLocale(initial) : initial,
+  );
 
   useEffect(() => {
     const fromCookie = readCookieLocale();
@@ -74,7 +81,6 @@ export function LocaleProvider({
 export function useLocale(): LocaleContextValue {
   const ctx = useContext(LocaleContext);
   if (!ctx) {
-    // Safe fallback for tests / SSR edge cases
     return {
       locale: defaultLocale,
       setLocale: () => {},

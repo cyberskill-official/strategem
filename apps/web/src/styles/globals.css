@@ -1,5 +1,4 @@
 @import "./tokens.css";
-@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap");
 
 *,
 *::before,
@@ -14,7 +13,8 @@ body {
   background: var(--cs-color-surface-page);
   color: var(--cs-color-text-primary);
   line-height: var(--cs-font-lineHeight-body);
-  font-family: var(--cs-font-family-ui);
+  /* Prefer next/font CSS var when present */
+  font-family: var(--font-be-vietnam-pro), var(--cs-font-family-ui);
   font-size: var(--cs-font-size-md);
   -webkit-font-smoothing: antialiased;
 }
@@ -388,4 +388,25 @@ a:focus-visible {
   border: none;
   border-top: 2px dashed var(--cs-color-border-default);
   margin: 0;
+}
+
+/* Empty / placeholder panels */
+.cs-empty {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+  text-align: center;
+  padding: var(--cs-space-8);
+  color: var(--cs-color-text-muted);
+  font-size: var(--cs-font-size-sm);
+  border: 1px dashed var(--cs-color-border-strong);
+  border-radius: var(--cs-radius-lg);
+  background: var(--cs-color-surface-raised);
+}
+
+.cs-empty__title {
+  font-weight: 600;
+  color: var(--cs-color-text-accent);
+  margin-bottom: var(--cs-space-2);
+  font-size: var(--cs-font-size-md);
 }

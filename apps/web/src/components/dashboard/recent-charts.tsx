@@ -19,8 +19,24 @@ export function RecentCharts({
   title: string;
   emptyHint?: string;
 }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const empty = emptyHint ?? t("dashboard.recentEmpty");
+
+  function formatCastAt(iso: string, loc: string): string {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso;
+    try {
+      return new Intl.DateTimeFormat(
+        loc === "zh" ? "zh-CN" : loc === "en" ? "en-GB" : "vi-VN",
+        {
+          dateStyle: "medium",
+          timeStyle: "short",
+        },
+      ).format(d);
+    } catch {
+      return iso;
+    }
+  }
 
   const systemLabel = (he: string) => {
     const key = `system.${he}`;
@@ -67,7 +83,7 @@ export function RecentCharts({
                 <div style={{ fontWeight: 600 }}>{systemLabel(c.he)}</div>
                 <div className="cs-muted">{questionLabel(c.question_type)}</div>
                 <div className="cs-muted" style={{ fontSize: 11 }}>
-                  {c.cast_at}
+                  {formatCastAt(c.cast_at, locale)}
                 </div>
               </Link>
             </li>

@@ -38,15 +38,14 @@ export default function CastPage() {
           }}
         />
       </section>
-      <section
-        className="cs-region"
-        aria-label={t("nav.results")}
-        style={{ color: "var(--color-ink-muted)" }}
-      >
+      <section className="cs-region" aria-label={t("nav.results")}>
         {preview ? (
           <ResultsPanel response={preview} />
         ) : (
-          <p>{t("cast.resultsEmpty")}</p>
+          <div className="cs-empty" data-testid="cast-results-empty">
+            <div className="cs-empty__title">{t("nav.results")}</div>
+            <p style={{ margin: 0 }}>{t("cast.resultsEmpty")}</p>
+          </div>
         )}
       </section>
     </div>

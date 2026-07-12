@@ -28,7 +28,7 @@ export function QueryForm({
   const { t } = useLocale();
   const [datetime, setDatetime] = useState("2004-01-01T10:30");
   const [tz, setTz] = useState("+07:00");
-  const [place, setPlace] = useState("Ha Noi");
+  const [place, setPlace] = useState("Hà Nội");
   const [kinhDo, setKinhDo] = useState("105.85");
   const [questionType, setQuestionType] = useState("trach_thoi");
   const [persona, setPersona] = useState<"beginner" | "expert">("beginner");

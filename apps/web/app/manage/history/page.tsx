@@ -40,7 +40,10 @@ export default function ManageHistoryPage() {
         </p>
       ) : null}
       {!loading && !error && items.length === 0 ? (
-        <p data-testid="history-empty">{t("history.empty")}</p>
+        <div className="cs-empty" data-testid="history-empty">
+          <div className="cs-empty__title">{t("history.title")}</div>
+          <p style={{ margin: 0 }}>{t("history.empty")}</p>
+        </div>
       ) : null}
       {!loading && items.length > 0 ? <HistoryList items={items} /> : null}
     </div>

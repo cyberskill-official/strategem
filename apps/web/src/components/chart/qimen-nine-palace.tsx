@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 /**
  * Interactive 9-palace QiMen chart — FR-CHART-001.
  * Reads envelope ban read-only; never re-computes plates.
@@ -52,13 +54,14 @@ export function QimenNinePalace({
   selectedPalace = null,
   onSelectPalace,
 }: QimenChartProps) {
+  const { t } = useLocale();
   const cells = cellsFromBan(ban);
   const byPalace = new Map(cells.map((c) => [c.palace, c]));
 
   return (
     <div
       role="grid"
-      aria-label="QiMen nine-palace chart"
+      aria-label={t("system.ky_mon")}
       data-testid="qimen-nine-palace"
       style={{
         display: "grid",
@@ -75,7 +78,7 @@ export function QimenNinePalace({
             key={p}
             type="button"
             role="gridcell"
-            aria-label={`Palace ${p}`}
+            aria-label={t("palace.label", { n: p })}
             aria-pressed={selected}
             data-palace={p}
             onClick={() => onSelectPalace?.(p)}
@@ -90,13 +93,32 @@ export function QimenNinePalace({
               textAlign: "left",
               cursor: "pointer",
               fontSize: 12,
+              fontFamily: "inherit",
             }}
           >
-            <div style={{ fontWeight: 600 }}>宮 {p}</div>
-            {cell.stem && <div>干 {cell.stem}</div>}
-            {cell.star && <div>星 {cell.star}</div>}
-            {cell.door && <div>門 {cell.door}</div>}
-            {cell.god && <div>神 {cell.god}</div>}
+            <div style={{ fontWeight: 600 }}>
+              {t("chart.palace")} {p}
+            </div>
+            {cell.stem && (
+              <div>
+                {t("chart.stem")} {cell.stem}
+              </div>
+            )}
+            {cell.star && (
+              <div>
+                {t("chart.star")} {cell.star}
+              </div>
+            )}
+            {cell.door && (
+              <div>
+                {t("chart.door")} {cell.door}
+              </div>
+            )}
+            {cell.god && (
+              <div>
+                {t("chart.god")} {cell.god}
+              </div>
+            )}
           </button>
         );
       })}

@@ -103,19 +103,24 @@ export function SchoolFlagsForm({
           {t("settings.saved")}
         </p>
       ) : null}
-      <pre
-        data-testid="cast-overrides"
-        style={{
-          marginTop: 16,
-          padding: 12,
-          background: "var(--cs-color-surface-raised)",
-          borderRadius: 8,
-          fontSize: 12,
-          overflow: "auto",
-        }}
-      >
-        {JSON.stringify(toCastOverrides(cfg), null, 2)}
-      </pre>
+      <details style={{ marginTop: 16 }}>
+        <summary className="cs-muted" style={{ cursor: "pointer" }}>
+          payload
+        </summary>
+        <pre
+          data-testid="cast-overrides"
+          style={{
+            marginTop: 8,
+            padding: 12,
+            background: "var(--cs-color-surface-raised)",
+            borderRadius: 8,
+            fontSize: 12,
+            overflow: "auto",
+          }}
+        >
+          {JSON.stringify(toCastOverrides(cfg), null, 2)}
+        </pre>
+      </details>
     </form>
   );
 }

@@ -60,14 +60,14 @@ export default function ResultsPage() {
 
   return (
     <div className="cs-page">
-      <h1>
-        {t("results.title")}
+      <header style={{ display: "grid", gap: 4 }}>
+        <h1 style={{ marginBottom: 0 }}>{t("results.title")}</h1>
         {queryId ? (
-          <span className="cs-muted" style={{ fontWeight: 400, fontSize: "0.6em", marginLeft: 12 }}>
+          <p className="cs-muted" style={{ margin: 0, fontFamily: "ui-monospace, monospace", fontSize: 12 }}>
             {queryId}
-          </span>
+          </p>
         ) : null}
-      </h1>
+      </header>
       {loading && <p data-testid="results-loading">{t("results.loading")}</p>}
       {error && (
         <p data-testid="results-error" style={{ color: "var(--color-danger)" }}>
