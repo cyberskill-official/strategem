@@ -67,9 +67,9 @@ pub fn evaluate_set(cond: &Cond, set: &ChartSet) -> bool {
 }
 
 fn eval_leaf_set(field: &str, op: &Op, value: Option<&Value>, set: &ChartSet) -> bool {
-    // invalid qualifier → defined false (except exists)
-    if let Err(_) = split_he_qualifier(field) {
-        return matches!(op, Op::Exists) && false;
+    // invalid qualifier → defined false (total evaluator, no panic)
+    if split_he_qualifier(field).is_err() {
+        return false;
     }
     let got = resolve_in_set(field, set);
     if op == &Op::Exists {

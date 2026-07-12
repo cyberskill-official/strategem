@@ -87,21 +87,29 @@ pub fn tich_thoi_ke(days_from_dong_chi: i64, hour_idx: u8, duong_don: bool) -> T
     }
 }
 
+/// Inputs for the four-level tich dispatcher (keeps arg count clippy-clean).
+#[derive(Debug, Clone, Copy)]
+pub struct TichCapInput {
+    pub nam_ce: i32,
+    pub month: u8,
+    pub days_from_dong_chi: i64,
+    pub hour_idx: u8,
+    pub leap_months_before: u32,
+    pub epoch: Epoch,
+    pub duong_don: bool,
+}
+
 /// Dispatch by cap selector.
-pub fn tich_theo_cap(
-    cap: Cap,
-    nam_ce: i32,
-    month: u8,
-    days_from_dong_chi: i64,
-    hour_idx: u8,
-    leap_months_before: u32,
-    epoch: Epoch,
-    duong_don: bool,
-) -> TichCap {
+pub fn tich_theo_cap(cap: Cap, input: TichCapInput) -> TichCap {
     match cap {
-        Cap::Nien => tich_nien_ke(nam_ce, epoch),
-        Cap::Nguyet => tich_nguyet_ke(nam_ce, month, epoch, leap_months_before),
-        Cap::Nhat => tich_nhat_ke(days_from_dong_chi, duong_don),
-        Cap::Thoi => tich_thoi_ke(days_from_dong_chi, hour_idx, duong_don),
+        Cap::Nien => tich_nien_ke(input.nam_ce, input.epoch),
+        Cap::Nguyet => tich_nguyet_ke(
+            input.nam_ce,
+            input.month,
+            input.epoch,
+            input.leap_months_before,
+        ),
+        Cap::Nhat => tich_nhat_ke(input.days_from_dong_chi, input.duong_don),
+        Cap::Thoi => tich_thoi_ke(input.days_from_dong_chi, input.hour_idx, input.duong_don),
     }
 }

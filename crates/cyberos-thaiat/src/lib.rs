@@ -19,6 +19,7 @@ pub use ban::{Cap, TatFlags, ThaiAtBan};
 pub use battuong::{ke_than, place_bat_tuong, thuy_kich, van_xuong, BatTuong};
 pub use bonphep::{
     map_1_72, tich_nguyet_ke, tich_nhat_ke, tich_nien_ke, tich_theo_cap, tich_thoi_ke, TichCap,
+    TichCapInput,
 };
 pub use cachcuc::{map_to_envelope_cach_cuc, nhan_dien_cach_cuc, BienTheKich, Cach, CachCucTat};
 pub use cuucung::{thai_at_palace, ThaiAtPosition};
