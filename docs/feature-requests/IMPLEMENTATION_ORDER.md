@@ -16,7 +16,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | done |
 | PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | done |
 | PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | done |
-| CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | blocked |
+| CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | in_review |
 | CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | blocked |
 | CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | blocked |
 | CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | blocked |
@@ -63,7 +63,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | blocked |
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | blocked |
 | QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
-| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | blocked |
+| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | in_review |
 | RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | blocked |
 | RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | blocked |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | blocked |
@@ -78,11 +78,11 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | blocked |
 | AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | blocked |
 | API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | blocked |
-| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | blocked |
+| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | in_review |
 | PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | blocked |
 | PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | blocked |
 | PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | blocked |
-| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | blocked |
+| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | in_review |
 | LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | blocked |
 | LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | blocked |
 

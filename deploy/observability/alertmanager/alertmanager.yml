@@ -1,0 +1,14 @@
+route:
+  receiver: pagerduty
+  group_by: [alertname]
+  routes:
+    - matchers: [severity="critical"]
+      receiver: pagerduty
+    - matchers: [severity="warning"]
+      receiver: pagerduty
+receivers:
+  - name: pagerduty
+    pagerduty_configs:
+      - routing_key_file: /secrets/pagerduty_routing_key
+        severity: '{{ .CommonLabels.severity }}'
+inhibit_rules: []

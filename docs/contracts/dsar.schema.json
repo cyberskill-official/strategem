@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "DSAR",
+  "$defs": {
+    "ExportResult": {
+      "type": "object",
+      "required": ["subject_id", "exported_at", "packages", "payload"],
+      "properties": {
+        "subject_id": { "type": "string" },
+        "exported_at": { "type": "string" },
+        "packages": { "type": "array", "items": { "type": "string" } },
+        "payload": { "type": "object" }
+      }
+    },
+    "ErasureResult": {
+      "type": "object",
+      "required": ["subject_id", "erased_at", "crypto_shredded", "soft_deleted", "retained_audit"],
+      "properties": {
+        "subject_id": { "type": "string" },
+        "erased_at": { "type": "string" },
+        "crypto_shredded": { "type": "array", "items": { "type": "string" } },
+        "soft_deleted": { "type": "array", "items": { "type": "string" } },
+        "retained_audit": { "type": "boolean" },
+        "idempotent_replay": { "type": "boolean" }
+      }
+    }
+  }
+}

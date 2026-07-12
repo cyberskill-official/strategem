@@ -1,0 +1,36 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ClassicalCorpusFile",
+  "type": "object",
+  "required": ["source", "units"],
+  "additionalProperties": false,
+  "properties": {
+    "source": {
+      "type": "object",
+      "required": ["source_id", "title", "system", "citation_prefix"],
+      "properties": {
+        "source_id": { "type": "string" },
+        "title": { "type": "string" },
+        "system": { "type": "string" },
+        "citation_prefix": { "type": "string" },
+        "language": { "type": "string" }
+      }
+    },
+    "units": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["ordinal", "unit_type", "citation_id"],
+        "properties": {
+          "unit_id": { "type": "string" },
+          "ordinal": { "type": "integer", "minimum": 0 },
+          "unit_type": { "type": "string", "enum": ["dieu", "phap", "khoa", "cau"] },
+          "citation_id": { "type": "string" },
+          "nguyen_van_han": { "type": "string" },
+          "bach_thoai": { "type": "string" },
+          "dich": { "type": "string" }
+        }
+      }
+    }
+  }
+}

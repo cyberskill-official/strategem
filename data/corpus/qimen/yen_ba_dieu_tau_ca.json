@@ -1,0 +1,28 @@
+{
+  "source": {
+    "source_id": "yen_ba_dieu_tau_ca",
+    "title": "Yen Ba Dieu Tau Ca (sample)",
+    "system": "qimen",
+    "citation_prefix": "yba_",
+    "language": "zh-vi"
+  },
+  "units": [
+    {
+      "unit_id": "yen_ba_dieu_tau_ca:0",
+      "ordinal": 0,
+      "unit_type": "dieu",
+      "citation_id": "yba_thien_can_khac_ung_12",
+      "nguyen_van_han": "天干克应",
+      "bach_thoai": "Thien can khac ung",
+      "dich": "Stem overcoming responses"
+    },
+    {
+      "unit_id": "yen_ba_dieu_tau_ca:1",
+      "ordinal": 1,
+      "unit_type": "cau",
+      "citation_id": "yba_thanh_long_01",
+      "nguyen_van_han": "青龙",
+      "dich": "Azure Dragon"
+    }
+  ]
+}

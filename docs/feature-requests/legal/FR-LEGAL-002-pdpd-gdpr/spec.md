@@ -3,7 +3,7 @@ id: FR-LEGAL-002
 title: "PDPD/GDPR compliance pack - consent capture at signup, a retention schedule per data class, and the right-to-erasure + data-export contracts AUTH-004 implements (crypto-shred for erasure); birth data and question text classified as sensitive personal data"
 module: LEGAL
 priority: MUST
-status: ready_to_implement
+status: reviewing
 phase: P1
 slice: 1
 lang: python/doc

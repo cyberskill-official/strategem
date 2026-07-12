@@ -1,0 +1,1 @@
+{"title": "Technical", "panels": [{"title": "Chart p95", "targets": [{"expr": "chart_gen_seconds_p95"}]}, {"title": "Error rate", "targets": [{"expr": "rate(http_errors_total[5m])"}]}]}

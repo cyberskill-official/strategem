@@ -1,0 +1,1 @@
+{"title": "Quality", "panels": [{"title": "Expert validation", "targets": [{"expr": "expert_validation_pass_ratio"}]}, {"title": "NPS", "targets": [{"expr": "nps_score"}]}]}

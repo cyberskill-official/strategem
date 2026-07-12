@@ -1,0 +1,1 @@
+{"title": "Business", "panels": [{"title": "Queries/day", "targets": [{"expr": "increase(chart_gen_total[1d])"}]}, {"title": "Retention D1/D7/D30", "targets": [{"expr": "retention_ratio"}]}]}

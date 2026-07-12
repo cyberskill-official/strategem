@@ -3,7 +3,7 @@ id: FR-PLAT-005
 title: "Observability - Prometheus + Grafana metrics (business, technical, quality), Sentry error tracking, Loki structured logs, PostHog/Mixpanel analytics, and Alertmanager/PagerDuty alerting on chart-gen p95 > 5s, error rate > 1%, LLM downtime, and DB connection issues"
 module: PLAT
 priority: MUST
-status: ready_to_implement
+status: reviewing
 phase: P1
 slice: 1
 lang: iac/python
