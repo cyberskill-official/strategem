@@ -3,7 +3,7 @@ id: FR-API-003
 title: "Rate limiting and abuse detection - per-tier quota enforcement (Free 100/day, Premium 5000/day, Enterprise custom) reading the AUTH-002 config, Redis-backed counters, 429 in the error envelope with Retry-After, plus velocity/anomaly abuse controls"
 module: API
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python

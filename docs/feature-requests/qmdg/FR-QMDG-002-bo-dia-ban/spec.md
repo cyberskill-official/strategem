@@ -3,7 +3,7 @@ id: FR-QMDG-002
 title: "Bo dia ban - place luc nghi + tam ky on the nine palaces by so cuc, directional fill (duong forward, am reverse), start palace = so cuc"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

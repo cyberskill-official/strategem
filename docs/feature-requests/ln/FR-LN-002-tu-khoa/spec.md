@@ -3,7 +3,7 @@ id: FR-LN-002
 title: "Tu khoa (four lessons) - khoa 1 from the day stem ky cung and the thien ban chi above it, khoa 2..4 chained through the thien-dia ban overlay, thuong khac ha (克) / ha khac thuong (賊) per ngu hanh; emits tu_khoa into the la so ban for he=luc_nham and stamps co_truong_phai"
 module: LN
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 2
 lang: rust

@@ -3,7 +3,7 @@ id: FR-API-004
 title: "Persistence and audit - step 9 of the query flow: persist the query, the cast chart(s), the detected patterns, and the report into the PLAT-003 tables, and write an audit_logs row for every sensitive action; the chart is stored as the engine's la so envelope, never re-derived"
 module: API
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python
