@@ -3,7 +3,7 @@ id: FR-PLAT-004
 title: "CI/CD pipeline - GitHub Actions extending the PLAT-001 gate with lint/typecheck, unit+integration tests, docker image build, security scan (Trivy/Snyk), and a staging -> production deploy with a manual approval gate"
 module: PLAT
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: iac

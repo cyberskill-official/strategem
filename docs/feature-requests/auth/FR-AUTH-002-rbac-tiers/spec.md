@@ -3,7 +3,7 @@ id: FR-AUTH-002
 title: "RBAC tiers - Free / Premium / Enterprise / Admin roles + per-tier capability and rate-limit quota config (Free 100/day, Premium 5000/day, Enterprise custom), the single source FR-API-003 enforces, Enterprise API-key auth"
 module: AUTH
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: python

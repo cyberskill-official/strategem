@@ -3,7 +3,7 @@ id: FR-RULE-001
 title: "Pattern-as-data schema + knowledge_patterns table - patterns are versioned JSON rows not code, with a Rust validator, a seed-file format, and a (id, version) stamp"
 module: RULE
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: rust
