@@ -71,7 +71,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | done |
 | STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | blocked |
 | STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | blocked |
-| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | blocked |
+| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | done |
 | CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | blocked |
 | WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | blocked |
 | WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | blocked |
@@ -95,7 +95,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | done |
 | TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |
 | TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | blocked |
-| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | blocked |
+| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | done |
 | KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | blocked |
 | KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | blocked |
 | RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | blocked |

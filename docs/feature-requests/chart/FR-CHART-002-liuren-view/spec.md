@@ -3,7 +3,7 @@ id: FR-CHART-002
 title: "Interactive LiuRen chart view - renders the he=luc_nham ban: the thien dia ban (fixed dia ban 12-branch ring + rotating thien ban), tu khoa (four lessons), tam truyen (three transmissions), and the twelve thien tuong; hover/click detail; cat/hung by color + icon + text; reads the envelope, a pure reader"
 module: CHART
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: typescript

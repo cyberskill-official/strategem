@@ -3,7 +3,7 @@ id: FR-TAT-006
 title: "Engine assembly + JSON envelope + full flag set + kintaiyi oracle gate - run the pipeline tich nien -> an Thai At + 16 than -> bat tuong + toan -> cach cuc + chu-khach, emit the s7.1 engine JSON mapped into the PLAT-002 envelope for he=thai_at, stamp co_truong_phai (epoch / dem_toan / cap / than-variant), cache by year+cap+epoch; acceptance is 100% match to kintaiyi per epoch AND per time level"
 module: TAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P2
 slice: 5
 lang: rust
