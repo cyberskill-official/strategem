@@ -3,7 +3,7 @@ id: FR-CORE-003
 title: "Four pillars (bon tru can chi / tu tru) - year at Lap Xuan 315deg, month via Ngu Ho Don, day via Julian-day mod 60, hour via Ngu Thu Don, zi_hour_day_rollover + late_zi_handling flags"
 module: CORE
 priority: MUST
-status: reviewing
+status: done
 phase: P0
 slice: 1
 lang: rust

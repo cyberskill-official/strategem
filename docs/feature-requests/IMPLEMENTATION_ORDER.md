@@ -18,13 +18,13 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | done |
 | CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | done |
 | CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | done |
-| CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | in_review |
+| CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | done |
 | CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | blocked |
 | CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | blocked |
 | CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | blocked |
 | CORE-007 | Ganzhi primitives + relations | MUST | 8 | PLAT-001 | yes | done |
 | RULE-001 | Pattern-as-data schema + knowledge_patterns | MUST | 8 | PLAT-003 | yes | done |
-| RULE-002 | Condition DSL + evaluator + scoring | MUST | 12 | RULE-001 | yes | in_review |
+| RULE-002 | Condition DSL + evaluator + scoring | MUST | 12 | RULE-001 | yes | done |
 | RULE-003 | Pattern loader + per-system filter + match API | MUST | 6 | RULE-002 | yes | blocked |
 | QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | blocked |
 | QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | blocked |
@@ -35,14 +35,14 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | blocked |
 | KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | blocked |
 | RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | done |
-| RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | in_review |
+| RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | done |
 | RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | blocked |
 | AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | done |
 | AUTH-002 | RBAC tiers + rate-limit tiers | MUST | 8 | AUTH-001 | yes | done |
 | API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | blocked |
 | API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | blocked |
 | API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | blocked |
-| WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | in_review |
+| WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
 | WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | blocked |
 | WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | blocked |
 | CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | blocked |
