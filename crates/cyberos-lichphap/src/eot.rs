@@ -16,9 +16,7 @@ pub fn equation_of_time_minutes(jd_utc: f64) -> f64 {
     let eps = (23.439_291 - 0.013_004_2 * t) * DEG;
     let y = (eps / 2.0).tan().powi(2);
     // E in radians
-    let e_rad = y * (2.0 * l0).sin()
-        - 2.0 * e * m.sin()
-        + 4.0 * e * y * m.sin() * (2.0 * l0).cos()
+    let e_rad = y * (2.0 * l0).sin() - 2.0 * e * m.sin() + 4.0 * e * y * m.sin() * (2.0 * l0).cos()
         - 0.5 * y * y * (4.0 * l0).sin()
         - 1.25 * e * e * (2.0 * m).sin();
     // to minutes of time

@@ -54,8 +54,7 @@ pub fn true_solar_time(
     let lon_corr = longitude_correction_minutes(longitude_east, standard);
 
     // JD of the UTC instant of this civil local clock
-    let local_day_frac =
-        (hour as f64 + minute as f64 / 60.0 + second as f64 / 3600.0) / 24.0;
+    let local_day_frac = (hour as f64 + minute as f64 / 60.0 + second as f64 / 3600.0) / 24.0;
     let jd_utc = julian_day_utc(year, month, day as f64 + local_day_frac) - tz_offset_hours / 24.0;
     let eot = equation_of_time_minutes(jd_utc);
 
@@ -130,6 +129,9 @@ mod tests {
     fn flag_false_passthrough() {
         let r = true_solar_time(2004, 1, 1, 10, 30, 0, 7.0, 106.7, false);
         assert!(!r.ap_dung);
-        assert_eq!((r.gio_that_hour, r.gio_that_minute, r.gio_that_second), (10, 30, 0));
+        assert_eq!(
+            (r.gio_that_hour, r.gio_that_minute, r.gio_that_second),
+            (10, 30, 0)
+        );
     }
 }
