@@ -1,0 +1,18 @@
+name: Dependency scan
+
+on:
+  pull_request:
+  schedule:
+    - cron: "0 7 * * 1"
+
+jobs:
+  trivy-fs:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: aquasecurity/trivy-action@0.28.0
+        with:
+          scan-type: fs
+          severity: HIGH,CRITICAL
+          exit-code: "1"
+          trivyignores: .trivyignore
