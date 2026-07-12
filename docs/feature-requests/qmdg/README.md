@@ -12,12 +12,12 @@ Seven FRs. Six (QMDG-001..006) are the P0 casting pipeline and are authored in f
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [QMDG-001](FR-QMDG-001-dinh-cuc.md) | MUST | P0 | 18 | Dinh cuc (24-jieqi x 3-nguyen table, duong/am don, sieu than tiep khi, 3-method flag) |
-| [QMDG-002](FR-QMDG-002-bo-dia-ban.md) | MUST | P0 | 8 | Bo dia ban (luc nghi tam ky placement, directional fill) |
-| [QMDG-003](FR-QMDG-003-truc-phu-truc-su.md) | MUST | P0 | 14 | Truc phu / truc su + thien ban rotation (chuyen/phi ban flag, ky cung) |
-| [QMDG-004](FR-QMDG-004-sao-mon-than.md) | MUST | P0 | 12 | Cuu tinh / bat mon / bat than placement (am/duong ban than swap) |
-| [QMDG-005](FR-QMDG-005-cach-cuc.md) | MUST | P0 | 16 | Cach cuc detection (thap can khac ung, cat/hung, nhap mo / khong vong / phan-phuc ngam) |
-| [QMDG-006](FR-QMDG-006-engine-assembly.md) | MUST | P0 | 12 | Engine assembly + JSON envelope + full flag set + kinqimen oracle gate |
+| [QMDG-001](FR-QMDG-001-dinh-cuc/spec.md) | MUST | P0 | 18 | Dinh cuc (24-jieqi x 3-nguyen table, duong/am don, sieu than tiep khi, 3-method flag) |
+| [QMDG-002](FR-QMDG-002-bo-dia-ban/spec.md) | MUST | P0 | 8 | Bo dia ban (luc nghi tam ky placement, directional fill) |
+| [QMDG-003](FR-QMDG-003-truc-phu-truc-su/spec.md) | MUST | P0 | 14 | Truc phu / truc su + thien ban rotation (chuyen/phi ban flag, ky cung) |
+| [QMDG-004](FR-QMDG-004-sao-mon-than/spec.md) | MUST | P0 | 12 | Cuu tinh / bat mon / bat than placement (am/duong ban than swap) |
+| [QMDG-005](FR-QMDG-005-cach-cuc/spec.md) | MUST | P0 | 16 | Cach cuc detection (thap can khac ung, cat/hung, nhap mo / khong vong / phan-phuc ngam) |
+| [QMDG-006](FR-QMDG-006-engine-assembly/spec.md) | MUST | P0 | 12 | Engine assembly + JSON envelope + full flag set + kinqimen oracle gate |
 | QMDG-007 | SHOULD | P1 | 6 | Dung than by question type (mapping table) |
 
 Total P0: 80h across QMDG-001..006. QMDG-007 adds 6h in P1.

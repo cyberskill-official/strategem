@@ -6,8 +6,8 @@ The identity and authorization layer: registration and login (email/password plu
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| AUTH-001 | MUST | P0 | 14 | [Auth (JWT + refresh, email + Google/Apple) + birth-data AES-256 + profile](FR-AUTH-001-auth-user.md) |
-| AUTH-002 | MUST | P0 | 8 | [RBAC tiers (Free/Premium/Enterprise/Admin) + rate-limit tiers](FR-AUTH-002-rbac-tiers.md) |
+| AUTH-001 | MUST | P0 | 14 | [Auth (JWT + refresh, email + Google/Apple) + birth-data AES-256 + profile](FR-AUTH-001-auth-user/spec.md) |
+| AUTH-002 | MUST | P0 | 8 | [RBAC tiers (Free/Premium/Enterprise/Admin) + rate-limit tiers](FR-AUTH-002-rbac-tiers/spec.md) |
 | AUTH-003 | SHOULD | P1 | 6 | Email verification + password reset |
 | AUTH-004 | SHOULD | P2 | 8 | DSAR self-service (export + erasure) |
 

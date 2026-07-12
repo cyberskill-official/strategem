@@ -8,13 +8,13 @@ The one hard rule of this module: the interpretation branch never casts or recom
 
 | FR | Pri | Phase | h | depends_on | Spec | Title |
 |---|---|---|--:|---|---|---|
-| RAG-001 | MUST | P0 | 14 | KB-003, PLAT-001 | [FR-RAG-001](FR-RAG-001-ingest-embed.md) | Classical-text ingest + multilingual embedding + vector store |
-| RAG-002 | MUST | P0 | 12 | RAG-001, KB-005 | [FR-RAG-002](FR-RAG-002-hybrid-retriever.md) | Hybrid retriever (vector + graph, top-k, per-system filter) |
-| RAG-003 | MUST | P0 | 16 | RAG-002 | [FR-RAG-003](FR-RAG-003-interpret-llm.md) | Prompt library + LLM caller + structured output + anti-hallucination + AIDisclosure |
-| RAG-004 | MUST | P1 | 12 | RAG-003 | [FR-RAG-004](FR-RAG-004-human-review-gate.md) | HumanReviewGate pipeline (queue, approve/reject, audit) |
-| RAG-005 | SHOULD | P2 | 10 | RAG-002 | [FR-RAG-005](FR-RAG-005-term-sense.md) | Term-sense expansion (ban nghia / dan than / gia ta / dien tich) |
-| RAG-006 | MUST | P2 | 12 | RAG-003, KB-002 | [FR-RAG-006](FR-RAG-006-eval-loop.md) | Interpretation eval loop (faithfulness/relevance/citation) + CI gate |
-| RAG-007 | MUST | P1 | 8 | RAG-003 | [FR-RAG-007](FR-RAG-007-fallback.md) | LLM fallback + circuit breaker + rule-based degradation |
+| RAG-001 | MUST | P0 | 14 | KB-003, PLAT-001 | [FR-RAG-001](FR-RAG-001-ingest-embed/spec.md) | Classical-text ingest + multilingual embedding + vector store |
+| RAG-002 | MUST | P0 | 12 | RAG-001, KB-005 | [FR-RAG-002](FR-RAG-002-hybrid-retriever/spec.md) | Hybrid retriever (vector + graph, top-k, per-system filter) |
+| RAG-003 | MUST | P0 | 16 | RAG-002 | [FR-RAG-003](FR-RAG-003-interpret-llm/spec.md) | Prompt library + LLM caller + structured output + anti-hallucination + AIDisclosure |
+| RAG-004 | MUST | P1 | 12 | RAG-003 | [FR-RAG-004](FR-RAG-004-human-review-gate/spec.md) | HumanReviewGate pipeline (queue, approve/reject, audit) |
+| RAG-005 | SHOULD | P2 | 10 | RAG-002 | [FR-RAG-005](FR-RAG-005-term-sense/spec.md) | Term-sense expansion (ban nghia / dan than / gia ta / dien tich) |
+| RAG-006 | MUST | P2 | 12 | RAG-003, KB-002 | [FR-RAG-006](FR-RAG-006-eval-loop/spec.md) | Interpretation eval loop (faithfulness/relevance/citation) + CI gate |
+| RAG-007 | MUST | P1 | 8 | RAG-003 | [FR-RAG-007](FR-RAG-007-fallback/spec.md) | LLM fallback + circuit breaker + rule-based degradation |
 
 Three P0 FRs are authored (RAG-001..003, the ingest -> retrieve -> interpret spine). Four are authored: RAG-004 (HumanReviewGate, P1), RAG-005 (term-sense expansion of văn ngôn văn queries - bản nghĩa / dẫn thân / giả tá / điển tích, P2), RAG-006 (the interpretation eval loop + CI gate, P2), and RAG-007 (LLM fallback / circuit breaker / rule-based degradation, P1).
 

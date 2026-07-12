@@ -12,7 +12,7 @@ Three FRs, ~26 engineering-hours. One (REPORT-001, structured report assembly) i
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [REPORT-001](FR-REPORT-001-structured-report.md) | MUST | P1 | 10 | Structured report assembly (chart + patterns + interpretation + citations) |
+| [REPORT-001](FR-REPORT-001-structured-report/spec.md) | MUST | P1 | 10 | Structured report assembly (chart + patterns + interpretation + citations) |
 | REPORT-002 | SHOULD | P1 | 10 | PDF export (templated, branded, bilingual) |
 | REPORT-003 | COULD | P2 | 6 | Sample report templates per question type |
 

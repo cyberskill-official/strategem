@@ -12,7 +12,7 @@ Six FRs, all P2, ~68 engineering-hours. One (TAT-001, tich nien + ky nguyen) is 
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [TAT-001](FR-TAT-001-tich-nien.md) | MUST | P2 | 12 | Tich nien + ky nguyen (3 reduction methods, flag) |
+| [TAT-001](FR-TAT-001-tich-nien/spec.md) | MUST | P2 | 12 | Tich nien + ky nguyen (3 reduction methods, flag) |
 | TAT-002 | MUST | P2 | 12 | An Thai At qua cuu cung + 16 than (chinh cung / gian than) |
 | TAT-003 | MUST | P2 | 14 | Bat tuong + cac toan (Van Xuong, Thuy Kich, ke than, chu/khach toan) |
 | TAT-004 | SHOULD | P2 | 8 | Bon phep (nien/nguyet/nhat/thoi ke) |

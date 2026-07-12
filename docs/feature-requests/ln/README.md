@@ -12,7 +12,7 @@ Six FRs, all P1, ~70 engineering-hours. One (LN-001, thien dia ban + nguyet tuon
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [LN-001](FR-LN-001-thien-dia-ban-nguyet-tuong.md) | MUST | P1 | 12 | Thien dia ban + nguyet tuong (gia nguyet tuong, thien can ky cung) |
+| [LN-001](FR-LN-001-thien-dia-ban-nguyet-tuong/spec.md) | MUST | P1 | 12 | Thien dia ban + nguyet tuong (gia nguyet tuong, thien can ky cung) |
 | LN-002 | MUST | P1 | 10 | Tu khoa (four lessons, thuong/ha khac) |
 | LN-003 | MUST | P1 | 16 | Chin tong mon + tam truyen (nine-method decision tree, phuc/phan ngam) |
 | LN-004 | MUST | P1 | 10 | Muoi hai thien tuong (khoi quy nhan, thuan/nghich bo, cat/hung) |

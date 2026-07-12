@@ -8,10 +8,10 @@ The one framing that governs the whole module: the product is heritage education
 
 | FR | Pri | Phase | h | depends_on | Spec | Title |
 |---|---|---|--:|---|---|---|
-| LEGAL-001 | MUST | P0 | 6 | WEB-001 | [FR-LEGAL-001](FR-LEGAL-001-disclaimer-positioning.md) | Disclaimer + AI-disclosure + positioning copy (in-product) |
-| LEGAL-002 | MUST | P1 | 12 | AUTH-001 | [FR-LEGAL-002](FR-LEGAL-002-pdpd-gdpr.md) | PDPD/GDPR compliance pack (consent, retention, erasure/export contracts) |
-| LEGAL-003 | MUST | P1 | 8 | RAG-003 | [FR-LEGAL-003](FR-LEGAL-003-ethical-ai.md) | Ethical-AI + cultural-sensitivity guardrails (language rules, school fairness, attribution) |
-| LEGAL-004 | MUST | P1 | 4 | LEGAL-001 | [FR-LEGAL-004](FR-LEGAL-004-vn-legal-review.md) | VN legal review checklist + counsel sign-off gate (pre-launch) |
+| LEGAL-001 | MUST | P0 | 6 | WEB-001 | [FR-LEGAL-001](FR-LEGAL-001-disclaimer-positioning/spec.md) | Disclaimer + AI-disclosure + positioning copy (in-product) |
+| LEGAL-002 | MUST | P1 | 12 | AUTH-001 | [FR-LEGAL-002](FR-LEGAL-002-pdpd-gdpr/spec.md) | PDPD/GDPR compliance pack (consent, retention, erasure/export contracts) |
+| LEGAL-003 | MUST | P1 | 8 | RAG-003 | [FR-LEGAL-003](FR-LEGAL-003-ethical-ai/spec.md) | Ethical-AI + cultural-sensitivity guardrails (language rules, school fairness, attribution) |
+| LEGAL-004 | MUST | P1 | 4 | LEGAL-001 | [FR-LEGAL-004](FR-LEGAL-004-vn-legal-review/spec.md) | VN legal review checklist + counsel sign-off gate (pre-launch) |
 
 One P0 FR is authored: LEGAL-001, the in-product disclaimer + AI-disclosure copy + positioning language rules. Three are authored: LEGAL-002 (the PDPD/GDPR compliance pack - consent, retention, and the erasure/export contracts, P1, on AUTH-001), LEGAL-003 (ethical-AI + cultural-sensitivity guardrails - language rules, school fairness, attribution, P1, extending the RAG-003 framing guard), and LEGAL-004 (the VN legal review checklist and counsel sign-off gate before launch, P1, gating LEGAL-001's statute references and wording).
 

@@ -12,7 +12,7 @@ Four FRs, all P3, ~46 engineering-hours. One (EDU-001, the four-level curriculum
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [EDU-001](FR-EDU-001-curriculum.md) | SHOULD | P3 | 12 | Four-level curriculum structure + progression criteria |
+| [EDU-001](FR-EDU-001-curriculum/spec.md) | SHOULD | P3 | 12 | Four-level curriculum structure + progression criteria |
 | EDU-002 | SHOULD | P3 | 16 | Auto-graded chart practice (engine as grader, step diff) |
 | EDU-003 | SHOULD | P3 | 10 | Bilingual classical library (search, cite) |
 | EDU-004 | COULD | P3 | 8 | Onboarding + help center |

@@ -12,7 +12,7 @@ Four FRs, ~44 engineering-hours. One (STRAT-001, the Timing Optimizer) is author
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [STRAT-001](FR-STRAT-001-timing-optimizer.md) | MUST | P1 | 16 | Timing Optimizer (date-range scan, scored windows) |
+| [STRAT-001](FR-STRAT-001-timing-optimizer/spec.md) | MUST | P1 | 16 | Timing Optimizer (date-range scan, scored windows) |
 | STRAT-002 | SHOULD | P1 | 10 | Scenario Comparison (compare timing results across options) |
 | STRAT-003 | SHOULD | P1 | 8 | Chu-khach decision framework (4-step, dung than framing) |
 | STRAT-004 | SHOULD | P2 | 10 | Cross-system validate (/calculate/all + agreement view) |

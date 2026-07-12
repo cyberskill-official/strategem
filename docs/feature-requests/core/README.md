@@ -6,13 +6,13 @@ The shared lich phap (calendar and astronomy) core that all three Tam Thuc engin
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| [CORE-001](FR-CORE-001-solar-longitude-tiet-khi.md) | MUST | P0 | 20 | Solar longitude + 24 tiet khi (Meeus, inverse solve, delta-T) |
-| [CORE-002](FR-CORE-002-true-solar-time.md) | MUST | P0 | 12 | True solar time (equation of time + longitude correction + flags) |
-| [CORE-003](FR-CORE-003-four-pillars.md) | MUST | P0 | 16 | Four pillars (Ngu Ho / Ngu Thu don, Julian-day, zi-hour flags) |
-| [CORE-004](FR-CORE-004-derived-states.md) | MUST | P0 | 10 | Derived states (tuan khong, vuong-suy, truong sinh, school flag) |
-| [CORE-005](FR-CORE-005-calendar-module-api.md) | MUST | P0 | 10 | Calendar module API + JSON output + flag set + stamp |
-| [CORE-006](FR-CORE-006-oracle-harness.md) | MUST | P0 | 14 | Oracle cross-check harness (sxwnl + tyme4py, decades, boundary, CI gate) |
-| [CORE-007](FR-CORE-007-ganzhi-primitives.md) | MUST | P0 | 8 | Ganzhi primitives + relations (ngu hanh sinh/khac, chi hinh/xung/pha/hai/hop) |
+| [CORE-001](FR-CORE-001-solar-longitude-tiet-khi/spec.md) | MUST | P0 | 20 | Solar longitude + 24 tiet khi (Meeus, inverse solve, delta-T) |
+| [CORE-002](FR-CORE-002-true-solar-time/spec.md) | MUST | P0 | 12 | True solar time (equation of time + longitude correction + flags) |
+| [CORE-003](FR-CORE-003-four-pillars/spec.md) | MUST | P0 | 16 | Four pillars (Ngu Ho / Ngu Thu don, Julian-day, zi-hour flags) |
+| [CORE-004](FR-CORE-004-derived-states/spec.md) | MUST | P0 | 10 | Derived states (tuan khong, vuong-suy, truong sinh, school flag) |
+| [CORE-005](FR-CORE-005-calendar-module-api/spec.md) | MUST | P0 | 10 | Calendar module API + JSON output + flag set + stamp |
+| [CORE-006](FR-CORE-006-oracle-harness/spec.md) | MUST | P0 | 14 | Oracle cross-check harness (sxwnl + tyme4py, decades, boundary, CI gate) |
+| [CORE-007](FR-CORE-007-ganzhi-primitives/spec.md) | MUST | P0 | 8 | Ganzhi primitives + relations (ngu hanh sinh/khac, chi hinh/xung/pha/hai/hop) |
 
 ## Internal build order
 

@@ -8,10 +8,10 @@ Every chart in this module is a pure view over the engine's output. It reads the
 
 | FR | Pri | Phase | h | depends_on | Spec | Title |
 |---|---|---|--:|---|---|---|
-| CHART-001 | MUST | P0 | 16 | WEB-001, QMDG-006 | [FR-CHART-001](FR-CHART-001-nine-palace-qimen.md) | Interactive 9-palace QiMen chart (4 layers, hover/click, cat/hung color, export) |
-| CHART-002 | MUST | P1 | 12 | CHART-001, LN-006 | [FR-CHART-002](FR-CHART-002-liuren-view.md) | LiuRen chart view (thien dia ban, tu khoa, tam truyen, thien tuong) |
-| CHART-003 | SHOULD | P2 | 12 | CHART-001, TAT-006 | [FR-CHART-003](FR-CHART-003-taiyi-view.md) | TaiYi chart view (cuu cung, 16 than, tuong) |
-| CHART-004 | SHOULD | P1 | 8 | CHART-001 | [FR-CHART-004](FR-CHART-004-export-a11y.md) | Chart export (PNG/SVG/print) + accessibility (dau chong test, screen reader) |
+| CHART-001 | MUST | P0 | 16 | WEB-001, QMDG-006 | [FR-CHART-001](FR-CHART-001-nine-palace-qimen/spec.md) | Interactive 9-palace QiMen chart (4 layers, hover/click, cat/hung color, export) |
+| CHART-002 | MUST | P1 | 12 | CHART-001, LN-006 | [FR-CHART-002](FR-CHART-002-liuren-view/spec.md) | LiuRen chart view (thien dia ban, tu khoa, tam truyen, thien tuong) |
+| CHART-003 | SHOULD | P2 | 12 | CHART-001, TAT-006 | [FR-CHART-003](FR-CHART-003-taiyi-view/spec.md) | TaiYi chart view (cuu cung, 16 than, tuong) |
+| CHART-004 | SHOULD | P1 | 8 | CHART-001 | [FR-CHART-004](FR-CHART-004-export-a11y/spec.md) | Chart export (PNG/SVG/print) + accessibility (dau chong test, screen reader) |
 
 One P0 FR is authored: CHART-001, the interactive 9-palace QiMen chart. Three are authored: CHART-002 (the LiuRen chart view - thien dia ban / tu khoa / tam truyen / thien tuong, P1, needs LN-006), CHART-003 (the TaiYi chart view - cuu cung / 16 than / tuong, P2, needs TAT-006), and CHART-004 (the shared PNG/SVG/print export + the full accessibility pass including the dau chong stacked-diacritics test and screen-reader support, P1).
 

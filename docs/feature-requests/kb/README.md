@@ -6,8 +6,8 @@ The structured-knowledge layer of the interpretation branch: the graph of the th
 
 | FR | Pri | Phase | h | Title |
 |---|---|---|--:|---|
-| KB-001 | SHOULD | P0 | 12 | [Knowledge-graph schema (node + edge taxonomy) + storage](FR-KB-001-knowledge-graph.md) |
-| KB-002 | MUST | P0 | 16 | [Pattern seeding (150-200 patterns, 3 systems, JSON conditions + citations)](FR-KB-002-pattern-seeding.md) |
+| KB-001 | SHOULD | P0 | 12 | [Knowledge-graph schema (node + edge taxonomy) + storage](FR-KB-001-knowledge-graph/spec.md) |
+| KB-002 | MUST | P0 | 16 | [Pattern seeding (150-200 patterns, 3 systems, JSON conditions + citations)](FR-KB-002-pattern-seeding/spec.md) |
 | KB-003 | MUST | P1 | 12 | Classical-text three-layer store (Han/bach thoai/dich) + chunking |
 | KB-004 | SHOULD | P2 | 10 | KB curation workflow + expert review + versioning |
 | KB-005 | SHOULD | P2 | 12 | Knowledge-graph hybrid-retrieval query API |
