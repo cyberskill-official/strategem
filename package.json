@@ -4,6 +4,8 @@
   "private": true,
   "description": "Tam Thuc Strategem monorepo root (pnpm workspace for web lane)",
   "packageManager": "pnpm@11.8.0",
-  "devDependencies": {},
-  "scripts": {}
+  "scripts": {},
+  "dependencies": {
+    "undici": "6.27.0"
+  }
 }

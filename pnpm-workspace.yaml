@@ -10,3 +10,6 @@ minimumReleaseAge: 0
 # You can also list exceptions here instead of fully disabling:
 # minimumReleaseAgeExclude:
 #   - "some-pkg@1.2.3"
+
+overrides:
+  undici: ">=6.27.0"

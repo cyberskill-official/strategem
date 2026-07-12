@@ -8,10 +8,19 @@ RUN pnpm --filter web install --ignore-scripts \
   && pnpm --filter web build
 
 FROM node:24-bookworm-slim AS runtime
-# Security patches for OS packages scanned by Trivy in CD.
+# Security patches + remove unused package managers that ship vulnerable
+# transitive deps (npm's undici, yarn) not needed for Next standalone.
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
-  && rm -rf /var/lib/apt/lists/*
+  && rm -rf /var/lib/apt/lists/* \
+  && rm -rf /usr/local/lib/node_modules/npm \
+            /usr/local/lib/node_modules/corepack \
+            /opt/yarn-v* \
+  && rm -f /usr/local/bin/npm \
+           /usr/local/bin/npx \
+           /usr/local/bin/corepack \
+           /usr/local/bin/yarn \
+           /usr/local/bin/yarnpkg
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /src/apps/web/.next/standalone ./
