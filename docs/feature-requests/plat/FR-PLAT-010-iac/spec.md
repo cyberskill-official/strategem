@@ -3,7 +3,7 @@ id: FR-PLAT-010
 title: "Infrastructure as code - Terraform + Kubernetes manifests, horizontal autoscaling for the stateless calculation services, and Celery workers for background tasks (batch reports)"
 module: PLAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: iac

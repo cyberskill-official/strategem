@@ -1,0 +1,25 @@
+{
+  "agree_case": {
+    "ky_mon": {
+      "cache_key": "qm1",
+      "cach_cuc": [
+        { "id": "a", "name": "cat1", "polarity": "cat" },
+        { "id": "b", "name": "cat2", "polarity": "cat" }
+      ]
+    },
+    "luc_nham": {
+      "cache_key": "ln1",
+      "cach_cuc": [{ "id": "c", "name": "catL", "polarity": "cat" }]
+    }
+  },
+  "divergent_scope_case": {
+    "ky_mon": {
+      "cache_key": "qm2",
+      "cach_cuc": [{ "id": "a", "name": "cat", "polarity": "cat" }]
+    },
+    "thai_at": {
+      "cache_key": "ta1",
+      "cach_cuc": [{ "id": "d", "name": "hung", "polarity": "hung" }]
+    }
+  }
+}

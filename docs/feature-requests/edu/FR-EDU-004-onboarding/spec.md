@@ -3,7 +3,7 @@ id: FR-EDU-004
 title: "Onboarding + help center - first-run guided tour that teaches the cast-read-decide loop and the meaning of the AIDisclosure and HumanReview components; a structured help-center of categories and articles, both content-as-data"
 module: EDU
 priority: COULD
-status: ready_to_implement
+status: done
 phase: P3
 slice: 1
 lang: typescript

@@ -3,7 +3,7 @@ id: FR-REPORT-003
 title: "Sample report templates per question type - trach thoi (timing), phuong vi (direction), chu-khach (competitor/risk), and macro outlook - each mapped to the right system and dung than per Claude-07 s1; presentation templates over the REPORT-001 report, read-only, no re-compute"
 module: REPORT
 priority: COULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

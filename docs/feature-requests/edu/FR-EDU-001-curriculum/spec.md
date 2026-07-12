@@ -3,7 +3,7 @@ id: FR-EDU-001
 title: "Four-level curriculum + progression criteria - typed L1..L4 structure (can chi/ngu hanh -> LiuRen -> QiMen+TaiYi -> integration), measurable level-up criteria from Tam-Thuc-07 s3.2, engine-as-grader hooks; renders in the WEB-001 shell"
 module: EDU
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P3
 slice: 1
 lang: typescript

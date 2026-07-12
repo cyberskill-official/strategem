@@ -1,0 +1,20 @@
+{
+  "nav.cast": "起盘",
+  "nav.dashboard": "仪表盘",
+  "cast.title": "新建起盘",
+  "cast.button": "起盘",
+  "cast.datetime": "日期时间",
+  "cast.timezone": "时区",
+  "cast.place": "地点",
+  "cast.longitude": "经度",
+  "cast.questionType": "问题类型",
+  "cast.persona": "读者层级",
+  "cast.loading": "起盘中…",
+  "cast.resultsEmpty": "起盘后在此查看结果。",
+  "disclaimer.short": "仅供文化与教育用途。非医疗、法律或财务建议。",
+  "error.rateLimited": "请求过多，请稍后再试。",
+  "error.forbiddenTier": "此功能需要高级或更高订阅。",
+  "locale.vi": "越南语",
+  "locale.en": "英语",
+  "locale.zh": "中文"
+}

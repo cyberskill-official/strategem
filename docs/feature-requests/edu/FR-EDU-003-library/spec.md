@@ -3,7 +3,7 @@ id: FR-EDU-003
 title: "Bilingual classical library - search and cite over the FR-KB-003 three-layer store; the learner reads original Han beside bach thoai and translation, with citations, to reach primary sources; a citation id resolves to the exact passage"
 module: EDU
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P3
 slice: 1
 lang: typescript

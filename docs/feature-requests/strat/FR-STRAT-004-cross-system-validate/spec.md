@@ -3,7 +3,7 @@ id: FR-STRAT-004
 title: "Cross-system validate - /calculate/all runs two or more engines for one question and returns a per-system read plus an agreement view (agreement vs divergence), noting that the three systems cover different scopes (Claude-07 s1.4); calls the engines, never re-casts, and never merges into a single verdict"
 module: STRAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

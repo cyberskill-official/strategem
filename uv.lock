@@ -14,6 +14,7 @@ members = [
     "tamthuc-api",
     "tamthuc-auth",
     "tamthuc-compliance",
+    "tamthuc-edu",
     "tamthuc-kb",
     "tamthuc-rag",
     "tamthuc-report",
@@ -936,6 +937,17 @@ requires-dist = [
 name = "tamthuc-compliance"
 version = "0.1.0"
 source = { editable = "packages/tamthuc_compliance" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.7" }]
+
+[[package]]
+name = "tamthuc-edu"
+version = "0.1.0"
+source = { editable = "packages/tamthuc_edu" }
 dependencies = [
     { name = "pydantic" },
 ]

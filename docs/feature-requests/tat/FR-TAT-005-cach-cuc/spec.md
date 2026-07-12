@@ -3,7 +3,7 @@ id: FR-TAT-005
 title: "Cach cuc + chu-khach thang bai - recognize the position cach between Thai At and the tuong (掩 Yem / 迫 Bach / 關 Quan / 囚 Tu / 擊 Kich / 格 Cach / 對 Doi) and compute the four deterministic victory criteria (hoa vs bat hoa on the toan, truong vs doan, tam tai du vs khuyet, the cach set); emits the facts, leaves the verdict to the cited AI layer; extends the ban for he=thai_at and fills the envelope cach_cuc"
 module: TAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 4
 lang: rust

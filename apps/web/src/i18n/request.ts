@@ -1,10 +1,12 @@
 import { defaultLocale, type Locale } from "./routing";
 import vi from "../messages/vi.json";
 import en from "../messages/en.json";
+import zh from "../messages/zh.json";
 
 const catalogs: Record<Locale, Record<string, string>> = {
   vi: vi as Record<string, string>,
   en: en as Record<string, string>,
+  zh: zh as Record<string, string>,
 };
 
 export type { Locale };

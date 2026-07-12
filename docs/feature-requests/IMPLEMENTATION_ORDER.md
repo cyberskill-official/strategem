@@ -93,31 +93,31 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | done |
 | TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | done |
 | TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | done |
-| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |
-| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | blocked |
+| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | done |
+| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | done |
 | TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | done |
 | KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | done |
-| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | blocked |
+| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | done |
 | RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | done |
 | RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | done |
-| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | blocked |
+| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | done |
 | CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | done |
-| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | blocked |
-| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | blocked |
-| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | blocked |
-| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | yes | blocked |
-| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | yes | blocked |
-| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | yes | blocked |
+| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | done |
+| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | done |
+| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | done |
+| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | yes | done |
+| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | yes | done |
+| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | yes | done |
 
 ## Phase P3 - training platform and hardening (~130h)
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| EDU-001 | Four-level curriculum + progression criteria | SHOULD | 12 | WEB-001 | yes | blocked |
-| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | yes | blocked |
-| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | yes | blocked |
-| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | yes | blocked |
-| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | yes | blocked |
+| EDU-001 | Four-level curriculum + progression criteria | SHOULD | 12 | WEB-001 | yes | done |
+| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | yes | done |
+| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | yes | done |
+| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | yes | done |
+| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | yes | done |
 
 ## Rollup
 

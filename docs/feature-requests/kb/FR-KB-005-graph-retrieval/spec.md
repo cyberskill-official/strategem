@@ -3,7 +3,7 @@ id: FR-KB-005
 title: "Knowledge-graph hybrid-retrieval query API - graph traversal over the KB-001 node/edge graph (ngu hanh sinh/khac, dia chi hinh/xung/pha/hai/hop, ky cung/lac cung/lam, thua/vuong-suy); given a la so's components returns related entities + relations + their citations; the graph arm FR-RAG-002 was built to accept"
 module: KB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

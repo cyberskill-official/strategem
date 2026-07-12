@@ -1,0 +1,26 @@
+{
+  "ky_mon": {
+    "he": "ky_mon",
+    "cach_cuc": ["青龍返首"]
+  },
+  "luc_nham": {
+    "he": "luc_nham",
+    "tam_truyen": [{ "than": "六合" }]
+  },
+  "condition": {
+    "type": "and",
+    "weight": 1.0,
+    "rules": [
+      {
+        "field": "ky_mon:cach_cuc",
+        "operator": "contains",
+        "value": "青龍返首"
+      },
+      {
+        "field": "luc_nham:tam_truyen.0.than",
+        "operator": "eq",
+        "value": "六合"
+      }
+    ]
+  }
+}

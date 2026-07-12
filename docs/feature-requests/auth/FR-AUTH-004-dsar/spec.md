@@ -3,7 +3,7 @@ id: FR-AUTH-004
 title: "DSAR self-service - data-subject access request export (a machine-readable copy of all personal data) and right-to-erasure over the AUTH-001 profile and the persisted history, honoring the LEGAL-002 PDPD/GDPR retention and disclosure contracts; erasure crypto-shreds birth_data and is audited"
 module: AUTH
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "GraphQueryResult",
+  "type": "object",
+  "required": ["hits", "seeds_resolved", "seeds_unresolved", "filter"],
+  "properties": {
+    "hits": { "type": "array" },
+    "seeds_resolved": { "type": "array", "items": { "type": "string" } },
+    "seeds_unresolved": { "type": "array", "items": { "type": "string" } },
+    "filter": { "type": "object" }
+  }
+}

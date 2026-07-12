@@ -3,7 +3,7 @@ id: FR-RULE-004
 title: "Cross-system pattern support - extend the FR-RULE-002 DSL to patterns spanning more than one chart in a set (system: all over a QiMen + LiuRen chart set for the same question) and nested multi-condition trees with node weights; the totality guarantee generalizes"
 module: RULE
 priority: COULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: rust

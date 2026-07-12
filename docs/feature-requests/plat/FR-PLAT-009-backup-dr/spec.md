@@ -3,7 +3,7 @@ id: FR-PLAT-009
 title: "Backup and disaster recovery - daily automated backups + point-in-time recovery (RPO 1h, RTO 4h), multi-AZ deployment with cross-region failover, and a scheduled restore drill against the PLAT-003 schema"
 module: PLAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: iac

@@ -3,7 +3,7 @@ id: FR-WEB-008
 title: "Chinese (ZH) locale + RTL-ready layout scaffolding - adds the zh message catalog on the WEB-006 foundation and makes the layout direction-agnostic (CSS logical properties) so a future RTL locale needs no relayout"
 module: WEB
 priority: COULD
-status: ready_to_implement
+status: done
 phase: P3
 slice: 1
 lang: typescript

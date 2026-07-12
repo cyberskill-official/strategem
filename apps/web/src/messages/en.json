@@ -15,5 +15,6 @@
   "error.rateLimited": "Rate limited. Try later.",
   "error.forbiddenTier": "This capability needs Premium or higher.",
   "locale.vi": "Tiếng Việt",
-  "locale.en": "English"
+  "locale.en": "English",
+  "locale.zh": "中文"
 }

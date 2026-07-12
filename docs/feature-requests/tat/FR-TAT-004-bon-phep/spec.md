@@ -3,7 +3,7 @@ id: FR-TAT-004
 title: "Bon phep - the four time-level calculations nien / nguyet / nhat / thoi ke, each with its own tich formula reduced mod 72 into a cuc (nien = 10,153,917 + CE; nguyet = tich nien x 12 with leap-month handling; nhat anchored on Dong Chi via 365.2425; thoi = tich nhat x 12), one hour = one cuc, six days = one 72-cuc circuit; reuses FR-TAT-001 reductions and FR-TAT-002 seating; extends the ban for he=thai_at"
 module: TAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 3
 lang: rust

@@ -3,7 +3,7 @@ id: FR-EDU-002
 title: "Auto-graded chart practice - the deterministic engine as marker: the learner casts a chart step by step, the app diffs each step against the engine's la so and pinpoints the exact error (mis-placed khoa / mis-derived tam truyen / mis-seated sao)"
 module: EDU
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P3
 slice: 1
 lang: typescript

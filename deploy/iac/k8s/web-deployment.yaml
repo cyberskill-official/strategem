@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: tamthuc-web
+  namespace: strategem
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: tamthuc-web
+  template:
+    metadata:
+      labels:
+        app: tamthuc-web
+    spec:
+      containers:
+        - name: web
+          image: strategem/web:latest
+          ports:
+            - containerPort: 3000

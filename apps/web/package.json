@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs && node tests/results-panel.test.mjs && node tests/liuren-chart.test.mjs && node tests/taiyi-chart.test.mjs && node tests/dashboard.test.mjs && node tests/chart-export.test.mjs && node tests/report-view.test.mjs && node tests/chu-khach.test.mjs",
+    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs && node tests/results-panel.test.mjs && node tests/liuren-chart.test.mjs && node tests/taiyi-chart.test.mjs && node tests/dashboard.test.mjs && node tests/chart-export.test.mjs && node tests/report-view.test.mjs && node tests/chu-khach.test.mjs && node tests/management-flow.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

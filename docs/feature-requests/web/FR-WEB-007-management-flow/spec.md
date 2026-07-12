@@ -3,7 +3,7 @@ id: FR-WEB-007
 title: "Management flow - saved-chart history, a per-system school-flag (co_truong_phai) configuration UI stamped onto each new chart, and share/export"
 module: WEB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: typescript
