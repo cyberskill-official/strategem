@@ -13,7 +13,7 @@ def test_hit_byte_identical() -> None:
     cache = ChartCache(redis)
     calls = {"n": 0}
 
-    def cast() -> dict:
+    def cast() -> dict[str, object]:
         calls["n"] += 1
         return {"envelope_version": 1, "ban": {"x": 1}, "he": "ky_mon"}
 

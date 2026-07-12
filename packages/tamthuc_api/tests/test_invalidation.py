@@ -33,7 +33,7 @@ def test_warm_common_produces_hits() -> None:
     assert n == 2
     calls = {"n": 0}
 
-    def should_not_run() -> dict:
+    def should_not_run() -> dict[str, object]:
         calls["n"] += 1
         return {"id": 99}
 

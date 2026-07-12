@@ -40,7 +40,8 @@ class ChartCache:
             return None
         if raw is None:
             return None
-        return json.loads(raw.decode("utf-8"))
+        data: dict[str, Any] = json.loads(raw.decode("utf-8"))
+        return data
 
     def set(self, plat002_cache_key: str, envelope: dict[str, Any]) -> None:
         try:
@@ -79,7 +80,10 @@ class ChartCache:
             raw = self.redis.get(rag_topk_key(query_hash))
         except Exception:
             return None
-        return json.loads(raw.decode("utf-8")) if raw else None
+        if not raw:
+            return None
+        data: dict[str, Any] = json.loads(raw.decode("utf-8"))
+        return data
 
     def set_rag_interp(self, chart_key_hash: str, persona: str, payload: dict[str, Any]) -> None:
         try:
@@ -96,4 +100,7 @@ class ChartCache:
             raw = self.redis.get(rag_interp_key(chart_key_hash, persona))
         except Exception:
             return None
-        return json.loads(raw.decode("utf-8")) if raw else None
+        if not raw:
+            return None
+        data: dict[str, Any] = json.loads(raw.decode("utf-8"))
+        return data

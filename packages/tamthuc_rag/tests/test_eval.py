@@ -27,13 +27,16 @@ def _interp(
     beginner: str,
     expert: str = "",
     cites: list[str] | None = None,
-    recs: list[object] | None = None,
+    recs: list[dict[str, object]] | None = None,
 ) -> Interpretation:
     cards = [CitationCard(citation_id=c) for c in (cites or [])]
+    recommendations: list[dict[str, object]] = (
+        list(recs) if recs is not None else [{"text": "weigh context"}]
+    )
     return Interpretation(
         beginner=beginner,
         expert=expert,
-        recommendations=list(recs or [{"text": "weigh context"}]),
+        recommendations=recommendations,
         citations=cards,
         confidence=0.8,
         requires_human_review=False,

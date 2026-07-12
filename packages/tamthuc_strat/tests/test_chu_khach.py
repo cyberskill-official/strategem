@@ -8,7 +8,7 @@ import json
 from tamthuc_strat.chu_khach import DecisionFrame, build_frame
 
 
-def _golden_interp() -> dict:
+def _golden_interp() -> dict[str, object]:
     return {
         "beginner": "the acting side holds the initiative this window",
         "expert": "dung than on the acting palace supports measured advance",
@@ -25,7 +25,7 @@ def _golden_interp() -> dict:
     }
 
 
-def _golden_laso() -> dict:
+def _golden_laso() -> dict[str, object]:
     return {
         "question": "Should we enter the northern market this quarter?",
         "charts": {
