@@ -3,7 +3,7 @@ id: FR-PLAT-007
 title: "Security hardening - STRIDE control set (JWT + rate limit, input validation + signed calcs, audit logging, AES-256 + least privilege, rate limit + autoscale + WAF, RBAC), TLS 1.3 in transit, secret-manager custody, dependency scanning (Snyk/Dependabot/Trivy), OWASP Top 10 checklist, annual + post-change pentest, and an incident-response playbook with GDPR 72h / VN PDPD breach notification"
 module: PLAT
 priority: MUST
-status: testing
+status: done
 phase: P1
 slice: 1
 lang: iac/python

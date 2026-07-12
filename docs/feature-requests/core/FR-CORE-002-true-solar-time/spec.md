@@ -3,7 +3,7 @@ id: FR-CORE-002
 title: "True solar time (equation of time + longitude correction + flags) - chan thai duong thoi, Meeus EoT with signed extrema, 4 minutes per degree off the VN 105E meridian, use_true_solar_time + longitude flags, feeds the hour-pillar boundary"
 module: CORE
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: rust

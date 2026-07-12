@@ -3,7 +3,7 @@ id: FR-RAG-001
 title: "Classical-text ingest + multilingual embedding + vector store - 3-layer chunks (Han/bach thoai/dich) by dieu/phap/khoa/cau, pluggable embedder (bge-m3 default), pluggable backend (pgvector default)"
 module: RAG
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: python

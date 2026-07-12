@@ -3,7 +3,7 @@ id: FR-PLAT-008
 title: "Resilience - circuit breaker for the LLM and external services, retry with exponential backoff for transient errors, graceful degradation (one engine fails -> return the others; LLM fails -> rule-based interpretation), and the structured error envelope (code, message, details) with standard HTTP codes"
 module: PLAT
 priority: MUST
-status: testing
+status: done
 phase: P1
 slice: 1
 lang: python
