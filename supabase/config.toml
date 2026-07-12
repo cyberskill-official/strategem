@@ -1,0 +1,12 @@
+# Optional local Supabase CLI project (FR-PLAT-012).
+# Production uses hosted Supabase; schema SoT remains db/migrations/.
+
+project_id = "strategem"
+
+[api]
+enabled = true
+port = 54321
+
+[db]
+port = 54322
+major_version = 15

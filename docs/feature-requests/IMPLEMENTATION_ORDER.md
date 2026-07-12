@@ -227,3 +227,14 @@ Auto-graded practice works against the live engine for at least QiMen and LiuRen
 ## Beyond P3
 
 Post-MVP directions from the sources (Grok 20 roadmap, Claude volume 07): mobile app, deeper macro analysis via TaiYi, expert marketplace and master-collaboration framework (Grok 43), and the partnership model. File these as new FRs when they become concrete; do not pre-spec them here.
+
+
+## Phase P3 - production topology (Vercel + Supabase + VPS)
+
+| id | title | pri | h | depends_on | body | status |
+|---|---|---|--:|---|---|---|
+| PLAT-011 | Deploy topology SoT (Vercel web, Supabase DB, VPS API) | MUST | 6 | PLAT-004 | yes | done |
+| PLAT-012 | Supabase Postgres migrate wiring | MUST | 8 | PLAT-003, PLAT-011 | yes | done |
+| PLAT-013 | VPS API compose + Caddy + deploy.sh | MUST | 10 | PLAT-011, PLAT-012 | yes | done |
+| PLAT-014 | Vercel web project + env contract | MUST | 6 | PLAT-011 | yes | done |
+| PLAT-015 | CD split GHCR/VPS + Vercel Git | MUST | 8 | PLAT-013, PLAT-014 | yes | done |

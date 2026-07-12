@@ -1,13 +1,26 @@
-# Deploy (FR-PLAT-004)
+# Deploy
+
+## Target topology (FR-PLAT-011)
+
+| Surface | Platform | Docs |
+|---|---|---|
+| User web | **Vercel** | `docs/deploy/vercel-web.md` |
+| Database | **Supabase** Postgres | `docs/deploy/supabase.md` |
+| Backend API | **Custom VPS** | `docs/deploy/vps-api.md` |
+| CD split | GHCR + SSH + Vercel Git | `docs/deploy/cd-split.md` |
+
+Full diagram: `docs/deploy/topology.md`.
 
 ## Layout
 
 | Path | Role |
 |---|---|
 | `docker/*.Dockerfile` | engine / api / web multi-stage images |
-| `compose/docker-compose.staging.yml` | staging bootstrap (Postgres, Redis, api, web) |
+| `compose/docker-compose.staging.yml` | local/staging bootstrap (Postgres, Redis, api, web) |
+| `vps/` | production API compose, Caddy, migrate + deploy scripts |
 | `environments/*.md` | staging + production contracts |
-| `.github/workflows/cd.yml` | integration → build → scan → staging → **approval** → prod |
+| `.github/workflows/cd.yml` | legacy multi-image CD (Docker web optional) |
+| `.github/workflows/deploy-vps.yml` | **API** → GHCR → VPS (FR-PLAT-015) |
 | `.github/workflows/security-scan.yml` | Trivy fs + gitleaks on PR |
 
 ## Local

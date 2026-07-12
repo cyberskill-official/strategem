@@ -1,0 +1,9 @@
+# Replace api.example.com via env or edit on host.
+{$API_SITE:api.localhost} {
+	encode gzip
+	reverse_proxy api:8000
+	header {
+		# tighten in production as needed
+		-Server
+	}
+}
