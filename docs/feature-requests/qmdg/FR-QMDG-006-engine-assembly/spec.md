@@ -3,7 +3,7 @@ id: FR-QMDG-006
 title: "Engine assembly - run the full QiMen pipeline, emit the la so JSON envelope (he=ky_mon) with the complete flag set, 100% kinqimen oracle gate across ALL flag combinations, cache key per PLAT-002"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

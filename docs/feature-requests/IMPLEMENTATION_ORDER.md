@@ -31,7 +31,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | done |
 | QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | done |
 | QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | done |
-| QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | blocked |
+| QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | done |
 | KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | blocked |
 | KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | blocked |
 | RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | done |
@@ -92,7 +92,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 |---|---|---|--:|---|---|---|
 | TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | done |
 | TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | done |
-| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | blocked |
+| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | done |
 | TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |
 | TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | blocked |
 | TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | blocked |

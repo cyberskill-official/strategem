@@ -1,18 +1,22 @@
-//! QiMen — FR-QMDG-001..005.
+//! QiMen — FR-QMDG-001..006.
 
+pub mod ban;
 pub mod cach_cuc;
 pub mod dia_ban;
 pub mod dinh_cuc;
+pub mod engine;
 pub mod flags;
 pub mod sao_mon_than;
 pub mod truc_phu_su;
 
+pub use ban::{KyMonBan, QiMenFlags};
 pub use cach_cuc::{
     all_visible_stems, detect_cach_cuc, load_patterns_json, thap_can_khac_ung, CachCucHit,
     PatternRow, Polarity,
 };
 pub use dia_ban::{bo_dia_ban, bo_dia_ban_raw, buoc_nghich_lac_thu, buoc_thuan_lac_thu, DiaBan, Stem};
 pub use dinh_cuc::{dinh_cuc, luoshu_outer, phu_dau_nguyen, table_duong_don, table_so_cuc, DinhCuc};
+pub use engine::{cast_qimen, CastInput as QimenCastInput, CastResult as QimenCastResult};
 pub use flags::DingjuMethod;
 pub use sao_mon_than::{
     sao_mon_than, BatMon, BatThan, CuuTinh, SaoMonThan, YinYangPan,

@@ -3,7 +3,7 @@ id: FR-TAT-003
 title: "Bat tuong + cac toan - place the eight generals (Van Xuong / Thuy Kich via ke than, chu/khach dai tuong + tham tuong) and compute chu toan / khach toan by walking the sixteen-than ring (chinh cung lends its number, gian than counts as one, stop before Thai At by default), with the truong/doan label and the dem_toan flag; extends the ban for he=thai_at"
 module: TAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P2
 slice: 3
 lang: rust
