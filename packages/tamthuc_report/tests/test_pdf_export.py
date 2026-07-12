@@ -23,9 +23,7 @@ def _report() -> StructuredReport:
             dau_vao={"datetime": "2004-01-01"},
             lich_phap_summary="甲子",
         ),
-        detected_patterns=[
-            ReportPattern(id="p1", name="青龍返首", polarity="cat", cung=1)
-        ],
+        detected_patterns=[ReportPattern(id="p1", name="青龍返首", polarity="cat", cung=1)],
         interpretation=Interpretation(
             beginner="beginner text",
             expert="expert text",
@@ -41,9 +39,7 @@ def _report() -> StructuredReport:
             )
         ],
         confidence=0.7,
-        ai_disclosure=AIDisclosure(
-            model="stub", limits="edu only", review_status="not_required"
-        ),
+        ai_disclosure=AIDisclosure(model="stub", limits="edu only", review_status="not_required"),
         created_at=datetime(2004, 1, 1, tzinfo=UTC),
     )
 

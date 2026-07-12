@@ -73,9 +73,7 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
 """
 
 
-def export_pdf(
-    report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
-) -> bytes:
+def export_pdf(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi") -> bytes:
     """
     Produce printable document bytes.
 

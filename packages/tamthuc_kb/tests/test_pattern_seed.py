@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-
 from tamthuc_kb.seed.build_patterns import main
 from tamthuc_kb.seed.loader import load_all_patterns
 from tamthuc_kb.seed.validation import SeedValidationError, validate_pattern_row
