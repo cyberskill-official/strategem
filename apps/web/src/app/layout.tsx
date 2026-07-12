@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { AppShell } from "../src/components/app-shell/app-shell";
-import "../src/styles/globals.css";
+import { AppShell } from "../components/app-shell/app-shell";
+import "../styles/globals.css";
 
 export const metadata: Metadata = {
   title: "Tam Thuc Strategem",

@@ -1,0 +1,47 @@
+:root {
+  /* Brand */
+  --color-ochre: #f4ba17;
+  --color-ochre-focus: #f4ba17;
+  --color-brand-accent: #f4ba17;
+
+  /* Semantic (never ochre) */
+  --color-success: #2f7d4a;
+  --color-danger: #b42318;
+  --color-warning: #b54708;
+  --color-info: #2c5f8a;
+
+  /* Neutrals */
+  --color-bg: #ffffff;
+  --color-fg: #1a1a1a;
+  --color-muted: #6b7280;
+  --color-border: #e5e7eb;
+  --color-surface: #f9fafb;
+
+  /* Dark */
+  --color-bg-dark: #0f1115;
+  --color-fg-dark: #f3f4f6;
+  --color-surface-dark: #1a1d24;
+
+  /* Spacing / radius / shadow / type */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.06);
+  --font-size-sm: 0.875rem;
+  --font-size-md: 1rem;
+  --line-height-body: 1.65;
+  --line-height-control: 1.5;
+  --control-height-xs: 24px;
+  --control-height-md: 44px;
+}
+
+[data-theme="dark"] {
+  --color-bg: var(--color-bg-dark);
+  --color-fg: var(--color-fg-dark);
+  --color-surface: var(--color-surface-dark);
+}

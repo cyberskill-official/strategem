@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ConditionDSL",
+  "oneOf": [
+    {
+      "type": "object",
+      "required": ["type", "rules"],
+      "properties": {
+        "type": { "enum": ["and", "or"] },
+        "rules": { "type": "array", "items": { "$ref": "#" } }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["type", "rule"],
+      "properties": {
+        "type": { "const": "not" },
+        "rule": { "$ref": "#" }
+      }
+    },
+    {
+      "type": "object",
+      "required": ["field", "operator"],
+      "properties": {
+        "field": { "type": "string" },
+        "operator": { "enum": ["eq", "in", "gte", "lte", "exists", "contains"] },
+        "value": {}
+      }
+    }
+  ]
+}

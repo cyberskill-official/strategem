@@ -3,7 +3,7 @@ id: FR-WEB-001
 title: "Next.js app shell + CyberSkill Design System v1.3.0 tokens + component library (Button, AIDisclosureBadge, HumanReviewGate) with the Vietnamese stacked-diacritics clip test"
 module: WEB
 priority: MUST
-status: ready_to_implement
+status: reviewing
 phase: P0
 slice: 1
 lang: typescript

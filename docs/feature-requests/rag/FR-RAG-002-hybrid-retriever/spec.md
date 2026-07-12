@@ -3,7 +3,7 @@ id: FR-RAG-002
 title: "Hybrid retriever = vector semantic search + knowledge-graph traversal (KB-005), top-k, per-system metadata filter, fused ranked chunks + citations; degrades to vector-only until KB-005 lands"
 module: RAG
 priority: MUST
-status: ready_to_implement
+status: reviewing
 phase: P0
 slice: 1
 lang: python

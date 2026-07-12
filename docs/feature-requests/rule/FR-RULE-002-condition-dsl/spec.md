@@ -3,7 +3,7 @@ id: FR-RULE-002
 title: "Condition DSL (and/or/not + eq/in/gte/lte/exists/contains, field paths into the la so) + deterministic evaluator + scoring that returns matched patterns as cach_cuc with citations"
 module: RULE
 priority: MUST
-status: ready_to_implement
+status: reviewing
 phase: P0
 slice: 1
 lang: rust

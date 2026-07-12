@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsc --noEmit",
+    "test": "tsc --noEmit && node tests/tokens.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

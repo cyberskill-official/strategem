@@ -1,0 +1,17 @@
+@import "./tokens.css";
+
+html,
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  line-height: var(--line-height-body);
+  font-family: system-ui, sans-serif;
+}
+
+/* Stacked Vietnamese diacritics: generous line-height, no clip */
+.vn-text {
+  line-height: var(--line-height-body);
+  overflow: visible;
+  text-overflow: clip;
+  padding-block: 0.15em;
+}
