@@ -3,7 +3,7 @@ id: FR-REPORT-002
 title: "PDF export - render the REPORT-001 StructuredReport into a templated, CyberSkill-branded, bilingual PDF; the deterministic chart summary is visually separated from the AI interpretation, and the AIDisclosure and citations are printed; read-only over the report, never re-computes"
 module: REPORT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

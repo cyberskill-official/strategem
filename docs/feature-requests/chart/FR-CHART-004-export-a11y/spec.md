@@ -3,7 +3,7 @@ id: FR-CHART-004
 title: "Chart export and accessibility - PNG/SVG/print export for all chart types (QiMen/LiuRen/TaiYi), the Vietnamese stacked-diacritics (dau chong) clip test at 100/200/400%, screen-reader labels for palaces and components, and cat/hung never encoded by color alone"
 module: CHART
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: typescript

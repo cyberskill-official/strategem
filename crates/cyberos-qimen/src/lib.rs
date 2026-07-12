@@ -4,6 +4,7 @@ pub mod ban;
 pub mod cach_cuc;
 pub mod dia_ban;
 pub mod dinh_cuc;
+pub mod dung_than;
 pub mod engine;
 pub mod flags;
 pub mod sao_mon_than;
@@ -20,6 +21,7 @@ pub use dia_ban::{
 pub use dinh_cuc::{
     dinh_cuc, luoshu_outer, phu_dau_nguyen, table_duong_don, table_so_cuc, DinhCuc,
 };
+pub use dung_than::{dung_than, selection_table, DungThanRole, LoaiCauHoi, LocatedDungThan};
 pub use engine::{cast_qimen, CastInput as QimenCastInput, CastResult as QimenCastResult};
 pub use flags::DingjuMethod;
 pub use sao_mon_than::{sao_mon_than, BatMon, BatThan, CuuTinh, SaoMonThan, YinYangPan};

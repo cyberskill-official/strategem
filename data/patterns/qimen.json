@@ -1,0 +1,3722 @@
+[
+  {
+    "id": "qimen_thanh_long_hoi_dau",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c1",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c1",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c1",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c1",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c1",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c1",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c1",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c1",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c1",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c1",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c1",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c1",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 1
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c2",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c2",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c2",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c2",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c2",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c2",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c2",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c2",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c2",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c2",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c2",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c2",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 2
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c3",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c3",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c3",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c3",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c3",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c3",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c3",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c3",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c3",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c3",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c3",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c3",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 3
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c4",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c4",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c4",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c4",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c4",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c4",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c4",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c4",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c4",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c4",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c4",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c4",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 4
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c5",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c5",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c5",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c5",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c5",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c5",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c5",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c5",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c5",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c5",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c5",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c5",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 5
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c6",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c6",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c6",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c6",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c6",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c6",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c6",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c6",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c6",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c6",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c6",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c6",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 6
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c7",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c7",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c7",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c7",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c7",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c7",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c7",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c7",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c7",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh_c7",
+    "system": "qimen",
+    "name": "Thái Bạch Nhập Huỳnh",
+    "name_han": "太白入熒",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "太白入熒: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_10",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach_c7",
+    "system": "qimen",
+    "name": "Huỳnh Nhập Thái Bạch",
+    "name_han": "熒入太白",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "熒入太白: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_11",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dai_cach_c7",
+    "system": "qimen",
+    "name": "Đại Cách",
+    "name_han": "大格",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "庚"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 7
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "大格: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_12",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_hoi_dau_c8",
+    "system": "qimen",
+    "name": "Thanh Long Hồi Đầu",
+    "name_han": "青龍返首",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "青龍返首: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_1",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet_c8",
+    "system": "qimen",
+    "name": "Phi Điểu Diệt Huyệt",
+    "name_han": "飛鳥跌穴",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "戊"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "飛鳥跌穴: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_2",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thien_don_c8",
+    "system": "qimen",
+    "name": "Thiên Độn",
+    "name_han": "天遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "生"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "天遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_3",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dia_don_c8",
+    "system": "qimen",
+    "name": "Địa Độn",
+    "name_han": "地遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "開"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "地遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_4",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_nhan_don_c8",
+    "system": "qimen",
+    "name": "Nhân Độn",
+    "name_han": "人遁",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "休"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "人遁: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_5",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_thanh_long_tron_c8",
+    "system": "qimen",
+    "name": "Thanh Long Trốn",
+    "name_han": "青龍逃走",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "青龍逃走: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_6",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong_c8",
+    "system": "qimen",
+    "name": "Bạch Hổ Xương Cuồng",
+    "name_han": "白虎猖狂",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "辛"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "乙"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "白虎猖狂: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_7",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang_c8",
+    "system": "qimen",
+    "name": "Chu Tước Đầu Giang",
+    "name_han": "朱雀投江",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "朱雀投江: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_8",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu_c8",
+    "system": "qimen",
+    "name": "Đằng Xà Yêu Kiểu",
+    "name_han": "螣蛇夭矯",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        {
+          "field": "cung.thien_can",
+          "operator": "eq",
+          "value": "癸"
+        },
+        {
+          "field": "cung.dia_can",
+          "operator": "eq",
+          "value": "丁"
+        },
+        {
+          "field": "cung",
+          "operator": "eq",
+          "value": 8
+        }
+      ]
+    },
+    "polarity": "hung",
+    "meaning_classical": "螣蛇夭矯: classical formation.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "yba_khac_ung_9",
+      "kmdg_cach_cuc"
+    ],
+    "version": 1,
+    "confidence": 0.85,
+    "status": "active"
+  }
+]

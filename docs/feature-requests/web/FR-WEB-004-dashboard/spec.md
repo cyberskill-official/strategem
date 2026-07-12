@@ -3,7 +3,7 @@ id: FR-WEB-004
 title: "Dashboard - the post-login landing: recent and saved charts, a quick-cast entry, and entry points to the three flows (lookup / learning / management), built on the WEB-001 shell"
 module: WEB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: typescript

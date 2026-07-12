@@ -3,7 +3,7 @@ id: FR-QMDG-007
 title: "Dung than by question type - the QiMen dung than selection table (Claude-03 s7.3) as data: given a question type, select the dung than and locate each on the assembled chart; selecting + locating is deterministic, reading its palace is the cited AI layer"
 module: QMDG
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: rust

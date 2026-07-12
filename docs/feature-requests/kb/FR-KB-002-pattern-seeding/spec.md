@@ -3,7 +3,7 @@ id: FR-KB-002
 title: "Pattern seeding - 150-200 real cach cuc / khoa the / than sat across the three systems as versioned JSON rows per the RULE-001 schema, each cited to classical text, doubling as the RISK-9 interpretation-quality validation dataset"
 module: KB
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python

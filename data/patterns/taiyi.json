@@ -1,0 +1,602 @@
+[
+  {
+    "id": "taiyi_che_0",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_1",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_2",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_3",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_4",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_che_5",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_6",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_7",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_8",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_9",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_che_10",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_11",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_12",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_13",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_14",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_che_15",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_16",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_17",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_18",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_19",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_che_20",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_21",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_22",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_23",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_24",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_che_25",
+    "system": "taiyi",
+    "name": "Che",
+    "name_han": "掩",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "掩"
+    },
+    "polarity": "hung",
+    "meaning_classical": "掩 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_che"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_cach_26",
+    "system": "taiyi",
+    "name": "Cách",
+    "name_han": "格",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "格"
+    },
+    "polarity": "hung",
+    "meaning_classical": "格 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_cach"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_phuc_27",
+    "system": "taiyi",
+    "name": "Phục",
+    "name_han": "伏",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "伏"
+    },
+    "polarity": "trung",
+    "meaning_classical": "伏 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_phuc"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_khach_thang_28",
+    "system": "taiyi",
+    "name": "Khách Thắng",
+    "name_han": "客勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "客勝"
+    },
+    "polarity": "hung",
+    "meaning_classical": "客勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_khach_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  },
+  {
+    "id": "taiyi_chu_thang_29",
+    "system": "taiyi",
+    "name": "Chủ Thắng",
+    "name_han": "主勝",
+    "conditions": {
+      "type": "eq",
+      "field": "cach",
+      "value": "主勝"
+    },
+    "polarity": "cat",
+    "meaning_classical": "主勝 Thai Ất configuration.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "tat_cach_chu_thang"
+    ],
+    "version": 1,
+    "confidence": 0.75,
+    "status": "active"
+  }
+]

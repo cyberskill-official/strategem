@@ -33,7 +33,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | done |
 | QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | done |
 | KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | done |
-| KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | blocked |
+| KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | done |
 | RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | done |
 | RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | done |
 | RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | done |
@@ -62,18 +62,18 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | done |
 | LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | done |
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | done |
-| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
+| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | done |
 | KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
 | RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | done |
 | RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | done |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
-| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
+| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | done |
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | done |
 | STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | done |
 | STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | blocked |
 | CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | done |
-| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | blocked |
-| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | blocked |
+| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | done |
+| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | done |
 | WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | blocked |
 | WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | done |
 | AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | blocked |

@@ -1,0 +1,802 @@
+[
+  {
+    "id": "liuren_nguyen_thu_0",
+    "system": "liuren",
+    "name": "Nguyên Thủ",
+    "name_han": "元首",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "元首"
+    },
+    "polarity": "cat",
+    "meaning_classical": "元首 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_nguyen_thu"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_trong_tham_1",
+    "system": "liuren",
+    "name": "Trọng Thẩm",
+    "name_han": "重審",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "重審"
+    },
+    "polarity": "trung",
+    "meaning_classical": "重審 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_trong_tham"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tri_nhat_2",
+    "system": "liuren",
+    "name": "Tri Nhất",
+    "name_han": "知一",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "知一"
+    },
+    "polarity": "trung",
+    "meaning_classical": "知一 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tri_nhat"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_thiep_hai_3",
+    "system": "liuren",
+    "name": "Thiệp Hại",
+    "name_han": "涉害",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "涉害"
+    },
+    "polarity": "hung",
+    "meaning_classical": "涉害 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_thiep_hai"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phuc_ngam_4",
+    "system": "liuren",
+    "name": "Phục Ngâm",
+    "name_han": "伏吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "伏吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "伏吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phuc_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phan_ngam_5",
+    "system": "liuren",
+    "name": "Phản Ngâm",
+    "name_han": "返吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "返吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "返吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phan_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_mao_tinh_6",
+    "system": "liuren",
+    "name": "Mão Tinh",
+    "name_han": "昴星",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "昴星"
+    },
+    "polarity": "trung",
+    "meaning_classical": "昴星 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_mao_tinh"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_bat_chuyen_7",
+    "system": "liuren",
+    "name": "Bát Chuyên",
+    "name_han": "八專",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "八專"
+    },
+    "polarity": "trung",
+    "meaning_classical": "八專 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_bat_chuyen"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_quang_8",
+    "system": "liuren",
+    "name": "Tam Quang",
+    "name_han": "三光",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三光"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三光 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_quang"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_duong_9",
+    "system": "liuren",
+    "name": "Tam Dương",
+    "name_han": "三陽",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三陽"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三陽 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_duong"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_nguyen_thu_10",
+    "system": "liuren",
+    "name": "Nguyên Thủ",
+    "name_han": "元首",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "元首"
+    },
+    "polarity": "cat",
+    "meaning_classical": "元首 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_nguyen_thu"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_trong_tham_11",
+    "system": "liuren",
+    "name": "Trọng Thẩm",
+    "name_han": "重審",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "重審"
+    },
+    "polarity": "trung",
+    "meaning_classical": "重審 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_trong_tham"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tri_nhat_12",
+    "system": "liuren",
+    "name": "Tri Nhất",
+    "name_han": "知一",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "知一"
+    },
+    "polarity": "trung",
+    "meaning_classical": "知一 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tri_nhat"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_thiep_hai_13",
+    "system": "liuren",
+    "name": "Thiệp Hại",
+    "name_han": "涉害",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "涉害"
+    },
+    "polarity": "hung",
+    "meaning_classical": "涉害 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_thiep_hai"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phuc_ngam_14",
+    "system": "liuren",
+    "name": "Phục Ngâm",
+    "name_han": "伏吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "伏吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "伏吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phuc_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phan_ngam_15",
+    "system": "liuren",
+    "name": "Phản Ngâm",
+    "name_han": "返吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "返吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "返吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phan_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_mao_tinh_16",
+    "system": "liuren",
+    "name": "Mão Tinh",
+    "name_han": "昴星",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "昴星"
+    },
+    "polarity": "trung",
+    "meaning_classical": "昴星 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_mao_tinh"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_bat_chuyen_17",
+    "system": "liuren",
+    "name": "Bát Chuyên",
+    "name_han": "八專",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "八專"
+    },
+    "polarity": "trung",
+    "meaning_classical": "八專 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_bat_chuyen"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_quang_18",
+    "system": "liuren",
+    "name": "Tam Quang",
+    "name_han": "三光",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三光"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三光 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_quang"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_duong_19",
+    "system": "liuren",
+    "name": "Tam Dương",
+    "name_han": "三陽",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三陽"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三陽 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_duong"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_nguyen_thu_20",
+    "system": "liuren",
+    "name": "Nguyên Thủ",
+    "name_han": "元首",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "元首"
+    },
+    "polarity": "cat",
+    "meaning_classical": "元首 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_nguyen_thu"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_trong_tham_21",
+    "system": "liuren",
+    "name": "Trọng Thẩm",
+    "name_han": "重審",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "重審"
+    },
+    "polarity": "trung",
+    "meaning_classical": "重審 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_trong_tham"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tri_nhat_22",
+    "system": "liuren",
+    "name": "Tri Nhất",
+    "name_han": "知一",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "知一"
+    },
+    "polarity": "trung",
+    "meaning_classical": "知一 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tri_nhat"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_thiep_hai_23",
+    "system": "liuren",
+    "name": "Thiệp Hại",
+    "name_han": "涉害",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "涉害"
+    },
+    "polarity": "hung",
+    "meaning_classical": "涉害 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_thiep_hai"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phuc_ngam_24",
+    "system": "liuren",
+    "name": "Phục Ngâm",
+    "name_han": "伏吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "伏吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "伏吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phuc_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phan_ngam_25",
+    "system": "liuren",
+    "name": "Phản Ngâm",
+    "name_han": "返吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "返吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "返吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phan_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_mao_tinh_26",
+    "system": "liuren",
+    "name": "Mão Tinh",
+    "name_han": "昴星",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "昴星"
+    },
+    "polarity": "trung",
+    "meaning_classical": "昴星 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_mao_tinh"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_bat_chuyen_27",
+    "system": "liuren",
+    "name": "Bát Chuyên",
+    "name_han": "八專",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "八專"
+    },
+    "polarity": "trung",
+    "meaning_classical": "八專 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_bat_chuyen"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_quang_28",
+    "system": "liuren",
+    "name": "Tam Quang",
+    "name_han": "三光",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三光"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三光 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_quang"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_duong_29",
+    "system": "liuren",
+    "name": "Tam Dương",
+    "name_han": "三陽",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三陽"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三陽 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_duong"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_nguyen_thu_30",
+    "system": "liuren",
+    "name": "Nguyên Thủ",
+    "name_han": "元首",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "元首"
+    },
+    "polarity": "cat",
+    "meaning_classical": "元首 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_nguyen_thu"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_trong_tham_31",
+    "system": "liuren",
+    "name": "Trọng Thẩm",
+    "name_han": "重審",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "重審"
+    },
+    "polarity": "trung",
+    "meaning_classical": "重審 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_trong_tham"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tri_nhat_32",
+    "system": "liuren",
+    "name": "Tri Nhất",
+    "name_han": "知一",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "知一"
+    },
+    "polarity": "trung",
+    "meaning_classical": "知一 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tri_nhat"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_thiep_hai_33",
+    "system": "liuren",
+    "name": "Thiệp Hại",
+    "name_han": "涉害",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "涉害"
+    },
+    "polarity": "hung",
+    "meaning_classical": "涉害 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_thiep_hai"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phuc_ngam_34",
+    "system": "liuren",
+    "name": "Phục Ngâm",
+    "name_han": "伏吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "伏吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "伏吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phuc_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_phan_ngam_35",
+    "system": "liuren",
+    "name": "Phản Ngâm",
+    "name_han": "返吟",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "返吟"
+    },
+    "polarity": "hung",
+    "meaning_classical": "返吟 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_phan_ngam"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_mao_tinh_36",
+    "system": "liuren",
+    "name": "Mão Tinh",
+    "name_han": "昴星",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "昴星"
+    },
+    "polarity": "trung",
+    "meaning_classical": "昴星 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_mao_tinh"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_bat_chuyen_37",
+    "system": "liuren",
+    "name": "Bát Chuyên",
+    "name_han": "八專",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "八專"
+    },
+    "polarity": "trung",
+    "meaning_classical": "八專 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_bat_chuyen"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_quang_38",
+    "system": "liuren",
+    "name": "Tam Quang",
+    "name_han": "三光",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三光"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三光 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_quang"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  },
+  {
+    "id": "liuren_tam_duong_39",
+    "system": "liuren",
+    "name": "Tam Dương",
+    "name_han": "三陽",
+    "conditions": {
+      "type": "eq",
+      "field": "khoa_the",
+      "value": "三陽"
+    },
+    "polarity": "cat",
+    "meaning_classical": "三陽 khóa thể.",
+    "meaning_modern": "Educational decision-support reading; not a certain future event.",
+    "citations": [
+      "ln_khoa_the_tam_duong"
+    ],
+    "version": 1,
+    "confidence": 0.8,
+    "status": "active"
+  }
+]
