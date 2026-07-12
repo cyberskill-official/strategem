@@ -3,7 +3,7 @@ id: FR-TAT-002
 title: "An Thai At qua cuu cung + 16 than - seat Thai At on its outer palace (never center; center -> Khon 2) and lay the sixteen-than ring (8 chinh cung at Ty Ngo Mao Dau + Can Khon Can Ton, 8 gian than between), tagging each mark chinh cung vs gian than for the downstream toan counting; extends the ban for he=thai_at"
 module: TAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P2
 slice: 2
 lang: rust

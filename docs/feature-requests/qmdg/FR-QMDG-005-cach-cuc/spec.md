@@ -3,7 +3,7 @@ id: FR-QMDG-005
 title: "Cach cuc detection - thap can khac ung 81-cell base, cat/hung pattern tables as JSON conditions via RULE-002, special states (nhap mo / khong vong / mon bach / luc nghi kich hinh / phan-phuc ngam), gated against kinqimen"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

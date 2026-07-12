@@ -3,7 +3,7 @@ id: FR-LN-006
 title: "Engine assembly - thien dia ban -> tu khoa -> tam truyen -> thien tuong -> khoa the, full la so envelope for he=luc_nham, co_truong_phai flag set, kinliuren 100% oracle gate + cache key"
 module: LN
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 6
 lang: rust

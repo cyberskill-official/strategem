@@ -1,0 +1,11 @@
+[
+  {"id":"qimen_thanh_long_hoi_dau","name":"青龍返首","polarity":"cat","score":0.9,"sky":"戊","earth":"丙","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_phi_dieu_diet_huyet","name":"飛鳥跌穴","polarity":"cat","score":0.9,"sky":"丙","earth":"戊","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_thanh_long_tron","name":"青龍逃走","polarity":"hung","score":0.85,"sky":"乙","earth":"辛","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_bach_ho_xuong_cuong","name":"白虎猖狂","polarity":"hung","score":0.85,"sky":"辛","earth":"乙","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_chu_tuoc_dau_giang","name":"朱雀投江","polarity":"hung","score":0.8,"sky":"丁","earth":"癸","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_dang_xa_yeu_kieu","name":"螣蛇夭矯","polarity":"hung","score":0.8,"sky":"癸","earth":"丁","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_thai_bach_nhap_huynh","name":"太白入熒","polarity":"hung","score":0.85,"sky":"庚","earth":"丙","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_huynh_nhap_thai_bach","name":"熒入太白","polarity":"hung","score":0.85,"sky":"丙","earth":"庚","citations":["Yên Ba Điếu Tẩu Ca"]},
+  {"id":"qimen_dai_cach","name":"大格","polarity":"hung","score":0.9,"sky":"庚","earth":"癸","citations":["Yên Ba Điếu Tẩu Ca"]}
+]
