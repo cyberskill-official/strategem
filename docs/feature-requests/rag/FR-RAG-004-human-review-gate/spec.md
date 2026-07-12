@@ -3,7 +3,7 @@ id: FR-RAG-004
 title: "HumanReviewGate pipeline - a review queue for AI interpretations flagged important/low-confidence, approve/reject with a required reason + audit, gate before the interpretation reaches the user, review_status back on the AIDisclosure; owns the review policy RAG-003 sets requires_human_review from"
 module: RAG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

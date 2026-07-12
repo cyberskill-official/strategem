@@ -20,7 +20,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | done |
 | CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | done |
 | CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | done |
-| CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | blocked |
+| CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | done |
 | CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | blocked |
 | CORE-007 | Ganzhi primitives + relations | MUST | 8 | PLAT-001 | yes | done |
 | RULE-001 | Pattern-as-data schema + knowledge_patterns | MUST | 8 | PLAT-003 | yes | done |
@@ -64,7 +64,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | blocked |
 | QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
 | KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
-| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | blocked |
+| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | done |
 | RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | blocked |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | blocked |
 | REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
@@ -83,8 +83,8 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | done |
 | PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | done |
 | LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | done |
-| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | blocked |
-| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | blocked |
+| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | done |
+| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | done |
 
 ## Phase P2 - third engine and depth (~180h)
 

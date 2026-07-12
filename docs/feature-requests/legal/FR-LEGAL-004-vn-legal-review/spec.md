@@ -3,7 +3,7 @@ id: FR-LEGAL-004
 title: "VN legal review checklist + counsel sign-off gate - the named statutes (Nghi dinh 38/2021/ND-CP, Dieu 320 Bo luat Hinh su, Quyet dinh 34/2020/QD-TTg), a pre-launch checklist, and a HARD counsel sign-off gate before public launch and app-store submission (RISK-4)"
 module: LEGAL
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: doc

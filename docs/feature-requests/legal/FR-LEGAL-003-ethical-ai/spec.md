@@ -3,7 +3,7 @@ id: FR-LEGAL-003
 title: "Ethical-AI + cultural-sensitivity guardrails - the language do/don't rules, school fairness (the co_truong_phai flag discipline as its technical form), and source attribution (Han beside transliteration and translation); enforced as content rules plus automated checks over RAG-003 output"
 module: LEGAL
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: doc/python

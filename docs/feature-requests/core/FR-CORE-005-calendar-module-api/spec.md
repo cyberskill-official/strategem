@@ -3,7 +3,7 @@ id: FR-CORE-005
 title: "Calendar module API + JSON output + flag set + stamp - the lich_phap sub-object every engine consumes, LichFlags canonical set, fills the FR-PLAT-002 envelope slot"
 module: CORE
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust
