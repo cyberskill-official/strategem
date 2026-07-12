@@ -1,0 +1,35 @@
+# Staging compose bootstrap (FR-PLAT-004). Replaced by K8s in FR-PLAT-010.
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD}
+      POSTGRES_DB: strategem
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d strategem"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+
+  api:
+    image: ghcr.io/${GITHUB_REPOSITORY:-cyberskill/strategem}/api:${IMAGE_TAG:-staging}
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/strategem
+      TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:?set secret}
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    image: ghcr.io/${GITHUB_REPOSITORY:-cyberskill/strategem}/web:${IMAGE_TAG:-staging}
+    ports:
+      - "3000:3000"
+    depends_on:
+      - api

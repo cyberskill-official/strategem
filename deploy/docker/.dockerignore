@@ -1,0 +1,12 @@
+.git
+.github
+.venv
+node_modules
+target
+**/__pycache__
+**/.pytest_cache
+**/.mypy_cache
+.coverage
+*.pyc
+apps/web/.next
+docs/feature-requests/.workflow

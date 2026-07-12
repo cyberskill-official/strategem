@@ -1,0 +1,34 @@
+[
+  {
+    "id": "qimen_thanh_long_hoi_dau",
+    "system": "qimen",
+    "name": "Thanh Long Hoi Dau",
+    "name_han": "青龙回头",
+    "conditions": {
+      "type": "and",
+      "rules": [
+        { "field": "star", "operator": "eq", "value": "thanh_long" }
+      ]
+    },
+    "polarity": "cat",
+    "meaning_classical": "Cat khi tu tap, loi cho khoi su.",
+    "meaning_modern": "Favorable window for initiating; not a guarantee.",
+    "citations": ["yba_thien_can_khac_ung_12"],
+    "version": 1,
+    "confidence": 0.9,
+    "status": "active"
+  },
+  {
+    "id": "qimen_sample_draft",
+    "system": "qimen",
+    "name": "Draft pattern",
+    "conditions": { "field": "gate", "operator": "eq", "value": "sinh" },
+    "polarity": "trung",
+    "meaning_classical": "placeholder",
+    "meaning_modern": "placeholder",
+    "citations": [],
+    "version": 1,
+    "confidence": 0.5,
+    "status": "draft"
+  }
+]

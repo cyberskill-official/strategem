@@ -1,0 +1,39 @@
+{
+  "Free": {
+    "requests_per_day": 100,
+    "capabilities": ["calculate_single", "report_generate"]
+  },
+  "Premium": {
+    "requests_per_day": 5000,
+    "capabilities": [
+      "calculate_single",
+      "calculate_all",
+      "timing_optimize",
+      "scenario_compare",
+      "report_generate"
+    ]
+  },
+  "Enterprise": {
+    "requests_per_day": "custom",
+    "capabilities": [
+      "calculate_single",
+      "calculate_all",
+      "timing_optimize",
+      "scenario_compare",
+      "report_generate",
+      "api_key_auth"
+    ]
+  },
+  "Admin": {
+    "requests_per_day": "unmetered",
+    "capabilities": [
+      "calculate_single",
+      "calculate_all",
+      "timing_optimize",
+      "scenario_compare",
+      "report_generate",
+      "api_key_auth",
+      "admin_console"
+    ]
+  }
+}

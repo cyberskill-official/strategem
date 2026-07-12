@@ -1,0 +1,3 @@
+# FR-PLAT-004: HIGH/CRITICAL suppressions must include owner + reason.
+# Format: CVE-ID  # owner: reason
+# (empty by default — fail closed)

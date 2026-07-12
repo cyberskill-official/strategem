@@ -1,0 +1,14 @@
+{
+  "id": "qimen_sample_ok",
+  "system": "qimen",
+  "name": "Sample",
+  "name_han": "样",
+  "conditions": { "type": "and", "rules": [] },
+  "polarity": "cat",
+  "meaning_classical": "classical",
+  "meaning_modern": "modern",
+  "citations": ["cite_1"],
+  "version": 1,
+  "confidence": 0.8,
+  "status": "active"
+}
