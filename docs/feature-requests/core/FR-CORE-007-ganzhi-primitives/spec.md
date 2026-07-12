@@ -3,7 +3,7 @@ id: FR-CORE-007
 title: "Ganzhi primitives + relations - 10 thien can / 12 dia chi / 60 giap ty, ngu hanh of each, sinh + khac cycles, chi hinh/xung/pha/hai/hop (luc hop, tam hop, luc xung), index round-trip, pure lookup"
 module: CORE
 priority: MUST
-status: implementing
+status: reviewing
 phase: P0
 slice: 1
 lang: rust
