@@ -1,3 +1,9 @@
 # FR-PLAT-004: HIGH/CRITICAL suppressions must include owner + reason.
 # Format: CVE-ID  # owner: reason
-# (empty by default — fail closed)
+#
+# Prefer fix upstream (deps / apt upgrade) and ignore-unfixed=true in CD.
+# Only list here when a fix is unavailable and risk is accepted.
+
+# zlib zipOpenNewFileInZip overflow — Debian bookworm marks will_not_fix;
+# not exercised by our API/runtime path (no attacker-controlled zip creation).
+CVE-2023-45853  # platform: debian will_not_fix; no zip-writer surface in images

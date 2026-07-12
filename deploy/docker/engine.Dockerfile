@@ -8,7 +8,9 @@ RUN cargo build --release -p smoke --bins \
   && test -x /src/target/release/smoke
 
 FROM debian:bookworm-slim AS runtime
-RUN apt-get update && apt-get install -y --no-install-recommends ca-certificates \
+RUN apt-get update \
+  && apt-get upgrade -y --no-install-recommends \
+  && apt-get install -y --no-install-recommends ca-certificates \
   && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 # Placeholder binary until dedicated engine service crate lands.

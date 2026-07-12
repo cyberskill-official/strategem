@@ -8,6 +8,10 @@ RUN pnpm --filter web install --ignore-scripts \
   && pnpm --filter web build
 
 FROM node:24-bookworm-slim AS runtime
+# Security patches for OS packages scanned by Trivy in CD.
+RUN apt-get update \
+  && apt-get upgrade -y --no-install-recommends \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 ENV NODE_ENV=production
 COPY --from=build /src/apps/web/.next/standalone ./

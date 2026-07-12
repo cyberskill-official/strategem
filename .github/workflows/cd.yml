@@ -74,6 +74,9 @@ jobs:
         with:
           image-ref: ${{ env.REGISTRY }}/${{ env.IMAGE_PREFIX }}/${{ matrix.name }}:${{ github.sha }}
           severity: HIGH,CRITICAL
+          # Match security-scan.yml: only fail on issues that have a published fix.
+          # Base-image OS CVEs without a Debian fix still surface in the table.
+          ignore-unfixed: true
           exit-code: "1"
           trivyignores: .trivyignore
 

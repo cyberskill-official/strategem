@@ -1,4 +1,4 @@
-"""JWT access + revocable refresh tokens (python-jose)."""
+"""JWT access + revocable refresh tokens (PyJWT / cryptography)."""
 
 from __future__ import annotations
 
@@ -7,7 +7,8 @@ import time
 import uuid
 from typing import Any
 
-from jose import JWTError, jwt  # type: ignore[import-untyped]
+import jwt
+from jwt.exceptions import ExpiredSignatureError, InvalidTokenError
 from pydantic import BaseModel, ConfigDict
 
 from tamthuc_auth.config import AuthSettings, get_settings
@@ -84,7 +85,7 @@ def issue_access(
         "typ": "access",
         "iss": s.issuer,
     }
-    return str(jwt.encode(claims, s.jwt_secret, algorithm=s.jwt_algorithm))
+    return jwt.encode(claims, s.jwt_secret, algorithm=s.jwt_algorithm)
 
 
 def issue_refresh(
@@ -104,7 +105,7 @@ def issue_refresh(
         "typ": "refresh",
         "iss": s.issuer,
     }
-    return str(jwt.encode(claims, s.jwt_secret, algorithm=s.jwt_algorithm))
+    return jwt.encode(claims, s.jwt_secret, algorithm=s.jwt_algorithm)
 
 
 def verify_access(
@@ -118,12 +119,11 @@ def verify_access(
             token,
             s.jwt_secret,
             algorithms=[s.jwt_algorithm],
-            options={"require_exp": True, "require_iat": True, "require_sub": True},
+            options={"require": ["exp", "iat", "sub"]},
         )
-    except JWTError as e:
-        msg = str(e).lower()
-        if "expired" in msg:
-            raise TokenExpired() from e
+    except ExpiredSignatureError as e:
+        raise TokenExpired() from e
+    except InvalidTokenError as e:
         raise TokenInvalid("token invalid") from e
     if payload.get("typ") != "access":
         raise TokenInvalid("wrong token type")
@@ -153,12 +153,11 @@ def verify_refresh(
             token,
             s.jwt_secret,
             algorithms=[s.jwt_algorithm],
-            options={"require_exp": True, "require_iat": True, "require_sub": True},
+            options={"require": ["exp", "iat", "sub"]},
         )
-    except JWTError as e:
-        msg = str(e).lower()
-        if "expired" in msg:
-            raise TokenExpired() from e
+    except ExpiredSignatureError as e:
+        raise TokenExpired() from e
+    except InvalidTokenError as e:
         raise TokenInvalid("token invalid") from e
     if payload.get("typ") != "refresh":
         raise TokenInvalid("wrong token type")

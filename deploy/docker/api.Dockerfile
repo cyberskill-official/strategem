@@ -7,6 +7,10 @@ COPY packages ./packages
 RUN uv sync --all-packages --frozen || uv sync --all-packages
 
 FROM python:3.12-slim-bookworm AS runtime
+# Security patches for OS packages scanned by Trivy in CD.
+RUN apt-get update \
+  && apt-get upgrade -y --no-install-recommends \
+  && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY --from=build /src/.venv /app/.venv
 COPY packages ./packages

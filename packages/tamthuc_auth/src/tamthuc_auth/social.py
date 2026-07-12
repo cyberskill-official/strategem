@@ -11,7 +11,8 @@ import time
 from dataclasses import dataclass
 from typing import Any, Protocol
 
-from jose import JWTError, jwt  # type: ignore[import-untyped]
+import jwt
+from jwt.exceptions import InvalidTokenError
 
 from tamthuc_auth.config import AuthSettings, get_settings
 from tamthuc_auth.errors import SocialTokenInvalid
@@ -59,9 +60,9 @@ class JwtIdTokenVerifier:
                 algorithms=["HS256"],
                 audience=audience,
                 issuer=issuer,
-                options={"require_exp": True, "require_sub": True},
+                options={"require": ["exp", "sub"]},
             )
-        except JWTError as e:
+        except InvalidTokenError as e:
             log.info("social.verify_failed", extra={"provider": provider, "err": type(e).__name__})
             raise SocialTokenInvalid() from e
         email = payload.get("email")
@@ -101,4 +102,4 @@ def mint_test_id_token(
         "iat": now,
         "exp": now + exp_delta,
     }
-    return str(jwt.encode(claims, secret or s.jwt_secret, algorithm="HS256"))
+    return jwt.encode(claims, secret or s.jwt_secret, algorithm="HS256")
