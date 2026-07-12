@@ -5,13 +5,7 @@ use cyberos_thaiat::{
     BienTheKich, Cach, DemToan, TamTai, ToanResult, TruongDoan,
 };
 
-fn bat(
-    ta_adj: u8,
-    thuy: u8,
-    van: u8,
-    chu_dai: u8,
-    khach_dai: u8,
-) -> BatTuong {
+fn bat(ta_adj: u8, thuy: u8, van: u8, chu_dai: u8, khach_dai: u8) -> BatTuong {
     BatTuong {
         van_xuong: van,
         thuy_kich: thuy,

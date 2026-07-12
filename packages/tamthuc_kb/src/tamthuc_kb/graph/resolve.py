@@ -55,11 +55,7 @@ def resolve_seeds(
                 continue
             # system filter: allow system match or "all" primitives
             node_sys = str(node.attrs.get("system") or "all")
-            if (
-                system != "all"
-                and node_sys not in (system, "all")
-                and not nid.startswith(system)
-            ):
+            if system != "all" and node_sys not in (system, "all") and not nid.startswith(system):
                 unresolved.append(tok)
                 continue
             resolved.append(nid)

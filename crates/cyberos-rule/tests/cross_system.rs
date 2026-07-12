@@ -7,8 +7,8 @@ use serde_json::json;
 fn single_chart_parity() {
     let chart = json!({"he": "ky_mon", "ban": {"door": "Khai"}});
     let set = ChartSet::single("ky_mon", chart.clone());
-    let cond = Cond::from_json(&json!({"field": "ban.door", "operator": "eq", "value": "Khai"}))
-        .unwrap();
+    let cond =
+        Cond::from_json(&json!({"field": "ban.door", "operator": "eq", "value": "Khai"})).unwrap();
     assert_eq!(evaluate(&cond, &chart), evaluate_set(&cond, &set));
 }
 
@@ -22,10 +22,8 @@ fn qualified_path_two_charts() {
         "ky_mon".into(),
         json!({"cach_cuc": ["青龍返首"], "ban": {}}),
     );
-    set.charts.insert(
-        "luc_nham".into(),
-        json!({"tam_truyen": [{"than": "六合"}]}),
-    );
+    set.charts
+        .insert("luc_nham".into(), json!({"tam_truyen": [{"than": "六合"}]}));
     let cond = Cond::from_json(&json!({
         "type": "and",
         "weight": 1.5,
@@ -78,10 +76,8 @@ fn fixture_qimen_liuren_file() {
         charts: Default::default(),
         primary: "ky_mon".into(),
     };
-    set.charts
-        .insert("ky_mon".into(), v["ky_mon"].clone());
-    set.charts
-        .insert("luc_nham".into(), v["luc_nham"].clone());
+    set.charts.insert("ky_mon".into(), v["ky_mon"].clone());
+    set.charts.insert("luc_nham".into(), v["luc_nham"].clone());
     let cond = Cond::from_json(&v["condition"]).unwrap();
     assert!(evaluate_set(&cond, &set));
 }

@@ -31,11 +31,7 @@ def collect_path_citations(
     seen: set[str] = set()
     for n in path_nodes:
         kind = getattr(n, "kind", None)
-        kind_v = (
-            str(kind.value)
-            if kind is not None and hasattr(kind, "value")
-            else str(kind or "")
-        )
+        kind_v = str(kind.value) if kind is not None and hasattr(kind, "value") else str(kind or "")
         if kind_v in ("cach_cuc", "than_sat"):
             for c in (n.attrs or {}).get("citations") or []:
                 cid = str(c)

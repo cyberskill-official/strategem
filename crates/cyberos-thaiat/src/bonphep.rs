@@ -38,17 +38,11 @@ pub fn tich_nien_ke(nam_ce: i32, epoch: Epoch) -> TichCap {
 /// Month plate: tich nguyet = tich nien × 12 + leap-month offset (0..1).
 /// `leap_months_before` is the dedicated leap-month solve input (count of leap
 /// months from epoch year through the target year-month, not a naive multiply).
-pub fn tich_nguyet_ke(
-    nam_ce: i32,
-    month: u8,
-    epoch: Epoch,
-    leap_months_before: u32,
-) -> TichCap {
+pub fn tich_nguyet_ke(nam_ce: i32, month: u8, epoch: Epoch, leap_months_before: u32) -> TichCap {
     let tn = compute_tich_nien(nam_ce, epoch);
     let month_i = month.clamp(1, 12) as u64;
-    let tich = tn.tich_nien.saturating_mul(12)
-        + month_i.saturating_sub(1)
-        + leap_months_before as u64;
+    let tich =
+        tn.tich_nien.saturating_mul(12) + month_i.saturating_sub(1) + leap_months_before as u64;
     TichCap {
         cap: Cap::Nguyet,
         tich,
