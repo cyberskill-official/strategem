@@ -1,4 +1,4 @@
-"""E2E cast path: calculate → persist → GET query."""
+"""E2E cast path: calculate → persist → GET query (+ report + history)."""
 
 from __future__ import annotations
 
@@ -16,6 +16,7 @@ def test_qimen_cast_persist_and_fetch() -> None:
             "longitude": 106.7,
             "question": "timing",
             "question_type": "trach_thoi",
+            "co_truong_phai": {"dingju_method": "chaibu", "pan_method": "zhuan"},
         },
     )
     assert r.status_code == 200, r.text
@@ -30,6 +31,8 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert body["patterns"]
     assert body["ai_disclosure"]["is_ai_generated"] is True
     assert body["interpretation"]["beginner"]
+    assert body.get("report_id")
+    assert body.get("report", {}).get("report_id") == body["report_id"]
 
     qid = body["query_id"]
     g = client.get(f"/api/v1/queries/{qid}")
@@ -38,6 +41,23 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert got["query_id"] == qid
     assert got["charts"]["qimen"]["ban"]["dia_ban"] == ban["dia_ban"]
     assert got["interpretation"]["beginner"] == body["interpretation"]["beginner"]
+
+    rid = body["report_id"]
+    gr = client.get(f"/api/v1/reports/{rid}")
+    assert gr.status_code == 200
+    report = gr.json()
+    assert report["report_id"] == rid
+    assert report["query_id"] == qid
+    assert "chart_summary" in report
+
+    hist = client.get("/api/v1/queries")
+    assert hist.status_code == 200
+    items = hist.json()["items"]
+    assert any(i["query_id"] == qid for i in items)
+
+    pdf = client.get(f"/api/v1/reports/{rid}/pdf")
+    assert pdf.status_code == 200
+    assert "pdf" in pdf.headers.get("content-type", "")
 
 
 def test_query_not_found() -> None:

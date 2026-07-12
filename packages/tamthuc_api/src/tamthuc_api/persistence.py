@@ -82,3 +82,30 @@ class PersistenceService:
             "interpretation": None,
             "ai_disclosure": None,
         }
+
+    def list_history(
+        self,
+        *,
+        user_id: str | None = None,
+        he: str | None = None,
+        question_type: str | None = None,
+        limit: int = 50,
+    ) -> list[dict[str, Any]]:
+        return self.queries.list_queries(
+            user_id=user_id,
+            he=he,
+            question_type=question_type,
+            limit=limit,
+        )
+
+    def get_report(self, report_id: str) -> dict[str, Any] | None:
+        row = self.reports.get_by_id(report_id)
+        if row is None:
+            return None
+        data = row.get("report_data")
+        if isinstance(data, dict):
+            out = dict(data)
+            out.setdefault("report_id", row["id"])
+            out.setdefault("query_id", row.get("query_id"))
+            return out
+        return None

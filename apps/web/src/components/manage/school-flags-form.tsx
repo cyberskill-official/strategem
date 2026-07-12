@@ -1,16 +1,18 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   SCHOOL_FLAGS,
   defaultSchoolConfig,
+  loadSchoolConfig,
+  saveSchoolConfig,
   toCastOverrides,
   type SchoolConfig,
 } from "../../lib/flags/school-flags";
 
 /**
  * School flag form — enums with defaults; never marks a school "correct".
- * Sets flags only; does not cast.
+ * Sets flags only; does not cast. Persists to localStorage for cast payload.
  */
 export function SchoolFlagsForm({
   onChange,
@@ -18,6 +20,14 @@ export function SchoolFlagsForm({
   onChange?: (cfg: SchoolConfig) => void;
 }) {
   const [cfg, setCfg] = useState<SchoolConfig>(defaultSchoolConfig);
+  const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const loaded = loadSchoolConfig();
+    setCfg(loaded);
+    onChange?.(loaded);
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once
+  }, []);
 
   const setFlag = (system: string, key: string, value: string) => {
     setCfg((prev) => {
@@ -30,6 +40,12 @@ export function SchoolFlagsForm({
       onChange?.(next);
       return next;
     });
+    setSaved(false);
+  };
+
+  const persist = () => {
+    saveSchoolConfig(cfg);
+    setSaved(true);
   };
 
   return (
@@ -44,10 +60,12 @@ export function SchoolFlagsForm({
             ? cfg.co_lich_phap[f.key]
             : cfg.co_truong_phai[`${f.system}.${f.key}`];
         return (
-          <label key={`${f.system}-${f.key}`} style={{ display: "block", marginBottom: 8 }}>
+          <label
+            key={`${f.system}-${f.key}`}
+            style={{ display: "block", marginBottom: 8 }}
+          >
             <span>
-              {f.system}.{f.key}{" "}
-              <em>(default: {f.default})</em>
+              {f.system}.{f.key} <em>(default: {f.default})</em>
             </span>
             <select
               data-testid={`flag-${f.key}`}
@@ -67,6 +85,19 @@ export function SchoolFlagsForm({
           </label>
         );
       })}
+      <button
+        type="button"
+        data-testid="save-school-flags"
+        onClick={persist}
+        style={{ marginTop: 8, padding: "8px 12px" }}
+      >
+        Save for next cast
+      </button>
+      {saved ? (
+        <p data-testid="school-flags-saved" style={{ fontSize: 13 }}>
+          Saved — new casts will include these flags.
+        </p>
+      ) : null}
       <pre data-testid="cast-overrides">
         {JSON.stringify(toCastOverrides(cfg), null, 2)}
       </pre>

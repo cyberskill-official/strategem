@@ -69,6 +69,7 @@ export async function cast(
       persona_level: body.persona_level,
       co_truong_phai: body.co_truong_phai,
       question: body.question_type,
+      tier: "free",
     }),
   });
   if (!res.ok) throw await parseError(res);

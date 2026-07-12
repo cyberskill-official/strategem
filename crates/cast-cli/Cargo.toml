@@ -1,0 +1,18 @@
+[package]
+name = "cast-cli"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "JSON cast CLI for qimen / liuren / taiyi envelopes (API CAST_CLI)"
+
+[[bin]]
+name = "cast-cli"
+path = "src/main.rs"
+
+[dependencies]
+cyberos-qimen = { path = "../cyberos-qimen" }
+cyberos-luchnham = { path = "../cyberos-luchnham" }
+cyberos-thaiat = { path = "../cyberos-thaiat" }
+cyberos-lichphap = { path = "../cyberos-lichphap" }
+serde = { workspace = true }
+serde_json = { workspace = true }

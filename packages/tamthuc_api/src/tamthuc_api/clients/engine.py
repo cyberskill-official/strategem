@@ -88,9 +88,11 @@ class LocalEngineClient:
 
     def _cast_via_cli(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
         assert self.cast_cli is not None
-        payload = json.dumps({"system": system, "lich_phap": lich_phap})
+        payload = json.dumps({"system": system, "lich_phap": lich_phap}, default=str)
+        # cast-cli reads stdin JSON; argv is optional
+        cmd = [self.cast_cli]
         proc = subprocess.run(
-            [self.cast_cli, "cast"],
+            cmd,
             input=payload,
             text=True,
             capture_output=True,
@@ -98,6 +100,12 @@ class LocalEngineClient:
             timeout=30,
         )
         out: dict[str, Any] = json.loads(proc.stdout)
+        if "envelope_version" not in out and "he" not in out:
+            raise KeyError("cast-cli output missing envelope fields")
+        # stamp co_truong_phai from request if CLI omitted it
+        ctp = lich_phap.get("co_truong_phai")
+        if ctp and not out.get("co_truong_phai"):
+            out["co_truong_phai"] = ctp
         return out
 
     def _cast_local(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
@@ -201,9 +209,28 @@ class LocalEngineClient:
         }
 
 
+def resolve_cast_cli() -> str | None:
+    """Resolve CAST_CLI path: env, or cargo target debug/release binary."""
+    env = os.environ.get("CAST_CLI")
+    if env and Path(env).exists():
+        return env
+    # monorepo defaults (dev)
+    root = Path(__file__).resolve()
+    for _ in range(8):
+        root = root.parent
+        candidates = [
+            root / "target" / "release" / "cast-cli",
+            root / "target" / "debug" / "cast-cli",
+        ]
+        for c in candidates:
+            if c.exists():
+                return str(c)
+        if (root / "Cargo.toml").exists() and (root / "crates" / "cast-cli").exists():
+            break
+    return None
+
+
 def default_engine() -> EngineClient:
-    """Prefer CAST_CLI, else local deterministic engine."""
-    cli = os.environ.get("CAST_CLI")
-    if cli and Path(cli).exists():
-        return LocalEngineClient(cli)
-    return LocalEngineClient()
+    """Prefer CAST_CLI (or discovered cast-cli binary), else local deterministic engine."""
+    cli = resolve_cast_cli()
+    return LocalEngineClient(cli)

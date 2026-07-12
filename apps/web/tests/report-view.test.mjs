@@ -58,8 +58,10 @@ assert.match(pdf, /pdf-download-button/);
 assert.match(api, /getReport/);
 assert.match(api, /downloadReportPdf/);
 assert.match(api, /StructuredReport/);
+assert.doesNotMatch(api, /demoReport/);
 
-assert.match(page, /ReportView/);
-assert.match(page, /reportId/);
+assert.match(page, /ReportView|getReport/);
+assert.match(page, /reportId|getReport/);
+assert.doesNotMatch(page, /demoReport/);
 
 console.log("report-view tests ok");

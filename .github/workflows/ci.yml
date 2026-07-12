@@ -56,6 +56,13 @@ jobs:
           uv run mypy packages/
           uv run pytest -q
         shell: bash
+      - name: E2E cast path (calculate + get query)
+        run: |
+          # Build cast-cli for optional CAST_CLI path (API falls back if missing)
+          cargo build -p cast-cli --release
+          export CAST_CLI="${GITHUB_WORKSPACE}/target/release/cast-cli"
+          uv run pytest packages/tamthuc_api/tests/test_e2e_cast.py -q --tb=short
+        shell: bash
 
   web:
     runs-on: ubuntu-latest

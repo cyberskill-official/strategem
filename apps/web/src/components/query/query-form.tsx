@@ -3,6 +3,10 @@
 import { useState } from "react";
 import { cast, ApiClientError } from "../../lib/api/client";
 import type { QueryRequest, QueryResponse } from "../../lib/api/schemas";
+import {
+  loadSchoolConfig,
+  toCastPayloadFlags,
+} from "../../lib/flags/school-flags";
 import { Button } from "../ui/button";
 
 const QUESTION_TYPES = [
@@ -35,6 +39,7 @@ export function QueryForm({
     e.preventDefault();
     setError(null);
     setFieldError(null);
+    const school = loadSchoolConfig();
     const body: QueryRequest = {
       datetime: new Date(datetime).toISOString().slice(0, 19),
       tz,
@@ -43,6 +48,7 @@ export function QueryForm({
       question_type: questionType,
       systems: [system],
       persona_level: persona,
+      co_truong_phai: toCastPayloadFlags(school),
     };
     setLoading(true);
     try {

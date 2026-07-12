@@ -9,9 +9,7 @@ def main() -> None:
     try:
         import uvicorn
     except ImportError as e:  # pragma: no cover
-        raise SystemExit(
-            "uvicorn is required to run the API. Install with: uv add uvicorn"
-        ) from e
+        raise SystemExit("uvicorn is required to run the API. Install with: uv add uvicorn") from e
     from tamthuc_api.app import create_app
 
     host = os.environ.get("HOST", "127.0.0.1")
@@ -21,4 +19,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

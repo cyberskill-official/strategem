@@ -991,6 +991,7 @@ dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
     { name = "pydantic" },
+    { name = "tamthuc-report" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -999,6 +1000,7 @@ requires-dist = [
     { name = "fastapi", specifier = ">=0.111" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "pydantic", specifier = ">=2.7" },
+    { name = "tamthuc-report", editable = "packages/tamthuc_report" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
 

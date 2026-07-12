@@ -1,6 +1,6 @@
 /**
  * School flag enums + defaults — FR-WEB-007.
- * Options match engine closed enums; no school marked "correct".
+ * Options match engine closed enums; no school is marked "correct".
  */
 
 export type SchoolConfig = {
@@ -15,6 +15,8 @@ export type FlagDef = {
   default: string;
   description: string;
 };
+
+export const SCHOOL_FLAGS_STORAGE_KEY = "tamthuc.schoolConfig.v1";
 
 export const SCHOOL_FLAGS: FlagDef[] = [
   {
@@ -108,4 +110,44 @@ export function toCastOverrides(cfg: SchoolConfig): {
     co_truong_phai: { ...cfg.co_truong_phai },
     co_lich_phap: { ...cfg.co_lich_phap },
   };
+}
+
+/** Flat co_truong_phai map engines accept (includes lich flags under co_lich_phap keys). */
+export function toCastPayloadFlags(cfg: SchoolConfig): Record<string, string> {
+  // Prefer short keys for known engine flags
+  const out: Record<string, string> = {};
+  for (const [k, v] of Object.entries(cfg.co_truong_phai)) {
+    const short = k.includes(".") ? k.split(".").slice(1).join(".") : k;
+    out[short] = v;
+    out[k] = v;
+  }
+  for (const [k, v] of Object.entries(cfg.co_lich_phap)) {
+    out[k] = v;
+  }
+  return out;
+}
+
+export function loadSchoolConfig(): SchoolConfig {
+  if (typeof window === "undefined") return defaultSchoolConfig();
+  try {
+    const raw = localStorage.getItem(SCHOOL_FLAGS_STORAGE_KEY);
+    if (!raw) return defaultSchoolConfig();
+    const parsed = JSON.parse(raw) as SchoolConfig;
+    if (!parsed?.co_truong_phai || !parsed?.co_lich_phap) return defaultSchoolConfig();
+    return {
+      co_truong_phai: { ...defaultSchoolConfig().co_truong_phai, ...parsed.co_truong_phai },
+      co_lich_phap: { ...defaultSchoolConfig().co_lich_phap, ...parsed.co_lich_phap },
+    };
+  } catch {
+    return defaultSchoolConfig();
+  }
+}
+
+export function saveSchoolConfig(cfg: SchoolConfig): void {
+  if (typeof window === "undefined") return;
+  try {
+    localStorage.setItem(SCHOOL_FLAGS_STORAGE_KEY, JSON.stringify(cfg));
+  } catch {
+    /* ignore */
+  }
 }

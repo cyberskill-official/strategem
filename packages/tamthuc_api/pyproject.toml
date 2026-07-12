@@ -8,6 +8,7 @@ dependencies = [
   "fastapi>=0.111",
   "httpx>=0.27",
   "uvicorn[standard]>=0.30",
+  "tamthuc-report",
 ]
 
 [build-system]
@@ -16,3 +17,6 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tamthuc_api"]
+
+[tool.uv.sources]
+tamthuc-report = { workspace = true }

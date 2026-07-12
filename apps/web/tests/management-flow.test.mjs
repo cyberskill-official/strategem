@@ -38,13 +38,24 @@ assert.doesNotMatch(school, /correct school/i);
 assert.match(histApi, /getHistory/);
 assert.match(histApi, /shareChart/);
 assert.match(histApi, /ChartRef/);
+assert.match(histApi, /\/api\/v1\/queries/);
+assert.doesNotMatch(histApi, /demoHistory/);
 
 assert.match(share, /share-dialog/);
 assert.match(exp, /export-pdf/);
 assert.match(exp, /export-png/);
 assert.match(exp, /export-svg/);
 
-assert.match(histPage, /HistoryList/);
+assert.match(histPage, /HistoryList|getHistory/);
+assert.doesNotMatch(histPage, /demoHistory/);
 assert.match(setPage, /SchoolFlagsForm/);
 
+assert.match(school, /loadSchoolConfig|SCHOOL_FLAGS_STORAGE_KEY/);
+assert.match(school, /toCastPayloadFlags/);
+
+const form = read("src/components/query/query-form.tsx");
+assert.match(form, /loadSchoolConfig|toCastPayloadFlags/);
+assert.match(form, /co_truong_phai/);
+
 console.log("management-flow tests ok");
+
