@@ -1,8 +1,33 @@
-/** Decorative story icons & scenes — pure SVG, no external assets. */
+/** Decorative story icons & scenes — pure SVG, sized via CSS (.cs-icon). */
 
-export function IconQuestion({ className }: { className?: string }) {
+import type { ReactNode } from "react";
+
+type IconProps = { className?: string };
+
+function Svg({
+  className,
+  children,
+}: {
+  className?: string;
+  children: ReactNode;
+}) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="56" height="56" aria-hidden>
+    <svg
+      className={className ?? "cs-icon"}
+      viewBox="0 0 64 64"
+      width="48"
+      height="48"
+      aria-hidden
+      focusable="false"
+    >
+      {children}
+    </svg>
+  );
+}
+
+export function IconQuestion({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon cs-icon--lg"}>
       <circle
         cx="32"
         cy="32"
@@ -19,13 +44,13 @@ export function IconQuestion({ className }: { className?: string }) {
         strokeLinecap="round"
       />
       <circle cx="34" cy="46" r="2.2" fill="var(--cs-color-brand-ochre)" />
-    </svg>
+    </Svg>
   );
 }
 
-export function IconMap({ className }: { className?: string }) {
+export function IconMap({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="56" height="56" aria-hidden>
+    <Svg className={className ?? "cs-icon cs-icon--lg"}>
       <rect
         x="8"
         y="12"
@@ -44,13 +69,13 @@ export function IconMap({ className }: { className?: string }) {
         strokeLinejoin="round"
       />
       <circle cx="28" cy="22" r="3" fill="var(--cs-color-brand-umber)" />
-    </svg>
+    </Svg>
   );
 }
 
-export function IconStep({ className }: { className?: string }) {
+export function IconStep({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="56" height="56" aria-hidden>
+    <Svg className={className ?? "cs-icon cs-icon--lg"}>
       <circle cx="32" cy="32" r="30" fill="var(--cs-color-brand-umber)" />
       <path
         d="M22 34 L30 42 L44 24"
@@ -60,13 +85,13 @@ export function IconStep({ className }: { className?: string }) {
         strokeLinecap="round"
         strokeLinejoin="round"
       />
-    </svg>
+    </Svg>
   );
 }
 
-export function IconCompass({ className }: { className?: string }) {
+export function IconCompass({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="48" height="48" aria-hidden>
+    <Svg className={className ?? "cs-icon"}>
       <circle
         cx="32"
         cy="32"
@@ -78,13 +103,13 @@ export function IconCompass({ className }: { className?: string }) {
       <path d="M32 12 L36 32 L32 52 L28 32 Z" fill="var(--cs-color-brand-ochre)" opacity="0.9" />
       <path d="M12 32 L32 28 L52 32 L32 36 Z" fill="var(--cs-color-brand-umber)" opacity="0.35" />
       <circle cx="32" cy="32" r="4" fill="var(--cs-color-brand-umber)" />
-    </svg>
+    </Svg>
   );
 }
 
-export function IconDialogue({ className }: { className?: string }) {
+export function IconDialogue({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="48" height="48" aria-hidden>
+    <Svg className={className ?? "cs-icon"}>
       <rect
         x="8"
         y="10"
@@ -99,13 +124,13 @@ export function IconDialogue({ className }: { className?: string }) {
       <circle cx="20" cy="22" r="2" fill="var(--cs-color-brand-umber)" />
       <circle cx="28" cy="22" r="2" fill="var(--cs-color-brand-umber)" />
       <circle cx="36" cy="22" r="2" fill="var(--cs-color-brand-umber)" />
-    </svg>
+    </Svg>
   );
 }
 
-export function IconSeasons({ className }: { className?: string }) {
+export function IconSeasons({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="48" height="48" aria-hidden>
+    <Svg className={className ?? "cs-icon"}>
       <circle
         cx="32"
         cy="32"
@@ -125,20 +150,22 @@ export function IconSeasons({ className }: { className?: string }) {
         stroke="var(--cs-color-brand-umber)"
         strokeWidth="2"
       />
-    </svg>
+    </Svg>
   );
 }
 
 /** Wide hero illustration: person with a question → path → map → open door. */
-export function HeroScene({ className }: { className?: string }) {
+export function HeroScene({ className }: IconProps) {
   return (
     <svg
       className={className}
       viewBox="0 0 480 160"
-      width="100%"
-      height="auto"
+      width="480"
+      height="160"
       role="img"
       aria-hidden
+      focusable="false"
+      preserveAspectRatio="xMidYMid meet"
     >
       <defs>
         <linearGradient id="heroSky" x1="0" y1="0" x2="1" y2="1">
@@ -146,8 +173,7 @@ export function HeroScene({ className }: { className?: string }) {
           <stop offset="100%" stopColor="rgb(69 33 14 / 0.08)" />
         </linearGradient>
       </defs>
-      <rect x="0" y="0" width="480" height="160" rx="20" fill="url(#heroSky)" />
-      {/* Path */}
+      <rect x="0" y="0" width="480" height="160" rx="16" fill="url(#heroSky)" />
       <path
         d="M48 110 C 120 90, 180 130, 240 100 S 360 70, 420 95"
         fill="none"
@@ -156,15 +182,32 @@ export function HeroScene({ className }: { className?: string }) {
         strokeDasharray="6 6"
         opacity="0.45"
       />
-      {/* Figure with question */}
-      <circle cx="56" cy="88" r="18" fill="var(--cs-color-surface-panel)" stroke="var(--cs-color-brand-umber)" strokeWidth="2" />
+      <circle
+        cx="56"
+        cy="88"
+        r="18"
+        fill="var(--cs-color-surface-panel)"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+      />
       <circle cx="56" cy="82" r="6" fill="var(--cs-color-brand-umber)" />
-      <path d="M46 98 Q56 108 66 98" fill="none" stroke="var(--cs-color-brand-umber)" strokeWidth="2" />
+      <path
+        d="M46 98 Q56 108 66 98"
+        fill="none"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+      />
       <circle cx="78" cy="58" r="14" fill="var(--cs-color-brand-ochre)" />
-      <text x="78" y="63" textAnchor="middle" fontSize="16" fontWeight="700" fill="var(--cs-color-brand-umber)">
+      <text
+        x="78"
+        y="63"
+        textAnchor="middle"
+        fontSize="16"
+        fontWeight="700"
+        fill="var(--cs-color-brand-umber)"
+      >
         ?
       </text>
-      {/* Map board */}
       <rect
         x="190"
         y="48"
@@ -175,29 +218,53 @@ export function HeroScene({ className }: { className?: string }) {
         stroke="var(--cs-color-brand-umber)"
         strokeWidth="2"
       />
-      <line x1="223" y1="48" x2="223" y2="120" stroke="var(--cs-color-border-default)" strokeWidth="1.5" />
-      <line x1="257" y1="48" x2="257" y2="120" stroke="var(--cs-color-border-default)" strokeWidth="1.5" />
-      <line x1="190" y1="72" x2="290" y2="72" stroke="var(--cs-color-border-default)" strokeWidth="1.5" />
-      <line x1="190" y1="96" x2="290" y2="96" stroke="var(--cs-color-border-default)" strokeWidth="1.5" />
-      <circle cx="240" cy="84" r="8" fill="var(--cs-color-brand-ochre)" opacity="0.9" />
-      {/* Open door / decision */}
-      <rect
-        x="380"
-        y="42"
-        width="52"
-        height="88"
-        rx="6"
-        fill="var(--cs-color-brand-umber)"
+      <line
+        x1="223"
+        y1="48"
+        x2="223"
+        y2="120"
+        stroke="var(--cs-color-border-default)"
+        strokeWidth="1.5"
       />
-      <path d="M406 42 L432 52 L432 120 L406 130 Z" fill="var(--cs-color-brand-ochre)" opacity="0.85" />
+      <line
+        x1="257"
+        y1="48"
+        x2="257"
+        y2="120"
+        stroke="var(--cs-color-border-default)"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="190"
+        y1="72"
+        x2="290"
+        y2="72"
+        stroke="var(--cs-color-border-default)"
+        strokeWidth="1.5"
+      />
+      <line
+        x1="190"
+        y1="96"
+        x2="290"
+        y2="96"
+        stroke="var(--cs-color-border-default)"
+        strokeWidth="1.5"
+      />
+      <circle cx="240" cy="84" r="8" fill="var(--cs-color-brand-ochre)" opacity="0.9" />
+      <rect x="380" y="42" width="52" height="88" rx="6" fill="var(--cs-color-brand-umber)" />
+      <path
+        d="M406 42 L432 52 L432 120 L406 130 Z"
+        fill="var(--cs-color-brand-ochre)"
+        opacity="0.85"
+      />
       <circle cx="424" cy="86" r="3" fill="var(--cs-color-brand-umber)" />
     </svg>
   );
 }
 
-export function IconBook({ className }: { className?: string }) {
+export function IconBook({ className }: IconProps) {
   return (
-    <svg className={className} viewBox="0 0 64 64" width="48" height="48" aria-hidden>
+    <Svg className={className ?? "cs-icon"}>
       <path
         d="M12 14 h18 a6 6 0 0 1 6 6 v30 a6 6 0 0 0 -6 -6 H12 Z"
         fill="var(--cs-color-surface-raised)"
@@ -211,6 +278,6 @@ export function IconBook({ className }: { className?: string }) {
         stroke="var(--cs-color-brand-umber)"
         strokeWidth="2"
       />
-    </svg>
+    </Svg>
   );
 }

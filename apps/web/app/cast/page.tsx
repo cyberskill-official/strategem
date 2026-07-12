@@ -79,9 +79,9 @@ function CastInner() {
             aria-pressed={system === s.id}
             onClick={() => setSystem(s.id)}
           >
-            <s.Icon />
-            <h3 style={{ margin: "8px 0 4px" }}>{t(s.plain)}</h3>
-            <p style={{ margin: 0, fontSize: "0.9rem" }}>{t(s.blurb)}</p>
+            <s.Icon className="cs-icon" />
+            <h3>{t(s.plain)}</h3>
+            <p>{t(s.blurb)}</p>
             <span className="cs-visual-card__tag">{t(s.name)}</span>
           </button>
         ))}
@@ -91,7 +91,7 @@ function CastInner() {
         {t("cast.hint")}
       </p>
 
-      <div className="cs-grid-2" style={{ minHeight: "50vh" }}>
+      <div className="cs-grid-2">
         <section className="cs-card" aria-label={t("cast.title")}>
           <QueryForm
             system={system}
@@ -106,7 +106,7 @@ function CastInner() {
             <ResultsPanel response={preview} />
           ) : (
             <div className="cs-empty cs-empty--visual" data-testid="cast-results-empty">
-              <IconMap />
+              <IconMap className="cs-icon cs-icon--lg" />
               <div className="cs-empty__title">{t("cast.resultsEmptyTitle")}</div>
               <p style={{ margin: 0 }}>{t("cast.resultsEmpty")}</p>
             </div>

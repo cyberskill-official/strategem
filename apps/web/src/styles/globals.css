@@ -208,7 +208,9 @@ a:focus-visible {
   max-width: 1080px;
   margin: 0 auto;
   display: grid;
-  gap: var(--cs-space-6);
+  gap: var(--cs-space-8);
+  width: 100%;
+  min-width: 0;
 }
 
 .cs-card {
@@ -283,6 +285,7 @@ a:focus-visible {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--cs-space-4);
+  align-items: stretch;
 }
 
 @media (max-width: 760px) {

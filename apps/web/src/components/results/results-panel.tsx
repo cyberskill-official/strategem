@@ -121,10 +121,8 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
         data-testid="results-story-summary"
         aria-label={t("results.storyTitle")}
       >
-        <h2 style={{ marginTop: 0 }}>{t("results.storyTitle")}</h2>
-        <p className="cs-muted" style={{ marginBottom: 0 }}>
-          {t("results.storyLead")}
-        </p>
+        <h2>{t("results.storyTitle")}</h2>
+        <p className="cs-muted">{t("results.storyLead")}</p>
         {systemLabel || patterns[0] ? (
           <div className="cs-story-chips">
             {systemLabel ? (

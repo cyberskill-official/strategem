@@ -23,7 +23,6 @@ export default function LearnPage() {
             key={m.slug}
             href={`/learn/${m.slug}`}
             className="cs-visual-card"
-            style={{ textDecoration: "none", color: "inherit" }}
             data-learn-module={m.slug}
           >
             <span className="cs-story-step__num" aria-hidden>
@@ -32,21 +31,19 @@ export default function LearnPage() {
             <span className="cs-visual-card__emoji" aria-hidden>
               {m.glyph}
             </span>
-            <h2 style={{ fontSize: "1.1rem", margin: "8px 0 0" }}>
-              {m.title[loc] ?? m.title.vi}
-            </h2>
+            <h2>{m.title[loc] ?? m.title.vi}</h2>
             <p>{m.summary[loc] ?? m.summary.vi}</p>
             <span className="cs-visual-card__tag">{t("learn.openModule")} →</span>
           </Link>
         ))}
       </div>
 
-      <section className="cs-cta-band" style={{ marginTop: 8 }}>
+      <section className="cs-cta-band">
         <div>
           <h2>{t("wow.nextStep")}</h2>
           <p>{t("learn.disclaimer")}</p>
         </div>
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10 }}>
+        <div className="cs-cta-actions">
           <Link
             href="/cast"
             className="cs-link-btn cs-link-btn--accent cs-link-btn--pulse"
@@ -56,7 +53,6 @@ export default function LearnPage() {
           <Link
             href="/results/demo-ky-mon-showcase"
             className="cs-link-btn cs-link-btn--secondary"
-            style={{ background: "#fff", color: "var(--cs-color-brand-umber)" }}
           >
             {t("learn.ctaExplore")}
           </Link>

@@ -64,56 +64,29 @@ export default function PricingPage() {
         <p className="cs-lead-short">{t("pricing.lead")}</p>
       </header>
 
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
-          gap: 16,
-        }}
-      >
+      <div className="cs-pricing-grid">
         {TIERS.map((tier) => (
           <article
             key={tier.id}
             className={`cs-visual-card${tier.featured ? " is-active" : ""}`}
             data-tier={tier.id}
-            style={{ cursor: "default" }}
           >
             <span className="cs-visual-card__emoji" aria-hidden>
               {tier.emoji}
             </span>
-            <h2 style={{ fontSize: "1.1rem", margin: "4px 0 0" }}>{t(tier.name)}</h2>
-            <p
-              style={{
-                fontSize: "1.4rem",
-                fontWeight: 700,
-                color: "var(--cs-color-brand-umber)",
-                margin: "4px 0 10px",
-              }}
-            >
-              {t(tier.price)}
-            </p>
-            <ul
-              className="cs-muted"
-              style={{ paddingLeft: 18, lineHeight: 1.55, margin: "0 0 14px", fontSize: "0.88rem" }}
-            >
+            <h2>{t(tier.name)}</h2>
+            <p className="cs-price">{t(tier.price)}</p>
+            <ul>
               {tier.bullets.map((b) => (
                 <li key={b}>{t(b)}</li>
               ))}
             </ul>
             {tier.waitlist ? (
-              <a
-                href="#waitlist"
-                className="cs-link-btn cs-link-btn--secondary"
-                style={{ width: "100%", fontSize: "0.9rem" }}
-              >
+              <a href="#waitlist" className="cs-link-btn cs-link-btn--secondary">
                 {t(tier.cta)}
               </a>
             ) : (
-              <Link
-                href={tier.href}
-                className="cs-link-btn cs-link-btn--primary"
-                style={{ width: "100%", fontSize: "0.9rem" }}
-              >
+              <Link href={tier.href} className="cs-link-btn cs-link-btn--primary">
                 {t(tier.cta)}
               </Link>
             )}
@@ -124,7 +97,7 @@ export default function PricingPage() {
       <p className="cs-disclaimer">{t("pricing.note")}</p>
 
       <section id="waitlist" className="cs-card" style={{ maxWidth: 480 }}>
-        <h2 style={{ fontSize: "1.15rem" }}>{t("pricing.insight.cta")}</h2>
+        <h2 style={{ fontSize: "1.15rem", marginTop: 0 }}>{t("pricing.insight.cta")}</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -141,7 +114,7 @@ export default function PricingPage() {
               setOk(true);
             }
           }}
-          style={{ display: "grid", gap: 12 }}
+          className="cs-query-form"
         >
           <label>
             {t("pricing.advisory.cta")}
@@ -152,15 +125,11 @@ export default function PricingPage() {
               data-testid="waitlist-note"
             />
           </label>
-          <button
-            type="submit"
-            className="cs-link-btn cs-link-btn--primary"
-            style={{ border: "none" }}
-          >
+          <button type="submit" className="cs-link-btn cs-link-btn--primary" style={{ border: "none" }}>
             {t("pricing.insight.cta")}
           </button>
           {ok ? (
-            <p className="cs-muted" data-testid="waitlist-ok">
+            <p className="cs-muted" data-testid="waitlist-ok" style={{ margin: 0 }}>
               {t("pricing.waitlistOk")}
             </p>
           ) : null}

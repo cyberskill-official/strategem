@@ -63,7 +63,6 @@ export default function HomePage() {
 
   return (
     <div className="cs-page cs-reveal">
-      {/* Hero — story beat + scene + one primary button */}
       <section className="cs-hero-stage cs-hero-stage--story">
         <p className="cs-kicker">{t("home.kicker")}</p>
         <h1 className="cs-hero__title vn-text">{t("home.heroTitle")}</h1>
@@ -87,8 +86,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Visual 3-step journey */}
-      <section data-testid="home-story-steps">
+      <section className="cs-section" data-testid="home-story-steps">
         <h2 className="cs-section-heading">{t("home.storyTitle")}</h2>
         <div className="cs-story-rail">
           {STEPS.map((s, i) => (
@@ -96,7 +94,7 @@ export default function HomePage() {
               <div className="cs-story-step__num" aria-hidden>
                 {i + 1}
               </div>
-              <s.Icon />
+              <s.Icon className="cs-icon cs-icon--lg" />
               <h3>{t(s.title)}</h3>
               <p>{t(s.body)}</p>
             </article>
@@ -104,17 +102,11 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pain — short cards with emoji visual anchor */}
-      <section>
+      <section className="cs-section">
         <h2 className="cs-section-heading">{t("home.painTitle")}</h2>
         <div className="cs-grid-3">
           {PAINS.map((p) => (
-            <Link
-              key={p.title}
-              href="/cast"
-              className="cs-visual-card"
-              style={{ textDecoration: "none", color: "inherit" }}
-            >
+            <Link key={p.title} href="/cast" className="cs-visual-card">
               <span className="cs-visual-card__emoji" aria-hidden>
                 {p.emoji}
               </span>
@@ -125,8 +117,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Systems as doors */}
-      <section>
+      <section className="cs-section">
         <h2 className="cs-section-heading">{t("home.systemsTitle")}</h2>
         <p className="cs-lead-short">{t("home.systemsBody")}</p>
         <div className="cs-grid-3">
@@ -135,9 +126,8 @@ export default function HomePage() {
               key={s.id}
               href={`/cast?system=${s.id}`}
               className="cs-visual-card cs-visual-card--door"
-              style={{ textDecoration: "none", color: "inherit" }}
             >
-              <s.Icon />
+              <s.Icon className="cs-icon" />
               <h3>{t(s.plain)}</h3>
               <p>{t(s.blurb)}</p>
               <span className="cs-visual-card__tag">{t(s.name)}</span>
@@ -146,11 +136,10 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Diff — compact two columns */}
       <section className="cs-diff-band" data-testid="home-diff">
         <h2 className="cs-section-heading">{t("home.diffTitle")}</h2>
         <div className="cs-diff-grid">
-          <div>
+          <div className="cs-diff-col">
             <p className="cs-diff-label">{t("home.diff.themLabel")}</p>
             <ul>
               <li>{t("home.diff.them1")}</li>
@@ -158,7 +147,7 @@ export default function HomePage() {
               <li>{t("home.diff.them3")}</li>
             </ul>
           </div>
-          <div>
+          <div className="cs-diff-col">
             <p className="cs-diff-label cs-diff-label--us">{t("home.diff.usLabel")}</p>
             <ul className="cs-diff-grid__us">
               <li>{t("home.diff.us1")}</li>
@@ -169,7 +158,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Packages teaser */}
       <section className="cs-cta-band" data-testid="home-packages-teaser">
         <div>
           <h2>{t("home.packagesTitle")}</h2>
@@ -180,8 +168,7 @@ export default function HomePage() {
         </Link>
       </section>
 
-      {/* FAQ — collapsed */}
-      <section data-testid="home-faq">
+      <section className="cs-section" data-testid="home-faq">
         <h2 className="cs-section-heading">{t("home.faqTitle")}</h2>
         <div className="cs-faq-list">
           {FAQS.map((f, i) => {
