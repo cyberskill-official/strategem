@@ -32,6 +32,8 @@ assert.match(panel, /region-boundary/);
 assert.match(panel, /QimenNinePalace/);
 assert.match(panel, /read-only/i);
 assert.doesNotMatch(panel, /\.ban\s*=/);
+assert.match(panel, /results-story-summary/);
+assert.match(panel, /results\.storyTitle/);
 
 assert.match(interp, /AIDisclosureBadge/);
 assert.match(interp, /HumanReviewGate/);

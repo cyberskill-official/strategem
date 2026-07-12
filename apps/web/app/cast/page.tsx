@@ -9,11 +9,35 @@ import {
   type QueryResponseView,
 } from "../../src/components/results/results-panel";
 import type { QueryResponse } from "../../src/lib/api/schemas";
+import {
+  IconCompass,
+  IconDialogue,
+  IconMap,
+  IconSeasons,
+} from "../../src/components/visual/story-icons";
 
 const SYSTEMS = [
-  { id: "qimen", key: "system.qimen", blurb: "system.qimen.blurb", glyph: "奇" },
-  { id: "liuren", key: "system.liuren", blurb: "system.liuren.blurb", glyph: "壬" },
-  { id: "taiyi", key: "system.taiyi", blurb: "system.taiyi.blurb", glyph: "乙" },
+  {
+    id: "qimen",
+    plain: "system.qimen.plain",
+    blurb: "system.qimen.blurb",
+    name: "system.qimen",
+    Icon: IconCompass,
+  },
+  {
+    id: "liuren",
+    plain: "system.liuren.plain",
+    blurb: "system.liuren.blurb",
+    name: "system.liuren",
+    Icon: IconDialogue,
+  },
+  {
+    id: "taiyi",
+    plain: "system.taiyi.plain",
+    blurb: "system.taiyi.blurb",
+    name: "system.taiyi",
+    Icon: IconSeasons,
+  },
 ] as const;
 
 function toView(res: QueryResponse): QueryResponseView {
@@ -40,35 +64,34 @@ function CastInner() {
 
   return (
     <div className="cs-page cs-reveal">
-      <header>
+      <header className="cs-cast-intro">
         <p className="cs-kicker">{t("cast.system")}</p>
         <h1>{t("cast.title")}</h1>
-        <p className="cs-muted" style={{ maxWidth: "52ch" }}>
-          {t("cast.subtitle")}
-        </p>
+        <p className="cs-lead-short">{t("cast.subtitle")}</p>
       </header>
 
-      <div id="systems" className="cs-grid-3">
+      <div id="systems" className="cs-grid-3 cs-stagger">
         {SYSTEMS.map((s) => (
           <button
             key={s.id}
             type="button"
-            className={`cs-system-tile${system === s.id ? " is-active" : ""}`}
+            className={`cs-visual-card cs-visual-card--door${system === s.id ? " is-active" : ""}`}
             aria-pressed={system === s.id}
             onClick={() => setSystem(s.id)}
           >
-            <div className="cs-system-tile__glyph" aria-hidden>
-              {s.glyph}
-            </div>
-            <div style={{ fontWeight: 700 }}>{t(s.key)}</div>
-            <div className="cs-muted" style={{ marginTop: 4 }}>
-              {t(s.blurb)}
-            </div>
+            <s.Icon />
+            <h3 style={{ margin: "8px 0 4px" }}>{t(s.plain)}</h3>
+            <p style={{ margin: 0, fontSize: "0.9rem" }}>{t(s.blurb)}</p>
+            <span className="cs-visual-card__tag">{t(s.name)}</span>
           </button>
         ))}
       </div>
 
-      <div className="cs-grid-2" style={{ minHeight: "60vh" }}>
+      <p className="cs-hint-pill" role="note">
+        {t("cast.hint")}
+      </p>
+
+      <div className="cs-grid-2" style={{ minHeight: "50vh" }}>
         <section className="cs-card" aria-label={t("cast.title")}>
           <QueryForm
             system={system}
@@ -82,7 +105,8 @@ function CastInner() {
           {preview ? (
             <ResultsPanel response={preview} />
           ) : (
-            <div className="cs-empty" data-testid="cast-results-empty">
+            <div className="cs-empty cs-empty--visual" data-testid="cast-results-empty">
+              <IconMap />
               <div className="cs-empty__title">{t("cast.resultsEmptyTitle")}</div>
               <p style={{ margin: 0 }}>{t("cast.resultsEmpty")}</p>
             </div>

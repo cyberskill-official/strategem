@@ -28,11 +28,15 @@ assert.equal(validateQueryRequest({ ...body, datetime: "" }), "datetime required
 
 const formSrc = readFileSync(join(root, "src/components/query/query-form.tsx"), "utf8");
 assert.match(formSrc, /data-testid="disclaimer"/);
-assert.match(formSrc, /height: 44/);
+// primary cast CTA meets 44px min touch target
+assert.match(formSrc, /height: 4[48]/);
 assert.match(formSrc, /cast\.button|t\(["']cast\.button["']\)/);
 assert.match(formSrc, /RATE_LIMITED/);
 assert.match(formSrc, /FORBIDDEN_TIER/);
 assert.match(formSrc, /useLocale/);
+assert.match(formSrc, /cs-chip/);
+assert.match(formSrc, /cast\.advanced/);
+assert.match(formSrc, /qtype-\$\{q\}|data-testid=\{`qtype-/);
 
 const clientSrc = readFileSync(join(root, "src/lib/api/client.ts"), "utf8");
 assert.match(clientSrc, /\/api\/v1\/calculate\//);

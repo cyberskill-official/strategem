@@ -3,17 +3,50 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useLocale } from "../src/components/i18n/locale-provider";
+import {
+  HeroScene,
+  IconCompass,
+  IconDialogue,
+  IconMap,
+  IconQuestion,
+  IconSeasons,
+  IconStep,
+} from "../src/components/visual/story-icons";
 
-const SYSTEMS = [
-  { id: "qimen", key: "system.qimen", blurb: "system.qimen.blurb", glyph: "奇" },
-  { id: "liuren", key: "system.liuren", blurb: "system.liuren.blurb", glyph: "壬" },
-  { id: "taiyi", key: "system.taiyi", blurb: "system.taiyi.blurb", glyph: "乙" },
+const STEPS = [
+  { title: "home.step1.title", body: "home.step1.body", Icon: IconQuestion },
+  { title: "home.step2.title", body: "home.step2.body", Icon: IconMap },
+  { title: "home.step3.title", body: "home.step3.body", Icon: IconStep },
 ] as const;
 
 const PAINS = [
-  { title: "home.pain1.title", body: "home.pain1.body" },
-  { title: "home.pain2.title", body: "home.pain2.body" },
-  { title: "home.pain3.title", body: "home.pain3.body" },
+  { title: "home.pain1.title", body: "home.pain1.body", emoji: "🔄" },
+  { title: "home.pain2.title", body: "home.pain2.body", emoji: "🌿" },
+  { title: "home.pain3.title", body: "home.pain3.body", emoji: "🪞" },
+] as const;
+
+const SYSTEMS = [
+  {
+    id: "qimen",
+    plain: "system.qimen.plain",
+    blurb: "system.qimen.blurb",
+    name: "system.qimen",
+    Icon: IconCompass,
+  },
+  {
+    id: "liuren",
+    plain: "system.liuren.plain",
+    blurb: "system.liuren.blurb",
+    name: "system.liuren",
+    Icon: IconDialogue,
+  },
+  {
+    id: "taiyi",
+    plain: "system.taiyi.plain",
+    blurb: "system.taiyi.blurb",
+    name: "system.taiyi",
+    Icon: IconSeasons,
+  },
 ] as const;
 
 const FAQS = [
@@ -26,68 +59,108 @@ const FAQS = [
 
 export default function HomePage() {
   const { t } = useLocale();
-  const [openFaq, setOpenFaq] = useState<number | null>(0);
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
     <div className="cs-page cs-reveal">
-      <section className="cs-hero-stage">
+      {/* Hero — story beat + scene + one primary button */}
+      <section className="cs-hero-stage cs-hero-stage--story">
         <p className="cs-kicker">{t("home.kicker")}</p>
         <h1 className="cs-hero__title vn-text">{t("home.heroTitle")}</h1>
-        <p className="cs-hero__body vn-text" style={{ maxWidth: "48ch", fontSize: "1.1rem" }}>
-          {t("home.heroBody")}
-        </p>
-        <div className="cs-hero__actions" style={{ marginTop: 24 }}>
-          <Link href="/cast" className="cs-link-btn cs-link-btn--primary" data-testid="home-cta-cast">
+        <p className="cs-hero__body vn-text">{t("home.heroBody")}</p>
+        <div className="cs-hero-scene" aria-hidden>
+          <HeroScene />
+        </div>
+        <div className="cs-hero__actions cs-hero__actions--primary">
+          <Link
+            href="/cast"
+            className="cs-link-btn cs-link-btn--primary cs-link-btn--lg cs-link-btn--pulse"
+            data-testid="home-cta-cast"
+          >
             {t("home.ctaCast")}
           </Link>
-          <Link href="/pricing" className="cs-link-btn cs-link-btn--accent" data-testid="home-cta-pricing">
-            {t("home.ctaPricing")}
-          </Link>
-          <Link href="/learn" className="cs-link-btn cs-link-btn--secondary">
-            {t("home.ctaLearn")}
-          </Link>
         </div>
-        <div className="cs-stat-row">
-          <div className="cs-stat">
-            <div className="cs-stat__value">3</div>
-            <div className="cs-stat__label">{t("home.statBoards")}</div>
-          </div>
-          <div className="cs-stat">
-            <div className="cs-stat__value">0₫</div>
-            <div className="cs-stat__label">{t("pricing.free.price")}</div>
-          </div>
-          <div className="cs-stat">
-            <div className="cs-stat__value">1:1</div>
-            <div className="cs-stat__label">{t("home.statCitations")}</div>
-          </div>
+        <div className="cs-hero__soft-links">
+          <Link href="/learn">{t("home.ctaLearn")}</Link>
+          <span aria-hidden>·</span>
+          <Link href="/pricing">{t("home.ctaPricing")}</Link>
         </div>
       </section>
 
-      <section>
-        <h2>{t("home.painTitle")}</h2>
-        <div className="cs-grid-3 cs-stagger">
-          {PAINS.map((p) => (
-            <article key={p.title} className="cs-card cs-pillar">
-              <h3>{t(p.title)}</h3>
-              <p className="cs-muted">{t(p.body)}</p>
-              <Link href="/cast" className="cs-muted" style={{ fontWeight: 600 }}>
-                {t("home.ctaCast")} →
-              </Link>
+      {/* Visual 3-step journey */}
+      <section data-testid="home-story-steps">
+        <h2 className="cs-section-heading">{t("home.storyTitle")}</h2>
+        <div className="cs-story-rail">
+          {STEPS.map((s, i) => (
+            <article key={s.title} className="cs-story-step">
+              <div className="cs-story-step__num" aria-hidden>
+                {i + 1}
+              </div>
+              <s.Icon />
+              <h3>{t(s.title)}</h3>
+              <p>{t(s.body)}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="cs-card" data-testid="home-diff">
-        <h2>{t("home.diffTitle")}</h2>
-        <div className="cs-grid-2" style={{ marginTop: 16 }}>
-          <ul className="cs-muted" style={{ lineHeight: 1.7 }}>
-            <li>{t("home.diff.them1")}</li>
-            <li>{t("home.diff.them2")}</li>
-            <li>{t("home.diff.them3")}</li>
-          </ul>
-          <div style={{ borderLeft: "3px solid var(--cs-color-brand-ochre)", paddingLeft: 16 }}>
-            <ul style={{ lineHeight: 1.7, fontWeight: 550 }}>
+      {/* Pain — short cards with emoji visual anchor */}
+      <section>
+        <h2 className="cs-section-heading">{t("home.painTitle")}</h2>
+        <div className="cs-grid-3">
+          {PAINS.map((p) => (
+            <Link
+              key={p.title}
+              href="/cast"
+              className="cs-visual-card"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <span className="cs-visual-card__emoji" aria-hidden>
+                {p.emoji}
+              </span>
+              <h3>{t(p.title)}</h3>
+              <p>{t(p.body)}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Systems as doors */}
+      <section>
+        <h2 className="cs-section-heading">{t("home.systemsTitle")}</h2>
+        <p className="cs-lead-short">{t("home.systemsBody")}</p>
+        <div className="cs-grid-3">
+          {SYSTEMS.map((s) => (
+            <Link
+              key={s.id}
+              href={`/cast?system=${s.id}`}
+              className="cs-visual-card cs-visual-card--door"
+              style={{ textDecoration: "none", color: "inherit" }}
+            >
+              <s.Icon />
+              <h3>{t(s.plain)}</h3>
+              <p>{t(s.blurb)}</p>
+              <span className="cs-visual-card__tag">{t(s.name)}</span>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Diff — compact two columns */}
+      <section className="cs-diff-band" data-testid="home-diff">
+        <h2 className="cs-section-heading">{t("home.diffTitle")}</h2>
+        <div className="cs-diff-grid">
+          <div>
+            <p className="cs-diff-label">{t("home.diff.themLabel")}</p>
+            <ul>
+              <li>{t("home.diff.them1")}</li>
+              <li>{t("home.diff.them2")}</li>
+              <li>{t("home.diff.them3")}</li>
+            </ul>
+          </div>
+          <div>
+            <p className="cs-diff-label cs-diff-label--us">{t("home.diff.usLabel")}</p>
+            <ul className="cs-diff-grid__us">
               <li>{t("home.diff.us1")}</li>
               <li>{t("home.diff.us2")}</li>
               <li>{t("home.diff.us3")}</li>
@@ -96,76 +169,34 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="cs-card cs-card--raised" data-testid="home-packages-teaser">
-        <h2>{t("home.packagesTitle")}</h2>
-        <p className="cs-muted" style={{ maxWidth: "52ch" }}>
-          {t("home.packagesBody")}
-        </p>
-        <Link href="/pricing" className="cs-link-btn cs-link-btn--primary" style={{ marginTop: 8 }}>
-          {t("nav.pricing")} →
+      {/* Packages teaser */}
+      <section className="cs-cta-band" data-testid="home-packages-teaser">
+        <div>
+          <h2>{t("home.packagesTitle")}</h2>
+          <p>{t("home.packagesBody")}</p>
+        </div>
+        <Link href="/pricing" className="cs-link-btn cs-link-btn--accent">
+          {t("nav.pricing")}
         </Link>
       </section>
 
-      <section>
-        <h2>{t("home.systemsTitle")}</h2>
-        <p className="cs-muted">{t("home.systemsBody")}</p>
-        <div className="cs-grid-3" style={{ marginTop: 16 }}>
-          {SYSTEMS.map((s) => (
-            <Link
-              key={s.id}
-              href={`/cast?system=${s.id}`}
-              className="cs-system-tile"
-              style={{ textDecoration: "none" }}
-            >
-              <div className="cs-system-tile__glyph" aria-hidden>
-                {s.glyph}
-              </div>
-              <div style={{ fontWeight: 700, fontSize: "1.1rem" }}>{t(s.key)}</div>
-              <div className="cs-muted" style={{ marginTop: 4 }}>
-                {t(s.blurb)}
-              </div>
-            </Link>
-          ))}
-        </div>
-      </section>
-
-      <section className="cs-card">
-        <h2>{t("home.proofTitle")}</h2>
-        <p className="cs-muted" data-testid="home-proof-empty">
-          {t("home.proofEmpty")}
-        </p>
-      </section>
-
+      {/* FAQ — collapsed */}
       <section data-testid="home-faq">
-        <h2>{t("home.faqTitle")}</h2>
-        <div style={{ display: "grid", gap: 8 }}>
+        <h2 className="cs-section-heading">{t("home.faqTitle")}</h2>
+        <div className="cs-faq-list">
           {FAQS.map((f, i) => {
             const open = openFaq === i;
             return (
-              <div key={f.q} className="cs-card" style={{ padding: 0, overflow: "hidden" }}>
+              <div key={f.q} className="cs-faq-item">
                 <button
                   type="button"
-                  onClick={() => setOpenFaq(open ? null : i)}
                   aria-expanded={open}
-                  style={{
-                    width: "100%",
-                    textAlign: "left",
-                    padding: "14px 18px",
-                    border: "none",
-                    background: "transparent",
-                    font: "inherit",
-                    fontWeight: 650,
-                    cursor: "pointer",
-                    color: "var(--cs-color-brand-umber)",
-                  }}
+                  onClick={() => setOpenFaq(open ? null : i)}
                 >
                   {t(f.q)}
+                  <span aria-hidden>{open ? "−" : "+"}</span>
                 </button>
-                {open ? (
-                  <p className="cs-muted" style={{ padding: "0 18px 16px", margin: 0 }}>
-                    {t(f.a)}
-                  </p>
-                ) : null}
+                {open ? <p>{t(f.a)}</p> : null}
               </div>
             );
           })}

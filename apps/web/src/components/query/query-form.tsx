@@ -32,6 +32,7 @@ export function QueryForm({
   const [kinhDo, setKinhDo] = useState("105.85");
   const [questionType, setQuestionType] = useState("trach_thoi");
   const [persona, setPersona] = useState<"beginner" | "expert">("beginner");
+  const [showAdvanced, setShowAdvanced] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldError, setFieldError] = useState<string | null>(null);
@@ -77,10 +78,31 @@ export function QueryForm({
   }
 
   return (
-    <form onSubmit={onSubmit} style={{ display: "grid", gap: "var(--space-3)" }}>
-      <p data-testid="disclaimer" className="cs-disclaimer">
-        {t("disclaimer.full")}
-      </p>
+    <form onSubmit={onSubmit} className="cs-query-form">
+      <p className="cs-query-form__title">{t("cast.formTitle")}</p>
+
+      <fieldset className="cs-chip-field">
+        <legend>{t("cast.questionType")}</legend>
+        <div className="cs-chip-row" role="radiogroup" aria-label={t("cast.questionType")}>
+          {QUESTION_TYPES.map((q) => {
+            const active = questionType === q;
+            return (
+              <button
+                key={q}
+                type="button"
+                role="radio"
+                aria-checked={active}
+                className={`cs-chip${active ? " is-active" : ""}`}
+                onClick={() => setQuestionType(q)}
+                data-testid={`qtype-${q}`}
+              >
+                {t(`cast.q.${q}`)}
+              </button>
+            );
+          })}
+        </div>
+      </fieldset>
+
       <label>
         {t("cast.datetime")}
         <input
@@ -90,45 +112,61 @@ export function QueryForm({
           required
         />
       </label>
-      <label>
-        {t("cast.timezone")}
-        <input value={tz} onChange={(e) => setTz(e.target.value)} required />
-      </label>
+
       <label>
         {t("cast.place")}
         <input value={place} onChange={(e) => setPlace(e.target.value)} />
       </label>
-      <label>
-        {t("cast.longitude")}
-        <input
-          value={kinhDo}
-          onChange={(e) => setKinhDo(e.target.value)}
-          inputMode="decimal"
-        />
-      </label>
-      <label>
-        {t("cast.questionType")}
-        <select
-          value={questionType}
-          onChange={(e) => setQuestionType(e.target.value)}
-        >
-          {QUESTION_TYPES.map((q) => (
-            <option key={q} value={q}>
-              {t(`cast.q.${q}`)}
-            </option>
+
+      <fieldset className="cs-chip-field">
+        <legend>{t("cast.persona")}</legend>
+        <div className="cs-chip-row" role="radiogroup">
+          {(["beginner", "expert"] as const).map((p) => (
+            <button
+              key={p}
+              type="button"
+              role="radio"
+              aria-checked={persona === p}
+              className={`cs-chip${persona === p ? " is-active" : ""}`}
+              onClick={() => setPersona(p)}
+            >
+              {t(`cast.persona.${p}`)}
+            </button>
           ))}
-        </select>
-      </label>
-      <label>
-        {t("cast.persona")}
-        <select
-          value={persona}
-          onChange={(e) => setPersona(e.target.value as "beginner" | "expert")}
-        >
-          <option value="beginner">{t("cast.persona.beginner")}</option>
-          <option value="expert">{t("cast.persona.expert")}</option>
-        </select>
-      </label>
+        </div>
+      </fieldset>
+
+      <button
+        type="button"
+        className="cs-advanced-toggle"
+        aria-expanded={showAdvanced}
+        onClick={() => setShowAdvanced((v) => !v)}
+      >
+        {showAdvanced ? "▾ " : "▸ "}
+        {t("cast.advanced")}
+      </button>
+
+      {showAdvanced ? (
+        <div className="cs-advanced-block">
+          <label>
+            {t("cast.timezone")}
+            <input value={tz} onChange={(e) => setTz(e.target.value)} required />
+          </label>
+          <label>
+            {t("cast.longitude")}
+            <input
+              value={kinhDo}
+              onChange={(e) => setKinhDo(e.target.value)}
+              inputMode="decimal"
+            />
+          </label>
+        </div>
+      ) : null}
+
+      <p data-testid="disclaimer" className="cs-disclaimer">
+        {t("disclaimer.short")}
+      </p>
+
       {fieldError && (
         <p data-testid="field-error" style={{ color: "var(--color-danger)" }}>
           {fieldError}
@@ -142,7 +180,8 @@ export function QueryForm({
       <Button
         type="submit"
         disabled={loading || castDisabled}
-        style={{ height: 44, width: "100%" }}
+        className="cs-link-btn--pulse"
+        style={{ height: 48, width: "100%" }}
         data-testid="cast-button"
       >
         {loading ? t("cast.loading") : t("cast.button")}

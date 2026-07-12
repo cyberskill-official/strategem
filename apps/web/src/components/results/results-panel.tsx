@@ -117,6 +117,29 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
       ) : null}
 
       <section
+        className="cs-story-summary"
+        data-testid="results-story-summary"
+        aria-label={t("results.storyTitle")}
+      >
+        <h2 style={{ marginTop: 0 }}>{t("results.storyTitle")}</h2>
+        <p className="cs-muted" style={{ marginBottom: 0 }}>
+          {t("results.storyLead")}
+        </p>
+        {systemLabel || patterns[0] ? (
+          <div className="cs-story-chips">
+            {systemLabel ? (
+              <span className="cs-badge cs-badge--trung">{systemLabel}</span>
+            ) : null}
+            {patterns[0]?.name ? (
+              <span className="cs-badge cs-badge--hung">
+                {displayPatternName(patterns[0].name, locale)}
+              </span>
+            ) : null}
+          </div>
+        ) : null}
+      </section>
+
+      <section
         data-testid="deterministic-region"
         className="cs-region"
         aria-label={t("results.chartRegion")}

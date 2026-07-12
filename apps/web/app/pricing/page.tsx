@@ -12,8 +12,9 @@ const TIERS = [
     bullets: ["pricing.free.b1", "pricing.free.b2", "pricing.free.b3"],
     cta: "pricing.free.cta",
     href: "/cast",
-    featured: false,
+    featured: true,
     waitlist: false,
+    emoji: "🗺️",
   },
   {
     id: "insight",
@@ -22,8 +23,9 @@ const TIERS = [
     bullets: ["pricing.insight.b1", "pricing.insight.b2", "pricing.insight.b3"],
     cta: "pricing.insight.cta",
     href: "#waitlist",
-    featured: true,
+    featured: false,
     waitlist: true,
+    emoji: "🔍",
   },
   {
     id: "deep",
@@ -34,6 +36,7 @@ const TIERS = [
     href: "#waitlist",
     featured: false,
     waitlist: true,
+    emoji: "📜",
   },
   {
     id: "advisory",
@@ -44,6 +47,7 @@ const TIERS = [
     href: "#waitlist",
     featured: false,
     waitlist: true,
+    emoji: "🤝",
   },
 ] as const;
 
@@ -54,57 +58,61 @@ export default function PricingPage() {
 
   return (
     <div className="cs-page cs-reveal" data-testid="pricing-page">
-      <header>
+      <header className="cs-cast-intro">
         <p className="cs-kicker">{t("pricing.kicker")}</p>
         <h1>{t("pricing.title")}</h1>
-        <p className="cs-muted" style={{ maxWidth: "48ch" }}>
-          {t("pricing.lead")}
-        </p>
+        <p className="cs-lead-short">{t("pricing.lead")}</p>
       </header>
 
       <div
         style={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
           gap: 16,
         }}
       >
         {TIERS.map((tier) => (
           <article
             key={tier.id}
-            className={`cs-card${tier.featured ? " cs-card--raised" : ""}`}
+            className={`cs-visual-card${tier.featured ? " is-active" : ""}`}
             data-tier={tier.id}
-            style={
-              tier.featured
-                ? { borderColor: "var(--cs-color-brand-ochre)", boxShadow: "var(--cs-shadow-md)" }
-                : undefined
-            }
+            style={{ cursor: "default" }}
           >
-            <h2 style={{ fontSize: "1.15rem" }}>{t(tier.name)}</h2>
+            <span className="cs-visual-card__emoji" aria-hidden>
+              {tier.emoji}
+            </span>
+            <h2 style={{ fontSize: "1.1rem", margin: "4px 0 0" }}>{t(tier.name)}</h2>
             <p
               style={{
-                fontSize: "1.5rem",
+                fontSize: "1.4rem",
                 fontWeight: 700,
                 color: "var(--cs-color-brand-umber)",
-                margin: "8px 0 16px",
+                margin: "4px 0 10px",
               }}
             >
               {t(tier.price)}
             </p>
-            <ul className="cs-muted" style={{ paddingLeft: 18, lineHeight: 1.65, minHeight: 100 }}>
+            <ul
+              className="cs-muted"
+              style={{ paddingLeft: 18, lineHeight: 1.55, margin: "0 0 14px", fontSize: "0.88rem" }}
+            >
               {tier.bullets.map((b) => (
                 <li key={b}>{t(b)}</li>
               ))}
             </ul>
             {tier.waitlist ? (
-              <a href="#waitlist" className="cs-link-btn cs-link-btn--secondary" style={{ width: "100%" }}>
+              <a
+                href="#waitlist"
+                className="cs-link-btn cs-link-btn--secondary"
+                style={{ width: "100%", fontSize: "0.9rem" }}
+              >
                 {t(tier.cta)}
               </a>
             ) : (
               <Link
                 href={tier.href}
                 className="cs-link-btn cs-link-btn--primary"
-                style={{ width: "100%" }}
+                style={{ width: "100%", fontSize: "0.9rem" }}
               >
                 {t(tier.cta)}
               </Link>
@@ -115,8 +123,8 @@ export default function PricingPage() {
 
       <p className="cs-disclaimer">{t("pricing.note")}</p>
 
-      <section id="waitlist" className="cs-card" style={{ maxWidth: 520 }}>
-        <h2>{t("pricing.insight.cta")}</h2>
+      <section id="waitlist" className="cs-card" style={{ maxWidth: 480 }}>
+        <h2 style={{ fontSize: "1.15rem" }}>{t("pricing.insight.cta")}</h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();
@@ -140,12 +148,15 @@ export default function PricingPage() {
             <textarea
               value={note}
               onChange={(e) => setNote(e.target.value)}
-              rows={3}
-              placeholder="…"
+              rows={2}
               data-testid="waitlist-note"
             />
           </label>
-          <button type="submit" className="cs-link-btn cs-link-btn--primary" style={{ border: "none" }}>
+          <button
+            type="submit"
+            className="cs-link-btn cs-link-btn--primary"
+            style={{ border: "none" }}
+          >
             {t("pricing.insight.cta")}
           </button>
           {ok ? (

@@ -51,14 +51,12 @@ export default function LearnModulePage() {
         {" · "}
         {mod.order}/3
       </p>
-      <header className="cs-hero-stage" style={{ marginBottom: 8 }}>
-        <div className="cs-system-tile__glyph" aria-hidden>
+      <header className="cs-cast-intro" style={{ marginBottom: 8 }}>
+        <span className="cs-visual-card__emoji" aria-hidden style={{ fontSize: "2rem" }}>
           {mod.glyph}
-        </div>
-        <h1 style={{ marginTop: 12 }}>{mod.title[loc] ?? mod.title.vi}</h1>
-        <p className="cs-muted" style={{ maxWidth: "48ch" }}>
-          {mod.summary[loc] ?? mod.summary.vi}
-        </p>
+        </span>
+        <h1 style={{ marginTop: 8 }}>{mod.title[loc] ?? mod.title.vi}</h1>
+        <p className="cs-lead-short">{mod.summary[loc] ?? mod.summary.vi}</p>
       </header>
 
       <article className="cs-card" style={{ maxWidth: 720 }}>
@@ -70,7 +68,7 @@ export default function LearnModulePage() {
       <div className="cs-hero__actions" style={{ marginTop: 8 }}>
         <Link
           href={mod.practiceHref}
-          className="cs-link-btn cs-link-btn--primary"
+          className="cs-link-btn cs-link-btn--primary cs-link-btn--pulse"
         >
           {t("learn.practice")}
         </Link>
@@ -86,11 +84,14 @@ export default function LearnModulePage() {
             <Link
               key={m.slug}
               href={`/learn/${m.slug}`}
-              className="cs-card"
+              className="cs-visual-card"
               style={{ textDecoration: "none", color: "inherit" }}
             >
-              <div style={{ fontWeight: 700 }}>{m.title[loc] ?? m.title.vi}</div>
-              <div className="cs-muted">{m.summary[loc] ?? m.summary.vi}</div>
+              <span className="cs-visual-card__emoji" aria-hidden>
+                {m.glyph}
+              </span>
+              <h3 style={{ margin: 0 }}>{m.title[loc] ?? m.title.vi}</h3>
+              <p>{m.summary[loc] ?? m.summary.vi}</p>
             </Link>
           ))}
         </div>

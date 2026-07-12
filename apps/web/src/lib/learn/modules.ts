@@ -1,5 +1,6 @@
 /**
  * Curriculum modules — pure locale content (no mixed languages).
+ * Written for absolute beginners; classical names are secondary.
  */
 
 export type LessonBlock =
@@ -22,86 +23,86 @@ export const LEARN_MODULES: LearnModule[] = [
   {
     slug: "chu-khach",
     order: 1,
-    glyph: "主",
+    glyph: "🪞",
     title: {
-      vi: "Khung chủ–khách",
-      en: "Host–guest frame",
-      zh: "主客框架",
+      vi: "Ai là bạn, ai là phía kia?",
+      en: "You and the other side",
+      zh: "你与对方",
     },
     summary: {
-      vi: "Ai hỏi, ai ứng; thế và thời. Học đặt câu hỏi để bàn trả lời được.",
-      en: "Who asks, who responds; stance and time. Questions the board can answer.",
-      zh: "谁问谁应；势与时。学会提出盘能回答的问题。",
+      vi: "Trước khi vẽ hình: câu hỏi của bạn cụ thể chưa? Ai đang «cầm» chuyện này?",
+      en: "Before the map: is your question concrete? Who holds the matter?",
+      zh: "画图前：问题够具体吗？谁在「拿」这件事？",
     },
     practiceHref: "/cast",
     body: {
       vi: [
         {
           type: "p",
-          text: "Tam Thức không thay bạn quyết định. Nó dựng một khung để soi: ai là chủ, ai là khách, thời điểm nào đang mở.",
+          text: "Ứng dụng không thay bạn quyết. Nó chỉ dựng một khung để soi: bạn đang ở đâu trong chuyện, phía kia ở đâu, thời điểm nào đang mở.",
         },
-        { type: "h", text: "Ba câu trước khi lập quẻ" },
+        { type: "h", text: "Ba câu hỏi trước khi bấm nút" },
         {
           type: "ul",
           items: [
-            "Câu hỏi cụ thể đến mức nào? (thời điểm, phương hướng, đối tác)",
-            "Ai là chủ sự — bạn hay bên kia?",
-            "Thắng trông như thế nào, thua trông như thế nào?",
+            "Câu hỏi của bạn có thể trả lời bằng «có / chưa / đợi» không — hay còn mơ hồ?",
+            "Ai là người đang «cầm» chuyện — bạn hay phía kia?",
+            "Nếu «tốt» thì trông ra sao? Nếu «chưa» thì trông ra sao?",
           ],
         },
         {
           type: "callout",
-          text: "Câu mơ hồ cho ra bàn mơ hồ. Càng rõ chủ–khách, cách cục càng có chỗ bám.",
+          text: "Câu mơ hồ → hình mơ hồ. Càng rõ «mình / người kia / lúc nào», gợi ý càng bám được.",
         },
         {
           type: "p",
-          text: "Khi đã có câu, chọn hệ: Kỳ Môn cho cục cung–môn–thần; Lục Nhâm cho tứ khóa–tam truyền; Thái Ất cho vận số lớn.",
+          text: "Rồi mới chọn cánh cửa: la bàn thời điểm, cuộc trò chuyện hai phía, hoặc nhịp lớn của cả chặng. Tên cổ (Kỳ Môn, Lục Nhâm, Thái Ất) chỉ là nhãn — bạn chọn theo cảm giác câu hỏi.",
         },
       ],
       en: [
         {
           type: "p",
-          text: "The Three Arts do not decide for you. They frame the field: who is host, who is guest, which hour is open.",
+          text: "The app does not decide for you. It frames the field: where you stand, where the other side stands, which moment is open.",
         },
-        { type: "h", text: "Three questions before casting" },
+        { type: "h", text: "Three questions before you press the button" },
         {
           type: "ul",
           items: [
-            "How concrete is the question? (timing, direction, counterpart)",
+            "Can your question be answered with yes / not yet / wait — or is it still vague?",
             "Who holds the matter — you or the other side?",
-            "What would winning look like — and losing?",
+            "What would “good” look like — and “not yet”?",
           ],
         },
         {
           type: "callout",
-          text: "Vague questions yield vague boards. Clear host–guest gives patterns something to hold.",
+          text: "Vague questions yield vague maps. Clear “me / them / when” gives hints something to hold.",
         },
         {
           type: "p",
-          text: "Then choose the art: Qi Men for palace–door–deity, Liu Ren for keys and transmissions, Tai Yi for longer cycles.",
+          text: "Then pick a door: timing compass, two-sided conversation, or the long rhythm of a chapter. Classical names are labels — choose by how the question feels.",
         },
       ],
       zh: [
         {
           type: "p",
-          text: "三式并不替你裁决。它建立读势之框：谁为主、谁为客、何时开局。",
+          text: "应用不替你做决定。它只搭一个框：你在这件事里的位置、对方的位置、何时开局。",
         },
-        { type: "h", text: "起盘前三问" },
+        { type: "h", text: "按按钮前的三个问题" },
         {
           type: "ul",
           items: [
-            "问题有多具体？（时点、方位、对象）",
-            "用事者是谁——你还是对方？",
-            "胜与负各是什么样子？",
+            "你的问题能否用「是 / 还不行 / 等」回答——还是仍很模糊？",
+            "谁在「拿」这件事——你还是对方？",
+            "「好」是什么样？「还不行」是什么样？",
           ],
         },
         {
           type: "callout",
-          text: "问得含糊，盘也含糊。主客清楚，格局才有所依附。",
+          text: "问得含糊，图也含糊。「我 / 对方 / 何时」越清楚，提示越站得住。",
         },
         {
           type: "p",
-          text: "然后择术：奇门看宫门神，六壬看四课三传，太乙看大运。",
+          text: "再选门：时机罗盘、双方对话、或一段路的大节奏。古名只是标签——按问题的感觉选。",
         },
       ],
     },
@@ -109,128 +110,128 @@ export const LEARN_MODULES: LearnModule[] = [
   {
     slug: "doc-ban",
     order: 2,
-    glyph: "盤",
+    glyph: "🗺️",
     title: {
-      vi: "Đọc ban đồ",
-      en: "Reading the board",
-      zh: "读盘",
+      vi: "Nhìn bức hình thế nào?",
+      en: "How to look at the picture",
+      zh: "怎么看这幅图",
     },
     summary: {
-      vi: "Từ can đến cách: cửu cung, tứ khóa, cung Thái Ất — từng lớp một.",
-      en: "Stem to pattern: nine palaces, four keys, Tai Yi station — layer by layer.",
-      zh: "从干到局：九宫、四课、太乙所在——层层深入。",
+      vi: "Hình do máy vẽ — cùng giờ, cùng chỗ thì cùng hình. Đọc từ ngoài vào trong, từng lớp.",
+      en: "The picture is computed — same time and place, same picture. Read outside-in, layer by layer.",
+      zh: "图由机器所画——同时同地则同图。由外而内、一层一层读。",
     },
     practiceHref: "/results/demo-ky-mon-showcase",
     body: {
       vi: [
         {
           type: "p",
-          text: "Ban đồ là phần máy tính định nghĩa: cùng đầu vào, cùng kết quả. Đọc từ ngoài vào trong.",
+          text: "Bức hình là phần máy tính: cùng đầu vào, cùng kết quả. Bạn không cần thuộc tên từng ô — chỉ cần biết đọc theo lớp.",
         },
-        { type: "h", text: "Kỳ Môn" },
+        { type: "h", text: "La bàn thời điểm (Kỳ Môn)" },
         {
           type: "ul",
           items: [
-            "Cung → can → tinh → môn → thần",
-            "Cách cục (môn bách, phục ngâm…) là lớp thứ hai",
-            "Không nhảy vội sang diễn giải trước khi soi đủ cung then chốt",
+            "Chín ô như chín góc nhìn",
+            "Mỗi ô có vài «nhãn» xếp chồng — đọc từ ngoài vào",
+            "Đừng nhảy vội sang lời gợi ý trước khi nhìn vài ô then chốt",
           ],
         },
-        { type: "h", text: "Lục Nhâm" },
+        { type: "h", text: "Cuộc trò chuyện (Lục Nhâm)" },
         {
           type: "ul",
           items: [
-            "Thiên địa bàn: nguyệt tướng thêm chiêm thời",
-            "Tứ khóa rồi tam truyền — mạch câu chuyện",
-            "Thập nhị thiên tướng phủ lên các chi",
+            "Hai lớp: đất và trời — như hai phía đối thoại",
+            "Bốn «khóa» rồi ba «chặng» — mạch câu chuyện",
+            "Nhìn mạch trước, chi tiết sau",
           ],
         },
-        { type: "h", text: "Thái Ất" },
+        { type: "h", text: "Nhịp lớn (Thái Ất)" },
         {
           type: "ul",
           items: [
-            "Thái Ất đóng cung nào",
-            "Thập lục thần trên vòng",
-            "Chủ–khách đại tướng và các toán",
+            "Nhìn hướng lớn của cả chặng",
+            "Vòng quanh các vị trí",
+            "Phù hợp câu hỏi dài hơi (tháng / năm / hướng đi)",
           ],
         },
         {
           type: "callout",
-          text: "Luyện mắt: mở bàn mẫu, chỉ trỏ từng lớp trước khi đọc lời diễn giải.",
+          text: "Luyện mắt: mở bàn mẫu, chỉ trỏ từng lớp trước khi đọc gợi ý.",
         },
       ],
       en: [
         {
           type: "p",
-          text: "The board is the computed layer: same inputs, same result. Read outside-in.",
+          text: "The picture is the computed layer: same inputs, same result. You need not memorize every cell — only how to read in layers.",
         },
-        { type: "h", text: "Qi Men" },
+        { type: "h", text: "Timing compass (Qi Men)" },
         {
           type: "ul",
           items: [
-            "Palace → stem → star → door → deity",
-            "Patterns (door presses, hidden chant…) are the second layer",
-            "Do not leap to interpretation before key palaces",
+            "Nine cells like nine angles",
+            "Each cell stacks labels — read outside-in",
+            "Don’t leap to prose before key cells",
           ],
         },
-        { type: "h", text: "Liu Ren" },
+        { type: "h", text: "Conversation (Liu Ren)" },
         {
           type: "ul",
           items: [
-            "Heaven–earth board: month general on the hour",
-            "Four keys then three transmissions — the story line",
-            "Twelve generals over the branches",
+            "Two layers: earth and heaven — like two sides talking",
+            "Four keys then three steps — the story line",
+            "Follow the line first, details second",
           ],
         },
-        { type: "h", text: "Tai Yi" },
+        { type: "h", text: "Long rhythm (Tai Yi)" },
         {
           type: "ul",
           items: [
-            "Where Tai Yi sits",
-            "Sixteen deities on the ring",
-            "Host–guest generals and totals",
+            "The big direction of a chapter",
+            "Positions around a ring",
+            "Best for longer questions (months / years / path)",
           ],
         },
         {
           type: "callout",
-          text: "Train the eye: open a sample board and name each layer before reading the prose.",
+          text: "Train the eye: open a sample board and name each layer before reading the hints.",
         },
       ],
       zh: [
         {
           type: "p",
-          text: "盘局是计算层：同输入、同结果。由外而内读。",
+          text: "图是计算层：同输入、同结果。不必背每个格——只要会分层读。",
         },
-        { type: "h", text: "奇门" },
+        { type: "h", text: "时机罗盘（奇门）" },
         {
           type: "ul",
           items: [
-            "宫 → 干 → 星 → 门 → 神",
-            "格局（门迫、伏吟…）为第二层",
-            "未看清关键宫前，勿急跳到解读",
+            "九格像九个角度",
+            "每格叠着标签——由外而内读",
+            "关键格看清前，别急跳到提示",
           ],
         },
-        { type: "h", text: "六壬" },
+        { type: "h", text: "对话（六壬）" },
         {
           type: "ul",
           items: [
-            "天地盘：月将加占时",
-            "四课而后三传——叙事脉络",
-            "十二天将覆于支上",
+            "两层：地与天——像双方对话",
+            "四课而后三传——叙事线",
+            "先跟线，后看细节",
           ],
         },
-        { type: "h", text: "太乙" },
+        { type: "h", text: "大节奏（太乙）" },
         {
           type: "ul",
           items: [
-            "太乙落何宫",
-            "环上十六神",
-            "主客大将与诸算",
+            "一段路的大方向",
+            "环上的位置",
+            "适合长问（月 / 年 / 方向）",
           ],
         },
         {
           type: "callout",
-          text: "练眼：打开示例盘，先点名各层，再读解说。",
+          text: "练眼：打开示例盘，先点名各层，再读提示。",
         },
       ],
     },
@@ -238,89 +239,89 @@ export const LEARN_MODULES: LearnModule[] = [
   {
     slug: "cach-cuc",
     order: 3,
-    glyph: "引",
+    glyph: "✨",
     title: {
-      vi: "Cách cục và trích dẫn",
-      en: "Patterns and citations",
-      zh: "格局与引用",
+      vi: "Điểm sáng và chỗ dựa",
+      en: "Highlights and sources",
+      zh: "亮点与出处",
     },
     summary: {
-      vi: "Mỗi cách gắn nguồn. Đối chiếu Hán, bạch thoại và bối cảnh thực.",
-      en: "Every pattern carries a source. Match classical text, vernacular, and real context.",
-      zh: "每局皆有出处。对照汉文、白话与现实情境。",
+      vi: "Mỗi điểm nổi bật có tên và nguồn. Đọc như gợi ý — không như lời phán.",
+      en: "Every highlight has a name and a source. Read as hints — not verdicts.",
+      zh: "每个亮点有名称与出处。当提示读——不当判决。",
     },
     practiceHref: "/cast",
     body: {
       vi: [
         {
           type: "p",
-          text: "Cách cục là tín hiệu đã được đặt tên. Cát–hung chỉ là một trục; ngữ cảnh mới quyết ý nghĩa.",
+          text: "Trên hình có những «điểm nổi bật» đã được đặt tên. Cát–hung chỉ là một trục; câu hỏi của bạn mới quyết ý nghĩa.",
         },
-        { type: "h", text: "Đọc một cách cục" },
+        { type: "h", text: "Khi thấy một điểm nổi" },
         {
           type: "ul",
           items: [
-            "Tên (Hán + tên gọi địa phương)",
-            "Cung / vị trí nếu có",
-            "Cực tính (cát / hung / trung) — luôn kèm biểu tượng, không chỉ màu",
-            "Trích dẫn nguồn khi có",
+            "Tên là gì — và bạn hiểu nôm na ra sao?",
+            "Nằm chỗ nào trên hình?",
+            "Cát / hung / trung — luôn có chữ, không chỉ màu",
+            "Có nguồn trích dẫn không?",
           ],
         },
         {
           type: "callout",
-          text: "Đầu ra mô hình có thể suy giảm theo quy tắc. Luôn kiểm nhãn và nguồn trước khi dùng để quyết.",
+          text: "Gợi ý có thể chưa hoàn hảo. Luôn xem nguồn và nhãn trước khi dùng để quyết.",
         },
         {
           type: "p",
-          text: "Luyện: lập một quẻ thật, ghi ba câu — (1) cách nào nổi, (2) vì sao liên quan câu hỏi, (3) điều gì bạn vẫn chưa biết.",
+          text: "Luyện: vẽ một hình thật, ghi ba câu — (1) điểm nào nổi, (2) vì sao liên quan câu hỏi, (3) điều gì bạn vẫn chưa biết.",
         },
       ],
       en: [
         {
           type: "p",
-          text: "A pattern is a named signal. Polarity is one axis; context decides meaning.",
+          text: "The picture names certain highlights. Polarity is one axis; your question decides meaning.",
         },
-        { type: "h", text: "Reading one pattern" },
+        { type: "h", text: "When one highlight stands out" },
         {
           type: "ul",
           items: [
-            "Name (classical + local form)",
-            "Palace / position if any",
-            "Polarity (auspicious / inauspicious / neutral) — icon and text, never color alone",
-            "Source citation when present",
+            "What is its name — and in plain words?",
+            "Where does it sit on the picture?",
+            "Auspicious / inauspicious / neutral — text, not color alone",
+            "Is there a source citation?",
           ],
         },
         {
           type: "callout",
-          text: "Model output may degrade to rules. Always check the disclosure and sources before deciding.",
+          text: "Hints may be imperfect. Always check sources and labels before deciding.",
         },
         {
           type: "p",
-          text: "Practice: cast live, write three lines — (1) which patterns stand out, (2) why they touch the question, (3) what you still do not know.",
+          text: "Practice: draw a live picture, write three lines — (1) what stands out, (2) why it touches the question, (3) what you still do not know.",
         },
       ],
       zh: [
         {
           type: "p",
-          text: "格局是被命名的信号。吉凶只是一轴；语境决定含义。",
+          text: "图上会标出一些「亮点」。吉凶只是一轴；你的问题决定含义。",
         },
-        { type: "h", text: "读一局" },
+        { type: "h", text: "看到一个亮点时" },
         {
           type: "ul",
           items: [
-            "名称（汉文与本地称呼）",
-            "宫位（若有）",
-            "极性（吉 / 凶 / 中）——图标与文字并用，不只靠颜色",
-            "有则看引用",
+            "叫什么——白话怎么说？",
+            "在图上的哪里？",
+            "吉 / 凶 / 中——要有文字，不只靠颜色",
+            "有没有出处？",
           ],
         },
         {
           type: "callout",
-          text: "模型输出可能降级为规则。决策前务必检查披露与出处。",
+          text: "提示可能不完美。决策前务必看出处与标签。",
         },
         {
           type: "p",
-          text: "练习：起一盘真盘，写三句——（1）哪些格局突出，（2）为何关乎所问，（3）你仍不知道什么。",
+          text: "练习：画一盘真图，写三句——（1）哪些亮点突出，（2）为何关乎所问，（3）你仍不知道什么。",
         },
       ],
     },
