@@ -3,7 +3,7 @@ id: FR-RAG-005
 title: "Term-sense expansion - expand a query across the layered senses of a classical term (ban nghia base / dan than extended / gia ta phonetic-loan / dien tich allusion) via a curated glossary, weighted and bounded, so retrieval does not miss relevant classical text; sits upstream of FR-RAG-002"
 module: RAG
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

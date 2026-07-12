@@ -1,0 +1,26 @@
+{
+  "terms": [
+    {
+      "term": "nguyen thai",
+      "term_han": "元胎",
+      "system": "liuren",
+      "aliases": ["元胎"],
+      "senses": [
+        {
+          "layer": "ban_nghia",
+          "gloss": "nascent stage of a matter",
+          "surface_forms": ["元胎", "nascent", "nguyen thai"],
+          "weight": 1.0,
+          "reliable": true
+        },
+        {
+          "layer": "dan_than",
+          "gloss": "early planning phase",
+          "surface_forms": ["early planning", "seed stage"],
+          "weight": 0.7,
+          "reliable": true
+        }
+      ]
+    }
+  ]
+}

@@ -76,10 +76,10 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | done |
 | WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | done |
 | WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | done |
-| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | blocked |
+| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | done |
 | API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | done |
 | PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | done |
-| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | blocked |
+| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | done |
 | PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | done |
 | PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | done |
 | LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | done |
@@ -96,9 +96,9 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |
 | TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | blocked |
 | TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | done |
-| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | blocked |
+| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | done |
 | KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | blocked |
-| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | blocked |
+| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | done |
 | RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | done |
 | RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | blocked |
 | CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | done |

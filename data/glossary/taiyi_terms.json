@@ -1,0 +1,26 @@
+{
+  "terms": [
+    {
+      "term": "thai at",
+      "term_han": "太乙",
+      "system": "taiyi",
+      "aliases": ["太乙", "taiyi"],
+      "senses": [
+        {
+          "layer": "ban_nghia",
+          "gloss": "Tai Yi deity / system",
+          "surface_forms": ["太乙", "tai yi", "thai at"],
+          "weight": 1.0,
+          "reliable": true
+        },
+        {
+          "layer": "dien_tich",
+          "gloss": "allusion to cosmic reckoning",
+          "surface_forms": ["cosmic reckoning", "thien so"],
+          "weight": 0.4,
+          "reliable": true
+        }
+      ]
+    }
+  ]
+}

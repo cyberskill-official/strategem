@@ -3,7 +3,7 @@ id: FR-PLAT-006
 title: "Redis caching - chart cache 24h TTL keyed on the PLAT-002 cache key, invalidation on pattern-update, cache warming for common patterns, plus RAG top-k and common-interpretation caches"
 module: PLAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

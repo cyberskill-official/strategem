@@ -1,0 +1,44 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "TermGlossary",
+  "type": "object",
+  "required": ["terms"],
+  "properties": {
+    "terms": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["term", "system", "senses"],
+        "properties": {
+          "term": { "type": "string" },
+          "term_han": { "type": ["string", "null"] },
+          "system": { "enum": ["qimen", "liuren", "taiyi", "all"] },
+          "aliases": { "type": "array", "items": { "type": "string" } },
+          "senses": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "required": ["layer", "gloss", "surface_forms", "weight"],
+              "properties": {
+                "layer": {
+                  "enum": ["ban_nghia", "dan_than", "gia_ta", "dien_tich"]
+                },
+                "gloss": { "type": "string" },
+                "surface_forms": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                },
+                "weight": { "type": "number" },
+                "reliable": { "type": "boolean" },
+                "citations": {
+                  "type": "array",
+                  "items": { "type": "string" }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

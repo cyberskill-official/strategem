@@ -1,0 +1,63 @@
+{
+  "terms": [
+    {
+      "term": "truc phu",
+      "term_han": "值符",
+      "system": "qimen",
+      "aliases": ["值符", "truc_phu", "zhifu"],
+      "senses": [
+        {
+          "layer": "ban_nghia",
+          "gloss": "the duty officer star for the period",
+          "surface_forms": ["值符", "duty officer", "truc phu"],
+          "weight": 1.0,
+          "reliable": true,
+          "citations": ["kmdg_zhifu"]
+        },
+        {
+          "layer": "dan_than",
+          "gloss": "the acting side / initiator in a decision",
+          "surface_forms": ["acting side", "initiator", "host officer"],
+          "weight": 0.7,
+          "reliable": true
+        },
+        {
+          "layer": "gia_ta",
+          "gloss": "unrelated loan sense (off by default)",
+          "surface_forms": ["unrelated loan form"],
+          "weight": 0.2,
+          "reliable": false
+        },
+        {
+          "layer": "dien_tich",
+          "gloss": "classical allusion to the duty star",
+          "surface_forms": ["thien phu tuc", "天符典故"],
+          "weight": 0.4,
+          "reliable": true
+        }
+      ]
+    },
+    {
+      "term": "thanh long",
+      "term_han": "青龍",
+      "system": "qimen",
+      "aliases": ["青龍", "azure dragon"],
+      "senses": [
+        {
+          "layer": "ban_nghia",
+          "gloss": "Azure Dragon spirit",
+          "surface_forms": ["青龍", "azure dragon", "thanh long"],
+          "weight": 1.0,
+          "reliable": true
+        },
+        {
+          "layer": "dan_than",
+          "gloss": "auspicious initiative",
+          "surface_forms": ["auspicious initiative", "cát khí"],
+          "weight": 0.65,
+          "reliable": true
+        }
+      ]
+    }
+  ]
+}

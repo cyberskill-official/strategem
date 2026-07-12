@@ -1,0 +1,24 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ReviewDecision",
+  "type": "object",
+  "required": [
+    "item_id",
+    "object_type",
+    "object_id",
+    "reviewer_id",
+    "decision",
+    "reason",
+    "decided_at"
+  ],
+  "properties": {
+    "item_id": { "type": "string" },
+    "object_type": { "enum": ["pattern", "classical_unit"] },
+    "object_id": { "type": "string" },
+    "reviewer_id": { "type": "string" },
+    "decision": { "enum": ["accept", "reject"] },
+    "reason": { "type": "string", "minLength": 1 },
+    "decided_at": { "type": "string", "format": "date-time" },
+    "result_version": { "type": ["integer", "null"] }
+  }
+}

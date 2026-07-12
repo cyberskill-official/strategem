@@ -3,7 +3,7 @@ id: FR-AUTH-003
 title: "Email verification and password reset - verification-token issuance and confirmation completing the AUTH-001 unverified-user hook, plus a secure password-reset flow (single-use, expiring, enumeration-safe tokens); never reveals whether an email exists"
 module: AUTH
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

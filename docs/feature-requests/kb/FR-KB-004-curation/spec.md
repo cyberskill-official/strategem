@@ -3,7 +3,7 @@ id: FR-KB-004
 title: "KB curation workflow - expert (master) review of patterns and classical excerpts through a review queue, accept/reject with a required reason, monotonic versioning with history, and a release gate encoding the RISK-9 expert-review-each-release process"
 module: KB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python
