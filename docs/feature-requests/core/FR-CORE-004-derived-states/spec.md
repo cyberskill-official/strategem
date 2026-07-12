@@ -3,7 +3,7 @@ id: FR-CORE-004
 title: "Derived states (tuan khong + vuong-suy + truong sinh) - empty-branch table, vuong-tuong-huu-tu-tu by season, 12-stage truong sinh with am_duong vs ngu_hanh school flag, all lookup-table data"
 module: CORE
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

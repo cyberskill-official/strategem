@@ -3,7 +3,7 @@ id: FR-RULE-003
 title: "Pattern loader + per-system filter + in-memory cache + match(la_so) -> Vec<CachCuc> API the casting engines call, over a DB-or-seed PatternRepository"
 module: RULE
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

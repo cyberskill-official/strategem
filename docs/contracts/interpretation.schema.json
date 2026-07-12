@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Interpretation",
+  "type": "object",
+  "required": ["beginner", "expert", "recommendations", "citations", "confidence", "requires_human_review", "ai_disclosure"],
+  "properties": {
+    "beginner": { "type": "string" },
+    "expert": { "type": "string" },
+    "recommendations": { "type": "array" },
+    "citations": { "type": "array" },
+    "confidence": { "type": "number" },
+    "requires_human_review": { "type": "boolean" },
+    "ai_disclosure": {
+      "type": "object",
+      "required": ["is_ai_generated", "model", "prompt_version", "retrieved_citation_ids"]
+    }
+  }
+}

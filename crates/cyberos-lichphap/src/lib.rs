@@ -1,6 +1,7 @@
 //! Calendar core (`cyberos-lichphap`). FR-CORE-001 solar terms + FR-CORE-007 ganzhi.
 
 pub mod delta_t;
+pub mod derived;
 pub mod don_tables;
 pub mod eot;
 pub mod ganzhi;
@@ -11,6 +12,10 @@ pub mod tietkhi;
 pub mod truesolar;
 
 pub use delta_t::{delta_t_seconds, tt_jd_to_utc_jd, utc_jd_to_tt_jd};
+pub use derived::{
+    season_of_chi, truong_sinh_stage, tuan_khong, vuong_suy, Season, TruongSinhPhai,
+    TruongSinhStage, VuongSuy,
+};
 pub use eot::{eot_at_date, equation_of_time_minutes};
 pub use ganzhi::{can_chi_of, giap_ty_from_can_chi, Can, Chi, GanzhiError, GiapTy, NguHanh};
 pub use pillars::{

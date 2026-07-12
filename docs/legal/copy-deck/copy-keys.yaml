@@ -1,0 +1,21 @@
+# Legal-facing copy keys consumed by WEB shell / AIDisclosureBadge.
+# Counsel review required before public launch (FR-LEGAL-004).
+# Statutes: VN Nghị định 13/2023/NĐ-CP; GDPR.
+
+disclaimer.product.vi:
+  file: disclaimer.md
+  lang: vi
+disclaimer.product.en:
+  file: disclaimer.md
+  lang: en
+
+ai.limits.vi:
+  file: ai-disclosure.md
+  lang: vi
+ai.limits.en:
+  file: ai-disclosure.md
+  lang: en
+
+meta:
+  counsel_review_required: true
+  review_fr: FR-LEGAL-004

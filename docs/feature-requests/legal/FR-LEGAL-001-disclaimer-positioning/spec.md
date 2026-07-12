@@ -3,7 +3,7 @@ id: FR-LEGAL-001
 title: "In-product disclaimer + AI-disclosure copy + positioning language rules - heritage education and decision support, never fortune-telling; no medical/legal/financial advice under a divination guise; the copy deck the shell and the AIDisclosureBadge consume"
 module: LEGAL
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: doc

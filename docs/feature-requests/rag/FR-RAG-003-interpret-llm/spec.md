@@ -3,7 +3,7 @@ id: FR-RAG-003
 title: "Prompt library + LLM caller + structured output {beginner/expert/recommendations/citations/confidence} + 3-layer anti-hallucination + AIDisclosure on every output + citation cards; reads the la so, never writes ban/cach_cuc"
 module: RAG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python
