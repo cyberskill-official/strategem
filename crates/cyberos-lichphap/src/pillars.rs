@@ -130,6 +130,7 @@ pub fn hour_pillar(
     (Pillar { can: hour_can, chi }, effective_day)
 }
 
+#[allow(clippy::too_many_arguments)]
 pub fn compute_pillars(
     year: i32,
     month: u32,

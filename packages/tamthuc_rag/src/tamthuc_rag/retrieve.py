@@ -31,10 +31,10 @@ def retrieve(
     by_unit: dict[str, RankedHit] = {}
     vec_rank: list[tuple[str, float]] = []
     for rank, ch in enumerate(vec_chunks):
-        layers = {ch.layer: ch.text}
+        layers: dict[str, str] = {str(ch.layer): ch.text}
         if ch.unit_id in by_unit:
             prev = by_unit[ch.unit_id]
-            merged = dict(prev.layers)
+            merged: dict[str, str] = dict(prev.layers)
             merged.update(layers)
             by_unit[ch.unit_id] = RankedHit(
                 score=prev.score,

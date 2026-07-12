@@ -15,9 +15,8 @@ pub fn evaluate(cond: &Cond, chart: &Value) -> bool {
 
 fn eval_leaf(field: &str, op: &Op, value: Option<&Value>, chart: &Value) -> bool {
     let got = get_path(chart, field);
-    match op {
-        Op::Exists => return got.is_some() && !got.unwrap().is_null(),
-        _ => {}
+    if op == &Op::Exists {
+        return got.is_some() && !got.unwrap().is_null();
     }
     let Some(got) = got else {
         return false;
