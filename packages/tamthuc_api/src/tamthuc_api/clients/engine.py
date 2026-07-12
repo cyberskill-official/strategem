@@ -185,7 +185,9 @@ class LocalEngineClient:
                     "thien": thien,
                     "nguyet_tuong": nt,
                     "gio_chiem": gc,
-                    "state": "PhucNgam" if offset == 0 else ("PhanNgam" if offset == 6 else "Thuong"),
+                    "state": "PhucNgam"
+                    if offset == 0
+                    else ("PhanNgam" if offset == 6 else "Thuong"),
                 },
                 "tu_khoa": [
                     [thien[0], dia[0]],
@@ -223,8 +225,42 @@ class LocalEngineClient:
                 "thap_luc_than": [
                     {
                         "ring": i,
-                        "chi": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑", "寅", "卯"][i],
-                        "han": ["地主", "陽德", "和德", "呂申", "高叢", "太陽", "大炅", "大神", "大威", "天道", "大武", "武德", "太簇", "陰主", "陰德", "大義"][i],
+                        "chi": [
+                            "子",
+                            "丑",
+                            "寅",
+                            "卯",
+                            "辰",
+                            "巳",
+                            "午",
+                            "未",
+                            "申",
+                            "酉",
+                            "戌",
+                            "亥",
+                            "子",
+                            "丑",
+                            "寅",
+                            "卯",
+                        ][i],
+                        "han": [
+                            "地主",
+                            "陽德",
+                            "和德",
+                            "呂申",
+                            "高叢",
+                            "太陽",
+                            "大炅",
+                            "大神",
+                            "大威",
+                            "天道",
+                            "大武",
+                            "武德",
+                            "太簇",
+                            "陰主",
+                            "陰德",
+                            "大義",
+                        ][i],
                         "loai": "gian_than" if i % 2 else "chinh_cung",
                     }
                     for i in range(16)

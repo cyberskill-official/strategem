@@ -42,17 +42,12 @@ export function LocaleProvider({
   children: ReactNode;
   initialLocale?: Locale;
 }) {
-  // Sync init from cookie when possible (avoids EN flash on English browsers).
+  // Prefer cookie when present (client); server uses middleware-provided initial.
   const [locale, setLocaleState] = useState<Locale>(() =>
     typeof document !== "undefined" ? initialLocale(initial) : initial,
   );
 
-  useEffect(() => {
-    const fromCookie = readCookieLocale();
-    if (fromCookie && fromCookie !== locale) setLocaleState(fromCookie);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- hydrate once from cookie
-  }, []);
-
+  // Persist + document lang only — no setState in this effect (avoids set-state-in-effect).
   useEffect(() => {
     document.documentElement.lang = locale;
     document.cookie = `${COOKIE}=${locale};path=/;max-age=${MAX_AGE};SameSite=Lax`;

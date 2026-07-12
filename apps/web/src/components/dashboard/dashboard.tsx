@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { getHistory, type ChartRef } from "../../lib/api/history";
 import { loadSavedCharts, type SavedChart } from "../../lib/pins/saved-charts";
 import { useLocale } from "../i18n/locale-provider";
@@ -9,16 +9,34 @@ import { FlowEntryCards } from "./flow-entry-cards";
 import { QuickCast } from "./quick-cast";
 import { RecentCharts } from "./recent-charts";
 
+const PIN_EVENT = "tamthuc:pins-changed";
+
+function subscribePins(onChange: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const handler = () => onChange();
+  window.addEventListener(PIN_EVENT, handler);
+  window.addEventListener("storage", handler);
+  window.addEventListener("focus", handler);
+  return () => {
+    window.removeEventListener(PIN_EVENT, handler);
+    window.removeEventListener("storage", handler);
+    window.removeEventListener("focus", handler);
+  };
+}
+
+function useSavedCharts(): SavedChart[] {
+  return useSyncExternalStore(subscribePins, loadSavedCharts, () => []);
+}
+
 export function Dashboard() {
   const { t } = useLocale();
+  const saved = useSavedCharts();
   const [recent, setRecent] = useState<ChartRef[]>([]);
-  const [saved, setSaved] = useState<SavedChart[]>([]);
   const [source, setSource] = useState<"live" | "demo" | "loading">("loading");
 
   useEffect(() => {
     let cancelled = false;
-    setSaved(loadSavedCharts());
-    (async () => {
+    void (async () => {
       try {
         const res = await getHistory();
         if (cancelled) return;
@@ -31,11 +49,8 @@ export function Dashboard() {
         }
       }
     })();
-    const onFocus = () => setSaved(loadSavedCharts());
-    window.addEventListener("focus", onFocus);
     return () => {
       cancelled = true;
-      window.removeEventListener("focus", onFocus);
     };
   }, []);
 

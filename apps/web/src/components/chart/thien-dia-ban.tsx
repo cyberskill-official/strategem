@@ -55,7 +55,7 @@ export function ThienDiaBanView({
               role="listitem"
               data-index={i}
               aria-label={`${t("chart.liuren.earth")} ${d}, ${t("chart.liuren.heaven")} ${heaven[i]}`}
-              aria-pressed={sel}
+              aria-current={sel ? "true" : undefined}
               onClick={() => onSelect?.(i)}
               style={{
                 minHeight: 60,

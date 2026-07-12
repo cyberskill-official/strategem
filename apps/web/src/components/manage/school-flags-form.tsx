@@ -1,9 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import {
   SCHOOL_FLAGS,
-  defaultSchoolConfig,
   loadSchoolConfig,
   saveSchoolConfig,
   toCastOverrides,
@@ -21,15 +20,9 @@ export function SchoolFlagsForm({
   onChange?: (cfg: SchoolConfig) => void;
 }) {
   const { t, locale } = useLocale();
-  const [cfg, setCfg] = useState<SchoolConfig>(defaultSchoolConfig);
+  // Lazy init from localStorage (SSR-safe). Avoids setState-in-effect.
+  const [cfg, setCfg] = useState<SchoolConfig>(() => loadSchoolConfig());
   const [saved, setSaved] = useState(false);
-
-  useEffect(() => {
-    const loaded = loadSchoolConfig();
-    setCfg(loaded);
-    onChange?.(loaded);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const setFlag = (system: string, key: string, value: string) => {
     setCfg((prev) => {

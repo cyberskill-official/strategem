@@ -81,7 +81,7 @@ export function QimenNinePalace({
             type="button"
             role="gridcell"
             aria-label={t("palace.label", { n: p })}
-            aria-pressed={selected}
+            aria-selected={selected}
             data-palace={p}
             onClick={() => onSelectPalace?.(p)}
             style={{

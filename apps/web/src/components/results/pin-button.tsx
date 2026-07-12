@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useCallback, useSyncExternalStore } from "react";
 import {
   isPinned,
   togglePin,
@@ -8,6 +8,25 @@ import {
 } from "../../lib/pins/saved-charts";
 import { useLocale } from "../i18n/locale-provider";
 import { Button } from "../ui/button";
+
+const PIN_EVENT = "tamthuc:pins-changed";
+
+function subscribePins(onChange: () => void) {
+  if (typeof window === "undefined") return () => {};
+  const handler = () => onChange();
+  window.addEventListener(PIN_EVENT, handler);
+  window.addEventListener("storage", handler);
+  return () => {
+    window.removeEventListener(PIN_EVENT, handler);
+    window.removeEventListener("storage", handler);
+  };
+}
+
+function notifyPinsChanged() {
+  if (typeof window !== "undefined") {
+    window.dispatchEvent(new Event(PIN_EVENT));
+  }
+}
 
 export function PinButton({
   queryId,
@@ -23,11 +42,23 @@ export function PinButton({
   reportId?: string;
 }) {
   const { t } = useLocale();
-  const [pinned, setPinned] = useState(false);
+  const pinned = useSyncExternalStore(
+    subscribePins,
+    () => isPinned(queryId),
+    () => false,
+  );
 
-  useEffect(() => {
-    setPinned(isPinned(queryId));
-  }, [queryId]);
+  const onToggle = useCallback(() => {
+    const chart: Omit<SavedChart, "pinned_at"> = {
+      query_id: queryId,
+      he,
+      question_type: questionType,
+      cast_at: castAt ?? new Date().toISOString(),
+      report_id: reportId,
+    };
+    togglePin(chart);
+    notifyPinsChanged();
+  }, [queryId, he, questionType, castAt, reportId]);
 
   return (
     <Button
@@ -35,17 +66,7 @@ export function PinButton({
       variant={pinned ? "accent" : "secondary"}
       data-testid="pin-chart-button"
       aria-pressed={pinned}
-      onClick={() => {
-        const chart: Omit<SavedChart, "pinned_at"> = {
-          query_id: queryId,
-          he,
-          question_type: questionType,
-          cast_at: castAt ?? new Date().toISOString(),
-          report_id: reportId,
-        };
-        const res = togglePin(chart);
-        setPinned(res.pinned);
-      }}
+      onClick={onToggle}
       style={{ minHeight: 40 }}
     >
       {pinned ? t("results.unpin") : t("results.pin")}

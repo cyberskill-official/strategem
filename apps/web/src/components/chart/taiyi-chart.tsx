@@ -66,7 +66,7 @@ export function TaiyiChart({ laso }: { laso: LaSoLike }) {
                     ? `${t("palace.label", { n: p })} · ${t("system.thai_at")}`
                     : t("palace.label", { n: p })
                 }
-                aria-pressed={sel}
+                aria-selected={sel}
                 onClick={() => setSelected(p)}
                 style={{
                   minHeight: 72,
