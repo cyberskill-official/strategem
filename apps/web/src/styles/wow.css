@@ -329,3 +329,37 @@ body {
     flex-shrink: 0;
   }
 }
+
+/* Sticky conversion bar (monetization) */
+.cs-sticky-cta {
+  position: sticky;
+  bottom: 0;
+  z-index: 40;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  padding: 10px 16px;
+  background: rgb(255 253 248 / 0.92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--cs-color-border-default);
+  box-shadow: 0 -4px 20px rgb(69 33 14 / 0.06);
+}
+
+.cs-main {
+  padding-bottom: 72px;
+}
+
+.cs-upsell {
+  display: grid;
+  gap: 12px;
+  padding: var(--cs-space-5);
+  border-radius: var(--cs-radius-lg);
+  border: 1px solid var(--cs-color-border-default);
+  background: linear-gradient(
+    135deg,
+    var(--cs-color-surface-raised),
+    var(--cs-color-surface-panel)
+  );
+  box-shadow: var(--cs-shadow-sm);
+}

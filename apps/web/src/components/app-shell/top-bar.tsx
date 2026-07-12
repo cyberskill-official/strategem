@@ -10,6 +10,7 @@ const NAV = [
   { href: "/cast", key: "nav.cast" },
   { href: "/dashboard", key: "nav.dashboard" },
   { href: "/learn", key: "nav.learn" },
+  { href: "/pricing", key: "nav.pricing" },
   { href: "/manage/history", key: "nav.history" },
   { href: "/manage/settings", key: "nav.settings" },
 ] as const;

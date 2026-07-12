@@ -10,7 +10,9 @@ import {
   type DisclosureData,
   type InterpretationData,
 } from "./interpretation-view";
+import { NextStepCard } from "./next-step-card";
 import { PatternList, type PatternItem } from "./pattern-list";
+import { displayPatternName } from "../../lib/domain/glossary";
 
 export type QueryResponseView = {
   query_id: string;
@@ -29,7 +31,7 @@ export type QueryResponseView = {
  * Envelope is read-only; this component never mutates ban/cach_cuc.
  */
 export function ResultsPanel({ response }: { response: QueryResponseView }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [selected, setSelected] = useState<number | null>(null);
 
   const chart = useMemo(() => {
@@ -156,6 +158,15 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
           <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>
         )}
       </section>
+
+      <NextStepCard
+        systemLabel={systemLabel ?? undefined}
+        patternHint={
+          patterns[0]?.name
+            ? displayPatternName(patterns[0].name, locale)
+            : undefined
+        }
+      />
     </div>
   );
 }
