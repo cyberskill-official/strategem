@@ -17,8 +17,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+      # Pin to post-incident safe release (Aqua 2026-03 advisory: use v0.35.0+)
       - name: Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0.28.0
+        uses: aquasecurity/trivy-action@0.35.0
         with:
           scan-type: fs
           scan-ref: .
@@ -27,11 +28,23 @@ jobs:
           ignore-unfixed: true
           trivyignores: .trivyignore
 
+  # Free OSS path: gitleaks CLI (no GITLEAKS_LICENSE required).
+  # The paid gitleaks-action@v2 needs a commercial license secret.
   gitleaks:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Secret scan (gitleaks)
-        uses: gitleaks/gitleaks-action@v2
+        with:
+          fetch-depth: 0
+      - name: Install gitleaks
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITLEAKS_VERSION: 8.24.2
+        run: |
+          set -euo pipefail
+          curl -sSfL \
+            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
+            | tar -xz gitleaks
+          sudo mv gitleaks /usr/local/bin/
+          gitleaks version
+      - name: Secret scan (gitleaks detect)
+        run: gitleaks detect --source . --verbose --redact --exit-code 1
