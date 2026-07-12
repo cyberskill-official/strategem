@@ -1,7 +1,7 @@
 # Rust
 target/
 **/*.rs.bk
-Cargo.lock
+# Cargo.lock is committed for reproducible engine Docker builds
 
 # Python
 __pycache__/
@@ -26,7 +26,7 @@ wheels/
 *.egg
 MANIFEST
 .venv/
-uv.lock
+# uv.lock is committed for reproducible api Docker builds
 
 # Node / Next.js
 node_modules/
