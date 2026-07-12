@@ -1,0 +1,19 @@
+{
+  "nav.cast": "Cast",
+  "nav.dashboard": "Dashboard",
+  "cast.title": "New cast",
+  "cast.button": "Cast chart",
+  "cast.datetime": "Date & time",
+  "cast.timezone": "Timezone",
+  "cast.place": "Place",
+  "cast.longitude": "Longitude",
+  "cast.questionType": "Question type",
+  "cast.persona": "Persona",
+  "cast.loading": "Casting…",
+  "cast.resultsEmpty": "Cast a chart to see results here.",
+  "disclaimer.short": "For cultural and educational use. Not medical, legal, or financial advice.",
+  "error.rateLimited": "Rate limited. Try later.",
+  "error.forbiddenTier": "This capability needs Premium or higher.",
+  "locale.vi": "Tiếng Việt",
+  "locale.en": "English"
+}

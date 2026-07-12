@@ -9,11 +9,13 @@ def build_disclosure(
     prompt_version: str,
     retrieved_citation_ids: list[str],
     fallback: bool = False,
+    degraded: bool = False,
 ) -> AIDisclosure:
     return AIDisclosure(
-        is_ai_generated=True,
+        is_ai_generated=not degraded,
         model=model,
         prompt_version=prompt_version,
         retrieved_citation_ids=list(retrieved_citation_ids),
         fallback=fallback,
+        degraded=degraded,
     )

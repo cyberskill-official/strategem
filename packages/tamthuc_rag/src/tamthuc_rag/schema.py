@@ -19,6 +19,7 @@ class AIDisclosure(BaseModel):
     prompt_version: str
     retrieved_citation_ids: list[str]
     fallback: bool = False
+    degraded: bool = False
     limits: str = "Heritage education / decision support; not fortune-telling."
 
 

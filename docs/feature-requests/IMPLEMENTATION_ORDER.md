@@ -29,7 +29,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | done |
 | QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | done |
 | QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | done |
-| QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | blocked |
+| QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | done |
 | QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | blocked |
 | QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | blocked |
 | KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | blocked |
@@ -59,13 +59,13 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | done |
 | LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | done |
 | LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | done |
-| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | blocked |
+| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | done |
 | LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | blocked |
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | blocked |
 | QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
 | KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
 | RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | done |
-| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | blocked |
+| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | done |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
 | REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | blocked |
@@ -75,7 +75,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | blocked |
 | WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | blocked |
 | WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | blocked |
-| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | blocked |
+| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | done |
 | AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | blocked |
 | API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | blocked |
 | PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | done |
@@ -90,7 +90,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | blocked |
+| TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | done |
 | TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | blocked |
 | TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | blocked |
 | TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | blocked |

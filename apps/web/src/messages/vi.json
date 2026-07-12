@@ -1,0 +1,19 @@
+{
+  "nav.cast": "Lập quẻ",
+  "nav.dashboard": "Bảng điều khiển",
+  "cast.title": "Lập quẻ mới",
+  "cast.button": "Lập quẻ",
+  "cast.datetime": "Ngày giờ",
+  "cast.timezone": "Múi giờ",
+  "cast.place": "Địa điểm",
+  "cast.longitude": "Kinh độ",
+  "cast.questionType": "Loại câu hỏi",
+  "cast.persona": "Mức độ",
+  "cast.loading": "Đang lập quẻ…",
+  "cast.resultsEmpty": "Lập quẻ để xem kết quả tại đây.",
+  "disclaimer.short": "Dùng cho văn hóa và giáo dục. Không phải tư vấn y tế, pháp lý hay tài chính.",
+  "error.rateLimited": "Vượt hạn mức. Thử lại sau.",
+  "error.forbiddenTier": "Tính năng này cần Premium trở lên.",
+  "locale.vi": "Tiếng Việt",
+  "locale.en": "English"
+}

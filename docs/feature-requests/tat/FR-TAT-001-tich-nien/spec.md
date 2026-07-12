@@ -3,7 +3,7 @@ id: FR-TAT-001
 title: "Tich nien + ky nguyen - accumulate years from an epoch, three remainder reductions (mod 360 / 72 / 60), epoch flag, Thai At through the nine palaces (skips center, lodges Khon 2); emits into the la so ban for he=thai_at"
 module: TAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: rust

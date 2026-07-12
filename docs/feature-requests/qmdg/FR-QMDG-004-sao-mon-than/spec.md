@@ -3,7 +3,7 @@ id: FR-QMDG-004
 title: "Cuu tinh / bat mon / bat than placement - nine stars, eight doors (Khai/Huu/Sinh cat), eight gods led by Truc Phu; yin_yang_pan lineage flag (duong classical / am Vuong Phuong Lan god swap)"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

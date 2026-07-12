@@ -3,7 +3,7 @@ id: FR-WEB-006
 title: "i18n foundation - next-intl with Vietnamese default and English, splitting UI labels (message catalogs) from domain content (patterns and interpretation text served pre-translated from KB/RAG); classical Han terms are never machine-translated"
 module: WEB
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: typescript

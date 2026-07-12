@@ -3,7 +3,7 @@ id: FR-RAG-007
 title: "LLM fallback - timeout + circuit breaker around the RAG-003 LLM caller; on failure degrade to a rule-based interpretation assembled from the detected cach cuc + cited pattern meanings (no free-form generation); always labeled degraded; reads the la so read-only, keeps citations + AIDisclosure"
 module: RAG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

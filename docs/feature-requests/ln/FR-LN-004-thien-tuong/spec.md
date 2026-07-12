@@ -3,7 +3,7 @@ id: FR-LN-004
 title: "Muoi hai thien tuong (twelve generals) - khoi quy nhan by day stem and tru/da quy, thuan bo / nghich bo by the quy nhan palace, cat/hung tuong; flags khoi_quy_nhan and quy_nhan_variant; emits thien_tuong into the la so ban for he=luc_nham"
 module: LN
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 4
 lang: rust
