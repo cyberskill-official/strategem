@@ -3,7 +3,7 @@ id: FR-QMDG-003
 title: "Truc phu / truc su + thien ban rotation - tuan-thu hidden-nghi lookup, locate on dia ban, rotate sky plate to the hour-stem palace, pan_method flag (zhuan/fei) + zhong_gong_ky"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

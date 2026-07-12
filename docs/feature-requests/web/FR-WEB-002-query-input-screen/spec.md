@@ -3,7 +3,7 @@ id: FR-WEB-002
 title: "Query input screen - the left input panel of the chart-casting layout: datetime, place/longitude, question type, system tabs, and the Ochre 44px cast button that calls /calculate/{system}"
 module: WEB
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: typescript

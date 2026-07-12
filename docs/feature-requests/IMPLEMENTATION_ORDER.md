@@ -28,7 +28,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | RULE-003 | Pattern loader + per-system filter + match API | MUST | 6 | RULE-002 | yes | done |
 | QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | done |
 | QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | done |
-| QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | blocked |
+| QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | done |
 | QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | blocked |
 | QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | blocked |
 | QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | blocked |
@@ -43,7 +43,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | done |
 | API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | done |
 | WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
-| WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | blocked |
+| WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | done |
 | WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | blocked |
 | CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | blocked |
 | LEGAL-001 | Disclaimer + AI-disclosure + positioning copy | MUST | 6 | WEB-001 | yes | done |
@@ -58,7 +58,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 |---|---|---|--:|---|---|---|
 | LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | done |
 | LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | done |
-| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | blocked |
+| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | done |
 | LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | blocked |
 | LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | blocked |
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | blocked |
@@ -66,7 +66,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
 | RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | done |
 | RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | blocked |
-| REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | blocked |
+| REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
 | REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | blocked |
 | STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | blocked |

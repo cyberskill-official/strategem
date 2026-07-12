@@ -3,7 +3,7 @@ id: FR-LN-003
 title: "Chin tong mon + tam truyen - nine-method decision tree (賊剋/比用/涉害/遙剋/昴星/別責/八專/伏吟/返吟) selecting so/trung/mat truyen, phuc ngam and phan ngam checked first; emits tam_truyen into the la so ban for he=luc_nham"
 module: LN
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 3
 lang: rust

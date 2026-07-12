@@ -3,7 +3,7 @@ id: FR-REPORT-001
 title: "Structured report assembly - compose {chart summary, detected patterns, beginner/expert interpretation, recommendations, citations, confidence, AIDisclosure} from the la so envelope + RAG-003 output; persist per PLAT-003; read-only over the chart"
 module: REPORT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python
