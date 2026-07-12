@@ -146,18 +146,21 @@ export function TaiyiChart({ laso }: { laso: LaSoLike }) {
       <section data-testid="bat-tuong">
         <h3>{t("chart.taiyi.generalsCalc")}</h3>
         <ul style={{ fontSize: 13, listStyle: "none", padding: 0, margin: 0 }}>
-          {[...Object.entries(tuong), ...Object.entries(toan)].map(([k, v]) => (
-            <li
-              key={k}
-              className="cs-pattern-row"
-              style={{ marginBottom: 6 }}
-            >
-              <span>
-                {TUONG_KEYS[k] ? t(TUONG_KEYS[k]) : k}
-              </span>
-              <strong>{String(v)}</strong>
-            </li>
-          ))}
+          {[...Object.entries(tuong), ...Object.entries(toan)].map(([k, v]) => {
+            let display = String(v);
+            if (display === "truong") display = t("chart.taiyi.long");
+            if (display === "doan") display = t("chart.taiyi.short");
+            return (
+              <li
+                key={k}
+                className="cs-pattern-row"
+                style={{ marginBottom: 6 }}
+              >
+                <span>{TUONG_KEYS[k] ? t(TUONG_KEYS[k]) : k}</span>
+                <strong>{display}</strong>
+              </li>
+            );
+          })}
         </ul>
       </section>
     </div>

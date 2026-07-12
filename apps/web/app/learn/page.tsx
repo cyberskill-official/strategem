@@ -2,15 +2,12 @@
 
 import Link from "next/link";
 import { useLocale } from "../../src/components/i18n/locale-provider";
-
-const PATHS = [
-  { title: "learn.path1.title", body: "learn.path1.body", glyph: "主" },
-  { title: "learn.path2.title", body: "learn.path2.body", glyph: "盤" },
-  { title: "learn.path3.title", body: "learn.path3.body", glyph: "引" },
-] as const;
+import { LEARN_MODULES } from "../../src/lib/learn/modules";
+import type { Locale } from "../../src/i18n/routing";
 
 export default function LearnPage() {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
+  const loc = locale as Locale;
 
   return (
     <div className="cs-page cs-reveal" data-testid="learn-page">
@@ -23,14 +20,23 @@ export default function LearnPage() {
       </header>
 
       <div className="cs-grid-3 cs-stagger">
-        {PATHS.map((p) => (
-          <article key={p.title} className="cs-card cs-pillar">
+        {LEARN_MODULES.map((m) => (
+          <Link
+            key={m.slug}
+            href={`/learn/${m.slug}`}
+            className="cs-card cs-pillar"
+            style={{ textDecoration: "none", color: "inherit" }}
+            data-learn-module={m.slug}
+          >
             <div className="cs-system-tile__glyph" aria-hidden>
-              {p.glyph}
+              {m.glyph}
             </div>
-            <h2 style={{ marginTop: 12 }}>{t(p.title)}</h2>
-            <p className="cs-muted">{t(p.body)}</p>
-          </article>
+            <h2 style={{ marginTop: 12 }}>{m.title[loc] ?? m.title.vi}</h2>
+            <p className="cs-muted">{m.summary[loc] ?? m.summary.vi}</p>
+            <span className="cs-muted" style={{ fontWeight: 600 }}>
+              {t("learn.openModule")} →
+            </span>
+          </Link>
         ))}
       </div>
 

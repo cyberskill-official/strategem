@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 export function TamTruyenView({
   so,
   trung,
@@ -11,20 +13,26 @@ export function TamTruyenView({
   mat?: string;
   phap?: string;
 }) {
+  const { t } = useLocale();
   const rows = [
-    { label: "初傳", chi: so },
-    { label: "中傳", chi: trung },
-    { label: "末傳", chi: mat },
+    { label: t("chart.liuren.truyenSo"), chi: so },
+    { label: t("chart.liuren.truyenTrung"), chi: trung },
+    { label: t("chart.liuren.truyenMat"), chi: mat },
   ];
   return (
     <div data-testid="tam-truyen">
-      {phap && (
-        <p style={{ fontSize: 12, opacity: 0.8 }}>法 {phap}</p>
-      )}
+      {phap ? (
+        <p className="cs-muted" style={{ fontSize: 13 }}>
+          {t("chart.liuren.method")} <strong>{phap}</strong>
+        </p>
+      ) : null}
       <ol style={{ paddingLeft: 20, margin: 0 }}>
         {rows.map((r) => (
-          <li key={r.label} tabIndex={0} style={{ marginBottom: 4 }}>
-            <strong>{r.label}</strong> {r.chi ?? "—"}
+          <li key={r.label} tabIndex={0} style={{ marginBottom: 6 }}>
+            <strong>{r.label}</strong>{" "}
+            <span style={{ fontFamily: "serif", fontSize: 17 }}>
+              {r.chi ?? "—"}
+            </span>
           </li>
         ))}
       </ol>

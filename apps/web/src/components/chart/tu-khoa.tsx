@@ -1,8 +1,11 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 export type KhoaPair = { thuong: string; ha: string; khac?: string | null };
 
 export function TuKhoaView({ khoa }: { khoa: KhoaPair[] }) {
+  const { t } = useLocale();
   const items: KhoaPair[] =
     khoa.length > 0
       ? khoa
@@ -15,22 +18,29 @@ export function TuKhoaView({ khoa }: { khoa: KhoaPair[] }) {
           key={i}
           tabIndex={0}
           data-khoa={i + 1}
+          className="cs-card"
           style={{
-            border: "1px solid var(--color-border)",
-            borderRadius: 6,
-            padding: 8,
-            minWidth: 72,
+            padding: 10,
+            minWidth: 80,
             textAlign: "center",
           }}
         >
-          <div style={{ fontSize: 11, opacity: 0.7 }}>課 {i + 1}</div>
-          <div>上 {k.thuong}</div>
-          <div>下 {k.ha}</div>
-          {k.khac && (
+          <div className="cs-muted" style={{ fontSize: 11 }}>
+            {t("chart.liuren.khoaN", { n: i + 1 })}
+          </div>
+          <div style={{ fontFamily: "serif", fontSize: 16 }}>
+            {t("chart.liuren.upper")} {k.thuong}
+          </div>
+          <div style={{ fontFamily: "serif", fontSize: 16 }}>
+            {t("chart.liuren.lower")} {k.ha}
+          </div>
+          {k.khac ? (
             <div style={{ fontSize: 11 }}>
-              {k.khac === "ha_khac" || k.khac === "tac" ? "▼ 賊" : "▲ 克"}
+              {k.khac === "ha_khac" || k.khac === "tac"
+                ? t("chart.liuren.thief")
+                : t("chart.liuren.conquer")}
             </div>
-          )}
+          ) : null}
         </div>
       ))}
     </div>

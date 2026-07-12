@@ -99,6 +99,14 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         "ban": {
             "nguyet_tuong": input.nguyet_tuong.glyph(),
             "gio_chiem": input.gio_chiem.glyph(),
+            // Full heaven–earth plates for FR-CHART-002 (was missing; UI fell back to raw CHI12)
+            "thien_dia_ban": {
+                "dia": ban.thien_dia_ban.dia.iter().map(|c| c.glyph()).collect::<Vec<_>>(),
+                "thien": ban.thien_dia_ban.thien.iter().map(|c| c.glyph()).collect::<Vec<_>>(),
+                "nguyet_tuong": ban.thien_dia_ban.nguyet_tuong.glyph(),
+                "gio_chiem": ban.thien_dia_ban.gio_chiem.glyph(),
+                "state": format!("{:?}", ban.thien_dia_ban.state),
+            },
             "tu_khoa": ban.tu_khoa.khoa.iter().map(|k| {
                 [k.thuong_than.glyph(), k.ha_than.glyph()]
             }).collect::<Vec<_>>(),
