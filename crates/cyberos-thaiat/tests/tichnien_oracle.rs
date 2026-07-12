@@ -13,7 +13,7 @@ fn cuc_zero_maps_to_72() {
     // find a year where tn % 72 == 0
     for y in 1900..2100 {
         let t = compute_tich_nien(y, Epoch::KimKinh);
-        if t.tich_nien % 72 == 0 {
+        if t.tich_nien.is_multiple_of(72) {
             assert_eq!(t.nhap_cuc, 72);
             return;
         }

@@ -156,19 +156,56 @@ class LocalEngineClient:
                     }
                 )
         elif system == "liuren" or he == "luc_nham":
+            # Shape matches cyberos-luchnham envelope ban (FR-LN-006 / FR-CHART-002)
+            chi12 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
+            offset = seed % 12
+            dia = list(chi12)
+            thien = chi12[offset:] + chi12[:offset]
+            nt, gc = chi12[offset], chi12[seed % 12]
+            generals = [
+                "BachHo",
+                "ThienKhong",
+                "ThanhLong",
+                "CauTran",
+                "LucHop",
+                "ChuTuoc",
+                "DangXa",
+                "QuyNhan",
+                "ThienHau",
+                "ThaiAm",
+                "HuyenVu",
+                "ThaiThuong",
+            ]
+            generals = _rot(generals, seed % 12)
             ban = {
-                "thien_ban": _rot(_STEMS, seed % 9)[:4],
-                "dia_ban": _rot(_STEMS, (seed + 1) % 9)[:4],
-                "tam_truyen": [
-                    {"than": "青龍", "chi": "子"},
-                    {"than": "六合", "chi": "丑"},
-                    {"than": "太常", "chi": "寅"},
+                "nguyet_tuong": nt,
+                "gio_chiem": gc,
+                "thien_dia_ban": {
+                    "dia": dia,
+                    "thien": thien,
+                    "nguyet_tuong": nt,
+                    "gio_chiem": gc,
+                    "state": "PhucNgam" if offset == 0 else ("PhanNgam" if offset == 6 else "Thuong"),
+                },
+                "tu_khoa": [
+                    [thien[0], dia[0]],
+                    [thien[1], dia[1]],
+                    [thien[2], dia[2]],
+                    [thien[3], dia[3]],
                 ],
+                "tam_truyen": {
+                    "so": thien[0],
+                    "trung": thien[1],
+                    "mat": thien[2],
+                    "phap": "PhucNgam" if offset == 0 else "Thuong",
+                },
+                "thien_tuong": generals,
+                "khoa_the": ["PhucNgam" if offset == 0 else "Thuong"],
             }
             cach_cuc = [
                 {
-                    "id": "liuren_nguyen_thai",
-                    "name": "元胎",
+                    "id": "PhucNgam" if offset == 0 else "liuren_thuong",
+                    "name": "伏吟" if offset == 0 else "元胎",
                     "cung": None,
                     "polarity": "trung",
                     "score": 0.6,
@@ -176,15 +213,43 @@ class LocalEngineClient:
                 }
             ]
         else:
+            # Tai Yi shape (FR-CHART-003)
+            thai_cung = (seed % 8) + 1  # 1..9 skip 5 often
+            if thai_cung == 5:
+                thai_cung = 3
             ban = {
+                "thai_at_cung": thai_cung,
                 "thai_at_ring": seed % 16,
-                "cuu_cung": list(range(1, 10)),
+                "thap_luc_than": [
+                    {
+                        "ring": i,
+                        "chi": ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥", "子", "丑", "寅", "卯"][i],
+                        "han": ["地主", "陽德", "和德", "呂申", "高叢", "太陽", "大炅", "大神", "大威", "天道", "大武", "武德", "太簇", "陰主", "陰德", "大義"][i],
+                        "loai": "gian_than" if i % 2 else "chinh_cung",
+                    }
+                    for i in range(16)
+                ],
+                "bat_tuong": {
+                    "chu_dai_tuong": (seed % 9) + 1,
+                    "chu_tham_tuong": ((seed + 2) % 9) + 1,
+                    "khach_dai_tuong": ((seed + 4) % 9) + 1,
+                    "khach_tham_tuong": ((seed + 5) % 9) + 1,
+                    "ke_than": seed % 9,
+                    "thuy_kich": (seed + 1) % 9,
+                    "van_xuong": (seed + 3) % 9 + 1,
+                },
+                "cac_toan": {
+                    "chu_toan": 20 + (seed % 30),
+                    "khach_toan": 30 + (seed % 40),
+                    "chu_truong_doan": "truong" if seed % 2 == 0 else "doan",
+                    "khach_truong_doan": "truong" if seed % 3 else "doan",
+                },
             }
             cach_cuc = [
                 {
                     "id": "tat_yem",
                     "name": "掩",
-                    "cung": seed % 9,
+                    "cung": thai_cung,
                     "polarity": "trung",
                     "score": 0.5,
                     "citations": ["kim_kinh_thuc_kinh"],

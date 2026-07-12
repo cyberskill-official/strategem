@@ -65,3 +65,4 @@ coverage/
 .codex/skills/ship-feature-requests
 .opencode/skill/ship-feature-requests
 # <<< cyberos <<<
+tmp/

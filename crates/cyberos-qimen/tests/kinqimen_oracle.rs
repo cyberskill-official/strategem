@@ -66,10 +66,14 @@ fn reproducible_cache_key() {
 
 #[test]
 fn pan_method_diverges() {
-    let mut a = QiMenFlags::default();
-    a.pan_method = PanMethod::Zhuan;
-    let mut b = QiMenFlags::default();
-    b.pan_method = PanMethod::Fei;
+    let a = QiMenFlags {
+        pan_method: PanMethod::Zhuan,
+        ..Default::default()
+    };
+    let b = QiMenFlags {
+        pan_method: PanMethod::Fei,
+        ..Default::default()
+    };
     let ra = cast_qimen(&default_input(a)).unwrap();
     let rb = cast_qimen(&default_input(b)).unwrap();
     assert_ne!(

@@ -2,4 +2,4 @@
 
 ## done: 93 FRs
 ## in flight: none
-## next: link Vercel project + Supabase + VPS secrets (ops)
+## next: ops — link Vercel + Supabase + VPS secrets (see `docs/deploy/SHIP_CHECKLIST.md`)

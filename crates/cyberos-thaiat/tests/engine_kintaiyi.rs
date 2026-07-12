@@ -25,10 +25,14 @@ fn default_cast_envelope() {
 
 #[test]
 fn epoch_flag_changes_tich() {
-    let mut a = TatFlags::default();
-    a.epoch = Epoch::KimKinh;
-    let mut b = TatFlags::default();
-    b.epoch = Epoch::CoDien;
+    let a = TatFlags {
+        epoch: Epoch::KimKinh,
+        ..Default::default()
+    };
+    let b = TatFlags {
+        epoch: Epoch::CoDien,
+        ..Default::default()
+    };
     let ra = cast_thai_at(&input(a));
     let rb = cast_thai_at(&input(b));
     assert_ne!(ra.ban.tich.tich_nien, rb.ban.tich.tich_nien);
@@ -40,8 +44,10 @@ fn epoch_flag_changes_tich() {
 
 #[test]
 fn dem_toan_stamped() {
-    let mut f = TatFlags::default();
-    f.dem_toan = DemToan::SauThaiAt;
+    let f = TatFlags {
+        dem_toan: DemToan::SauThaiAt,
+        ..Default::default()
+    };
     let r = cast_thai_at(&input(f));
     assert_eq!(r.envelope["co_truong_phai"]["dem_toan"], "sau_thai_at");
 }
@@ -58,8 +64,10 @@ fn reproducible_cache_key() {
 #[test]
 fn cap_matrix() {
     for cap in [Cap::Nien, Cap::Nguyet, Cap::Nhat, Cap::Thoi] {
-        let mut f = TatFlags::default();
-        f.cap = cap;
+        let f = TatFlags {
+            cap,
+            ..Default::default()
+        };
         let r = cast_thai_at(&input(f));
         assert_eq!(r.envelope["he"], "thai_at");
     }

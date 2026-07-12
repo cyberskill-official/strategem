@@ -113,7 +113,6 @@ fn cmp_ord(a: &Value, b: &Value) -> Option<std::cmp::Ordering> {
 #[cfg(test)]
 mod unit {
     use super::*;
-    use serde_json::json;
 
     #[test]
     fn split_ok() {

@@ -24,10 +24,14 @@ fn all_six_flags_present_and_defaults() {
 
 #[test]
 fn flag_flip_true_solar_changes_hour_only_when_needed() {
-    let mut a = LichFlags::default();
-    a.use_true_solar_time = true;
-    let mut b = a.clone();
-    b.use_true_solar_time = false;
+    let a = LichFlags {
+        use_true_solar_time: true,
+        ..Default::default()
+    };
+    let b = LichFlags {
+        use_true_solar_time: false,
+        ..a.clone()
+    };
     let la = tinh_lich_phap(2004, 1, 1, 10, 30, 0, a);
     let lb = tinh_lich_phap(2004, 1, 1, 10, 30, 0, b);
     assert_ne!(la.chan_thai_duong, lb.chan_thai_duong);

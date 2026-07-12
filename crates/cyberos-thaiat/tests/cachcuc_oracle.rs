@@ -6,26 +6,7 @@ use cyberos_thaiat::{
 };
 
 fn bat(ta_adj: u8, thuy: u8, van: u8, chu_dai: u8, khach_dai: u8) -> BatTuong {
-    BatTuong {
-        van_xuong: van,
-        thuy_kich: thuy,
-        ke_than: 0,
-        chu_dai_tuong: chu_dai,
-        khach_dai_tuong: khach_dai,
-        chu_tham_tuong: (chu_dai + 1) % 16,
-        khach_tham_tuong: (khach_dai + 1) % 16,
-        chu_toan: ToanResult {
-            value: 12,
-            label: TruongDoan::Truong,
-        },
-        khach_toan: ToanResult {
-            value: 8,
-            label: TruongDoan::Doan,
-        },
-        dem_toan: DemToan::TruocThaiAt,
-    }
     // ta_adj unused — caller sets thai_at_ring separately
-    ;
     let _ = ta_adj;
     BatTuong {
         van_xuong: van,
@@ -85,7 +66,7 @@ fn no_verdict_field_and_envelope_map() {
     assert!(s.get("hoa").is_some());
     let env = map_to_envelope_cach_cuc(&cach);
     for e in &env {
-        assert!(e.get("citations").unwrap().as_array().unwrap().len() >= 1);
+        assert!(!e.get("citations").unwrap().as_array().unwrap().is_empty());
     }
 }
 
