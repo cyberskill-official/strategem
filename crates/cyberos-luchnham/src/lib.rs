@@ -1,10 +1,12 @@
-//! LiuRen — FR-LN-001..004 + FR-LN-006 engine assembly.
+//! LiuRen — FR-LN-001..006.
 
 pub mod ban;
 pub mod chi;
 pub mod engine;
 pub mod flags;
+pub mod khoathe;
 pub mod kycung;
+pub mod lucthan;
 pub mod nguyettuong;
 pub mod tamtruyen;
 pub mod thiendiaban;
@@ -13,7 +15,9 @@ pub mod tukhoa;
 
 pub use ban::{BanLucNham, ThienDiaBan};
 pub use engine::{cast_luc_nham, CastInput, CastResult};
+pub use khoathe::{khoa_the_from_method, recognize_khoa_the, KhoaTheHit};
 pub use kycung::ky_cung;
+pub use lucthan::{dung_than_kind, luc_than_of, pick_dung_than, LucThan};
 pub use nguyettuong::{nguyet_tuong_for_trung_khi_index, nguyet_tuong_tai};
 pub use tamtruyen::{lap_tam_truyen, KhoaThe, Phap, TamTruyen};
 pub use thiendiaban::{dia_ban, quay_thien_ban, thien_over, TrangThaiBan};

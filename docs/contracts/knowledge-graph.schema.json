@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "KnowledgeGraph",
+  "type": "object",
+  "properties": {
+    "nodes": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "kind"],
+        "properties": {
+          "id": { "type": "string" },
+          "kind": { "type": "string" },
+          "label": { "type": "string" },
+          "attrs": { "type": "object" }
+        }
+      }
+    },
+    "edges": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["src", "rel", "dst"],
+        "properties": {
+          "src": { "type": "string" },
+          "rel": { "type": "string" },
+          "dst": { "type": "string" },
+          "attrs": { "type": "object" }
+        }
+      }
+    }
+  }
+}

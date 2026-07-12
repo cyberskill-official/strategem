@@ -32,7 +32,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | done |
 | QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | done |
 | QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | done |
-| KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | blocked |
+| KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | done |
 | KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | blocked |
 | RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | done |
 | RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | done |
@@ -60,7 +60,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | done |
 | LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | done |
 | LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | done |
-| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | blocked |
+| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | done |
 | LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | done |
 | QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | blocked |
 | KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
@@ -69,7 +69,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
 | REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
 | STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | done |
-| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | blocked |
+| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | done |
 | STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | blocked |
 | CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | done |
 | CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | blocked |
@@ -101,7 +101,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | blocked |
 | RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | blocked |
 | RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | blocked |
-| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | blocked |
+| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | done |
 | WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | blocked |
 | STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | blocked |
 | REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | blocked |

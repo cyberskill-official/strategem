@@ -1,6 +1,10 @@
-"""Knowledge base packages. FR-KB-003: classical corpus."""
+from tamthuc_kb.graph import Edge, EdgeRel, GraphStore, InMemoryGraphStore, Node, NodeKind
 
-from tamthuc_kb.corpus.models import ClassicalSource, ClassicalUnit
-from tamthuc_kb.corpus.store import InMemoryCorpusStore
-
-__all__ = ["ClassicalSource", "ClassicalUnit", "InMemoryCorpusStore"]
+__all__ = [
+    "NodeKind",
+    "EdgeRel",
+    "Node",
+    "Edge",
+    "GraphStore",
+    "InMemoryGraphStore",
+]

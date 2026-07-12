@@ -3,7 +3,7 @@ id: FR-LN-005
 title: "Khoa the + luc than + dung than - named chart-body patterns (課體) as predicates over the assembled board, luc than by ngu hanh vs the day stem, dung than by question type; emits khoa_the/luc_than into the la so ban and cach_cuc for he=luc_nham"
 module: LN
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 5
 lang: rust

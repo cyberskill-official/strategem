@@ -3,7 +3,7 @@ id: FR-CHART-003
 title: "Interactive TaiYi chart view - renders the he=thai_at ban: the nine palaces (cuu cung), the Thai At star position, the sixteen than, and the generals (bat tuong); hover/click detail; cat/hung by color + icon + text; reads the envelope, a pure reader"
 module: CHART
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: typescript

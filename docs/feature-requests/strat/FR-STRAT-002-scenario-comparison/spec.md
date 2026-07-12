@@ -3,7 +3,7 @@ id: FR-STRAT-002
 title: "Scenario Comparison - run the Timing Optimizer (STRAT-001) across multiple candidate options/dates and compare their ranked windows side by side, each window carrying its cat/hung reasons; calls STRAT-001 per scenario and never casts or scores a chart itself"
 module: STRAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

@@ -3,7 +3,7 @@ id: FR-KB-001
 title: "Knowledge-graph schema - node + edge taxonomy of the three systems, pluggable GraphStore, default relational l2_edge table in Postgres (no graph DB at MVP), dual role as engine rule source + RAG graph arm"
 module: KB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python
