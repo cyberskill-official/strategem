@@ -1,6 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
+import {
+  composeReading,
+  composeRecommendations,
+  shouldReplaceReading,
+} from "../../lib/domain/readings";
 import { useLocale } from "../i18n/locale-provider";
 import { AIDisclosureBadge } from "../domain/ai-disclosure-badge";
 import { HumanReviewGate } from "../domain/human-review-gate";
@@ -35,16 +40,36 @@ export type DisclosureData = {
 export function InterpretationView({
   interpretation,
   disclosure,
+  patterns = [],
+  he,
 }: {
   interpretation: InterpretationData;
   disclosure?: DisclosureData | null;
+  patterns?: Array<{ name?: string; polarity?: string; cung?: number | null }>;
+  he?: string;
 }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [persona, setPersona] = useState<Persona>("beginner");
-  const text =
+
+  const raw =
     persona === "expert"
       ? interpretation.expert ?? interpretation.beginner ?? ""
       : interpretation.beginner ?? interpretation.expert ?? "";
+
+  const text = useMemo(() => {
+    if (shouldReplaceReading(raw, locale)) {
+      return composeReading({ he, patterns, persona }, locale);
+    }
+    return raw;
+  }, [raw, locale, he, patterns, persona]);
+
+  const recs = useMemo(() => {
+    const fromApi = interpretation.recommendations ?? [];
+    if (fromApi.length && !shouldReplaceReading(raw, locale)) {
+      return fromApi.map((r) => (typeof r === "string" ? r : r.text ?? ""));
+    }
+    return composeRecommendations(patterns, locale);
+  }, [interpretation.recommendations, patterns, locale, raw]);
 
   const disc = disclosure ?? {};
   const citations = (disc.retrieved_citation_ids ?? []).map(String);
@@ -62,14 +87,14 @@ export function InterpretationView({
         }}
       >
         <AIDisclosureBadge
-          model={disc.model ?? "unknown"}
-          limits={disc.limits ?? t("disclosure.limitsDefault")}
+          model={disc.model ?? "rules-local"}
+          limits={disc.limits || t("disclosure.limitsDefault")}
           citations={citations}
           reviewStatus={disc.review_status ?? "not_required"}
         />
         <PersonaToggle value={persona} onChange={setPersona} />
         {disc.degraded && (
-          <span data-testid="degraded-banner" style={{ fontSize: 12 }}>
+          <span data-testid="degraded-banner" className="cs-badge cs-badge--trung">
             {t("disclosure.degraded")}
           </span>
         )}
@@ -81,14 +106,14 @@ export function InterpretationView({
         </div>
       )}
 
-      <div data-testid="interpretation-text" style={{ whiteSpace: "pre-wrap" }}>
+      <div data-testid="interpretation-text" className="cs-prose">
         {text}
       </div>
 
-      {!!interpretation.recommendations?.length && (
-        <ul data-testid="recommendations">
-          {interpretation.recommendations.map((r, i) => (
-            <li key={i}>{typeof r === "string" ? r : r.text ?? ""}</li>
+      {!!recs.length && (
+        <ul data-testid="recommendations" style={{ marginTop: 16 }}>
+          {recs.map((r, i) => (
+            <li key={i}>{r}</li>
           ))}
         </ul>
       )}

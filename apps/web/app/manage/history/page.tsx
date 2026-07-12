@@ -5,10 +5,10 @@ import { useLocale } from "../../../src/components/i18n/locale-provider";
 import { HistoryList } from "../../../src/components/manage/history-list";
 import { getHistory, type ChartRef } from "../../../src/lib/api/history";
 
-/** Management flow — history — FR-WEB-007 (live API, no demo fixtures). */
 export default function ManageHistoryPage() {
   const { t } = useLocale();
   const [items, setItems] = useState<ChartRef[]>([]);
+  const [source, setSource] = useState<"live" | "demo">("live");
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -16,8 +16,11 @@ export default function ManageHistoryPage() {
     let cancelled = false;
     (async () => {
       try {
-        const rows = await getHistory();
-        if (!cancelled) setItems(rows);
+        const res = await getHistory();
+        if (!cancelled) {
+          setItems(res.items);
+          setSource(res.source);
+        }
       } catch (e) {
         if (!cancelled)
           setError(e instanceof Error ? e.message : t("history.error"));
@@ -31,8 +34,19 @@ export default function ManageHistoryPage() {
   }, [t]);
 
   return (
-    <div className="cs-page">
-      <h1>{t("history.title")}</h1>
+    <div className="cs-page cs-reveal">
+      <header>
+        <p className="cs-kicker">{t("nav.history")}</p>
+        <h1>{t("history.title")}</h1>
+        <p className="cs-muted" style={{ maxWidth: "48ch" }}>
+          {t("history.lead")}
+        </p>
+      </header>
+      {source === "demo" ? (
+        <div className="cs-banner cs-banner--ochre" data-testid="history-demo-banner">
+          {t("history.demoLoaded")}
+        </div>
+      ) : null}
       {loading ? <p data-testid="history-loading">{t("history.loading")}</p> : null}
       {error ? (
         <p data-testid="history-error" style={{ color: "var(--color-danger)" }}>

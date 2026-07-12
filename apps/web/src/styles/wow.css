@@ -1,0 +1,331 @@
+/* Atmospheric layer + motion — CyberSkill umber/ochre, Vietnamese-first density */
+
+body {
+  background-color: var(--cs-color-surface-page);
+  background-image:
+    radial-gradient(ellipse 120% 80% at 10% -20%, rgb(244 186 23 / 0.14), transparent 50%),
+    radial-gradient(ellipse 90% 60% at 100% 0%, rgb(69 33 14 / 0.06), transparent 45%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgb(244 186 23 / 0.06), transparent 50%);
+  background-attachment: fixed;
+}
+
+.cs-shell {
+  position: relative;
+}
+
+.cs-shell::before {
+  content: "";
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cpath fill='%2345210E' d='M40 10h40v20H40zM10 40h20v40H10zM90 40h20v40H90zM40 90h40v20H40zM45 45h30v30H45z'/%3E%3C/svg%3E");
+  background-size: 120px 120px;
+}
+
+.cs-main,
+.cs-topbar,
+.cs-footer {
+  position: relative;
+  z-index: 1;
+}
+
+.cs-topbar {
+  backdrop-filter: blur(12px) saturate(1.2);
+  background: rgb(255 253 248 / 0.88);
+}
+
+.cs-brand__mark {
+  box-shadow: 0 0 0 1px rgb(69 33 14 / 0.12), 0 4px 12px rgb(244 186 23 / 0.35);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.cs-brand:hover .cs-brand__mark {
+  transform: rotate(-6deg) scale(1.05);
+  box-shadow: 0 0 0 1px rgb(69 33 14 / 0.16), 0 6px 18px rgb(244 186 23 / 0.5);
+}
+
+/* Hero */
+.cs-hero-stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: calc(var(--cs-radius-lg) + 4px);
+  padding: clamp(1.5rem, 4vw, 3rem);
+  background:
+    linear-gradient(145deg, rgb(69 33 14 / 0.04) 0%, transparent 40%),
+    linear-gradient(180deg, var(--cs-color-surface-panel), var(--cs-color-surface-raised));
+  border: 1px solid var(--cs-color-border-default);
+  box-shadow: var(--cs-shadow-md);
+}
+
+.cs-hero-stage::after {
+  content: "";
+  position: absolute;
+  top: -20%;
+  right: -10%;
+  width: min(420px, 55vw);
+  height: min(420px, 55vw);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgb(244 186 23 / 0.22), transparent 65%);
+  pointer-events: none;
+  animation: cs-glow 8s ease-in-out infinite alternate;
+}
+
+@keyframes cs-glow {
+  from { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  to { transform: translate(-12px, 18px) scale(1.08); opacity: 1; }
+}
+
+.cs-kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--cs-color-text-accent);
+  margin-bottom: var(--cs-space-3);
+}
+
+.cs-kicker::before {
+  content: "";
+  width: 28px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--cs-color-brand-ochre), transparent);
+}
+
+.cs-hero__title {
+  font-size: clamp(2rem, 5vw, 2.75rem);
+  max-width: 16ch;
+  line-height: 1.15;
+  background: linear-gradient(120deg, var(--cs-color-brand-umber) 0%, #6e3b0e 55%, var(--cs-color-brand-umber) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cs-stat-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-space-3);
+  margin-top: var(--cs-space-6);
+}
+
+.cs-stat {
+  min-width: 100px;
+  padding: var(--cs-space-3) var(--cs-space-4);
+  border-radius: var(--cs-radius-md);
+  background: var(--cs-color-surface-panel);
+  border: 1px solid var(--cs-color-border-default);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+.cs-stat__value {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--cs-color-brand-umber);
+  line-height: 1.2;
+}
+
+.cs-stat__label {
+  font-size: 0.75rem;
+  color: var(--cs-color-text-muted);
+  margin-top: 2px;
+}
+
+/* System tiles */
+.cs-system-tile {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  cursor: pointer;
+  border: 1px solid var(--cs-color-border-default);
+  border-radius: var(--cs-radius-lg);
+  padding: var(--cs-space-5);
+  background: var(--cs-color-surface-panel);
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  width: 100%;
+}
+
+.cs-system-tile:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--cs-shadow-md);
+  border-color: var(--cs-color-border-strong);
+}
+
+.cs-system-tile[aria-pressed="true"],
+.cs-system-tile.is-active {
+  border-color: var(--cs-color-brand-ochre);
+  box-shadow: 0 0 0 2px rgb(244 186 23 / 0.35), var(--cs-shadow-sm);
+  background: linear-gradient(180deg, #fffef9, var(--cs-color-surface-raised));
+}
+
+.cs-system-tile__glyph {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  font-size: 1.1rem;
+  margin-bottom: var(--cs-space-3);
+  background: var(--cs-color-brand-umber);
+  color: var(--cs-color-brand-ochre);
+}
+
+/* Pattern cards */
+.cs-pattern-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--cs-radius-md);
+  border: 1px solid var(--cs-color-border-default);
+  background: var(--cs-color-surface-panel);
+  margin-bottom: 8px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.cs-pattern-row:hover {
+  border-color: var(--cs-color-border-strong);
+  transform: translateX(2px);
+}
+
+.cs-pattern-row__meta {
+  font-size: 0.8rem;
+  color: var(--cs-color-text-muted);
+  margin-top: 2px;
+}
+
+.cs-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 650;
+  border: 1px solid var(--cs-color-border-default);
+}
+
+.cs-badge--cat {
+  color: var(--cs-color-semantic-success);
+  background: rgb(22 101 52 / 0.08);
+  border-color: rgb(22 101 52 / 0.25);
+}
+
+.cs-badge--hung {
+  color: var(--cs-color-semantic-danger);
+  background: rgb(180 35 24 / 0.08);
+  border-color: rgb(180 35 24 / 0.25);
+}
+
+.cs-badge--trung {
+  color: var(--cs-color-text-muted);
+  background: var(--cs-color-surface-raised);
+}
+
+/* Banner */
+.cs-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 10px 14px;
+  border-radius: var(--cs-radius-md);
+  font-size: var(--cs-font-size-sm);
+  border: 1px solid var(--cs-color-border-default);
+  background: var(--cs-color-surface-raised);
+}
+
+.cs-banner--ochre {
+  border-left: 3px solid var(--cs-color-brand-ochre);
+}
+
+.cs-banner--info {
+  border-left: 3px solid var(--cs-color-semantic-info);
+}
+
+/* Palace board drama */
+[data-testid="qimen-nine-palace"] button[role="gridcell"] {
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+  background: linear-gradient(165deg, #fff 0%, var(--cs-color-surface-raised) 100%) !important;
+}
+
+[data-testid="qimen-nine-palace"] button[role="gridcell"]:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+[data-testid="qimen-nine-palace"] button[role="gridcell"][aria-pressed="true"] {
+  box-shadow: 0 0 0 2px var(--cs-color-brand-ochre), var(--cs-shadow-md);
+}
+
+/* Reveal */
+.cs-reveal {
+  animation: cs-rise 0.55s ease both;
+}
+
+@keyframes cs-rise {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.cs-stagger > * {
+  animation: cs-rise 0.5s ease both;
+}
+.cs-stagger > *:nth-child(1) { animation-delay: 0.04s; }
+.cs-stagger > *:nth-child(2) { animation-delay: 0.1s; }
+.cs-stagger > *:nth-child(3) { animation-delay: 0.16s; }
+.cs-stagger > *:nth-child(4) { animation-delay: 0.22s; }
+.cs-stagger > *:nth-child(5) { animation-delay: 0.28s; }
+
+/* Link button hover lift */
+.cs-link-btn {
+  transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+}
+.cs-link-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--cs-shadow-sm);
+}
+
+.cs-section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.cs-section-title h2 {
+  margin-bottom: 0;
+}
+
+/* Interpretation prose */
+.cs-prose {
+  white-space: pre-wrap;
+  line-height: 1.75;
+  font-size: 1.02rem;
+}
+
+.cs-prose p {
+  margin-bottom: 0.75em;
+}
+
+/* Mobile nav scroll */
+@media (max-width: 720px) {
+  .cs-nav {
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+  }
+  .cs-nav-link {
+    flex-shrink: 0;
+  }
+}

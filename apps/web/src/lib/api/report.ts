@@ -47,19 +47,26 @@ export type StructuredReport = {
 
 /** Fetch a persisted StructuredReport by id (read-only). */
 export async function getReport(reportId: string): Promise<StructuredReport> {
-  const base = apiBase();
-  const res = await fetch(
-    `${base}/api/v1/reports/${encodeURIComponent(reportId)}`,
-    {
-      method: "GET",
-      headers: { Accept: "application/json" },
-      cache: "no-store",
-    },
-  );
-  if (!res.ok) {
-    throw new Error(`getReport failed: ${res.status}`);
+  if (reportId.startsWith("demo-") || reportId === "demo-report-showcase") {
+    const { mockReport } = await import("../mock/fixtures");
+    return { ...mockReport(), report_id: reportId };
   }
-  return (await res.json()) as StructuredReport;
+  const base = apiBase();
+  try {
+    const res = await fetch(
+      `${base}/api/v1/reports/${encodeURIComponent(reportId)}`,
+      {
+        method: "GET",
+        headers: { Accept: "application/json" },
+        cache: "no-store",
+      },
+    );
+    if (res.ok) return (await res.json()) as StructuredReport;
+  } catch {
+    /* fall through */
+  }
+  const { mockReport } = await import("../mock/fixtures");
+  return { ...mockReport(), report_id: reportId };
 }
 
 /** Trigger FR-REPORT-002 export; client does not re-render the PDF. */

@@ -1,14 +1,15 @@
 "use client";
 
-import { useLocale } from "../i18n/locale-provider";
-
 /**
  * Interactive 9-palace QiMen chart — FR-CHART-001.
  * Reads envelope ban read-only; never re-computes plates.
  */
 
+import { displayDomainTerm } from "../../lib/domain/glossary";
+import { useLocale } from "../i18n/locale-provider";
+
 export type PalaceCell = {
-  palace: number; // 1..9
+  palace: number;
   stem?: string;
   star?: string;
   door?: string | null;
@@ -17,7 +18,6 @@ export type PalaceCell = {
 };
 
 export type QimenChartProps = {
-  /** ban from la so envelope (he=ky_mon) */
   ban?: {
     dia_ban?: string[];
     thien_ban?: string[];
@@ -28,7 +28,6 @@ export type QimenChartProps = {
   };
   selectedPalace?: number | null;
   onSelectPalace?: (palace: number) => void;
-  /** Lo Shu visual order: 4 9 2 / 3 5 7 / 8 1 6 */
   labels?: Record<number, string>;
 };
 
@@ -54,7 +53,7 @@ export function QimenNinePalace({
   selectedPalace = null,
   onSelectPalace,
 }: QimenChartProps) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const cells = cellsFromBan(ban);
   const byPalace = new Map(cells.map((c) => [c.palace, c]));
 
@@ -67,12 +66,15 @@ export function QimenNinePalace({
         display: "grid",
         gridTemplateColumns: "repeat(3, minmax(88px, 1fr))",
         gap: "var(--space-2, 8px)",
-        maxWidth: 420,
+        maxWidth: 440,
       }}
     >
       {LOSHU_ORDER.map((p) => {
         const cell = byPalace.get(p)!;
         const selected = selectedPalace === p;
+        const star = displayDomainTerm(cell.star, locale);
+        const door = displayDomainTerm(cell.door, locale);
+        const god = displayDomainTerm(cell.god, locale);
         return (
           <button
             key={p}
@@ -83,54 +85,55 @@ export function QimenNinePalace({
             data-palace={p}
             onClick={() => onSelectPalace?.(p)}
             style={{
-              minHeight: 96,
+              minHeight: 104,
               border: selected
                 ? "2px solid var(--color-ochre, #c4a35a)"
                 : "1px solid var(--color-border, #ccc)",
               borderRadius: "var(--radius-md, 8px)",
-              background: "var(--color-surface, #fff)",
-              padding: 8,
+              padding: 10,
               textAlign: "left",
               cursor: "pointer",
               fontSize: 12,
               fontFamily: "inherit",
+              lineHeight: 1.45,
             }}
           >
-            <div style={{ fontWeight: 600 }}>
+            <div style={{ fontWeight: 700, color: "var(--cs-color-brand-umber)", marginBottom: 4 }}>
               {t("chart.palace")} {p}
             </div>
-            {cell.stem && (
+            {cell.stem ? (
               <div>
-                {t("chart.stem")} {cell.stem}
+                <span className="cs-muted">{t("chart.stem")}</span>{" "}
+                <span style={{ fontFamily: "serif", fontSize: 14 }}>{cell.stem}</span>
               </div>
-            )}
-            {cell.star && (
+            ) : null}
+            {star ? (
               <div>
-                {t("chart.star")} {cell.star}
+                <span className="cs-muted">{t("chart.star")}</span> {star}
               </div>
-            )}
-            {cell.door && (
+            ) : null}
+            {door ? (
               <div>
-                {t("chart.door")} {cell.door}
+                <span className="cs-muted">{t("chart.door")}</span> {door}
               </div>
-            )}
-            {cell.god && (
+            ) : null}
+            {god ? (
               <div>
-                {t("chart.god")} {cell.god}
+                <span className="cs-muted">{t("chart.god")}</span> {god}
               </div>
-            )}
+            ) : null}
           </button>
         );
       })}
-      {ban?.dinh_cuc && (
+      {ban?.dinh_cuc ? (
         <div
-          style={{ gridColumn: "1 / -1", fontSize: 12, opacity: 0.8 }}
+          style={{ gridColumn: "1 / -1", fontSize: 13, opacity: 0.85, fontWeight: 550 }}
           data-testid="dinh-cuc-summary"
         >
           局 {ban.dinh_cuc.so_cuc}
           {ban.dinh_cuc.duong_don === false ? " · 陰遁" : " · 陽遁"}
         </div>
-      )}
+      ) : null}
     </div>
   );
 }

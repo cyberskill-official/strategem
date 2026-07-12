@@ -78,8 +78,11 @@ export function HistoryList({ items }: { items: ChartRef[] }) {
             <span className="cs-muted">
               {t(`system.${it.he}`).startsWith("[missing:")
                 ? it.he
-                : t(`system.${it.he}`)}{" "}
-              · {it.question_type}
+                : t(`system.${it.he}`)}
+              {" · "}
+              {t(`cast.q.${it.question_type}`).startsWith("[missing:")
+                ? it.question_type
+                : t(`cast.q.${it.question_type}`)}
             </span>
             <button
               type="button"

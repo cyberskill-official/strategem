@@ -9,19 +9,18 @@ import {
   toCastOverrides,
   type SchoolConfig,
 } from "../../lib/flags/school-flags";
+import { displayOption } from "../../lib/domain/glossary";
 import { useLocale } from "../i18n/locale-provider";
 import { Button } from "../ui/button";
 
-/**
- * School flag form — enums with defaults; never marks a school "correct".
- * Sets flags only; does not cast. Persists to localStorage for cast payload.
- */
+const GROUP_ORDER = ["ky_mon", "luc_nham", "thai_at", "shared"] as const;
+
 export function SchoolFlagsForm({
   onChange,
 }: {
   onChange?: (cfg: SchoolConfig) => void;
 }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [cfg, setCfg] = useState<SchoolConfig>(defaultSchoolConfig);
   const [saved, setSaved] = useState(false);
 
@@ -29,7 +28,7 @@ export function SchoolFlagsForm({
     const loaded = loadSchoolConfig();
     setCfg(loaded);
     onChange?.(loaded);
-    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const setFlag = (system: string, key: string, value: string) => {
@@ -56,45 +55,66 @@ export function SchoolFlagsForm({
       <p data-testid="fairness-note" className="cs-disclaimer">
         {t("settings.fairness")}
       </p>
-      {SCHOOL_FLAGS.map((f) => {
-        const value =
-          f.system === "shared"
-            ? cfg.co_lich_phap[f.key]
-            : cfg.co_truong_phai[`${f.system}.${f.key}`];
+
+      {GROUP_ORDER.map((group) => {
+        const flags = SCHOOL_FLAGS.filter((f) => f.system === group);
+        if (!flags.length) return null;
         return (
-          <label
-            key={`${f.system}-${f.key}`}
-            style={{ display: "block", marginBottom: 12 }}
+          <fieldset
+            key={group}
+            style={{
+              border: "1px solid var(--cs-color-border-default)",
+              borderRadius: 12,
+              padding: 16,
+              marginBottom: 16,
+            }}
           >
-            <span>
-              {f.system}.{f.key}{" "}
-              <em>
-                ({t("settings.default")}: {f.default})
-              </em>
-            </span>
-            <select
-              data-testid={`flag-${f.key}`}
-              value={value}
-              onChange={(e) => setFlag(f.system, f.key, e.target.value)}
-            >
-              {f.options.map((o) => (
-                <option key={o} value={o}>
-                  {o}
-                  {o === f.default ? ` (${t("settings.default")})` : ""}
-                </option>
-              ))}
-            </select>
-            <span className="cs-muted" style={{ display: "block" }}>
-              {f.description}
-            </span>
-          </label>
+            <legend style={{ fontWeight: 700, padding: "0 8px" }}>
+              {t(`settings.group.${group}`)}
+            </legend>
+            {flags.map((f) => {
+              const value =
+                f.system === "shared"
+                  ? cfg.co_lich_phap[f.key]
+                  : cfg.co_truong_phai[`${f.system}.${f.key}`];
+              return (
+                <label
+                  key={`${f.system}-${f.key}`}
+                  style={{ display: "block", marginBottom: 14 }}
+                >
+                  <span style={{ fontWeight: 600 }}>
+                    {t(`settings.flag.${f.key}`)}{" "}
+                    <em className="cs-muted" style={{ fontWeight: 400 }}>
+                      ({t("settings.default")}: {displayOption(f.default, locale)})
+                    </em>
+                  </span>
+                  <select
+                    data-testid={`flag-${f.key}`}
+                    value={value}
+                    onChange={(e) => setFlag(f.system, f.key, e.target.value)}
+                  >
+                    {f.options.map((o) => (
+                      <option key={o} value={o}>
+                        {displayOption(o, locale)}
+                        {o === f.default ? ` (${t("settings.default")})` : ""}
+                      </option>
+                    ))}
+                  </select>
+                  <span className="cs-muted" style={{ display: "block", marginTop: 4 }}>
+                    {t(`settings.desc.${f.key}`)}
+                  </span>
+                </label>
+              );
+            })}
+          </fieldset>
         );
       })}
+
       <Button
         type="button"
         data-testid="save-school-flags"
         onClick={persist}
-        style={{ marginTop: 8 }}
+        style={{ marginTop: 4 }}
       >
         {t("settings.save")}
       </Button>
@@ -105,7 +125,7 @@ export function SchoolFlagsForm({
       ) : null}
       <details style={{ marginTop: 16 }}>
         <summary className="cs-muted" style={{ cursor: "pointer" }}>
-          payload
+          {t("settings.payload")}
         </summary>
         <pre
           data-testid="cast-overrides"

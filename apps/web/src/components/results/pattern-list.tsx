@@ -1,5 +1,6 @@
 "use client";
 
+import { displayPatternName, patternGloss } from "../../lib/domain/glossary";
 import { useLocale } from "../i18n/locale-provider";
 
 export type PatternItem = {
@@ -18,18 +19,12 @@ function PolarityBadge({ polarity }: { polarity?: string }) {
     p === "cat" ? "polarity.cat" : p === "hung" ? "polarity.hung" : "polarity.trung";
   const label = t(key);
   const icon = p === "cat" ? "▲" : p === "hung" ? "▼" : "◆";
+  const cls =
+    p === "cat" ? "cs-badge--cat" : p === "hung" ? "cs-badge--hung" : "cs-badge--trung";
   return (
     <span
       data-testid="polarity-badge"
-      style={{
-        display: "inline-flex",
-        gap: 4,
-        alignItems: "center",
-        fontSize: 12,
-        padding: "2px 8px",
-        borderRadius: 999,
-        border: "1px solid var(--color-border)",
-      }}
+      className={`cs-badge ${cls}`}
       aria-label={`${t("polarity.label")} ${label}`}
     >
       <span aria-hidden>{icon}</span>
@@ -39,34 +34,39 @@ function PolarityBadge({ polarity }: { polarity?: string }) {
 }
 
 export function PatternList({ patterns }: { patterns: PatternItem[] }) {
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   if (!patterns.length) {
     return <p data-testid="patterns-empty">{t("results.patternsEmpty")}</p>;
   }
   return (
     <ul data-testid="pattern-list" style={{ listStyle: "none", padding: 0, margin: 0 }}>
-      {patterns.map((p, i) => (
-        <li
-          key={p.id ?? `${p.name}-${i}`}
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-            gap: 8,
-            padding: "8px 0",
-            borderBottom: "1px solid var(--color-border)",
-          }}
-        >
-          <div>
-            <strong>{p.name}</strong>
-            {p.cung != null && (
-              <span style={{ marginLeft: 8, opacity: 0.8 }}>
-                {t("chart.palace")} {p.cung}
-              </span>
-            )}
-          </div>
-          <PolarityBadge polarity={p.polarity} />
-        </li>
-      ))}
+      {patterns.map((p, i) => {
+        const name = displayPatternName(p.name, locale);
+        const gloss = patternGloss(p.name, locale);
+        return (
+          <li key={p.id ?? `${p.name}-${i}`} className="cs-pattern-row">
+            <div>
+              <strong>
+                {name}
+                {name !== p.name ? (
+                  <span className="cs-muted" style={{ marginLeft: 8, fontWeight: 400 }}>
+                    {p.name}
+                  </span>
+                ) : null}
+              </strong>
+              <div className="cs-pattern-row__meta">
+                {p.cung != null ? (
+                  <span>
+                    {t("chart.palace")} {p.cung}
+                  </span>
+                ) : null}
+                {gloss ? <span>{p.cung != null ? " · " : ""}{gloss}</span> : null}
+              </div>
+            </div>
+            <PolarityBadge polarity={p.polarity} />
+          </li>
+        );
+      })}
     </ul>
   );
 }

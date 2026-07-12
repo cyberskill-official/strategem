@@ -1,43 +1,70 @@
 "use client";
 
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import { getHistory, type ChartRef } from "../../lib/api/history";
 import { useLocale } from "../i18n/locale-provider";
 import { FlowEntryCards } from "./flow-entry-cards";
 import { QuickCast } from "./quick-cast";
-import { RecentCharts, type ChartRef } from "./recent-charts";
-
-const DEMO_RECENT: ChartRef[] = [
-  {
-    query_id: "demo-qimen-1",
-    he: "ky_mon",
-    question_type: "trach_thoi",
-    cast_at: "2004-01-01T10:30:00",
-  },
-  {
-    query_id: "demo-liuren-1",
-    he: "luc_nham",
-    question_type: "hon_nhan",
-    cast_at: "2004-01-02T09:00:00",
-  },
-];
+import { RecentCharts } from "./recent-charts";
 
 export function Dashboard() {
   const { t } = useLocale();
+  const [recent, setRecent] = useState<ChartRef[]>([]);
+  const [source, setSource] = useState<"live" | "demo" | "loading">("loading");
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await getHistory();
+        if (cancelled) return;
+        setRecent(res.items.slice(0, 6));
+        setSource(res.source);
+      } catch {
+        if (!cancelled) {
+          setRecent([]);
+          setSource("demo");
+        }
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
 
   return (
-    <div
-      data-testid="dashboard"
-      className="cs-page"
-    >
-      <h1>{t("dashboard.title")}</h1>
-      {/* Disclaimer lives in shell footer — keep a hidden node for tests */}
+    <div data-testid="dashboard" className="cs-page cs-reveal">
+      <header>
+        <p className="cs-kicker">{t("app.tagline")}</p>
+        <h1>{t("dashboard.title")}</h1>
+        <p className="cs-muted" style={{ maxWidth: "52ch" }}>
+          {t("dashboard.lead")}
+        </p>
+      </header>
       <p data-testid="disclaimer" className="visually-hidden">
         {t("disclaimer.short")}
       </p>
-      <QuickCast />
-      <div className="cs-card">
-        <RecentCharts charts={DEMO_RECENT} title={t("dashboard.recent")} />
+
+      <div className="cs-card" style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}>
+        <QuickCast />
+        <span className="cs-muted">
+          {source === "live" ? t("dashboard.liveFromApi") : source === "demo" ? t("dashboard.demoHint") : "…"}
+        </span>
       </div>
+
+      <div className="cs-card">
+        <RecentCharts
+          charts={recent.map((c) => ({
+            query_id: c.query_id,
+            he: c.he,
+            question_type: c.question_type,
+            cast_at: c.created_at,
+          }))}
+          title={t("dashboard.recent")}
+        />
+      </div>
+
       <div className="cs-card">
         <RecentCharts
           charts={[]}
@@ -45,7 +72,9 @@ export function Dashboard() {
           emptyHint={t("dashboard.savedEmpty")}
         />
       </div>
+
       <FlowEntryCards />
+
       <p className="cs-muted">
         <Link href="/cast">{t("dashboard.fullForm")}</Link>
       </p>

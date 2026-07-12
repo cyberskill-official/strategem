@@ -25,9 +25,10 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
 
   const chart = useMemo(() => {
     const charts = response.charts ?? {};
-    const first = Object.values(charts)[0];
-    return first;
+    return Object.values(charts)[0];
   }, [response.charts]);
+
+  const he = chart?.he;
 
   const patterns: PatternItem[] = useMemo(() => {
     if (response.patterns?.length) return response.patterns;
@@ -44,28 +45,37 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
     dinh_cuc?: { so_cuc?: number; duong_don?: boolean };
   };
 
+  const isDemo = response.query_id.startsWith("demo-");
+
   return (
-    <div data-testid="results-panel" style={{ display: "grid", gap: 24 }}>
+    <div data-testid="results-panel" className="cs-stagger" style={{ display: "grid", gap: 24 }}>
+      {isDemo ? (
+        <div className="cs-banner cs-banner--ochre">{t("results.demoBanner")}</div>
+      ) : null}
+
       <section
         data-testid="deterministic-region"
         className="cs-region"
         aria-label={t("results.chartRegion")}
       >
-        <h2 style={{ marginTop: 0 }}>{t("results.chartRegion")}</h2>
+        <div className="cs-section-title" style={{ marginBottom: 12 }}>
+          <h2 style={{ marginTop: 0 }}>{t("results.chartRegion")}</h2>
+          {he ? (
+            <span className="cs-badge cs-badge--trung">
+              {t(`system.${he}`).startsWith("[missing:") ? he : t(`system.${he}`)}
+            </span>
+          ) : null}
+        </div>
         <QimenNinePalace
           ban={ban}
           selectedPalace={selected}
           onSelectPalace={setSelected}
         />
-        <h3>{t("results.patterns")}</h3>
+        <h3 style={{ marginTop: 20 }}>{t("results.patterns")}</h3>
         <PatternList patterns={patterns} />
       </section>
 
-      <hr
-        data-testid="region-boundary"
-        className="cs-region-boundary"
-        aria-hidden
-      />
+      <hr data-testid="region-boundary" className="cs-region-boundary" aria-hidden />
 
       <section
         data-testid="ai-region"
@@ -73,10 +83,19 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
         aria-label={t("results.aiRegion")}
       >
         <h2 style={{ marginTop: 0 }}>{t("results.aiRegion")}</h2>
-        {response.interpretation ? (
+        {response.interpretation || patterns.length ? (
           <InterpretationView
-            interpretation={response.interpretation}
+            interpretation={
+              response.interpretation ?? {
+                beginner: "",
+                expert: "",
+                recommendations: [],
+                citations: [],
+              }
+            }
             disclosure={response.ai_disclosure}
+            patterns={patterns}
+            he={he}
           />
         ) : (
           <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>

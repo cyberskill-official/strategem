@@ -120,5 +120,13 @@ export async function getQuery(
       /* ignore */
     }
   }
+
+  // Demo / offline showcase boards
+  if (queryId.startsWith("demo-") || queryId === "demo-ky-mon-showcase") {
+    const { mockQueryResponse } = await import("../mock/fixtures");
+    const demo = mockQueryResponse();
+    return { ...demo, query_id: queryId };
+  }
+
   throw new ApiClientError(404, "NOT_FOUND", `query ${queryId} not found`);
 }

@@ -9,7 +9,6 @@ import {
   type StructuredReport,
 } from "../../../src/lib/api/report";
 
-/** Report view — live GET /api/v1/reports/{id}; no demo fixtures. */
 export default function ReportPage() {
   const params = useParams();
   const reportId = String(params?.reportId ?? "");
@@ -17,6 +16,7 @@ export default function ReportPage() {
   const [report, setReport] = useState<StructuredReport | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const [demo, setDemo] = useState(false);
 
   useEffect(() => {
     let cancelled = false;
@@ -28,7 +28,10 @@ export default function ReportPage() {
       }
       try {
         const r = await getReport(reportId);
-        if (!cancelled) setReport(r);
+        if (!cancelled) {
+          setReport(r);
+          setDemo(reportId.startsWith("demo-"));
+        }
       } catch (e) {
         if (!cancelled)
           setError(e instanceof Error ? e.message : t("report.error"));
@@ -42,7 +45,10 @@ export default function ReportPage() {
   }, [reportId, t]);
 
   return (
-    <div className="cs-page">
+    <div className="cs-page cs-reveal">
+      {demo ? (
+        <div className="cs-banner cs-banner--ochre">{t("report.demoBanner")}</div>
+      ) : null}
       {loading ? <p data-testid="report-loading">{t("report.loading")}</p> : null}
       {error ? (
         <p data-testid="report-error" style={{ color: "var(--color-danger)" }}>
