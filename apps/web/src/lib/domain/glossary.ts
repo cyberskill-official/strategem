@@ -39,6 +39,14 @@ const GOD: Record<string, Triple> = {
   HuyenVu: { vi: "Huyền Vũ", en: "Dark Warrior", zh: "玄武" },
   CuuDia: { vi: "Cửu Địa", en: "Nine Earth", zh: "九地" },
   CuuThien: { vi: "Cửu Thiên", en: "Nine Heaven", zh: "九天" },
+  // Liu Ren twelve generals
+  ThienKhong: { vi: "Thiên Không", en: "Heaven Void", zh: "天空" },
+  ThanhLong: { vi: "Thanh Long", en: "Azure Dragon", zh: "青龙" },
+  CauTran: { vi: "Câu Trần", en: "Hooked Chen", zh: "勾陈" },
+  ChuTuoc: { vi: "Chu Tước", en: "Vermilion Bird", zh: "朱雀" },
+  QuyNhan: { vi: "Quý Nhân", en: "Noble", zh: "贵人" },
+  ThienHau: { vi: "Thiên Hậu", en: "Heavenly Queen", zh: "天后" },
+  ThaiThuong: { vi: "Thái Thường", en: "Grand Constant", zh: "太常" },
 };
 
 const PATTERN: Record<string, Triple> = {

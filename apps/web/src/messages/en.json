@@ -2,7 +2,6 @@
   "app.name": "Three Arts Strategem",
   "app.tagline": "Three arts · one decision board",
   "app.slogan": "Realize intent",
-
   "nav.home": "Home",
   "nav.cast": "Cast",
   "nav.dashboard": "Overview",
@@ -10,7 +9,6 @@
   "nav.settings": "Settings",
   "nav.results": "Results",
   "nav.report": "Report",
-
   "home.kicker": "Qi Men · Liu Ren · Tai Yi",
   "home.heroTitle": "Strategy on a classical board",
   "home.heroBody": "Not fortune-telling — a frame for reading the field: deterministic charts, cited interpretations, decisions that remain yours.",
@@ -30,7 +28,6 @@
   "home.statBoards": "Boards",
   "home.statPatterns": "Patterns",
   "home.statCitations": "Citations",
-
   "cast.title": "New cast",
   "cast.subtitle": "Choose the system, time, and question type. The board appears on the right; readings carry source labels.",
   "cast.system": "System",
@@ -55,7 +52,6 @@
   "cast.q.khac": "Other",
   "cast.q.chu_khach": "Host–guest",
   "cast.q.phuong_vi": "Direction",
-
   "dashboard.title": "Overview",
   "dashboard.lead": "Revisit recent casts, open a new board quickly, and enter each workflow.",
   "dashboard.quickCast": "Quick cast",
@@ -73,7 +69,6 @@
   "dashboard.fullForm": "Open full cast form",
   "dashboard.liveFromApi": "From server",
   "dashboard.demoHint": "Sample data — cast live to replace it.",
-
   "results.title": "Results",
   "results.loading": "Loading the board…",
   "results.error": "Could not load the chart. Cast again from Cast.",
@@ -87,7 +82,6 @@
   "results.openReport": "Open report",
   "results.share": "Share",
   "results.demoBanner": "Sample board — illustrative data for exploring the interface.",
-
   "history.title": "History",
   "history.lead": "Every saved cast, filterable by system and question type.",
   "history.loading": "Loading history…",
@@ -100,7 +94,6 @@
   "history.resultsLink": "Results",
   "history.reportLink": "Report",
   "history.demoLoaded": "Showing samples while the server is empty or offline.",
-
   "settings.title": "School flags",
   "settings.lead": "Choose methods by school. No school is labeled correct or incorrect.",
   "settings.fairness": "Each option lists its default. No school is marked correct.",
@@ -132,7 +125,6 @@
   "settings.desc.late_zi_handling": "Inverted Zi versus strict clock.",
   "settings.desc.truong_sinh_phai": "Growth phases by five elements or default.",
   "settings.desc.delta_t_model": "Astronomical time correction.",
-
   "report.title": "Report",
   "report.loading": "Loading report…",
   "report.error": "Could not load report.",
@@ -150,23 +142,19 @@
   "report.notApproved": "Not yet approved",
   "report.query": "Query",
   "report.demoBanner": "Sample report — layout preview when the server is empty.",
-
   "share.title": "Share link",
   "share.close": "Close",
   "share.copied": "Link copied.",
   "export.pdf": "PDF",
   "export.png": "PNG",
   "export.svg": "SVG",
-
   "persona.beginner": "beginner",
   "persona.expert": "expert",
   "persona.group": "Reading level",
-
   "polarity.cat": "Auspicious",
   "polarity.hung": "Inauspicious",
   "polarity.trung": "Neutral",
   "polarity.label": "Polarity",
-
   "disclosure.ai": "Model",
   "disclosure.model": "Model name",
   "disclosure.limits": "Limits",
@@ -177,7 +165,6 @@
   "disclosure.status.pending": "pending",
   "disclosure.status.approved": "approved",
   "disclosure.status.rejected": "rejected",
-
   "review.pending": "Pending human review — not yet approved for decision use.",
   "review.risk": "Risk",
   "review.approve": "Approve",
@@ -185,7 +172,6 @@
   "review.awaiting": "Awaiting human decision",
   "review.status": "Status: {status}",
   "review.gate": "Human review gate",
-
   "system.ky_mon": "Qi Men",
   "system.luc_nham": "Liu Ren",
   "system.thai_at": "Tai Yi",
@@ -195,22 +181,18 @@
   "system.qimen.blurb": "Nine palaces · star, door, deity",
   "system.liuren.blurb": "Heaven–earth boards · four keys",
   "system.taiyi.blurb": "Tai Yi · long cycles",
-
   "disclaimer.short": "For cultural and educational use. Not medical, legal, or financial advice.",
   "disclaimer.ai": "Model output may be imperfect.",
   "disclaimer.full": "For cultural and educational use. Not medical, legal, or financial advice. Model output may be imperfect.",
-
   "error.rateLimited": "Rate limited. Try later.",
   "error.forbiddenTier": "This capability needs a higher plan.",
   "error.rateLimitedUntil": "Rate limited. Try again after {reset}.",
   "error.generic": "Something went wrong.",
   "error.apiDown": "Could not reach the server.",
-
   "locale.label": "Language",
   "locale.vi": "Tiếng Việt",
   "locale.en": "English",
   "locale.zh": "中文",
-
   "palace.label": "Palace {n}",
   "chart.palace": "Palace",
   "chart.stem": "Stem",
@@ -220,9 +202,46 @@
   "chart.citationHan": "Classical",
   "chart.citationVernacular": "Vernacular",
   "chart.citationGloss": "Gloss",
-
   "wow.explore": "Explore",
   "wow.nextStep": "Next step",
   "wow.live": "Live",
-  "wow.sample": "Sample"
+  "wow.sample": "Sample",
+  "nav.learn": "Learn",
+  "results.pin": "Pin chart",
+  "results.unpin": "Unpin",
+  "results.pinned": "Pinned",
+  "chart.liuren.thienDia": "Heaven–earth board",
+  "chart.liuren.tuKhoa": "Four keys",
+  "chart.liuren.tamTruyen": "Three transmissions",
+  "chart.liuren.thienTuong": "Twelve generals",
+  "chart.taiyi.ninePalace": "Nine palaces · Tai Yi",
+  "chart.taiyi.sixteenGods": "Sixteen deities",
+  "chart.taiyi.generalsCalc": "Eight generals · calc",
+  "chart.taiyi.centerSkip": "Center (skip)",
+  "chart.taiyi.gianThan": "Interstitial",
+  "chart.taiyi.chinhCung": "Main palace",
+  "chart.taiyi.ring": "Ring",
+  "chart.taiyi.chuDai": "Host grand general",
+  "chart.taiyi.chuTham": "Host deputy",
+  "chart.taiyi.khachDai": "Guest grand general",
+  "chart.taiyi.khachTham": "Guest deputy",
+  "chart.taiyi.keThan": "Count deity",
+  "chart.taiyi.thuyKich": "Water assault",
+  "chart.taiyi.vanXuong": "Literary glory",
+  "chart.taiyi.chuToan": "Host total",
+  "chart.taiyi.khachToan": "Guest total",
+  "chart.taiyi.chuTruongDoan": "Host long/short",
+  "chart.taiyi.khachTruongDoan": "Guest long/short",
+  "learn.title": "Learning",
+  "learn.kicker": "Curriculum & practice",
+  "learn.lead": "Three paths into the Three Arts: frame, board reading, pattern drill. No rush to verdict — first train the eye.",
+  "learn.path1.title": "Host–guest frame",
+  "learn.path1.body": "Who asks, who responds; position and time. Learn questions the board can answer.",
+  "learn.path2.title": "Reading the board",
+  "learn.path2.body": "Qi Men palaces, Liu Ren keys, Tai Yi station — layer by layer, stem to pattern.",
+  "learn.path3.title": "Patterns & citations",
+  "learn.path3.body": "Every pattern carries a source. Practice matching classical text, vernacular, and real context.",
+  "learn.ctaCast": "Practice with a live cast",
+  "learn.ctaExplore": "Open sample board",
+  "learn.disclaimer": "Learning is cultural and educational. Not a substitute for medical, legal, or financial expertise."
 }

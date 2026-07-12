@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useLocale } from "../../../src/components/i18n/locale-provider";
+import { PinButton } from "../../../src/components/results/pin-button";
 import { getQuery, ApiClientError } from "../../../src/lib/api/client";
 import {
   ResultsPanel,
@@ -28,7 +29,8 @@ export default function ResultsPage() {
   const [response, setResponse] = useState<QueryResponseView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [reportId, setReportId] = useState<string | null>(null);
+  const [reportId, setReportId] = useState<string | undefined>();
+  const [meta, setMeta] = useState({ he: "ky_mon", question_type: "trach_thoi", cast_at: "" });
 
   useEffect(() => {
     let cancelled = false;
@@ -44,12 +46,26 @@ export default function ResultsPage() {
         const res = await getQuery(queryId);
         if (!cancelled) {
           setResponse(toView(res));
-          // history may carry report_id — best-effort from list
+          const first = Object.values(res.charts ?? {})[0] as
+            | { he?: string }
+            | undefined;
+          setMeta((m) => ({
+            ...m,
+            he: first?.he ?? m.he,
+            cast_at: new Date().toISOString(),
+          }));
           try {
             const { getHistory } = await import("../../../src/lib/api/history");
             const hist = await getHistory();
             const hit = hist.items.find((i) => i.query_id === queryId);
-            if (hit?.report_id) setReportId(hit.report_id);
+            if (hit) {
+              setReportId(hit.report_id);
+              setMeta({
+                he: hit.he,
+                question_type: hit.question_type,
+                cast_at: hit.created_at,
+              });
+            }
           } catch {
             /* ignore */
           }
@@ -84,6 +100,15 @@ export default function ResultsPage() {
           </p>
         ) : null}
         <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 4 }}>
+          {queryId ? (
+            <PinButton
+              queryId={queryId}
+              he={meta.he}
+              questionType={meta.question_type}
+              castAt={meta.cast_at}
+              reportId={reportId}
+            />
+          ) : null}
           {reportId ? (
             <Link
               href={`/report/${encodeURIComponent(reportId)}`}

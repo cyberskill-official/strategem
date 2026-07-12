@@ -2,7 +2,6 @@
   "app.name": "Tam Thức Strategem",
   "app.tagline": "Ba thuật · một bàn cờ quyết định",
   "app.slogan": "Hiện thực hoá ý chí",
-
   "nav.home": "Trang chủ",
   "nav.cast": "Lập quẻ",
   "nav.dashboard": "Tổng quan",
@@ -10,7 +9,6 @@
   "nav.settings": "Cài đặt",
   "nav.results": "Kết quả",
   "nav.report": "Báo cáo",
-
   "home.kicker": "Kỳ Môn · Lục Nhâm · Thái Ất",
   "home.heroTitle": "Chiến lược trên bàn cổ học",
   "home.heroBody": "Không bói toán — mà là khung đọc thế: la số do máy tính định nghĩa, diễn giải minh bạch nguồn, quyết định vẫn thuộc về bạn.",
@@ -30,7 +28,6 @@
   "home.statBoards": "Ban đồ",
   "home.statPatterns": "Cách cục",
   "home.statCitations": "Trích dẫn",
-
   "cast.title": "Lập quẻ mới",
   "cast.subtitle": "Chọn hệ, thời điểm và loại câu hỏi. La số hiện bên phải; diễn giải đi kèm nhãn nguồn.",
   "cast.system": "Hệ thuật",
@@ -55,7 +52,6 @@
   "cast.q.khac": "Khác",
   "cast.q.chu_khach": "Chủ–khách",
   "cast.q.phuong_vi": "Phương vị",
-
   "dashboard.title": "Tổng quan",
   "dashboard.lead": "Một chỗ nhìn lại quẻ đã lập, mở nhanh la số mới, và bước vào từng luồng làm việc.",
   "dashboard.quickCast": "Lập quẻ nhanh",
@@ -73,7 +69,6 @@
   "dashboard.fullForm": "Mở form lập quẻ đầy đủ",
   "dashboard.liveFromApi": "Từ máy chủ",
   "dashboard.demoHint": "Mẫu minh họa — lập quẻ thật để thay thế.",
-
   "results.title": "Kết quả",
   "results.loading": "Đang tải la số…",
   "results.error": "Không tải được quẻ. Hãy lập lại từ Lập quẻ.",
@@ -87,7 +82,6 @@
   "results.openReport": "Xem báo cáo",
   "results.share": "Chia sẻ",
   "results.demoBanner": "Bàn mẫu — dữ liệu minh họa để bạn khám phá giao diện.",
-
   "history.title": "Lịch sử",
   "history.lead": "Mọi quẻ đã lưu, lọc theo hệ và loại câu hỏi.",
   "history.loading": "Đang tải lịch sử…",
@@ -100,7 +94,6 @@
   "history.resultsLink": "Kết quả",
   "history.reportLink": "Báo cáo",
   "history.demoLoaded": "Đang hiện mẫu khi máy chủ trống hoặc ngoại tuyến.",
-
   "settings.title": "Cờ phái",
   "settings.lead": "Chọn phương pháp theo trường phái. Không phái nào được gán nhãn đúng hay sai.",
   "settings.fairness": "Mỗi tùy chọn kèm mặc định. Không có phái nào bị gắn nhãn «đúng».",
@@ -132,7 +125,6 @@
   "settings.desc.late_zi_handling": "Đảo Tý hay nghiêm theo giờ.",
   "settings.desc.truong_sinh_phai": "Trường sinh theo ngũ hành hay mặc định.",
   "settings.desc.delta_t_model": "Hiệu chỉnh thời gian thiên văn.",
-
   "report.title": "Báo cáo",
   "report.loading": "Đang tải báo cáo…",
   "report.error": "Không tải được báo cáo.",
@@ -150,23 +142,19 @@
   "report.notApproved": "Chưa được duyệt",
   "report.query": "Truy vấn",
   "report.demoBanner": "Báo cáo mẫu — dùng để xem bố cục khi máy chủ trống.",
-
   "share.title": "Liên kết chia sẻ",
   "share.close": "Đóng",
   "share.copied": "Đã chép liên kết.",
   "export.pdf": "PDF",
   "export.png": "PNG",
   "export.svg": "SVG",
-
   "persona.beginner": "cơ bản",
   "persona.expert": "chuyên sâu",
   "persona.group": "Mức đọc",
-
   "polarity.cat": "Cát",
   "polarity.hung": "Hung",
   "polarity.trung": "Trung",
   "polarity.label": "Cát hung",
-
   "disclosure.ai": "Mô hình",
   "disclosure.model": "Tên mô hình",
   "disclosure.limits": "Giới hạn",
@@ -177,7 +165,6 @@
   "disclosure.status.pending": "chờ duyệt",
   "disclosure.status.approved": "đã duyệt",
   "disclosure.status.rejected": "từ chối",
-
   "review.pending": "Chờ duyệt người — chưa dùng để quyết định.",
   "review.risk": "Rủi ro",
   "review.approve": "Duyệt",
@@ -185,7 +172,6 @@
   "review.awaiting": "Đang chờ quyết định của người",
   "review.status": "Trạng thái: {status}",
   "review.gate": "Cổng duyệt người",
-
   "system.ky_mon": "Kỳ Môn",
   "system.luc_nham": "Lục Nhâm",
   "system.thai_at": "Thái Ất",
@@ -195,22 +181,18 @@
   "system.qimen.blurb": "Cửu cung · tinh môn thần",
   "system.liuren.blurb": "Thiên địa bàn · tứ khóa",
   "system.taiyi.blurb": "Thái Ất · vận số lớn",
-
   "disclaimer.short": "Dùng cho văn hóa và giáo dục. Không phải tư vấn y tế, pháp lý hay tài chính.",
   "disclaimer.ai": "Đầu ra mô hình có thể không hoàn hảo.",
   "disclaimer.full": "Dùng cho văn hóa và giáo dục. Không phải tư vấn y tế, pháp lý hay tài chính. Đầu ra mô hình có thể không hoàn hảo.",
-
   "error.rateLimited": "Vượt hạn mức. Thử lại sau.",
   "error.forbiddenTier": "Tính năng này cần gói cao hơn.",
   "error.rateLimitedUntil": "Vượt hạn mức. Thử lại sau {reset}.",
   "error.generic": "Đã xảy ra lỗi.",
   "error.apiDown": "Không kết nối được máy chủ.",
-
   "locale.label": "Ngôn ngữ",
   "locale.vi": "Tiếng Việt",
   "locale.en": "English",
   "locale.zh": "中文",
-
   "palace.label": "Cung {n}",
   "chart.palace": "Cung",
   "chart.stem": "Can",
@@ -220,9 +202,46 @@
   "chart.citationHan": "Hán",
   "chart.citationVernacular": "Bạch thoại",
   "chart.citationGloss": "Giải",
-
   "wow.explore": "Khám phá",
   "wow.nextStep": "Bước tiếp",
   "wow.live": "Trực tiếp",
-  "wow.sample": "Mẫu"
+  "wow.sample": "Mẫu",
+  "nav.learn": "Học tập",
+  "results.pin": "Ghim quẻ",
+  "results.unpin": "Bỏ ghim",
+  "results.pinned": "Đã ghim",
+  "chart.liuren.thienDia": "Thiên địa bàn",
+  "chart.liuren.tuKhoa": "Tứ khóa",
+  "chart.liuren.tamTruyen": "Tam truyền",
+  "chart.liuren.thienTuong": "Thập nhị thiên tướng",
+  "chart.taiyi.ninePalace": "Cửu cung · Thái Ất",
+  "chart.taiyi.sixteenGods": "Thập lục thần",
+  "chart.taiyi.generalsCalc": "Bát tướng · toán",
+  "chart.taiyi.centerSkip": "Trung (bỏ)",
+  "chart.taiyi.gianThan": "Gian thần",
+  "chart.taiyi.chinhCung": "Chính cung",
+  "chart.taiyi.ring": "Vành",
+  "chart.taiyi.chuDai": "Chủ đại tướng",
+  "chart.taiyi.chuTham": "Chủ tham tướng",
+  "chart.taiyi.khachDai": "Khách đại tướng",
+  "chart.taiyi.khachTham": "Khách tham tướng",
+  "chart.taiyi.keThan": "Kế thần",
+  "chart.taiyi.thuyKich": "Thủy kích",
+  "chart.taiyi.vanXuong": "Văn xương",
+  "chart.taiyi.chuToan": "Chủ toán",
+  "chart.taiyi.khachToan": "Khách toán",
+  "chart.taiyi.chuTruongDoan": "Chủ trường đoản",
+  "chart.taiyi.khachTruongDoan": "Khách trường đoản",
+  "learn.title": "Học tập",
+  "learn.kicker": "Giáo trình & luyện bàn",
+  "learn.lead": "Ba lộ vào Tam Thức: hiểu khung, đọc ban, luyện cách cục. Không vội phán — trước hết rèn mắt.",
+  "learn.path1.title": "Khung chủ–khách",
+  "learn.path1.body": "Ai hỏi, ai ứng; thế và thời. Học cách đặt câu hỏi sao cho bàn trả lời được.",
+  "learn.path2.title": "Đọc ban đồ",
+  "learn.path2.body": "Cửu cung Kỳ Môn, tứ khóa Lục Nhâm, cung Thái Ất — từng lớp một, từ can đến cách.",
+  "learn.path3.title": "Cách cục & trích dẫn",
+  "learn.path3.body": "Mỗi cách gắn nguồn. Luyện đối chiếu chữ Hán, bạch thoại và bối cảnh thực.",
+  "learn.ctaCast": "Luyện bằng một quẻ thật",
+  "learn.ctaExplore": "Xem bàn mẫu",
+  "learn.disclaimer": "Học tập mang tính văn hóa–giáo dục. Không thay thế chuyên môn y–luật–tài chính."
 }

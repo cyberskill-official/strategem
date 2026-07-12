@@ -2,7 +2,6 @@
   "app.name": "三式 Strategem",
   "app.tagline": "三术 · 一盘决策",
   "app.slogan": "实现意志",
-
   "nav.home": "首页",
   "nav.cast": "起盘",
   "nav.dashboard": "总览",
@@ -10,7 +9,6 @@
   "nav.settings": "设置",
   "nav.results": "结果",
   "nav.report": "报告",
-
   "home.kicker": "奇门 · 六壬 · 太乙",
   "home.heroTitle": "古典盘上的战略",
   "home.heroBody": "不是算命——而是读势之框：盘局由计算确定，解读引用来源，决定仍在你手。",
@@ -30,7 +28,6 @@
   "home.statBoards": "盘局",
   "home.statPatterns": "格局",
   "home.statCitations": "引用",
-
   "cast.title": "新建起盘",
   "cast.subtitle": "选择体系、时间与问题类型。右侧呈现盘局；解读附带来源标注。",
   "cast.system": "术数体系",
@@ -55,7 +52,6 @@
   "cast.q.khac": "其他",
   "cast.q.chu_khach": "主客",
   "cast.q.phuong_vi": "方位",
-
   "dashboard.title": "总览",
   "dashboard.lead": "回看近期盘局，快速起盘，并进入各工作流。",
   "dashboard.quickCast": "快速起盘",
@@ -73,7 +69,6 @@
   "dashboard.fullForm": "打开完整起盘表单",
   "dashboard.liveFromApi": "来自服务器",
   "dashboard.demoHint": "示例数据——起真盘后将替换。",
-
   "results.title": "结果",
   "results.loading": "正在加载盘局…",
   "results.error": "无法加载盘局。请从起盘页重新起盘。",
@@ -87,7 +82,6 @@
   "results.openReport": "查看报告",
   "results.share": "分享",
   "results.demoBanner": "示例盘——用于探索界面的说明数据。",
-
   "history.title": "历史",
   "history.lead": "全部已存盘局，可按体系与问题类型筛选。",
   "history.loading": "正在加载历史…",
@@ -100,7 +94,6 @@
   "history.resultsLink": "结果",
   "history.reportLink": "报告",
   "history.demoLoaded": "服务器为空或离线时显示示例。",
-
   "settings.title": "流派标志",
   "settings.lead": "按流派选择方法。没有任何流派被标为正确或错误。",
   "settings.fairness": "每个选项均标注默认值。没有任何流派被标为「正确」。",
@@ -132,7 +125,6 @@
   "settings.desc.late_zi_handling": "倒子或严格时钟。",
   "settings.desc.truong_sinh_phai": "按五行或默认取长生。",
   "settings.desc.delta_t_model": "天文时间校正。",
-
   "report.title": "报告",
   "report.loading": "正在加载报告…",
   "report.error": "无法加载报告。",
@@ -150,23 +142,19 @@
   "report.notApproved": "尚未批准",
   "report.query": "查询",
   "report.demoBanner": "示例报告——服务器为空时预览版式。",
-
   "share.title": "分享链接",
   "share.close": "关闭",
   "share.copied": "链接已复制。",
   "export.pdf": "PDF",
   "export.png": "PNG",
   "export.svg": "SVG",
-
   "persona.beginner": "基础",
   "persona.expert": "专业",
   "persona.group": "阅读层级",
-
   "polarity.cat": "吉",
   "polarity.hung": "凶",
   "polarity.trung": "中",
   "polarity.label": "吉凶",
-
   "disclosure.ai": "模型",
   "disclosure.model": "模型名称",
   "disclosure.limits": "限制",
@@ -177,7 +165,6 @@
   "disclosure.status.pending": "待审核",
   "disclosure.status.approved": "已批准",
   "disclosure.status.rejected": "已拒绝",
-
   "review.pending": "待人工审核——尚未批准用于决策。",
   "review.risk": "风险",
   "review.approve": "批准",
@@ -185,7 +172,6 @@
   "review.awaiting": "等待人工决定",
   "review.status": "状态：{status}",
   "review.gate": "人工审核门",
-
   "system.ky_mon": "奇门",
   "system.luc_nham": "六壬",
   "system.thai_at": "太乙",
@@ -195,22 +181,18 @@
   "system.qimen.blurb": "九宫 · 星门神",
   "system.liuren.blurb": "天地盘 · 四课",
   "system.taiyi.blurb": "太乙 · 大运",
-
   "disclaimer.short": "仅供文化与教育用途。非医疗、法律或财务建议。",
   "disclaimer.ai": "模型输出可能不完美。",
   "disclaimer.full": "仅供文化与教育用途。非医疗、法律或财务建议。模型输出可能不完美。",
-
   "error.rateLimited": "请求过多，请稍后再试。",
   "error.forbiddenTier": "此功能需要更高套餐。",
   "error.rateLimitedUntil": "请求过多，请在 {reset} 后再试。",
   "error.generic": "发生错误。",
   "error.apiDown": "无法连接服务器。",
-
   "locale.label": "语言",
   "locale.vi": "越南语",
   "locale.en": "英语",
   "locale.zh": "中文",
-
   "palace.label": "宫 {n}",
   "chart.palace": "宫",
   "chart.stem": "干",
@@ -220,9 +202,46 @@
   "chart.citationHan": "汉文",
   "chart.citationVernacular": "白话",
   "chart.citationGloss": "释",
-
   "wow.explore": "探索",
   "wow.nextStep": "下一步",
   "wow.live": "实时",
-  "wow.sample": "示例"
+  "wow.sample": "示例",
+  "nav.learn": "学习",
+  "results.pin": "固定盘局",
+  "results.unpin": "取消固定",
+  "results.pinned": "已固定",
+  "chart.liuren.thienDia": "天地盘",
+  "chart.liuren.tuKhoa": "四课",
+  "chart.liuren.tamTruyen": "三传",
+  "chart.liuren.thienTuong": "十二天将",
+  "chart.taiyi.ninePalace": "九宫 · 太乙",
+  "chart.taiyi.sixteenGods": "十六神",
+  "chart.taiyi.generalsCalc": "八将 · 算",
+  "chart.taiyi.centerSkip": "中（跳过）",
+  "chart.taiyi.gianThan": "间神",
+  "chart.taiyi.chinhCung": "正宫",
+  "chart.taiyi.ring": "环",
+  "chart.taiyi.chuDai": "主大将",
+  "chart.taiyi.chuTham": "主参将",
+  "chart.taiyi.khachDai": "客大将",
+  "chart.taiyi.khachTham": "客参将",
+  "chart.taiyi.keThan": "计神",
+  "chart.taiyi.thuyKich": "始击",
+  "chart.taiyi.vanXuong": "文昌",
+  "chart.taiyi.chuToan": "主算",
+  "chart.taiyi.khachToan": "客算",
+  "chart.taiyi.chuTruongDoan": "主长短",
+  "chart.taiyi.khachTruongDoan": "客长短",
+  "learn.title": "学习",
+  "learn.kicker": "课程与练习",
+  "learn.lead": "入门三式的三条路：明框架、读盘、练格局。勿急于裁决——先练眼。",
+  "learn.path1.title": "主客框架",
+  "learn.path1.body": "谁问谁应；势与时。学会提出盘能回答的问题。",
+  "learn.path2.title": "读盘",
+  "learn.path2.body": "奇门九宫、六壬四课、太乙所在——层层深入，从干到局。",
+  "learn.path3.title": "格局与引用",
+  "learn.path3.body": "每局皆有出处。练习对照汉文、白话与现实情境。",
+  "learn.ctaCast": "用真盘练习",
+  "learn.ctaExplore": "查看示例盘",
+  "learn.disclaimer": "学习属文化教育用途。不能替代医疗、法律或财务专业意见。"
 }

@@ -14,7 +14,7 @@ const FLOWS = [
     id: "learning",
     titleKey: "dashboard.flow.learning",
     descKey: "dashboard.flow.learningDesc",
-    href: "/dashboard",
+    href: "/learn",
   },
   {
     id: "management",
