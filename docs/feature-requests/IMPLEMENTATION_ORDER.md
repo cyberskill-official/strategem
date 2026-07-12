@@ -44,7 +44,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | done |
 | WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
 | WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | done |
-| WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | blocked |
+| WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | done |
 | CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | done |
 | LEGAL-001 | Disclaimer + AI-disclosure + positioning copy | MUST | 6 | WEB-001 | yes | done |
 

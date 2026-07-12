@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs",
+    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs && node tests/results-panel.test.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

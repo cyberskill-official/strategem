@@ -3,7 +3,7 @@ id: FR-WEB-003
 title: "Results screen - the right panel: the 9-palace chart (via CHART-001), the detected cach cuc, the cited AI interpretation with citation cards, a mandatory AIDisclosureBadge, and a HumanReviewGate where the interpretation is flagged"
 module: WEB
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: typescript
