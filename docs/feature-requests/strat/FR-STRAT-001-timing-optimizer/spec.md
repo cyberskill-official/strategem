@@ -3,7 +3,7 @@ id: FR-STRAT-001
 title: "Timing Optimizer - given a date-range + question type, scan candidate times, cast QiMen for each via the engine, score windows by cat/hung cach cuc, return the top recommended windows with explainable scores and citations"
 module: STRAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

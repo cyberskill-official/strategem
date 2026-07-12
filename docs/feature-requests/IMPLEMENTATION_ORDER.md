@@ -45,7 +45,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
 | WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | done |
 | WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | blocked |
-| CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | blocked |
+| CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | done |
 | LEGAL-001 | Disclaimer + AI-disclosure + positioning copy | MUST | 6 | WEB-001 | yes | done |
 
 P0 note: RAG-001 depends on KB-003 (classical-text store, P1). To keep the P0 interpretation path live, either author KB-003 early (recommended - pull it into P0 wave 3) or run RAG-001 against a small seeded corpus from KB-002. Tracked in tasks/phase-0.md.
@@ -68,7 +68,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 | RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | done |
 | REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
 | REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | blocked |
-| STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | blocked |
+| STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | done |
 | STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | blocked |
 | STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | blocked |
 | CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | blocked |

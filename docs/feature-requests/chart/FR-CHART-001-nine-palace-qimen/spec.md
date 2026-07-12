@@ -3,7 +3,7 @@ id: FR-CHART-001
 title: "Interactive 9-palace QiMen chart - SVG/Canvas Luoshu grid, four layers per palace (dia ban / thien ban+cuu tinh / bat mon / bat than), hover/click palace detail, cat/hung by color + icon + text, responsive, exportable; reads the la so ban for he=ky_mon"
 module: CHART
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: typescript
