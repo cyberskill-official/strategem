@@ -9,8 +9,9 @@ const quick = readFileSync(join(root, "src/components/dashboard/quick-cast.tsx")
 
 assert.match(dash, /data-testid="dashboard"/);
 assert.match(dash, /disclaimer/);
+assert.match(dash, /useLocale/);
 assert.match(quick, /height: 44/);
-assert.match(quick, /Cast a chart/);
+assert.match(quick, /cast\.button|t\(["']cast\.button["']\)/);
 assert.match(dash, /flow-entry-cards|FlowEntryCards/);
 assert.match(dash, /recent-charts|RecentCharts/);
 

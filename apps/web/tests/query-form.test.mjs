@@ -29,9 +29,10 @@ assert.equal(validateQueryRequest({ ...body, datetime: "" }), "datetime required
 const formSrc = readFileSync(join(root, "src/components/query/query-form.tsx"), "utf8");
 assert.match(formSrc, /data-testid="disclaimer"/);
 assert.match(formSrc, /height: 44/);
-assert.match(formSrc, /Cast chart/);
+assert.match(formSrc, /cast\.button|t\(["']cast\.button["']\)/);
 assert.match(formSrc, /RATE_LIMITED/);
 assert.match(formSrc, /FORBIDDEN_TIER/);
+assert.match(formSrc, /useLocale/);
 
 const clientSrc = readFileSync(join(root, "src/lib/api/client.ts"), "utf8");
 assert.match(clientSrc, /\/api\/v1\/calculate\//);
@@ -44,4 +45,3 @@ assert.match(castPage, /router\.push|\/results\//);
 assert.match(castPage, /onSuccess/);
 
 console.log("query-form tests ok");
-

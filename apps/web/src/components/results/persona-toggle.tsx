@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 export type Persona = "beginner" | "expert";
 
 export function PersonaToggle({
@@ -9,10 +11,11 @@ export function PersonaToggle({
   value: Persona;
   onChange: (p: Persona) => void;
 }) {
+  const { t } = useLocale();
   return (
     <div
       role="group"
-      aria-label="Persona"
+      aria-label={t("persona.group")}
       data-testid="persona-toggle"
       style={{ display: "inline-flex", gap: 4 }}
     >
@@ -31,9 +34,10 @@ export function PersonaToggle({
                 : "1px solid var(--color-border)",
             background: "var(--color-surface)",
             cursor: "pointer",
+            fontFamily: "inherit",
           }}
         >
-          {p}
+          {t(`persona.${p}`)}
         </button>
       ))}
     </div>

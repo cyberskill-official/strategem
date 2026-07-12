@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 /**
  * Export triggers FR-REPORT-002 PDF and FR-CHART-004 PNG/SVG —
  * client does not re-render the files.
@@ -17,6 +19,7 @@ export function ExportMenu({
   onPng?: (queryId: string) => void;
   onSvg?: (queryId: string) => void;
 }) {
+  const { t } = useLocale();
   return (
     <div data-testid="export-menu" style={{ display: "inline-flex", gap: 4 }}>
       <button
@@ -25,21 +28,21 @@ export function ExportMenu({
         disabled={!reportId}
         onClick={() => reportId && onPdf?.(reportId)}
       >
-        PDF
+        {t("export.pdf")}
       </button>
       <button
         type="button"
         data-testid="export-png"
         onClick={() => onPng?.(queryId)}
       >
-        PNG
+        {t("export.png")}
       </button>
       <button
         type="button"
         data-testid="export-svg"
         onClick={() => onSvg?.(queryId)}
       >
-        SVG
+        {t("export.svg")}
       </button>
     </div>
   );

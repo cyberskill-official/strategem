@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useLocale } from "../../../src/components/i18n/locale-provider";
 import { ReportView } from "../../../src/components/report/report-view";
 import {
   getReport,
@@ -12,6 +13,7 @@ import {
 export default function ReportPage() {
   const params = useParams();
   const reportId = String(params?.reportId ?? "");
+  const { t } = useLocale();
   const [report, setReport] = useState<StructuredReport | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -20,7 +22,7 @@ export default function ReportPage() {
     let cancelled = false;
     (async () => {
       if (!reportId) {
-        setError("missing report id");
+        setError(t("report.error"));
         setLoading(false);
         return;
       }
@@ -29,7 +31,7 @@ export default function ReportPage() {
         if (!cancelled) setReport(r);
       } catch (e) {
         if (!cancelled)
-          setError(e instanceof Error ? e.message : "Failed to load report");
+          setError(e instanceof Error ? e.message : t("report.error"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -37,11 +39,11 @@ export default function ReportPage() {
     return () => {
       cancelled = true;
     };
-  }, [reportId]);
+  }, [reportId, t]);
 
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: 16 }}>
-      {loading ? <p data-testid="report-loading">Loading…</p> : null}
+    <div className="cs-page">
+      {loading ? <p data-testid="report-loading">{t("report.loading")}</p> : null}
       {error ? (
         <p data-testid="report-error" style={{ color: "var(--color-danger)" }}>
           {error}

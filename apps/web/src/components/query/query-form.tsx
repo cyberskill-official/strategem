@@ -7,6 +7,7 @@ import {
   loadSchoolConfig,
   toCastPayloadFlags,
 } from "../../lib/flags/school-flags";
+import { useLocale } from "../i18n/locale-provider";
 import { Button } from "../ui/button";
 
 const QUESTION_TYPES = [
@@ -15,7 +16,7 @@ const QUESTION_TYPES = [
   "tai_van",
   "suc_khoe",
   "khac",
-];
+] as const;
 
 export function QueryForm({
   system = "qimen",
@@ -24,6 +25,7 @@ export function QueryForm({
   system?: string;
   onSuccess?: (queryId: string, response?: QueryResponse) => void;
 }) {
+  const { t } = useLocale();
   const [datetime, setDatetime] = useState("2004-01-01T10:30");
   const [tz, setTz] = useState("+07:00");
   const [place, setPlace] = useState("Ha Noi");
@@ -58,17 +60,17 @@ export function QueryForm({
       if (err instanceof ApiClientError) {
         if (err.code === "VALIDATION_ERROR") setFieldError(err.message);
         else if (err.code === "FORBIDDEN_TIER")
-          setError("This capability needs Premium or higher.");
+          setError(t("error.forbiddenTier"));
         else if (err.code === "RATE_LIMITED") {
           setCastDisabled(true);
           const reset = err.details?.reset_at;
           setError(
             reset
-              ? `Rate limited. Try again after ${String(reset)}.`
-              : "Rate limited. Try later.",
+              ? t("error.rateLimitedUntil", { reset: String(reset) })
+              : t("error.rateLimited"),
           );
-        } else setError(err.message || `API error (${err.status})`);
-      } else setError("Unexpected error — is the API running?");
+        } else setError(err.message || t("error.generic"));
+      } else setError(t("cast.apiError"));
     } finally {
       setLoading(false);
     }
@@ -76,15 +78,11 @@ export function QueryForm({
 
   return (
     <form onSubmit={onSubmit} style={{ display: "grid", gap: "var(--space-3)" }}>
-      <p
-        data-testid="disclaimer"
-        style={{ fontSize: "var(--text-sm)", color: "var(--color-ink-muted)" }}
-      >
-        For cultural and educational use. Not medical, legal, or financial advice.
-        AI output may be imperfect.
+      <p data-testid="disclaimer" className="cs-disclaimer">
+        {t("disclaimer.full")}
       </p>
       <label>
-        Date & time
+        {t("cast.datetime")}
         <input
           type="datetime-local"
           value={datetime}
@@ -93,15 +91,15 @@ export function QueryForm({
         />
       </label>
       <label>
-        Timezone
+        {t("cast.timezone")}
         <input value={tz} onChange={(e) => setTz(e.target.value)} required />
       </label>
       <label>
-        Place
+        {t("cast.place")}
         <input value={place} onChange={(e) => setPlace(e.target.value)} />
       </label>
       <label>
-        Longitude
+        {t("cast.longitude")}
         <input
           value={kinhDo}
           onChange={(e) => setKinhDo(e.target.value)}
@@ -109,26 +107,26 @@ export function QueryForm({
         />
       </label>
       <label>
-        Question type
+        {t("cast.questionType")}
         <select
           value={questionType}
           onChange={(e) => setQuestionType(e.target.value)}
         >
           {QUESTION_TYPES.map((q) => (
             <option key={q} value={q}>
-              {q}
+              {t(`cast.q.${q}`)}
             </option>
           ))}
         </select>
       </label>
       <label>
-        Persona
+        {t("cast.persona")}
         <select
           value={persona}
           onChange={(e) => setPersona(e.target.value as "beginner" | "expert")}
         >
-          <option value="beginner">beginner</option>
-          <option value="expert">expert</option>
+          <option value="beginner">{t("cast.persona.beginner")}</option>
+          <option value="expert">{t("cast.persona.expert")}</option>
         </select>
       </label>
       {fieldError && (
@@ -147,7 +145,7 @@ export function QueryForm({
         style={{ height: 44, width: "100%" }}
         data-testid="cast-button"
       >
-        {loading ? "Casting…" : "Cast chart"}
+        {loading ? t("cast.loading") : t("cast.button")}
       </Button>
     </form>
   );

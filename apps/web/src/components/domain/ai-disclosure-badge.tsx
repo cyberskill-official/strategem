@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState, type KeyboardEvent } from "react";
+import { useLocale } from "../i18n/locale-provider";
 
 export type AIDisclosureBadgeProps = {
   model: string;
@@ -15,6 +16,7 @@ export function AIDisclosureBadge({
   citations,
   reviewStatus = "not_required",
 }: AIDisclosureBadgeProps) {
+  const { t } = useLocale();
   const [open, setOpen] = useState(false);
   const panelId = useId();
   const onKey = (e: KeyboardEvent) => {
@@ -42,9 +44,10 @@ export function AIDisclosureBadge({
           fontSize: "var(--font-size-sm)",
           lineHeight: "var(--line-height-control)",
           cursor: "pointer",
+          fontFamily: "inherit",
         }}
       >
-        AI · {reviewStatus}
+        {t("disclosure.ai")} · {reviewStatus}
       </button>
       {open ? (
         <div
@@ -65,13 +68,14 @@ export function AIDisclosureBadge({
           }}
         >
           <p>
-            <strong>Model:</strong> {model}
+            <strong>{t("disclosure.model")}:</strong> {model}
           </p>
           <p>
-            <strong>Limits:</strong> {limits}
+            <strong>{t("disclosure.limits")}:</strong> {limits}
           </p>
           <p>
-            <strong>Citations:</strong> {citations.join(", ") || "—"}
+            <strong>{t("disclosure.citations")}:</strong>{" "}
+            {citations.join(", ") || "—"}
           </p>
         </div>
       ) : null}

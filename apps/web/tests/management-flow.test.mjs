@@ -20,9 +20,10 @@ assert.match(history, /filter-he/);
 assert.match(history, /\/results\//);
 assert.match(history, /\/report\//);
 assert.match(history, /ShareDialog|shareChart/);
+assert.match(history, /useLocale/);
 
 assert.match(flags, /school-flags-form/);
-assert.match(flags, /fairness-note|No school is marked/);
+assert.match(flags, /fairness-note|settings\.fairness/);
 assert.match(flags, /toCastOverrides/);
 assert.match(flags, /dingju_method|default/);
 
@@ -58,4 +59,3 @@ assert.match(form, /loadSchoolConfig|toCastPayloadFlags/);
 assert.match(form, /co_truong_phai/);
 
 console.log("management-flow tests ok");
-

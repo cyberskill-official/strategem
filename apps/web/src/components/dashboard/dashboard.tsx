@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { useLocale } from "../i18n/locale-provider";
 import { FlowEntryCards } from "./flow-entry-cards";
 import { QuickCast } from "./quick-cast";
 import { RecentCharts, type ChartRef } from "./recent-charts";
@@ -21,18 +22,31 @@ const DEMO_RECENT: ChartRef[] = [
 ];
 
 export function Dashboard() {
+  const { t } = useLocale();
+
   return (
-    <div data-testid="dashboard" style={{ maxWidth: 960, margin: "0 auto", display: "grid", gap: 24 }}>
-      <h1>Dashboard</h1>
-      <p data-testid="disclaimer" style={{ fontSize: 13, opacity: 0.8 }}>
-        For cultural and educational use. Not medical, legal, or financial advice.
+    <div
+      data-testid="dashboard"
+      className="cs-page"
+    >
+      <h1>{t("dashboard.title")}</h1>
+      <p data-testid="disclaimer" className="cs-disclaimer">
+        {t("disclaimer.short")}
       </p>
       <QuickCast />
-      <RecentCharts charts={DEMO_RECENT} title="Recent charts" />
-      <RecentCharts charts={[]} title="Saved charts" emptyHint="Pin a chart from results to save it." />
+      <div className="cs-card">
+        <RecentCharts charts={DEMO_RECENT} title={t("dashboard.recent")} />
+      </div>
+      <div className="cs-card">
+        <RecentCharts
+          charts={[]}
+          title={t("dashboard.saved")}
+          emptyHint={t("dashboard.savedEmpty")}
+        />
+      </div>
       <FlowEntryCards />
-      <p style={{ fontSize: 12 }}>
-        <Link href="/cast">Go to full cast form</Link>
+      <p className="cs-muted">
+        <Link href="/cast">{t("dashboard.fullForm")}</Link>
       </p>
     </div>
   );

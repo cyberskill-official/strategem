@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useLocale } from "../../../src/components/i18n/locale-provider";
 import { getQuery, ApiClientError } from "../../../src/lib/api/client";
 import {
   ResultsPanel,
@@ -23,6 +24,7 @@ function toView(res: QueryResponse): QueryResponseView {
 export default function ResultsPage() {
   const params = useParams();
   const queryId = String(params?.queryId ?? "");
+  const { t } = useLocale();
   const [response, setResponse] = useState<QueryResponseView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ export default function ResultsPage() {
     let cancelled = false;
     async function load() {
       if (!queryId) {
-        setError("missing query id");
+        setError(t("results.error"));
         setLoading(false);
         return;
       }
@@ -43,9 +45,7 @@ export default function ResultsPage() {
       } catch (e) {
         if (!cancelled) {
           setError(
-            e instanceof ApiClientError
-              ? e.message
-              : "Failed to load query — cast again from /cast",
+            e instanceof ApiClientError ? e.message : t("results.error"),
           );
         }
       } finally {
@@ -56,12 +56,19 @@ export default function ResultsPage() {
     return () => {
       cancelled = true;
     };
-  }, [queryId]);
+  }, [queryId, t]);
 
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: 16 }}>
-      <h1 style={{ fontSize: "var(--text-xl)" }}>Results · {queryId}</h1>
-      {loading && <p data-testid="results-loading">Loading…</p>}
+    <div className="cs-page">
+      <h1>
+        {t("results.title")}
+        {queryId ? (
+          <span className="cs-muted" style={{ fontWeight: 400, fontSize: "0.6em", marginLeft: 12 }}>
+            {queryId}
+          </span>
+        ) : null}
+      </h1>
+      {loading && <p data-testid="results-loading">{t("results.loading")}</p>}
       {error && (
         <p data-testid="results-error" style={{ color: "var(--color-danger)" }}>
           {error}

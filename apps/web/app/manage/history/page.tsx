@@ -1,11 +1,13 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useLocale } from "../../../src/components/i18n/locale-provider";
 import { HistoryList } from "../../../src/components/manage/history-list";
 import { getHistory, type ChartRef } from "../../../src/lib/api/history";
 
 /** Management flow — history — FR-WEB-007 (live API, no demo fixtures). */
 export default function ManageHistoryPage() {
+  const { t } = useLocale();
   const [items, setItems] = useState<ChartRef[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +20,7 @@ export default function ManageHistoryPage() {
         if (!cancelled) setItems(rows);
       } catch (e) {
         if (!cancelled)
-          setError(e instanceof Error ? e.message : "Failed to load history");
+          setError(e instanceof Error ? e.message : t("history.error"));
       } finally {
         if (!cancelled) setLoading(false);
       }
@@ -26,19 +28,19 @@ export default function ManageHistoryPage() {
     return () => {
       cancelled = true;
     };
-  }, []);
+  }, [t]);
 
   return (
-    <div style={{ maxWidth: 960, margin: "0 auto", padding: 16 }}>
-      <h1>History</h1>
-      {loading ? <p data-testid="history-loading">Loading…</p> : null}
+    <div className="cs-page">
+      <h1>{t("history.title")}</h1>
+      {loading ? <p data-testid="history-loading">{t("history.loading")}</p> : null}
       {error ? (
         <p data-testid="history-error" style={{ color: "var(--color-danger)" }}>
-          {error} — cast a chart first, and ensure the API is running.
+          {error}
         </p>
       ) : null}
       {!loading && !error && items.length === 0 ? (
-        <p data-testid="history-empty">No saved casts yet.</p>
+        <p data-testid="history-empty">{t("history.empty")}</p>
       ) : null}
       {!loading && items.length > 0 ? <HistoryList items={items} /> : null}
     </div>

@@ -15,9 +15,18 @@ export function getMessages(locale: Locale = defaultLocale): Record<string, stri
   return catalogs[locale] ?? catalogs[defaultLocale];
 }
 
-export function t(key: string, locale: Locale = defaultLocale): string {
+/** Translate a key; falls back to Vietnamese, then `[missing:key]`. Supports `{var}` interpolation. */
+export function t(
+  key: string,
+  locale: Locale = defaultLocale,
+  vars?: Record<string, string | number>,
+): string {
   const cat = getMessages(locale);
-  if (key in cat) return cat[key];
-  const fb = catalogs.vi[key];
-  return fb ?? `[missing:${key}]`;
+  let s = key in cat ? cat[key] : (catalogs.vi[key] ?? `[missing:${key}]`);
+  if (vars) {
+    for (const [k, v] of Object.entries(vars)) {
+      s = s.replaceAll(`{${k}}`, String(v));
+    }
+  }
+  return s;
 }

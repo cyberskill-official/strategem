@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "../i18n/locale-provider";
 import { AIDisclosureBadge } from "../domain/ai-disclosure-badge";
 import { HumanReviewGate } from "../domain/human-review-gate";
 import { CitationCard } from "./citation-card";
@@ -38,6 +39,7 @@ export function InterpretationView({
   interpretation: InterpretationData;
   disclosure?: DisclosureData | null;
 }) {
+  const { t } = useLocale();
   const [persona, setPersona] = useState<Persona>("beginner");
   const text =
     persona === "expert"
@@ -49,7 +51,7 @@ export function InterpretationView({
   const needsReview = Boolean(interpretation.requires_human_review);
 
   return (
-    <section data-testid="interpretation-region" aria-label="AI interpretation">
+    <section data-testid="interpretation-region" aria-label={t("results.aiRegion")}>
       <div
         style={{
           display: "flex",
@@ -61,21 +63,21 @@ export function InterpretationView({
       >
         <AIDisclosureBadge
           model={disc.model ?? "unknown"}
-          limits={disc.limits ?? "Educational use only."}
+          limits={disc.limits ?? t("disclosure.limitsDefault")}
           citations={citations}
           reviewStatus={disc.review_status ?? "not_required"}
         />
         <PersonaToggle value={persona} onChange={setPersona} />
         {disc.degraded && (
           <span data-testid="degraded-banner" style={{ fontSize: 12 }}>
-            Degraded (rule-based) reading
+            {t("disclosure.degraded")}
           </span>
         )}
       </div>
 
       {needsReview && (
         <div data-testid="human-review-slot" style={{ marginBottom: 12 }}>
-          <HumanReviewGate riskLabel="Pending human review — not yet approved for decision use." />
+          <HumanReviewGate riskLabel={t("review.pending")} />
         </div>
       )}
 

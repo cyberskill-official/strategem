@@ -1,11 +1,13 @@
 "use client";
 
 import type { Citation } from "../../lib/api/report";
+import { useLocale } from "../i18n/locale-provider";
 
 export function CitationList({ citations }: { citations: Citation[] }) {
+  const { t } = useLocale();
   return (
-    <section data-testid="citation-list" aria-label="Citations">
-      <h3>Citations</h3>
+    <section data-testid="citation-list" aria-label={t("report.citations")}>
+      <h3>{t("report.citations")}</h3>
       <ul>
         {citations.map((c, i) => (
           <li key={`${c.source}-${c.locator}-${i}`} data-testid="citation-card">

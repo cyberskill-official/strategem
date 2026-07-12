@@ -1,9 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import type { StructuredReport } from "../../lib/api/report";
+import { useLocale } from "../i18n/locale-provider";
 import { AIDisclosureBadge } from "../domain/ai-disclosure-badge";
 import { PersonaToggle } from "../results/persona-toggle";
-import type { StructuredReport } from "../../lib/api/report";
 import { CitationList } from "./citation-list";
 import { RecommendationsList } from "./recommendations-list";
 
@@ -16,6 +17,7 @@ export function InterpretationSection({
 }: {
   report: StructuredReport;
 }) {
+  const { t } = useLocale();
   const [persona, setPersona] = useState<"beginner" | "expert">("beginner");
   const disc = report.ai_disclosure;
   const pending = disc.review_status === "pending";
@@ -27,13 +29,8 @@ export function InterpretationSection({
   return (
     <section
       data-testid="ai-region"
-      aria-label="AI interpretation"
-      style={{
-        border: "1px solid var(--color-border)",
-        borderRadius: 8,
-        padding: 16,
-        background: "var(--color-surface)",
-      }}
+      className="cs-region cs-region--ai"
+      aria-label={t("report.interpretation")}
     >
       <div
         style={{
@@ -43,7 +40,7 @@ export function InterpretationSection({
           flexWrap: "wrap",
         }}
       >
-        <h2 style={{ margin: 0 }}>Interpretation · AI</h2>
+        <h2 style={{ margin: 0 }}>{t("report.interpretation")}</h2>
         <AIDisclosureBadge
           model={disc.model}
           limits={disc.limits}
@@ -63,7 +60,7 @@ export function InterpretationSection({
               fontWeight: 600,
             }}
           >
-            Not yet approved
+            {t("report.notApproved")}
           </span>
         ) : null}
       </div>
@@ -77,11 +74,8 @@ export function InterpretationSection({
       <RecommendationsList items={report.interpretation.recommendations} />
       <CitationList citations={report.citations} />
 
-      <p
-        data-testid="confidence-supporting"
-        style={{ fontSize: 13, opacity: 0.8 }}
-      >
-        Confidence (supporting context): {report.confidence.toFixed(2)}
+      <p data-testid="confidence-supporting" className="cs-muted">
+        {t("report.confidence")}: {report.confidence.toFixed(2)}
       </p>
     </section>
   );

@@ -39,8 +39,8 @@ assert.match(interp, /PersonaToggle/);
 assert.match(interp, /requires_human_review/);
 
 assert.match(patterns, /polarity-badge/);
-assert.match(patterns, /icon \+ text|aria-label=\{`Polarity/);
-assert.match(patterns, /Cát|Hung/);
+assert.match(patterns, /aria-label=\{`\$\{t\("polarity\.label"\)\}|polarity\.(cat|hung|trung)/);
+assert.match(patterns, /polarity\.cat|polarity\.hung|icon/);
 
 assert.match(cite, /cite-han/);
 assert.match(cite, /cite-bach/);

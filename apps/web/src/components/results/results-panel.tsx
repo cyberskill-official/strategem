@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useLocale } from "../i18n/locale-provider";
 import { QimenNinePalace } from "../chart/qimen-nine-palace";
 import { InterpretationView, type DisclosureData, type InterpretationData } from "./interpretation-view";
 import { PatternList, type PatternItem } from "./pattern-list";
@@ -19,9 +20,9 @@ export type QueryResponseView = {
  * Envelope is read-only; this component never mutates ban/cach_cuc.
  */
 export function ResultsPanel({ response }: { response: QueryResponseView }) {
+  const { t } = useLocale();
   const [selected, setSelected] = useState<number | null>(null);
 
-  // Read-only snapshot — do not mutate
   const chart = useMemo(() => {
     const charts = response.charts ?? {};
     const first = Object.values(charts)[0];
@@ -47,47 +48,38 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
     <div data-testid="results-panel" style={{ display: "grid", gap: 24 }}>
       <section
         data-testid="deterministic-region"
-        aria-label="Deterministic chart and patterns"
-        style={{
-          border: "1px solid var(--color-border)",
-          borderRadius: 8,
-          padding: 16,
-        }}
+        className="cs-region"
+        aria-label={t("results.chartRegion")}
       >
-        <h2 style={{ marginTop: 0 }}>Chart · engine</h2>
+        <h2 style={{ marginTop: 0 }}>{t("results.chartRegion")}</h2>
         <QimenNinePalace
           ban={ban}
           selectedPalace={selected}
           onSelectPalace={setSelected}
         />
-        <h3>Detected patterns</h3>
+        <h3>{t("results.patterns")}</h3>
         <PatternList patterns={patterns} />
       </section>
 
       <hr
         data-testid="region-boundary"
-        style={{ border: "none", borderTop: "2px dashed var(--color-border)" }}
+        className="cs-region-boundary"
         aria-hidden
       />
 
       <section
         data-testid="ai-region"
-        aria-label="AI interpretation"
-        style={{
-          border: "1px solid var(--color-border)",
-          borderRadius: 8,
-          padding: 16,
-          background: "var(--color-surface)",
-        }}
+        className="cs-region cs-region--ai"
+        aria-label={t("results.aiRegion")}
       >
-        <h2 style={{ marginTop: 0 }}>Interpretation · AI</h2>
+        <h2 style={{ marginTop: 0 }}>{t("results.aiRegion")}</h2>
         {response.interpretation ? (
           <InterpretationView
             interpretation={response.interpretation}
             disclosure={response.ai_disclosure}
           />
         ) : (
-          <p data-testid="no-interpretation">No interpretation available.</p>
+          <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>
         )}
       </section>
     </div>

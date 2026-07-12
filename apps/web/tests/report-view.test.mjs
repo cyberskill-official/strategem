@@ -39,8 +39,8 @@ assert.doesNotMatch(reportView, /report\.\w+\s*=/);
 
 assert.match(chartSummary, /deterministic-region/);
 assert.match(chartSummary, /polarity-badge/);
-assert.match(chartSummary, /icon|Cát|Hung/);
-assert.match(chartSummary, /Polarity/);
+assert.match(chartSummary, /icon|polarity\.(cat|hung|trung)/);
+assert.match(chartSummary, /polarity\.label|Polarity/);
 
 assert.match(interp, /AIDisclosureBadge/);
 assert.match(interp, /PersonaToggle/);

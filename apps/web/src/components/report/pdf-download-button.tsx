@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 import { downloadReportPdf } from "../../lib/api/report";
+import { useLocale } from "../i18n/locale-provider";
+import { Button } from "../ui/button";
 
 /**
  * PDF download triggers FR-REPORT-002 export by report_id.
@@ -14,6 +16,7 @@ export function PdfDownloadButton({
   reportId: string;
   downloadFn?: (id: string) => Promise<Blob>;
 }) {
+  const { t } = useLocale();
   const [busy, setBusy] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
@@ -29,7 +32,7 @@ export function PdfDownloadButton({
       a.click();
       URL.revokeObjectURL(url);
     } catch (e) {
-      setErr(e instanceof Error ? e.message : "download failed");
+      setErr(e instanceof Error ? e.message : t("error.generic"));
     } finally {
       setBusy(false);
     }
@@ -37,20 +40,15 @@ export function PdfDownloadButton({
 
   return (
     <div data-testid="pdf-download">
-      <button
+      <Button
         type="button"
         data-testid="pdf-download-button"
         onClick={onClick}
         disabled={busy}
-        style={{
-          padding: "8px 16px",
-          borderRadius: 6,
-          border: "1px solid var(--color-border)",
-          cursor: busy ? "wait" : "pointer",
-        }}
+        variant="secondary"
       >
-        {busy ? "Preparing PDF…" : "Download PDF"}
-      </button>
+        {busy ? t("report.pdfBusy") : t("report.pdf")}
+      </Button>
       {err ? (
         <p data-testid="pdf-error" role="alert">
           {err}

@@ -1,5 +1,7 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+
 export type PatternItem = {
   id?: string;
   name: string;
@@ -10,10 +12,12 @@ export type PatternItem = {
 };
 
 function PolarityBadge({ polarity }: { polarity?: string }) {
+  const { t } = useLocale();
   const p = (polarity ?? "trung").toLowerCase();
-  const label = p === "cat" ? "Cát" : p === "hung" ? "Hung" : "Trung";
+  const key =
+    p === "cat" ? "polarity.cat" : p === "hung" ? "polarity.hung" : "polarity.trung";
+  const label = t(key);
   const icon = p === "cat" ? "▲" : p === "hung" ? "▼" : "◆";
-  // icon + text, never color alone
   return (
     <span
       data-testid="polarity-badge"
@@ -26,7 +30,7 @@ function PolarityBadge({ polarity }: { polarity?: string }) {
         borderRadius: 999,
         border: "1px solid var(--color-border)",
       }}
-      aria-label={`Polarity ${label}`}
+      aria-label={`${t("polarity.label")} ${label}`}
     >
       <span aria-hidden>{icon}</span>
       <span>{label}</span>
@@ -35,8 +39,9 @@ function PolarityBadge({ polarity }: { polarity?: string }) {
 }
 
 export function PatternList({ patterns }: { patterns: PatternItem[] }) {
+  const { t } = useLocale();
   if (!patterns.length) {
-    return <p data-testid="patterns-empty">No patterns detected.</p>;
+    return <p data-testid="patterns-empty">{t("results.patternsEmpty")}</p>;
   }
   return (
     <ul data-testid="pattern-list" style={{ listStyle: "none", padding: 0, margin: 0 }}>
@@ -54,7 +59,9 @@ export function PatternList({ patterns }: { patterns: PatternItem[] }) {
           <div>
             <strong>{p.name}</strong>
             {p.cung != null && (
-              <span style={{ marginLeft: 8, opacity: 0.8 }}>cung {p.cung}</span>
+              <span style={{ marginLeft: 8, opacity: 0.8 }}>
+                {t("chart.palace")} {p.cung}
+              </span>
             )}
           </div>
           <PolarityBadge polarity={p.polarity} />

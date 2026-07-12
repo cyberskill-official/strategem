@@ -1,5 +1,8 @@
 "use client";
 
+import { useLocale } from "../i18n/locale-provider";
+import { Button } from "../ui/button";
+
 export function ShareDialog({
   url,
   onClose,
@@ -7,21 +10,21 @@ export function ShareDialog({
   url: string;
   onClose: () => void;
 }) {
+  const { t } = useLocale();
   return (
     <div
       role="dialog"
       data-testid="share-dialog"
-      style={{
-        border: "1px solid var(--color-border)",
-        padding: 12,
-        borderRadius: 8,
-      }}
+      className="cs-card"
+      style={{ marginTop: 12 }}
     >
-      <p>Share link</p>
+      <p>{t("share.title")}</p>
       <code data-testid="share-url">{url}</code>
-      <button type="button" onClick={onClose}>
-        Close
-      </button>
+      <div style={{ marginTop: 8 }}>
+        <Button type="button" variant="secondary" onClick={onClose}>
+          {t("share.close")}
+        </Button>
+      </div>
     </div>
   );
 }

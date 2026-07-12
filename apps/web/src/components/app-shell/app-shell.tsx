@@ -1,11 +1,27 @@
+"use client";
+
 import type { ReactNode } from "react";
+import { LocaleProvider } from "../i18n/locale-provider";
+import { useLocale } from "../i18n/locale-provider";
 import { TopBar } from "./top-bar";
+
+function ShellFrame({ children }: { children: ReactNode }) {
+  const { t } = useLocale();
+  return (
+    <div className="cs-shell">
+      <TopBar />
+      <main className="cs-main">{children}</main>
+      <footer className="cs-footer">
+        <p className="cs-disclaimer">{t("disclaimer.short")}</p>
+      </footer>
+    </div>
+  );
+}
 
 export function AppShell({ children }: { children: ReactNode }) {
   return (
-    <div style={{ minHeight: "100%", display: "flex", flexDirection: "column" }}>
-      <TopBar />
-      <main style={{ flex: 1, padding: "var(--space-5)" }}>{children}</main>
-    </div>
+    <LocaleProvider>
+      <ShellFrame>{children}</ShellFrame>
+    </LocaleProvider>
   );
 }

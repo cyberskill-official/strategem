@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useLocale } from "../i18n/locale-provider";
 import { Button } from "../ui/button";
 
 export type HumanReviewGateProps = {
@@ -14,10 +15,11 @@ export function HumanReviewGate({
   onApprove,
   onReject,
 }: HumanReviewGateProps) {
+  const { t } = useLocale();
   const [status, setStatus] = useState<"idle" | "approved" | "rejected">("idle");
   return (
     <section
-      aria-label="Human review gate"
+      aria-label={t("review.gate")}
       style={{
         border: "1px solid var(--color-border)",
         borderRadius: "var(--radius-md)",
@@ -27,7 +29,7 @@ export function HumanReviewGate({
     >
       <p style={{ color: "var(--color-warning)", marginBottom: "var(--space-2)" }}>
         <span aria-hidden>⚠ </span>
-        <strong>Risk:</strong> {riskLabel}
+        <strong>{t("review.risk")}:</strong> {riskLabel}
       </p>
       <div style={{ display: "flex", gap: "var(--space-2)" }}>
         <Button
@@ -37,7 +39,7 @@ export function HumanReviewGate({
             onApprove?.();
           }}
         >
-          Approve
+          {t("review.approve")}
         </Button>
         <Button
           variant="danger"
@@ -47,11 +49,13 @@ export function HumanReviewGate({
           }}
         >
           <span aria-hidden>⛔ </span>
-          Reject
+          {t("review.reject")}
         </Button>
       </div>
       <div aria-live="polite" style={{ marginTop: "var(--space-2)", color: "var(--color-muted)" }}>
-        {status === "idle" ? "Awaiting human decision" : `Status: ${status}`}
+        {status === "idle"
+          ? t("review.awaiting")
+          : t("review.status", { status })}
       </div>
     </section>
   );

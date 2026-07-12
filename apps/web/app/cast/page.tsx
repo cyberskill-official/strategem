@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useLocale } from "../../src/components/i18n/locale-provider";
 import { QueryForm } from "../../src/components/query/query-form";
 import {
   ResultsPanel,
@@ -21,21 +22,14 @@ function toView(res: QueryResponse): QueryResponseView {
 
 export default function CastPage() {
   const router = useRouter();
+  const { t } = useLocale();
   const [preview, setPreview] = useState<QueryResponseView | null>(null);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "minmax(280px, 360px) 1fr",
-        gap: "var(--space-5)",
-        minHeight: "70vh",
-      }}
-    >
-      <section aria-label="Query input">
-        <h1 style={{ fontSize: "var(--text-xl)", marginBottom: "var(--space-4)" }}>
-          New cast
-        </h1>
+    <div className="cs-page cs-grid-2" style={{ minHeight: "70vh" }}>
+      <section className="cs-card" aria-label={t("cast.title")}>
+        <h1>{t("cast.title")}</h1>
+        <p className="cs-muted">{t("cast.subtitle")}</p>
         <QueryForm
           system="qimen"
           onSuccess={(queryId, full) => {
@@ -45,18 +39,14 @@ export default function CastPage() {
         />
       </section>
       <section
-        aria-label="Results"
-        style={{
-          border: "1px solid var(--color-border)",
-          borderRadius: "var(--radius-md)",
-          padding: "var(--space-5)",
-          color: "var(--color-ink-muted)",
-        }}
+        className="cs-region"
+        aria-label={t("nav.results")}
+        style={{ color: "var(--color-ink-muted)" }}
       >
         {preview ? (
           <ResultsPanel response={preview} />
         ) : (
-          <p>Cast a chart to see results here (live API).</p>
+          <p>{t("cast.resultsEmpty")}</p>
         )}
       </section>
     </div>

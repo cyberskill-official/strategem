@@ -9,6 +9,8 @@ import {
   toCastOverrides,
   type SchoolConfig,
 } from "../../lib/flags/school-flags";
+import { useLocale } from "../i18n/locale-provider";
+import { Button } from "../ui/button";
 
 /**
  * School flag form — enums with defaults; never marks a school "correct".
@@ -19,6 +21,7 @@ export function SchoolFlagsForm({
 }: {
   onChange?: (cfg: SchoolConfig) => void;
 }) {
+  const { t } = useLocale();
   const [cfg, setCfg] = useState<SchoolConfig>(defaultSchoolConfig);
   const [saved, setSaved] = useState(false);
 
@@ -50,9 +53,8 @@ export function SchoolFlagsForm({
 
   return (
     <form data-testid="school-flags-form" onSubmit={(e) => e.preventDefault()}>
-      <p data-testid="fairness-note">
-        Each school option is listed with its default. No school is marked
-        correct.
+      <p data-testid="fairness-note" className="cs-disclaimer">
+        {t("settings.fairness")}
       </p>
       {SCHOOL_FLAGS.map((f) => {
         const value =
@@ -62,10 +64,13 @@ export function SchoolFlagsForm({
         return (
           <label
             key={`${f.system}-${f.key}`}
-            style={{ display: "block", marginBottom: 8 }}
+            style={{ display: "block", marginBottom: 12 }}
           >
             <span>
-              {f.system}.{f.key} <em>(default: {f.default})</em>
+              {f.system}.{f.key}{" "}
+              <em>
+                ({t("settings.default")}: {f.default})
+              </em>
             </span>
             <select
               data-testid={`flag-${f.key}`}
@@ -75,30 +80,40 @@ export function SchoolFlagsForm({
               {f.options.map((o) => (
                 <option key={o} value={o}>
                   {o}
-                  {o === f.default ? " (default)" : ""}
+                  {o === f.default ? ` (${t("settings.default")})` : ""}
                 </option>
               ))}
             </select>
-            <span style={{ display: "block", fontSize: 12, opacity: 0.7 }}>
+            <span className="cs-muted" style={{ display: "block" }}>
               {f.description}
             </span>
           </label>
         );
       })}
-      <button
+      <Button
         type="button"
         data-testid="save-school-flags"
         onClick={persist}
-        style={{ marginTop: 8, padding: "8px 12px" }}
+        style={{ marginTop: 8 }}
       >
-        Save for next cast
-      </button>
+        {t("settings.save")}
+      </Button>
       {saved ? (
-        <p data-testid="school-flags-saved" style={{ fontSize: 13 }}>
-          Saved — new casts will include these flags.
+        <p data-testid="school-flags-saved" className="cs-muted" style={{ marginTop: 8 }}>
+          {t("settings.saved")}
         </p>
       ) : null}
-      <pre data-testid="cast-overrides">
+      <pre
+        data-testid="cast-overrides"
+        style={{
+          marginTop: 16,
+          padding: 12,
+          background: "var(--cs-color-surface-raised)",
+          borderRadius: 8,
+          fontSize: 12,
+          overflow: "auto",
+        }}
+      >
         {JSON.stringify(toCastOverrides(cfg), null, 2)}
       </pre>
     </form>

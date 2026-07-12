@@ -3,13 +3,34 @@ import { join, dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 const css = readFileSync(join(root, "src/styles/tokens.css"), "utf8");
-const names = ["--color-ochre","--color-info","--control-height-md","--line-height-body","--radius-full"];
-for (const n of names) if (!css.includes(n)) throw new Error("missing "+n);
+const names = [
+  "--color-ochre",
+  "--color-info",
+  "--control-height-md",
+  "--line-height-body",
+  "--radius-full",
+  "--cs-color-brand-umber",
+  "--cs-color-brand-ochre",
+];
+for (const n of names) if (!css.includes(n)) throw new Error("missing " + n);
+if (!css.includes("#45210e") && !css.includes("#45210E"))
+  throw new Error("missing umber hex");
+if (!css.includes("#f4ba17") && !css.includes("#F4BA17"))
+  throw new Error("missing ochre hex");
 const button = readFileSync(join(root, "src/components/ui/button.tsx"), "utf8");
-if (button.includes("#F4BA17")) throw new Error("hardcoded ochre");
+if (button.includes("#F4BA17") || button.includes("#f4ba17"))
+  throw new Error("hardcoded ochre");
 if (!button.includes("var(--color-ochre)")) throw new Error("no ochre var");
-const badge = readFileSync(join(root, "src/components/domain/ai-disclosure-badge.tsx"), "utf8");
+if (!button.includes("var(--cs-button-primary-bg)"))
+  throw new Error("primary must use CS umber button token");
+const badge = readFileSync(
+  join(root, "src/components/domain/ai-disclosure-badge.tsx"),
+  "utf8",
+);
 if (!badge.includes("var(--color-info)")) throw new Error("badge");
-const gate = readFileSync(join(root, "src/components/domain/human-review-gate.tsx"), "utf8");
+const gate = readFileSync(
+  join(root, "src/components/domain/human-review-gate.tsx"),
+  "utf8",
+);
 if (!gate.includes("aria-live")) throw new Error("live");
 console.log("WEB-001 token/component checks OK");
