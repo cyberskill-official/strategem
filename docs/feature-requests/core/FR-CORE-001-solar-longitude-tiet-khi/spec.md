@@ -3,7 +3,7 @@ id: FR-CORE-001
 title: "Solar longitude + 24 tiet khi - Meeus apparent longitude, Newton inverse-solve for jieqi instants, delta-T correction, jie vs trung khi split"
 module: CORE
 priority: MUST
-status: testing
+status: done
 phase: P0
 slice: 1
 lang: rust

@@ -3,7 +3,7 @@ id: FR-KB-003
 title: "Classical-text three-layer store - per source the nguyen van Han / bach thoai / dich layers segmented into natural units (dieu/phap/khoa/cau), each unit carrying citation_id + system + source; relational store in shared Postgres; the canonical corpus FR-RAG-001 ingests and every citation resolves into"
 module: KB
 priority: MUST
-status: testing
+status: done
 phase: P1
 slice: 1
 lang: python
