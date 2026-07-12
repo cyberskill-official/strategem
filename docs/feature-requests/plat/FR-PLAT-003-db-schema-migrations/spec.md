@@ -3,7 +3,7 @@ id: FR-PLAT-003
 title: "Postgres schema + migrations for the six data-tier tables (users, queries, charts, knowledge_patterns, reports, audit_logs), GIN indexes on the JSONB columns, and fail-closed row-level security for tenant/user isolation"
 module: PLAT
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: iac

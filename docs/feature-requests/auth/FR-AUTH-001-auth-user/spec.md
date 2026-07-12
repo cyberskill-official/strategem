@@ -3,7 +3,7 @@ id: FR-AUTH-001
 title: "Auth and user identity - JWT access + refresh, email/password and Google/Apple OIDC social login, user profile, birth_data AES-256-GCM encrypted at rest, email verification hook"
 module: AUTH
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python

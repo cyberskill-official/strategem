@@ -14,7 +14,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 |---|---|---|--:|---|---|---|
 | PLAT-001 | Monorepo + hybrid workspace + CI skeleton | MUST | 12 | - | yes | done |
 | PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | done |
-| PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | blocked |
+| PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | done |
 | PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | blocked |
 | CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | blocked |
 | CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | blocked |
@@ -37,7 +37,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | blocked |
 | RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | blocked |
 | RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | blocked |
-| AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | blocked |
+| AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | done |
 | AUTH-002 | RBAC tiers + rate-limit tiers | MUST | 8 | AUTH-001 | yes | blocked |
 | API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | blocked |
 | API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | blocked |

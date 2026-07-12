@@ -1,27 +1,39 @@
 # strategem FR backlog
 
-Source of truth for FR state = each FR's frontmatter `status`. This file indexes them.
-The `ship-feature-requests` workflow reads this file, picks the first eligible FR
-(`ready_to_implement` with all `depends_on` done), and drives it through the lifecycle.
-HITL is required: the agent halts at review acceptance and final acceptance for a
-recorded human verdict, and never sets `done` itself.
+Source of truth for FR state = each FR's frontmatter `status`.
+HITL required at review acceptance and final acceptance; agent never self-sets `done`.
 
-Lifecycle: draft -> ready_to_implement -> implementing -> ready_to_review -> reviewing ->
-ready_to_test -> testing -> done. Off-ramps: on_hold, closed. See
-`.cyberos/cuo/STATUS-REFERENCE.md`.
+Sequencing: `docs/feature-requests/IMPLEMENTATION_ORDER.md`.
 
 ## ready_to_implement
 
-- (none yet - add FRs here as `- [ready_to_implement] FR-001-slug - title`)
+Eligible (deps done; MUST unless noted):
+
+- [ready_to_implement] FR-PLAT-004-cicd-pipeline
+- [ready_to_implement] FR-CORE-001-solar-longitude-tiet-khi
+- [ready_to_implement] FR-CORE-007-ganzhi-primitives
+- [ready_to_implement] FR-KB-003-classical-text-store
+- [ready_to_implement] FR-WEB-001-app-shell-design-system
+- [ready_to_implement] FR-RULE-001-pattern-schema
+- [ready_to_implement] FR-AUTH-002-rbac-tiers (unblocked by FR-AUTH-001)
+- [ready_to_implement] FR-AUTH-003-email-verify (unblocked by FR-AUTH-001)
+- [ready_to_implement] FR-LEGAL-002-pdpd-gdpr (unblocked by FR-AUTH-001)
+- [ready_to_implement] FR-PLAT-006-caching (SHOULD)
+- [ready_to_implement] FR-PLAT-009-backup-dr (SHOULD)
+- [ready_to_implement] FR-KB-001-knowledge-graph (SHOULD)
 
 ## in flight
 
-- [reviewing] FR-LASO-001-supported-versions-sot - single source of truth for supported envelope versions (awaiting human review acceptance)
+- (none)
 
 ## done
 
-- (shipped FRs, for the audit trail)
+- [done] FR-PLAT-001-monorepo-workspace
+- [done] FR-PLAT-002-la-so-json-envelope
+- [done] FR-PLAT-003-db-schema-migrations
+- [done] FR-AUTH-001-auth-user - Auth JWT+refresh + birth_data AES-256-GCM
+- [done] FR-LASO-001-supported-versions-sot (improvement)
 
 ## on_hold / closed
 
-- (deferred or killed FRs)
+- (none)

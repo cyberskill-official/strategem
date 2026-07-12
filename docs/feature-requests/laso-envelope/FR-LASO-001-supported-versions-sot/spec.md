@@ -3,7 +3,7 @@ id: FR-LASO-001
 title: Single source of truth for supported envelope versions
 module: laso-envelope
 class: improvement
-status: reviewing
+status: done
 owner: cyberos-e2e
 ---
 

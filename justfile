@@ -59,6 +59,17 @@ web-test:
 web-gate: web-install web-build web-lint web-test
     @echo "✅ web-gate passed"
 
+# ---------------- DB lane (FR-PLAT-003) ----------------
+# Requires DATABASE_URL pointing at Postgres 16+ (CI service or local).
+db-migrate:
+    uv run python -m db_schema.migrate
+
+db-test:
+    uv run pytest -q packages/db_schema
+
+db-gate: db-test
+    @echo "✅ db-gate passed"
+
 # ---------------- All ----------------
 all: rust-gate py-gate web-gate
     @echo "✅ all gates passed (PLAT-001 skeleton)"
