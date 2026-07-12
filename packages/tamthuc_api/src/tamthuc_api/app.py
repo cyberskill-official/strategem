@@ -8,6 +8,7 @@ from tamthuc_api.errors import STATUS_BY_CODE, error_envelope
 from tamthuc_api.orchestrator import Orchestrator
 from tamthuc_api.persistence import PersistenceService
 from tamthuc_api.routes import calculate, knowledge, reports, timing
+from tamthuc_api.versioning.router import VersioningMiddleware, mount_versioned
 
 
 def create_app(
@@ -19,10 +20,12 @@ def create_app(
     app.state.orch = orch or Orchestrator()
     app.state.persistence = PersistenceService()
     app.state.audit = AuditLog()
-    app.include_router(calculate.router, prefix="/api/v1")
-    app.include_router(knowledge.router, prefix="/api/v1")
-    app.include_router(reports.router, prefix="/api/v1")
-    app.include_router(timing.router, prefix="/api/v1")
+    # FR-API-002: URL-primary versioning (/api/v1, …)
+    mount_versioned(app, calculate.router)
+    mount_versioned(app, knowledge.router)
+    mount_versioned(app, reports.router)
+    mount_versioned(app, timing.router)
+    app.add_middleware(VersioningMiddleware)
 
     if enable_rate_limit:
         from tamthuc_api.middleware.ratelimit import RateLimitMiddleware

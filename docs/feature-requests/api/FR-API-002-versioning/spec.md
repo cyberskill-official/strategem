@@ -3,7 +3,7 @@ id: FR-API-002
 title: "API versioning and deprecation policy - URL versioning (/api/v1, /api/v2) as primary with a header-versioning option, deprecated fields kept >= 2-3 versions behind a Deprecation warning header, a CHANGELOG of breaking changes, and the invariant that calculation output stays stable while interpretation may vary"
 module: API
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python

@@ -1,0 +1,42 @@
+{
+  "prompt_version": "rag-003@1",
+  "judge_version": null,
+  "n_cases": 3,
+  "faithfulness": 1.0,
+  "relevance": 1.0,
+  "citation_precision": 1.0,
+  "citation_recall": 1.0,
+  "citation_f1": 1.0,
+  "per_case": [
+    {
+      "case_id": "qimen_thanh_long_hoi_dau",
+      "case_version": 1,
+      "faithfulness": 1.0,
+      "relevance": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "passed": true
+    },
+    {
+      "case_id": "liuren_nguyen_thai",
+      "case_version": 1,
+      "faithfulness": 1.0,
+      "relevance": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "passed": true
+    },
+    {
+      "case_id": "taiyi_hung_sample",
+      "case_version": 1,
+      "faithfulness": 1.0,
+      "relevance": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "passed": true
+    }
+  ],
+  "regressions": [],
+  "baseline_ref": null,
+  "advisory_judge_band": null
+}

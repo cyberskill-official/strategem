@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "EvalReport",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "prompt_version",
+    "n_cases",
+    "faithfulness",
+    "relevance",
+    "citation_precision",
+    "citation_recall",
+    "citation_f1",
+    "per_case",
+    "regressions"
+  ],
+  "properties": {
+    "prompt_version": { "type": "string" },
+    "judge_version": { "type": ["string", "null"] },
+    "n_cases": { "type": "integer", "minimum": 0 },
+    "faithfulness": { "type": "number", "minimum": 0, "maximum": 1 },
+    "relevance": { "type": "number", "minimum": 0, "maximum": 1 },
+    "citation_precision": { "type": "number", "minimum": 0, "maximum": 1 },
+    "citation_recall": { "type": "number", "minimum": 0, "maximum": 1 },
+    "citation_f1": { "type": "number", "minimum": 0, "maximum": 1 },
+    "per_case": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "case_version",
+          "faithfulness",
+          "relevance",
+          "citation_precision",
+          "citation_recall",
+          "passed"
+        ],
+        "properties": {
+          "case_id": { "type": "string" },
+          "case_version": { "type": "integer" },
+          "faithfulness": { "type": "number" },
+          "relevance": { "type": "number" },
+          "citation_precision": { "type": "number" },
+          "citation_recall": { "type": "number" },
+          "passed": { "type": "boolean" }
+        }
+      }
+    },
+    "regressions": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "baseline_ref": { "type": ["string", "null"] },
+    "advisory_judge_band": { "type": ["number", "null"] }
+  }
+}

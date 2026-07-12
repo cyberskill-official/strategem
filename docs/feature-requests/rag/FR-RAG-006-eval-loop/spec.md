@@ -3,7 +3,7 @@ id: FR-RAG-006
 title: "Interpretation eval loop - score interpretations on faithfulness (grounded in retrieved text), relevance, and citation accuracy against the KB-002 150-200 validation set; committed baseline per prompt_version; a CI gate fails on regression beyond a threshold; the RISK-9 way interpretation regressions are caught"
 module: RAG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P2
 slice: 1
 lang: python

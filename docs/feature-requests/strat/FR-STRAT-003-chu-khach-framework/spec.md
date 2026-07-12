@@ -3,7 +3,7 @@ id: FR-STRAT-003
 title: "Chu-khach decision framework - reframe a RAG-003 interpretation into the four-step decision analysis from Claude-07 s2.2 (define question + dung than for each party; read the structured signals; set them beside real-world context; the user decides), with the chu-khach host/guest lens mapped to competitor / risk / partner analysis; reads RAG-003 + the la so, never re-computes a chart"
 module: STRAT
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: python/ts

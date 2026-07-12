@@ -3,7 +3,7 @@ id: FR-WEB-005
 title: "Report view screen - renders the REPORT-001 StructuredReport (chart summary / detected patterns / beginner+expert interpretation / recommendations / citations) with the deterministic chart summary visually separated from the AI interpretation, a mandatory AIDisclosureBadge, and a PDF download (REPORT-002)"
 module: WEB
 priority: SHOULD
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: typescript

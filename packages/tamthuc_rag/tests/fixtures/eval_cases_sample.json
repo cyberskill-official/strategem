@@ -1,0 +1,50 @@
+{
+  "cases": [
+    {
+      "id": "qimen_thanh_long_hoi_dau",
+      "version": 1,
+      "system": "qimen",
+      "query": "co nen khoi su kinh doanh trong cua so nay khong",
+      "conditions": {
+        "type": "and",
+        "rules": [
+          { "field": "cung.thien_can", "operator": "eq", "value": "戊" },
+          { "field": "cung.dia_can", "operator": "eq", "value": "丙" }
+        ]
+      },
+      "expected_polarity": "cat",
+      "meaning_classical": "青龍返首: classical formation.",
+      "expected_citations": ["yba_khac_ung_1", "kmdg_cach_cuc"]
+    },
+    {
+      "id": "liuren_nguyen_thai",
+      "version": 1,
+      "system": "liuren",
+      "query": "should we wait before signing",
+      "conditions": { "type": "and", "rules": [] },
+      "expected_polarity": "trung",
+      "meaning_classical": "元胎: nascent stage.",
+      "expected_citations": ["ln_nguyen_thai_1"]
+    },
+    {
+      "id": "taiyi_hung_sample",
+      "version": 1,
+      "system": "taiyi",
+      "query": "risk assessment for external shock",
+      "conditions": { "type": "and", "rules": [] },
+      "expected_polarity": "hung",
+      "meaning_classical": "Inauspicious posture for the window.",
+      "expected_citations": ["ta_hung_1"]
+    },
+    {
+      "id": "qimen_uncited_claim_trap",
+      "version": 1,
+      "system": "qimen",
+      "query": "trap case for uncited claims",
+      "conditions": { "type": "and", "rules": [] },
+      "expected_polarity": "cat",
+      "meaning_classical": "trap",
+      "expected_citations": ["must_cite_me"]
+    }
+  ]
+}
