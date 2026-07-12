@@ -1,0 +1,12 @@
+[package]
+name = "cyberos-luchnham"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "LiuRen engine — thien/dia ban (FR-LN-001)"
+
+[dependencies]
+cyberos-lichphap = { path = "../cyberos-lichphap" }
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }

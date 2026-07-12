@@ -3,7 +3,7 @@ id: FR-API-001
 title: "Query orchestration - the FastAPI gateway, the nine-step query flow (auth -> CORE calendar -> engine cast -> RULE detect -> RAG interpret -> report -> return -> persist), endpoint contracts, and the structured error envelope; never re-computes a chart"
 module: API
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: python

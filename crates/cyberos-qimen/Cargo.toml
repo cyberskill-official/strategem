@@ -1,0 +1,11 @@
+[package]
+name = "cyberos-qimen"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "QiMen Dun Jia — dinh cuc (FR-QMDG-001)"
+
+[dependencies]
+serde = { workspace = true }
+serde_json = { workspace = true }
+thiserror = { workspace = true }

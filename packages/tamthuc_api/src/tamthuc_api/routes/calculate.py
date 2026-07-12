@@ -1,0 +1,49 @@
+from __future__ import annotations
+
+from typing import Any
+
+from fastapi import APIRouter, Request
+from fastapi.responses import JSONResponse
+
+from tamthuc_api.errors import error_envelope
+from tamthuc_api.schemas import CalculateRequest
+
+router = APIRouter(tags=["calculate"])
+
+
+def _orch(request: Request) -> Any:
+    return request.app.state.orch
+
+
+def _calculate_system(system: str, body: CalculateRequest, request: Request) -> dict[str, Any]:
+    orch = _orch(request)
+    result = orch.calculate(system, body.model_dump())
+    if not result.get("ai_disclosure"):
+        raise RuntimeError("AIDisclosure missing")
+    return result
+
+
+@router.post("/calculate/qimen")
+def calculate_qimen(body: CalculateRequest, request: Request) -> dict[str, Any]:
+    return _calculate_system("qimen", body, request)
+
+
+@router.post("/calculate/liuren")
+def calculate_liuren(body: CalculateRequest, request: Request) -> dict[str, Any]:
+    return _calculate_system("liuren", body, request)
+
+
+@router.post("/calculate/taiyi")
+def calculate_taiyi(body: CalculateRequest, request: Request) -> dict[str, Any]:
+    return _calculate_system("taiyi", body, request)
+
+
+@router.post("/calculate/all", response_model=None)
+def calculate_all(body: CalculateRequest, request: Request) -> dict[str, Any] | JSONResponse:
+    # Free tier cannot calculate_all (AUTH-002 capability)
+    if body.tier.lower() == "free":
+        return JSONResponse(
+            status_code=403,
+            content=error_envelope("FORBIDDEN_TIER", "calculate_all requires premium+"),
+        )
+    return _orch(request).calculate_all(body.model_dump())

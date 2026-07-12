@@ -3,7 +3,7 @@ id: FR-LN-001
 title: "Thien dia ban + nguyet tuong - fixed dia ban ring, rotating thien ban by gia nguyet tuong, nguyet tuong changes at trung khi, thien can ky cung; emits into the la so ban for he=luc_nham"
 module: LN
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P1
 slice: 1
 lang: rust

@@ -3,7 +3,7 @@ id: FR-CORE-006
 title: "Oracle cross-check harness - 24 tiet khi vs sxwnl <60s over decades, four pillars vs tyme4py incl. Lap Xuan / midnight / zi-hour boundaries, true-solar and derived-state checks, CI gate (RISK-1)"
 module: CORE
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

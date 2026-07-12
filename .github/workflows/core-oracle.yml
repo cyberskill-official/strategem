@@ -1,0 +1,18 @@
+name: Core oracle harness
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - "crates/cyberos-lichphap/**"
+      - ".github/workflows/core-oracle.yml"
+
+jobs:
+  oracle:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run oracle harness
+        run: cargo test -p cyberos-lichphap --test oracle_harness

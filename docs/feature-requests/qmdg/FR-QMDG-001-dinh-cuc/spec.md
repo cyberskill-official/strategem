@@ -3,7 +3,7 @@ id: FR-QMDG-001
 title: "Dinh cuc - so cuc 1-9 + duong/am don direction from the full 24-jieqi x 3-nguyen table, phu dau + sieu than tiep khi + tri nhuan drift, dingju_method flag (chaibu/zhirun/maoshan)"
 module: QMDG
 priority: MUST
-status: ready_to_implement
+status: done
 phase: P0
 slice: 1
 lang: rust

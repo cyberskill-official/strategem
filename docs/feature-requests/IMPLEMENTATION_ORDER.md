@@ -21,12 +21,12 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | done |
 | CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | done |
 | CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | done |
-| CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | blocked |
+| CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | done |
 | CORE-007 | Ganzhi primitives + relations | MUST | 8 | PLAT-001 | yes | done |
 | RULE-001 | Pattern-as-data schema + knowledge_patterns | MUST | 8 | PLAT-003 | yes | done |
 | RULE-002 | Condition DSL + evaluator + scoring | MUST | 12 | RULE-001 | yes | done |
 | RULE-003 | Pattern loader + per-system filter + match API | MUST | 6 | RULE-002 | yes | done |
-| QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | blocked |
+| QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | done |
 | QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | blocked |
 | QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | blocked |
 | QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | blocked |
@@ -39,7 +39,7 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the FR spec is writt
 | RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | done |
 | AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | done |
 | AUTH-002 | RBAC tiers + rate-limit tiers | MUST | 8 | AUTH-001 | yes | done |
-| API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | blocked |
+| API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | done |
 | API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | blocked |
 | API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | blocked |
 | WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
@@ -56,7 +56,7 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | blocked |
+| LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | done |
 | LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | blocked |
 | LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | blocked |
 | LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | blocked |
