@@ -20,12 +20,58 @@ export type ApiError = {
   };
 };
 
+export type PatternItem = {
+  id?: string;
+  name?: string;
+  cung?: number | null;
+  polarity?: "cat" | "hung" | "trung" | string;
+  score?: number | null;
+  citations?: string[];
+};
+
+export type InterpretationPayload = {
+  beginner?: string;
+  expert?: string;
+  recommendations?: Array<string | { text?: string; citations?: string[] }>;
+  citations?: Array<{
+    citation_id?: string;
+    source?: string;
+    locator?: string;
+    layers?: Record<string, string>;
+    han?: string;
+    bach_thoai?: string;
+    dich?: string;
+  }>;
+  requires_human_review?: boolean;
+  confidence?: number;
+};
+
+export type AiDisclosurePayload = {
+  is_ai_generated?: boolean;
+  model?: string;
+  prompt_version?: string;
+  retrieved_citation_ids?: string[];
+  limits?: string;
+  review_status?: "pending" | "not_required" | "approved" | "rejected";
+  degraded?: boolean;
+};
+
+export type ChartEnvelope = {
+  envelope_version?: number;
+  he?: string;
+  ban?: Record<string, unknown>;
+  cach_cuc?: PatternItem[];
+  lich_phap?: Record<string, unknown>;
+  provenance?: Record<string, unknown>;
+  [key: string]: unknown;
+};
+
 export type QueryResponse = {
   query_id: string;
-  charts: Record<string, unknown>;
-  patterns: unknown[];
-  interpretation?: unknown;
-  ai_disclosure?: unknown;
+  charts: Record<string, ChartEnvelope>;
+  patterns: PatternItem[];
+  interpretation?: InterpretationPayload | null;
+  ai_disclosure?: AiDisclosurePayload | null;
 };
 
 export function validateQueryRequest(body: QueryRequest): string | null {

@@ -36,6 +36,8 @@ class PersistenceService:
         charts: dict[str, Any],
         patterns: list[Any],
         report: dict[str, Any] | None = None,
+        *,
+        full_result: dict[str, Any] | None = None,
     ) -> PersistResult:
         if self.fail_next:
             self.fail_next = False
@@ -53,4 +55,30 @@ class PersistenceService:
         report_id = None
         if report is not None:
             report_id = self.reports.create(query_id, user_id, report, None)
+        if full_result is not None:
+            # attach assigned query_id into stored payload
+            stored = dict(full_result)
+            stored["query_id"] = query_id
+            self.queries.save_result(query_id, stored)
         return PersistResult(query_id=query_id, chart_ids=chart_ids, report_id=report_id)
+
+    def get_query_result(self, query_id: str) -> dict[str, Any] | None:
+        row = self.queries.get(query_id)
+        if row is None:
+            return None
+        result = row.get("result")
+        if isinstance(result, dict):
+            return result
+        # rebuild from charts if full result missing
+        charts_rows = self.charts.list_by_query(query_id)
+        if not charts_rows:
+            return None
+        charts = {r["system"]: r["chart_data"] for r in charts_rows}
+        patterns = charts_rows[0].get("patterns_detected") or []
+        return {
+            "query_id": query_id,
+            "charts": charts,
+            "patterns": patterns,
+            "interpretation": None,
+            "ai_disclosure": None,
+        }

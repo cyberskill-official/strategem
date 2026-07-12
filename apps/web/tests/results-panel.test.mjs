@@ -48,6 +48,9 @@ assert.match(cite, /cite-dich/);
 assert.match(cite, /cite-locator/);
 
 assert.match(page, /ResultsPanel/);
-assert.match(page, /queryId/);
+assert.match(page, /queryId|getQuery/);
+assert.match(page, /getQuery/);
+assert.doesNotMatch(page, /demoResponse|Demo fixture/);
 
 console.log("results-panel tests ok");
+

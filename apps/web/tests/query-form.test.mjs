@@ -36,5 +36,12 @@ assert.match(formSrc, /FORBIDDEN_TIER/);
 const clientSrc = readFileSync(join(root, "src/lib/api/client.ts"), "utf8");
 assert.match(clientSrc, /\/api\/v1\/calculate\//);
 assert.match(clientSrc, /ApiClientError/);
+assert.match(clientSrc, /getQuery|\/api\/v1\/queries\//);
+assert.match(clientSrc, /sessionStorage/);
+
+const castPage = readFileSync(join(root, "app/cast/page.tsx"), "utf8");
+assert.match(castPage, /router\.push|\/results\//);
+assert.match(castPage, /onSuccess/);
 
 console.log("query-form tests ok");
+

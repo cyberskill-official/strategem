@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { cast, ApiClientError } from "../../lib/api/client";
-import type { QueryRequest } from "../../lib/api/schemas";
+import type { QueryRequest, QueryResponse } from "../../lib/api/schemas";
 import { Button } from "../ui/button";
 
 const QUESTION_TYPES = [
@@ -18,7 +18,7 @@ export function QueryForm({
   onSuccess,
 }: {
   system?: string;
-  onSuccess?: (queryId: string) => void;
+  onSuccess?: (queryId: string, response?: QueryResponse) => void;
 }) {
   const [datetime, setDatetime] = useState("2004-01-01T10:30");
   const [tz, setTz] = useState("+07:00");
@@ -47,7 +47,7 @@ export function QueryForm({
     setLoading(true);
     try {
       const res = await cast(system, body);
-      onSuccess?.(res.query_id);
+      onSuccess?.(res.query_id, res);
     } catch (err) {
       if (err instanceof ApiClientError) {
         if (err.code === "VALIDATION_ERROR") setFieldError(err.message);
@@ -61,8 +61,8 @@ export function QueryForm({
               ? `Rate limited. Try again after ${String(reset)}.`
               : "Rate limited. Try later.",
           );
-        } else setError(err.message);
-      } else setError("Unexpected error");
+        } else setError(err.message || `API error (${err.status})`);
+      } else setError("Unexpected error — is the API running?");
     } finally {
       setLoading(false);
     }
