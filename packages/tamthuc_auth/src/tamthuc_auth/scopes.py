@@ -40,36 +40,42 @@ def _forbidden(message: str = "forbidden") -> HTTPException:
     )
 
 
-def require_role(*roles: Role) -> Callable[..., Any]:
-    allowed = frozenset(roles)
+def assert_role_allowed(user: CurrentUser, *roles: Role) -> CurrentUser:
+    role = parse_role(user.tier)
+    if role not in frozenset(roles):
+        raise _forbidden()
+    return user
 
+
+def assert_min_tier(user: CurrentUser, min_tier: Role) -> CurrentUser:
+    if role_rank(parse_role(user.tier)) < role_rank(min_tier):
+        raise _forbidden()
+    return user
+
+
+def assert_has_capability(user: CurrentUser, cap: Capability) -> CurrentUser:
+    if not has_capability(parse_role(user.tier), cap):
+        raise _forbidden()
+    return user
+
+
+def require_role(*roles: Role) -> Callable[..., Any]:
     async def _dep(user: Annotated[CurrentUser, Depends(get_current_user)]) -> CurrentUser:
-        role = parse_role(user.tier)
-        if role not in allowed:
-            raise _forbidden()
-        return user
+        return assert_role_allowed(user, *roles)
 
     return _dep
 
 
 def require_tier(min_tier: Role) -> Callable[..., Any]:
-    min_rank = role_rank(min_tier)
-
     async def _dep(user: Annotated[CurrentUser, Depends(get_current_user)]) -> CurrentUser:
-        role = parse_role(user.tier)
-        if role_rank(role) < min_rank:
-            raise _forbidden()
-        return user
+        return assert_min_tier(user, min_tier)
 
     return _dep
 
 
 def require_capability(cap: Capability) -> Callable[..., Any]:
     async def _dep(user: Annotated[CurrentUser, Depends(get_current_user)]) -> CurrentUser:
-        role = parse_role(user.tier)
-        if not has_capability(role, cap):
-            raise _forbidden()
-        return user
+        return assert_has_capability(user, cap)
 
     return _dep
 

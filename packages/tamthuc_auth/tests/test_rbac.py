@@ -4,14 +4,24 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from uuid import uuid4
 
 import pytest
+from fastapi import HTTPException
 from tamthuc_auth.apikey import ApiKeyStore, issue_api_key, resolve_api_key, revoke_api_key
+from tamthuc_auth.models import CurrentUser
 from tamthuc_auth.rbac import ROLE_CAPABILITIES, Capability, Role, parse_role, role_rank
 from tamthuc_auth.scopes import (
+    assert_has_capability,
+    assert_min_tier,
+    assert_role_allowed,
     check_capability,
     has_capability,
+    principal_from_user,
     quota_for,
+    require_capability,
+    require_role,
+    require_tier,
 )
 from tamthuc_auth.tiers import Principal, assert_config_parity, load_tier_configs
 
@@ -89,3 +99,38 @@ def test_load_tier_configs_quotas() -> None:
     assert cfgs[Role.premium].requests_per_day == 5000
     assert cfgs[Role.enterprise].requests_per_day == "custom"
     assert cfgs[Role.admin].requests_per_day == "unmetered"
+
+
+def _user(tier: str) -> CurrentUser:
+    return CurrentUser(
+        id=uuid4(), email=f"{tier}@x.com", tier=tier, email_verified=True, preferences={}
+    )
+
+
+def test_assert_role_tier_capability_gates() -> None:
+    free = _user("free")
+    prem = _user("premium")
+    ent = _user("enterprise")
+    assert_role_allowed(prem, Role.premium, Role.enterprise)
+    with pytest.raises(HTTPException) as e:
+        assert_role_allowed(free, Role.admin)
+    assert e.value.status_code == 403
+
+    assert_min_tier(ent, Role.premium)
+    with pytest.raises(HTTPException):
+        assert_min_tier(free, Role.premium)
+
+    assert_has_capability(prem, Capability.calculate_all)
+    with pytest.raises(HTTPException):
+        assert_has_capability(free, Capability.calculate_all)
+
+    p = principal_from_user(prem)
+    assert p.role == Role.premium
+    assert p.kind == "user"
+    assert quota_for(Principal(subject="e", role=Role.enterprise)) == 0  # no override
+
+
+def test_dependency_factories_return_callables() -> None:
+    assert callable(require_role(Role.admin))
+    assert callable(require_tier(Role.premium))
+    assert callable(require_capability(Capability.calculate_all))
