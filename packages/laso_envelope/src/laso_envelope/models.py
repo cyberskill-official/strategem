@@ -72,12 +72,17 @@ class LaSo(BaseModel):
     provenance: Provenance
 
 
+SUPPORTED_ENVELOPE_VERSIONS: frozenset[int] = frozenset({1})
+"""Envelope versions this build understands. Single source of truth for
+require_supported_version() (and the intended range of LaSo.envelope_version)."""
+
+
 def require_supported_version(la: LaSo) -> None:
     """Raise if version not supported. Mirrors Rust behavior."""
-    supported = {1}
-    if la.envelope_version not in supported:
+    if la.envelope_version not in SUPPORTED_ENVELOPE_VERSIONS:
         raise ValueError(
-            f"unsupported envelope version: {la.envelope_version} (supported: {sorted(supported)})"
+            f"unsupported envelope version: {la.envelope_version} "
+            f"(supported: {sorted(SUPPORTED_ENVELOPE_VERSIONS)})"
         )
 
 

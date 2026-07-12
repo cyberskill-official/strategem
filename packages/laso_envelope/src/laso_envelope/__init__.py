@@ -5,6 +5,7 @@ Engines (Rust) produce; Python AI/RAG layers consume read-only.
 """
 
 from .models import (
+    SUPPORTED_ENVELOPE_VERSIONS,
     CachCuc,
     DauVao,
     He,
@@ -17,6 +18,7 @@ from .models import (
 )
 
 __all__ = [
+    "SUPPORTED_ENVELOPE_VERSIONS",
     "CachCuc",
     "DauVao",
     "He",

@@ -16,6 +16,7 @@ from typing import Any, cast
 
 import pytest
 from laso_envelope import (
+    SUPPORTED_ENVELOPE_VERSIONS,
     LaSo,
     attach_cache_key,
     cache_key,
@@ -103,3 +104,14 @@ def test_cache_key_changes_when_flag_changes() -> None:
     b_raw["co_truong_phai"]["pan_method"] = "fei"  # different flag
     b = LaSo.model_validate(b_raw)
     assert cache_key(a) != cache_key(b)
+
+
+def test_supported_versions_single_source_of_truth() -> None:
+    # FR-LASO-001: the supported set is an importable single source of truth,
+    # and require_supported_version decides solely by membership in it.
+    assert 1 in SUPPORTED_ENVELOPE_VERSIONS
+    la = LaSo.model_validate(load_fixture("ky_mon.json"))
+    require_supported_version(la)  # a supported version must not raise
+    bad = la.model_copy(update={"envelope_version": 999})
+    with pytest.raises(ValueError, match=r"supported"):
+        require_supported_version(bad)
