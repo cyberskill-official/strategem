@@ -18,6 +18,7 @@ members = [
     "tamthuc-rag",
     "tamthuc-report",
     "tamthuc-smoke",
+    "tamthuc-strat",
     "tamthuc-strategem",
 ]
 
@@ -1026,6 +1027,17 @@ requires-dist = [{ name = "pydantic", specifier = ">=2.7" }]
 name = "tamthuc-smoke"
 version = "0.1.0"
 source = { editable = "packages/tamthuc_smoke" }
+
+[[package]]
+name = "tamthuc-strat"
+version = "0.1.0"
+source = { editable = "packages/tamthuc_strat" }
+dependencies = [
+    { name = "pydantic" },
+]
+
+[package.metadata]
+requires-dist = [{ name = "pydantic", specifier = ">=2.7" }]
 
 [[package]]
 name = "tamthuc-strategem"
