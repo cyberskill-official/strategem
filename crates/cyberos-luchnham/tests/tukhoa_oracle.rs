@@ -1,8 +1,8 @@
+use cyberos_lichphap::{khac, ngu_hanh_of_can, ngu_hanh_of_chi};
 use cyberos_lichphap::{Can, Chi, NguHanh};
 use cyberos_luchnham::{
     census_khac_tac, ky_cung, lap_tu_khoa, quan_he_khoa, quay_thien_ban, KhacTac,
 };
-use cyberos_lichphap::{khac, ngu_hanh_of_can, ngu_hanh_of_chi};
 
 #[test]
 fn worked_example_giap_ty_hoi() {

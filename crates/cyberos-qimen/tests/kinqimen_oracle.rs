@@ -72,5 +72,8 @@ fn pan_method_diverges() {
     b.pan_method = PanMethod::Fei;
     let ra = cast_qimen(&default_input(a)).unwrap();
     let rb = cast_qimen(&default_input(b)).unwrap();
-    assert_ne!(ra.envelope["ban"]["thien_ban"], rb.envelope["ban"]["thien_ban"]);
+    assert_ne!(
+        ra.envelope["ban"]["thien_ban"],
+        rb.envelope["ban"]["thien_ban"]
+    );
 }

@@ -5,7 +5,9 @@ from __future__ import annotations
 from typing import Any
 
 
-def score_envelope(envelope: dict[str, Any]) -> tuple[float, list[dict], list[dict]]:
+def score_envelope(
+    envelope: dict[str, Any],
+) -> tuple[float, list[dict[str, Any]], list[dict[str, Any]]]:
     """Score = sum(cat scores) - sum(hung scores). Explainable by listed patterns."""
     cat: list[dict[str, Any]] = []
     hung: list[dict[str, Any]] = []

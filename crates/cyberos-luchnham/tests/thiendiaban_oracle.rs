@@ -1,8 +1,8 @@
+use cyberos_lichphap::Can;
 use cyberos_lichphap::Chi;
 use cyberos_luchnham::{
     dia_ban, ky_cung, nguyet_tuong_tai, quay_thien_ban, thien_over, TrangThaiBan,
 };
-use cyberos_lichphap::Can;
 
 #[test]
 fn rotation_all_pairs_bijection() {

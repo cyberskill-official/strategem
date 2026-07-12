@@ -1,6 +1,4 @@
-use cyberos_qimen::{
-    bo_dia_ban, bo_dia_ban_raw, dinh_cuc, Stem, DingjuMethod,
-};
+use cyberos_qimen::{bo_dia_ban, bo_dia_ban_raw, dinh_cuc, DingjuMethod, Stem};
 
 #[test]
 fn duong_don_cuc_1_worked_table() {

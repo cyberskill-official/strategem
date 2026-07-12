@@ -1,5 +1,5 @@
 use cyberos_qimen::{
-    bo_dia_ban_raw, palace_of_stem, rotate_zhuan, tuan_thu_from_hour, truc_phu_truc_su, PanMethod,
+    bo_dia_ban_raw, palace_of_stem, rotate_zhuan, truc_phu_truc_su, tuan_thu_from_hour, PanMethod,
     Stem, ZhongGongKy,
 };
 
@@ -7,12 +7,12 @@ use cyberos_qimen::{
 fn six_tuan_hidden_nghi() {
     // (can, chi) pairs on each tuan head (Giap + head chi)
     let cases = [
-        (0u8, 0u8, Stem::Mau),  // 甲子
-        (0, 10, Stem::Ky),      // 甲戌
-        (0, 8, Stem::Canh),     // 甲申
-        (0, 6, Stem::Tan),      // 甲午
-        (0, 4, Stem::Nham),     // 甲辰
-        (0, 2, Stem::Quy),      // 甲寅
+        (0u8, 0u8, Stem::Mau), // 甲子
+        (0, 10, Stem::Ky),     // 甲戌
+        (0, 8, Stem::Canh),    // 甲申
+        (0, 6, Stem::Tan),     // 甲午
+        (0, 4, Stem::Nham),    // 甲辰
+        (0, 2, Stem::Quy),     // 甲寅
     ];
     for (c, z, n) in cases {
         let (head, nghi) = tuan_thu_from_hour(c, z);
@@ -29,10 +29,7 @@ fn sixty_hours_map_to_valid_tuan() {
                 continue; // invalid parity
             }
             let (head, nghi) = tuan_thu_from_hour(can, chi);
-            assert!(matches!(
-                head,
-                0 | 2 | 4 | 6 | 8 | 10
-            ));
+            assert!(matches!(head, 0 | 2 | 4 | 6 | 8 | 10));
             let _ = nghi;
         }
     }

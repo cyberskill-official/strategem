@@ -2,7 +2,8 @@
 
 from __future__ import annotations
 
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
@@ -28,7 +29,8 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         # only meter calculate routes
         path = request.url.path
         if not path.startswith("/api/v1/calculate"):
-            return await call_next(request)
+            resp: Response = await call_next(request)
+            return resp
 
         principal_id = request.headers.get("x-principal-id", "anon")
         tier = request.headers.get("x-tier", "free")
@@ -53,9 +55,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
                 headers=headers,
             )
 
-        verdict = self.abuse.evaluate(
-            principal_id, source_ip, RequestEvent(path=path)
-        )
+        verdict = self.abuse.evaluate(principal_id, source_ip, RequestEvent(path=path))
         if verdict.action == "lockout":
             return JSONResponse(
                 status_code=423,
@@ -76,7 +76,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
                 headers={"Retry-After": str(verdict.window_s or 60)},
             )
 
-        response = await call_next(request)
+        response: Response = await call_next(request)
         response.headers["X-RateLimit-Limit"] = str(decision.limit)
         response.headers["X-RateLimit-Remaining"] = str(decision.remaining)
         response.headers["X-RateLimit-Reset"] = str(decision.reset_at)

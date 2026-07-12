@@ -39,7 +39,11 @@ fn seat_always_chinh_cung() {
         for duong in [true, false] {
             let seat = an_thai_at(&tn, duong);
             assert_ne!(seat.thai_at_cung, 5);
-            assert!(is_chinh_cung(seat.thai_at_ring), "year {y} ring {}", seat.thai_at_ring);
+            assert!(
+                is_chinh_cung(seat.thai_at_ring),
+                "year {y} ring {}",
+                seat.thai_at_ring
+            );
         }
     }
 }

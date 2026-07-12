@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-
 from tamthuc_api.persistence import PersistenceService
 
 
@@ -20,7 +19,7 @@ def test_single_system_persist() -> None:
     assert row is not None
     assert row["chart_data"] is env  # verbatim reference
     assert row["query_id"] == res.query_id
-    assert len(svc.queries.rows) == 1
+    assert len(svc.queries.rows) == 1  # type: ignore[attr-defined]
 
 
 def test_multi_system_shared_query_id() -> None:
@@ -40,8 +39,8 @@ def test_transactional_failure() -> None:
     svc = PersistenceService(fail_next=True)
     with pytest.raises(RuntimeError):
         svc.persist_query_result("u", {}, {"qimen": {}}, [])
-    assert svc.queries.rows == []
-    assert svc.charts.rows == []
+    assert svc.queries.rows == []  # type: ignore[attr-defined]
+    assert svc.charts.rows == []  # type: ignore[attr-defined]
 
 
 def test_report_rls() -> None:

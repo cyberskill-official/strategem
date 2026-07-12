@@ -15,6 +15,4 @@ pub use cuucung::{thai_at_palace, ThaiAtPosition};
 pub use flags::Epoch;
 pub use thaplucthan::{is_chinh_cung, LoaiThan, Than, THAP_LUC_THAN};
 pub use tichnien::{compute_tich_nien, TichNien};
-pub use toan::{
-    compute_toan, dai_tuong_cung, tham_tuong_cung, DemToan, ToanResult, TruongDoan,
-};
+pub use toan::{compute_toan, dai_tuong_cung, tham_tuong_cung, DemToan, ToanResult, TruongDoan};

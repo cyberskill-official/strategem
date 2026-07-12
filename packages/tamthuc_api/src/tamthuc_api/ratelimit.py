@@ -18,8 +18,10 @@ def load_tier_quotas(path: Path | None = None) -> dict[str, TierLimit]:
     out: dict[str, TierLimit] = {}
     for tier, cfg in data.items():
         raw = cfg["requests_per_day"]
-        if raw in ("unmetered", "custom"):
-            out[tier] = raw  # type: ignore[assignment]
+        if raw == "unmetered":
+            out[tier] = "unmetered"
+        elif raw == "custom":
+            out[tier] = "custom"
         else:
             out[tier] = int(raw)
     return out
@@ -116,8 +118,6 @@ class RedisRateLimiter:
 
     def check_and_count(self, principal_id: str, tier: str) -> RateDecision:
         if self.redis is None:
-            return self.local.check_and_count(
-                principal_id, tier, redis_unavailable=True
-            )
+            return self.local.check_and_count(principal_id, tier, redis_unavailable=True)
         # real Redis path would INCR rl:{principal}:{yyyymmdd}
         return self.local.check_and_count(principal_id, tier)

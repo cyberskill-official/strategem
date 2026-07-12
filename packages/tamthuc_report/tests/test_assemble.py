@@ -3,11 +3,10 @@ from __future__ import annotations
 from uuid import uuid4
 
 import pytest
-
 from tamthuc_report.assemble import AssembleError, assemble
 
 
-def _env() -> dict:
+def _env() -> dict[str, object]:
     return {
         "he": "ky_mon",
         "dau_vao": {"datetime": "2004-01-01T10:30:00"},
@@ -17,7 +16,7 @@ def _env() -> dict:
     }
 
 
-def _interp() -> dict:
+def _interp() -> dict[str, object]:
     return {
         "beginner": "Good day",
         "expert": "Detailed",

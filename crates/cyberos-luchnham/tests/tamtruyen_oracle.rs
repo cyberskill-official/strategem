@@ -1,7 +1,5 @@
 use cyberos_lichphap::{Can, Chi};
-use cyberos_luchnham::{
-    lap_tam_truyen, lap_tu_khoa, quay_thien_ban, KhoaThe, Phap, TrangThaiBan,
-};
+use cyberos_luchnham::{lap_tam_truyen, lap_tu_khoa, quay_thien_ban, KhoaThe, Phap, TrangThaiBan};
 
 #[test]
 fn worked_multi_census_ty_or_thiep() {

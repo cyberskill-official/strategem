@@ -3,17 +3,18 @@ from __future__ import annotations
 from datetime import datetime, timedelta
 
 import pytest
-
 from tamthuc_strat.models import TimingRequest
 from tamthuc_strat.scoring import score_envelope
 from tamthuc_strat.timing_optimizer import TimingError, optimize_timing
 
 
-def stub_engine(when: datetime, req: TimingRequest) -> dict:
+def stub_engine(when: datetime, req: TimingRequest) -> dict[str, object]:
     # better mid-range
     hour = when.hour
     if 8 <= hour < 12:
-        cach = [{"id": "c1", "name": "青龍返首", "polarity": "cat", "score": 0.9, "citations": ["x"]}]
+        cach = [
+            {"id": "c1", "name": "青龍返首", "polarity": "cat", "score": 0.9, "citations": ["x"]}
+        ]
     else:
         cach = [{"id": "h1", "name": "大格", "polarity": "hung", "score": 0.8, "citations": ["y"]}]
     return {
@@ -30,7 +31,7 @@ def test_top_n_ranking() -> None:
     req = TimingRequest(start=start, end=end, granularity="gio", top_n=3)
     calls: list[datetime] = []
 
-    def eng(when: datetime, r: TimingRequest) -> dict:
+    def eng(when: datetime, r: TimingRequest) -> dict[str, object]:
         calls.append(when)
         return stub_engine(when, r)
 

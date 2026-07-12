@@ -27,8 +27,5 @@ pub fn thai_at_palace(tn: &TichNien, duong_don: bool) -> ThaiAtPosition {
     if palace == 5 {
         palace = 7; // lodge Khon
     }
-    ThaiAtPosition {
-        palace,
-        duong_don,
-    }
+    ThaiAtPosition { palace, duong_don }
 }

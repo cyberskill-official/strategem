@@ -110,11 +110,7 @@ pub fn is_thuan_bo(palace: Chi) -> bool {
     )
 }
 
-pub fn lap_thien_tuong(
-    can_ngay: Can,
-    gio_chiem: Chi,
-    variant: QuyNhanVariant,
-) -> ThienTuongBan {
+pub fn lap_thien_tuong(can_ngay: Can, gio_chiem: Chi, variant: QuyNhanVariant) -> ThienTuongBan {
     let khoi = khoi_from_gio(gio_chiem);
     let start = quy_nhan_palace(can_ngay, khoi, variant);
     let thuan = is_thuan_bo(start);

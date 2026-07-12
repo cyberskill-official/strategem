@@ -3,12 +3,12 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Any
 from uuid import uuid4
 
 
-class AuditAction(str, Enum):
+class AuditAction(StrEnum):
     birth_data_read = "birth_data_read"
     birth_data_write = "birth_data_write"
     chart_cast = "chart_cast"
@@ -41,9 +41,7 @@ def _redact(details: dict[str, Any]) -> dict[str, Any]:
 class AuditLog:
     rows: list[dict[str, Any]] = field(default_factory=list)
 
-    def audit(
-        self, user_id: str | None, action: AuditAction, details: dict[str, Any]
-    ) -> str:
+    def audit(self, user_id: str | None, action: AuditAction, details: dict[str, Any]) -> str:
         row_id = str(uuid4())
         self.rows.append(
             {

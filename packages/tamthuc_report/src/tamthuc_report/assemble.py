@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any
 from uuid import UUID, uuid4
 
@@ -51,9 +51,7 @@ def assemble(
 
     beginner = str(interp.get("beginner") or interp.get("text") or "")
     expert = str(interp.get("expert") or beginner)
-    citations = [
-        Citation(**c) for c in (interp.get("citations") or []) if isinstance(c, dict)
-    ]
+    citations = [Citation(**c) for c in (interp.get("citations") or []) if isinstance(c, dict)]
     if beginner and not citations:
         raise AssembleError("interpretation claim without citations")
 
@@ -88,5 +86,5 @@ def assemble(
         citations=citations,
         confidence=confidence,
         ai_disclosure=disclosure,
-        created_at=datetime.now(timezone.utc),
+        created_at=datetime.now(UTC),
     )

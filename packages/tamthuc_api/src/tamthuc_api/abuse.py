@@ -3,11 +3,11 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from enum import Enum
+from enum import StrEnum
 from typing import Literal
 
 
-class AbuseSignal(str, Enum):
+class AbuseSignal(StrEnum):
     velocity_spike = "velocity_spike"
     credential_stuffing = "credential_stuffing"
     probing = "probing"
@@ -53,9 +53,7 @@ class AbuseDetector:
                 return AbuseVerdict(AbuseSignal.velocity_spike, "throttle", 60)
 
         if event.failed_login:
-            self.failed_logins_by_ip[source_ip] = (
-                self.failed_logins_by_ip.get(source_ip, 0) + 1
-            )
+            self.failed_logins_by_ip[source_ip] = self.failed_logins_by_ip.get(source_ip, 0) + 1
             n = self.failed_logins_by_ip[source_ip]
             if n >= self.stuffing_threshold:
                 return AbuseVerdict(AbuseSignal.credential_stuffing, "lockout", 300)

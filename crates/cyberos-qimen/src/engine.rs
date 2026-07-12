@@ -72,12 +72,7 @@ fn flag_map(f: &QiMenFlags) -> BTreeMap<String, String> {
 /// Full pipeline: dinh cuc → dia ban → truc phu/su → sao mon than → cach cuc.
 pub fn cast_qimen(input: &CastInput) -> Result<CastResult, String> {
     let f = &input.flags;
-    let dinh: DinhCuc = dinh_cuc(
-        input.term_index,
-        input.branch_index,
-        f.dingju_method,
-        false,
-    )?;
+    let dinh: DinhCuc = dinh_cuc(input.term_index, input.branch_index, f.dingju_method, false)?;
     let dia = bo_dia_ban(&dinh);
     let tps = truc_phu_truc_su(
         &dia,

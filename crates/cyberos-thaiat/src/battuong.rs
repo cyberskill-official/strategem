@@ -2,9 +2,7 @@
 
 use crate::anthaiat::{an_thai_at, ThaiAtSeat};
 use crate::tichnien::TichNien;
-use crate::toan::{
-    compute_toan, dai_tuong_cung, tham_tuong_cung, DemToan, ToanResult, TruongDoan,
-};
+use crate::toan::{compute_toan, dai_tuong_cung, tham_tuong_cung, DemToan, ToanResult, TruongDoan};
 use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]

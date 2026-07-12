@@ -25,7 +25,10 @@ fn resting_doors_and_cat() {
         BatMon::Kinh,
         BatMon::Khai,
     ] {
-        assert_eq!(m.is_cat(), matches!(m, BatMon::Khai | BatMon::Huu | BatMon::Sinh));
+        assert_eq!(
+            m.is_cat(),
+            matches!(m, BatMon::Khai | BatMon::Huu | BatMon::Sinh)
+        );
     }
 }
 

@@ -22,9 +22,7 @@ class Orchestrator:
     audit: AuditLog | None = None
     call_log: list[str] = field(default_factory=list)
 
-    def calculate(
-        self, system: str, body: dict[str, Any]
-    ) -> dict[str, Any]:
+    def calculate(self, system: str, body: dict[str, Any]) -> dict[str, Any]:
         # nine-step simplified: auth assumed upstream
         self.call_log.append("core")
         lich = self.core.tinh_lich_phap(body)

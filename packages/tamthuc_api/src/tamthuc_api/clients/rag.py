@@ -13,9 +13,7 @@ class StubRagClient:
     def __init__(self) -> None:
         self.last_envelope: dict[str, Any] | None = None
 
-    def interpret(
-        self, envelope: dict[str, Any], patterns: list[dict[str, Any]]
-    ) -> dict[str, Any]:
+    def interpret(self, envelope: dict[str, Any], patterns: list[dict[str, Any]]) -> dict[str, Any]:
         self.last_envelope = envelope
         return {
             "beginner": "educational reading",

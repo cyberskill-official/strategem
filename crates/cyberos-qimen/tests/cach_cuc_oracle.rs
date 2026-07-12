@@ -33,7 +33,8 @@ fn ordered_stem_pairs() {
     let ban = sao_mon_than(&tps, &d, YinYangPan::Duong);
     let hits = detect_cach_cuc(&ban, &dia, &tps);
     assert!(
-        hits.iter().any(|h| h.name == "飛鳥跌穴" && h.cung == Some(1)),
+        hits.iter()
+            .any(|h| h.name == "飛鳥跌穴" && h.cung == Some(1)),
         "{hits:?}"
     );
 

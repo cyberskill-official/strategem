@@ -1,3 +1,3 @@
 //! Re-export chi utilities from lichphap.
 
-pub use cyberos_lichphap::{Chi, Can};
+pub use cyberos_lichphap::{Can, Chi};

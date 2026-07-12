@@ -121,19 +121,19 @@ pub struct SaoMonThan {
 
 fn rotate_stars(xoay: i8) -> [CuuTinh; 9] {
     let mut out = [CuuTinh::ThienBong; 9];
-    for p in 0..9 {
+    for (p, slot) in out.iter_mut().enumerate() {
         let src = (p as i16 - xoay as i16).rem_euclid(9) as usize;
-        out[p] = CuuTinh::REST[src];
+        *slot = CuuTinh::REST[src];
     }
     out
 }
 
 fn rotate_doors(xoay: i8, zhong: ZhongGongKy) -> [Option<BatMon>; 9] {
     let mut out = [None; 9];
-    for p in 0..9 {
+    for (p, slot) in out.iter_mut().enumerate() {
         if p == 4 {
             // Trung 5 has no door
-            out[p] = None;
+            *slot = None;
             continue;
         }
         let src = (p as i16 - xoay as i16).rem_euclid(9) as usize;
@@ -145,16 +145,12 @@ fn rotate_doors(xoay: i8, zhong: ZhongGongKy) -> [Option<BatMon>; 9] {
                 ZhongGongKy::GiuNguyen => None,
             };
         }
-        out[p] = door;
+        *slot = door;
     }
     out
 }
 
-fn place_gods(
-    truc_phu_palace: u8,
-    duong_don: bool,
-    lineage: YinYangPan,
-) -> [Option<BatThan>; 9] {
+fn place_gods(truc_phu_palace: u8, duong_don: bool, lineage: YinYangPan) -> [Option<BatThan>; 9] {
     let mut out = [None; 9];
     let ring = BatThan::DUONG;
     let mut p = if truc_phu_palace == 0 {
@@ -188,11 +184,7 @@ fn place_gods(
     out
 }
 
-pub fn sao_mon_than(
-    tps: &TrucPhuSu,
-    dinh: &DinhCuc,
-    lineage: YinYangPan,
-) -> SaoMonThan {
+pub fn sao_mon_than(tps: &TrucPhuSu, dinh: &DinhCuc, lineage: YinYangPan) -> SaoMonThan {
     SaoMonThan {
         cuu_tinh: rotate_stars(tps.xoay),
         bat_mon: rotate_doors(tps.xoay, tps.zhong_gong_ky),

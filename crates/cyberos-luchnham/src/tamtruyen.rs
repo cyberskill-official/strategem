@@ -43,14 +43,11 @@ pub struct TamTruyen {
 }
 
 fn is_yang_can(c: Can) -> bool {
-    matches!(
-        c,
-        Can::Giap | Can::Binh | Can::Mau | Can::Canh | Can::Nham
-    )
+    matches!(c, Can::Giap | Can::Binh | Can::Mau | Can::Canh | Can::Nham)
 }
 
 fn chi_yang(z: Chi) -> bool {
-    z.index() % 2 == 0 // Ty(0) yang classical; even indices yang in our enum
+    z.index().is_multiple_of(2) // Ty(0) yang classical; even indices yang in our enum
 }
 
 fn chain(thien: &[Chi; 12], so: Chi) -> (Chi, Chi) {

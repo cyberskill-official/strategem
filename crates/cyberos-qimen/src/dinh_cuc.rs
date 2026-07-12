@@ -5,9 +5,9 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub struct DinhCuc {
-    pub so_cuc: u8,     // 1..=9
+    pub so_cuc: u8,      // 1..=9
     pub duong_don: bool, // true = yang dun
-    pub nguyen: u8,     // 1=thuong,2=trung,3=ha
+    pub nguyen: u8,      // 1=thuong,2=trung,3=ha
     pub method: DingjuMethod,
 }
 
@@ -27,8 +27,7 @@ pub fn table_so_cuc(term_index: u8, nguyen: u8) -> u8 {
         6 => 7,
         _ => 6,
     };
-    let v = (base + nguyen - 1) % 9 + 1;
-    v as u8
+    (base + nguyen - 1) % 9 + 1
 }
 
 pub fn table_duong_don(term_index: u8) -> bool {
@@ -72,7 +71,7 @@ pub fn dinh_cuc(
         }
         _ => {}
     }
-    let nguyen0 = (nguyen - 1) as u8;
+    let nguyen0 = nguyen - 1;
     Ok(DinhCuc {
         so_cuc: table_so_cuc(term_index, nguyen0),
         duong_don: table_duong_don(term_index),

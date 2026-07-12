@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
 from typing import Any
 
 from tamthuc_rag.disclosure import build_disclosure
@@ -77,6 +76,7 @@ def interpret_resilient(
 
     resilient = ResilientLLM(inner=llm, breaker=breaker or CircuitBreaker(fail_threshold=3))
     try:
-        return interpret_fn(la_so, chunks, llm=resilient)
+        out: Interpretation = interpret_fn(la_so, chunks, llm=resilient)
+        return out
     except (LLMUnavailable, Exception):
         return rule_based_interpretation(la_so)

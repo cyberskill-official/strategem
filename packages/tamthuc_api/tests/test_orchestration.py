@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 from fastapi.testclient import TestClient
-
 from tamthuc_api.app import create_app
 from tamthuc_api.clients.rag import StubRagClient
 from tamthuc_api.clients.rule import StubRuleClient

@@ -54,14 +54,70 @@ pub fn all_visible_stems() -> [Stem; 9] {
 }
 
 const BUILTIN_PATTERNS: &[(&str, &str, &str, &str, f32, Polarity)] = &[
-    ("qimen_thanh_long_hoi_dau", "青龍返首", "戊", "丙", 0.9, Polarity::Cat),
-    ("qimen_phi_dieu_diet_huyet", "飛鳥跌穴", "丙", "戊", 0.9, Polarity::Cat),
-    ("qimen_thanh_long_tron", "青龍逃走", "乙", "辛", 0.85, Polarity::Hung),
-    ("qimen_bach_ho_xuong_cuong", "白虎猖狂", "辛", "乙", 0.85, Polarity::Hung),
-    ("qimen_chu_tuoc_dau_giang", "朱雀投江", "丁", "癸", 0.8, Polarity::Hung),
-    ("qimen_dang_xa_yeu_kieu", "螣蛇夭矯", "癸", "丁", 0.8, Polarity::Hung),
-    ("qimen_thai_bach_nhap_huynh", "太白入熒", "庚", "丙", 0.85, Polarity::Hung),
-    ("qimen_huynh_nhap_thai_bach", "熒入太白", "丙", "庚", 0.85, Polarity::Hung),
+    (
+        "qimen_thanh_long_hoi_dau",
+        "青龍返首",
+        "戊",
+        "丙",
+        0.9,
+        Polarity::Cat,
+    ),
+    (
+        "qimen_phi_dieu_diet_huyet",
+        "飛鳥跌穴",
+        "丙",
+        "戊",
+        0.9,
+        Polarity::Cat,
+    ),
+    (
+        "qimen_thanh_long_tron",
+        "青龍逃走",
+        "乙",
+        "辛",
+        0.85,
+        Polarity::Hung,
+    ),
+    (
+        "qimen_bach_ho_xuong_cuong",
+        "白虎猖狂",
+        "辛",
+        "乙",
+        0.85,
+        Polarity::Hung,
+    ),
+    (
+        "qimen_chu_tuoc_dau_giang",
+        "朱雀投江",
+        "丁",
+        "癸",
+        0.8,
+        Polarity::Hung,
+    ),
+    (
+        "qimen_dang_xa_yeu_kieu",
+        "螣蛇夭矯",
+        "癸",
+        "丁",
+        0.8,
+        Polarity::Hung,
+    ),
+    (
+        "qimen_thai_bach_nhap_huynh",
+        "太白入熒",
+        "庚",
+        "丙",
+        0.85,
+        Polarity::Hung,
+    ),
+    (
+        "qimen_huynh_nhap_thai_bach",
+        "熒入太白",
+        "丙",
+        "庚",
+        0.85,
+        Polarity::Hung,
+    ),
     ("qimen_dai_cach", "大格", "庚", "癸", 0.9, Polarity::Hung),
 ];
 
@@ -82,11 +138,7 @@ fn match_ordered(sky: &str, earth: &str) -> Option<CachCucHit> {
 }
 
 /// Detect cat/hung cach from sky-over-earth stems + special states.
-pub fn detect_cach_cuc(
-    ban: &SaoMonThan,
-    dia: &DiaBan,
-    tps: &TrucPhuSu,
-) -> Vec<CachCucHit> {
+pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<CachCucHit> {
     let mut hits = Vec::new();
     if ban.yin_yang_pan == YinYangPan::Am {
         // am lineage is light on cach cuc

@@ -4,7 +4,6 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 from typing import Any
-from uuid import uuid4
 
 from tamthuc_api.repositories import (
     ChartRepo,

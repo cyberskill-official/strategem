@@ -17,7 +17,7 @@ def _orch(request: Request) -> Any:
 
 def _calculate_system(system: str, body: CalculateRequest, request: Request) -> dict[str, Any]:
     orch = _orch(request)
-    result = orch.calculate(system, body.model_dump())
+    result: dict[str, Any] = orch.calculate(system, body.model_dump())
     if not result.get("ai_disclosure"):
         raise RuntimeError("AIDisclosure missing")
     return result
@@ -46,4 +46,5 @@ def calculate_all(body: CalculateRequest, request: Request) -> dict[str, Any] | 
             status_code=403,
             content=error_envelope("FORBIDDEN_TIER", "calculate_all requires premium+"),
         )
-    return _orch(request).calculate_all(body.model_dump())
+    result: dict[str, Any] = _orch(request).calculate_all(body.model_dump())
+    return result

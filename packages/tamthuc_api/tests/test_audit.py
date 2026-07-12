@@ -1,7 +1,6 @@
 from __future__ import annotations
 
 import pytest
-
 from tamthuc_api.audit import AuditAction, AuditLog
 
 

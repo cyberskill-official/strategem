@@ -2,14 +2,13 @@ from __future__ import annotations
 
 from tamthuc_rag.fallback import interpret_resilient, rule_based_interpretation
 from tamthuc_rag.interpret import interpret
-from tamthuc_rag.llm import StubLlm
 from tamthuc_rag.resilience import CircuitBreaker, LLMUnavailable, ResilientLLM
 
 
 class FailLlm:
     model = "fail"
 
-    def complete(self, prompt: str) -> dict:
+    def complete(self, prompt: str) -> dict[str, object]:
         raise TimeoutError("timeout")
 
 
@@ -34,16 +33,20 @@ def test_rule_based_degraded() -> None:
 
 
 def test_circuit_opens() -> None:
+    from contextlib import suppress
+
     br = CircuitBreaker(fail_threshold=2, cooldown_s=60)
     llm = ResilientLLM(inner=FailLlm(), breaker=br, retries=0)
     for _ in range(2):
-        try:
+        with suppress(LLMUnavailable):
             llm.complete("x")
-        except LLMUnavailable:
-            pass
     assert br.state.value == "open"
-    try:
+    with suppress(LLMUnavailable):
         llm.complete("y")
+        raise AssertionError("should fail open")
+    # after open circuit, next call must raise
+    try:
+        llm.complete("z")
         raise AssertionError("should fail open")
     except LLMUnavailable:
         pass
