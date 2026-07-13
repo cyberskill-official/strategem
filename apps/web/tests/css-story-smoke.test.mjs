@@ -26,12 +26,32 @@ export const REQUIRED_SELECTORS = [
   "cs-sticky-cta",
 ];
 
-function collectCssFiles(dir, acc = []) {
-  if (!existsSync(dir)) return acc;
-  for (const name of readdirSync(dir)) {
+function collectCssFiles(dir, acc = [], depth = 0) {
+  if (!existsSync(dir) || depth > 12) return acc;
+  let names;
+  try {
+    names = readdirSync(dir);
+  } catch {
+    return acc;
+  }
+  for (const name of names) {
+    // Skip heavy / fragile trees (broken pnpm symlinks under standalone)
+    if (
+      name === "node_modules" ||
+      name === "standalone" ||
+      name === "cache" ||
+      name === "trace"
+    ) {
+      continue;
+    }
     const p = join(dir, name);
-    const st = statSync(p);
-    if (st.isDirectory()) collectCssFiles(p, acc);
+    let st;
+    try {
+      st = statSync(p);
+    } catch {
+      continue; // broken symlink
+    }
+    if (st.isDirectory()) collectCssFiles(p, acc, depth + 1);
     else if (name.endsWith(".css")) acc.push(p);
   }
   return acc;
