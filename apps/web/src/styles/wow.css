@@ -984,6 +984,27 @@ a.cs-visual-card:hover {
   margin: 0;
 }
 
+.cs-story-narrative {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 4px 0 0;
+}
+
+.cs-story-narrative__lead {
+  margin: 0;
+  font-size: 1.02rem;
+  font-weight: 550;
+  color: var(--cs-color-brand-umber);
+  line-height: 1.55;
+}
+
+.cs-story-narrative p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 .cs-story-chips {
   display: flex;
   flex-wrap: wrap;

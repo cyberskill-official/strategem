@@ -110,6 +110,125 @@ export function composeReading(input: ReadingInput, locale: Locale): string {
   ].join("\n\n");
 }
 
+/**
+ * Short story summary for results header (WEB-019).
+ * Beginner-safe: metaphors + soft stance, never destiny claims.
+ */
+export function composeStorySummary(
+  input: ReadingInput,
+  locale: Locale,
+): { lines: string[]; stance: "cat" | "hung" | "trung" | null } {
+  const he = (input.he ?? "").toLowerCase();
+  const systemKey =
+    he === "qimen" || he === "ky_mon"
+      ? "qimen"
+      : he === "liuren" || he === "luc_nham"
+        ? "liuren"
+        : he === "taiyi" || he === "thai_at"
+          ? "taiyi"
+          : he || "qimen";
+
+  const top = input.patterns.slice(0, 3);
+  let stance: "cat" | "hung" | "trung" | null = null;
+  for (const p of top) {
+    const pol = (p.polarity ?? "").toLowerCase();
+    if (pol === "hung" || pol === "inauspicious") {
+      stance = "hung";
+      break;
+    }
+    if (pol === "cat" || pol === "auspicious") stance = stance ?? "cat";
+    if (pol === "trung" || pol === "neutral") stance = stance ?? "trung";
+  }
+  if (!stance && top.length) stance = "trung";
+
+  const lines: string[] = [];
+
+  // System metaphor line
+  if (locale === "vi") {
+    const sysLine: Record<string, string> = {
+      qimen: "Bạn đang nhìn qua la bàn thời điểm.",
+      liuren: "Bạn đang nhìn cuộc trò chuyện giữa hai phía.",
+      taiyi: "Bạn đang nhìn nhịp lớn của một chặng đường.",
+    };
+    lines.push(sysLine[systemKey] ?? sysLine.qimen);
+  } else if (locale === "zh") {
+    const sysLine: Record<string, string> = {
+      qimen: "你正透过时机的罗盘来看。",
+      liuren: "你正看双方之间的一场对话。",
+      taiyi: "你正看一段路的大节奏。",
+    };
+    lines.push(sysLine[systemKey] ?? sysLine.qimen);
+  } else {
+    const sysLine: Record<string, string> = {
+      qimen: "You are looking through a timing compass.",
+      liuren: "You are looking at a conversation between two sides.",
+      taiyi: "You are looking at the long rhythm of a chapter.",
+    };
+    lines.push(sysLine[systemKey] ?? sysLine.qimen);
+  }
+
+  if (!top.length) {
+    if (locale === "vi") {
+      lines.push(
+        "Bàn đã vẽ xong. Chưa có điểm nổi bật — hãy nhìn hình và đặt câu hỏi cụ thể hơn nếu cần.",
+      );
+    } else if (locale === "zh") {
+      lines.push("图已画成。暂无突出亮点——先看图，或把问题问得更具体。");
+    } else {
+      lines.push(
+        "The picture is drawn. Nothing stands out yet — look at the board, or sharpen the question.",
+      );
+    }
+  } else {
+    for (const p of top.slice(0, 2)) {
+      const name = displayPatternName(p.name ?? "", locale);
+      const gloss = patternGloss(p.name ?? "", locale);
+      if (locale === "vi") {
+        lines.push(gloss ? `Điểm nổi: ${name}. ${gloss}` : `Điểm nổi: ${name}.`);
+      } else if (locale === "zh") {
+        lines.push(gloss ? `亮点：${name}。${gloss}` : `亮点：${name}。`);
+      } else {
+        lines.push(gloss ? `Standing out: ${name}. ${gloss}` : `Standing out: ${name}.`);
+      }
+    }
+    if (stance === "hung") {
+      lines.push(
+        locale === "vi"
+          ? "Gợi ý nhẹ: nên chậm lại, kiểm tra điều kiện trước khi tiến."
+          : locale === "zh"
+            ? "轻提示：宜放慢，先核对条件再前进。"
+            : "Soft hint: slow down; check conditions before advancing.",
+      );
+    } else if (stance === "cat") {
+      lines.push(
+        locale === "vi"
+          ? "Gợi ý nhẹ: có thể mở thêm một bước — vẫn giữ biên độ."
+          : locale === "zh"
+            ? "轻提示：可再迈一步——仍留余地。"
+            : "Soft hint: you may open a step — keep a margin.",
+      );
+    } else if (stance === "trung") {
+      lines.push(
+        locale === "vi"
+          ? "Gợi ý nhẹ: bàn đang trung tính — hãy soi thêm bối cảnh thực."
+          : locale === "zh"
+            ? "轻提示：盘势中性——对照现实情境。"
+            : "Soft hint: the board is neutral — weigh real context.",
+      );
+    }
+  }
+
+  lines.push(
+    locale === "vi"
+      ? "Đây là khung để nghĩ, không phải lời phán. Quyết định vẫn là của bạn."
+      : locale === "zh"
+        ? "这是思考框架，不是裁决。决定权仍在你。"
+        : "This is a thinking frame, not a verdict. The decision stays yours.",
+  );
+
+  return { lines, stance };
+}
+
 export function composeRecommendations(
   patterns: Array<{ name?: string }>,
   locale: Locale,

@@ -13,6 +13,7 @@ import {
 import { NextStepCard } from "./next-step-card";
 import { PatternList, type PatternItem } from "./pattern-list";
 import { displayPatternName } from "../../lib/domain/glossary";
+import { composeStorySummary } from "../../lib/domain/readings";
 
 export type QueryResponseView = {
   query_id: string;
@@ -123,13 +124,36 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
       >
         <h2>{t("results.storyTitle")}</h2>
         <p className="cs-muted">{t("results.storyLead")}</p>
+        {(() => {
+          const story = composeStorySummary(
+            { he, patterns, persona: "beginner" },
+            locale,
+          );
+          return (
+            <div className="cs-story-narrative" data-testid="results-story-narrative">
+              {story.lines.map((line, i) => (
+                <p key={i} className={i === 0 ? "cs-story-narrative__lead" : "cs-muted"}>
+                  {line}
+                </p>
+              ))}
+            </div>
+          );
+        })()}
         {systemLabel || patterns[0] ? (
           <div className="cs-story-chips">
             {systemLabel ? (
               <span className="cs-badge cs-badge--trung">{systemLabel}</span>
             ) : null}
             {patterns[0]?.name ? (
-              <span className="cs-badge cs-badge--hung">
+              <span
+                className={`cs-badge ${
+                  (patterns[0].polarity ?? "").toLowerCase() === "hung"
+                    ? "cs-badge--hung"
+                    : (patterns[0].polarity ?? "").toLowerCase() === "cat"
+                      ? "cs-badge--cat"
+                      : "cs-badge--trung"
+                }`}
+              >
                 {displayPatternName(patterns[0].name, locale)}
               </span>
             ) : null}

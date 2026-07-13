@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from pathlib import Path
+
+import pytest
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 
@@ -69,3 +72,40 @@ def test_query_not_found() -> None:
 def test_healthz() -> None:
     client = TestClient(create_app())
     assert client.get("/healthz").json()["status"] == "ok"
+
+
+def test_ready_default_ok_with_local_fallback(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CAST_CLI", raising=False)
+    monkeypatch.delenv("READY_REQUIRE_CAST_CLI", raising=False)
+    client = TestClient(create_app())
+    r = client.get("/ready")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["status"] == "ok"
+    assert body["checks"]["cast_cli_configured"] is False
+    assert body["checks"]["cast_cli_present"] is False
+    assert body["checks"]["engine_mode"] == "local_fallback"
+
+
+def test_ready_strict_cast_cli_missing(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("CAST_CLI", raising=False)
+    monkeypatch.setenv("READY_REQUIRE_CAST_CLI", "1")
+    client = TestClient(create_app())
+    r = client.get("/ready")
+    assert r.status_code == 503
+    assert r.json()["status"] == "not_ready"
+
+
+def test_ready_with_executable_cast_cli(tmp_path: Path, monkeypatch: pytest.MonkeyPatch) -> None:
+    cli = tmp_path / "cast-cli"
+    cli.write_text("#!/bin/sh\necho '{}'\n", encoding="utf-8")
+    cli.chmod(0o755)
+    monkeypatch.setenv("CAST_CLI", str(cli))
+    monkeypatch.delenv("READY_REQUIRE_CAST_CLI", raising=False)
+    client = TestClient(create_app())
+    r = client.get("/ready")
+    assert r.status_code == 200
+    body = r.json()
+    assert body["checks"]["cast_cli_configured"] is True
+    assert body["checks"]["cast_cli_present"] is True
+    assert body["checks"]["engine_mode"] == "cast_cli"

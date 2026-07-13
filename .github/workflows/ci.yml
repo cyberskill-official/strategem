@@ -79,6 +79,8 @@ jobs:
         run: |
           pnpm --filter web install --ignore-scripts
           pnpm --filter web build
+          # WEB-018: critical story CSS must exist in compiled .next output
+          pnpm --filter web test:css-smoke
           pnpm --filter web lint
           pnpm --filter web test
         shell: bash

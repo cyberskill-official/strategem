@@ -356,5 +356,17 @@
   "home.diff.themLabel": "Thường thấy online",
   "home.diff.usLabel": "Ở đây",
   "cast.advanced": "Tuỳ chọn nâng cao (múi giờ, kinh độ…)",
-  "cast.formTitle": "Vài thông tin để vẽ"
+  "cast.formTitle": "Vài thông tin để vẽ",
+  "results.story.system.qimen": "Bạn đang nhìn qua la bàn thời điểm.",
+  "results.story.system.liuren": "Bạn đang nhìn cuộc trò chuyện giữa hai phía.",
+  "results.story.system.taiyi": "Bạn đang nhìn nhịp lớn của một chặng đường.",
+  "results.story.system.ky_mon": "Bạn đang nhìn qua la bàn thời điểm.",
+  "results.story.system.luc_nham": "Bạn đang nhìn cuộc trò chuyện giữa hai phía.",
+  "results.story.system.thai_at": "Bạn đang nhìn nhịp lớn của một chặng đường.",
+  "results.story.pattern_line": "Điểm nổi: {name}.",
+  "results.story.stance.cat": "Gợi ý nhẹ: có thể mở thêm một bước — vẫn giữ biên độ.",
+  "results.story.stance.hung": "Gợi ý nhẹ: nên chậm lại, kiểm tra điều kiện trước khi tiến.",
+  "results.story.stance.trung": "Gợi ý nhẹ: bàn đang trung tính — hãy soi thêm bối cảnh thực.",
+  "results.story.closing": "Đây là khung để nghĩ, không phải lời phán. Quyết định vẫn là của bạn.",
+  "results.story.empty": "Bàn đã vẽ xong. Chưa có điểm nổi bật — hãy nhìn hình và đặt câu hỏi cụ thể hơn nếu cần."
 }

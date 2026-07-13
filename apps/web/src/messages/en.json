@@ -356,5 +356,17 @@
   "home.diff.themLabel": "Often online",
   "home.diff.usLabel": "Here",
   "cast.advanced": "Advanced options (timezone, longitude…)",
-  "cast.formTitle": "A few details to draw"
+  "cast.formTitle": "A few details to draw",
+  "results.story.system.qimen": "You are looking through a timing compass.",
+  "results.story.system.liuren": "You are looking at a conversation between two sides.",
+  "results.story.system.taiyi": "You are looking at the long rhythm of a chapter.",
+  "results.story.system.ky_mon": "You are looking through a timing compass.",
+  "results.story.system.luc_nham": "You are looking at a conversation between two sides.",
+  "results.story.system.thai_at": "You are looking at the long rhythm of a chapter.",
+  "results.story.pattern_line": "Standing out: {name}.",
+  "results.story.stance.cat": "Soft hint: you may open a step — keep a margin.",
+  "results.story.stance.hung": "Soft hint: slow down; check conditions before advancing.",
+  "results.story.stance.trung": "Soft hint: the board is neutral — weigh real context.",
+  "results.story.closing": "This is a thinking frame, not a verdict. The decision stays yours.",
+  "results.story.empty": "The picture is drawn. Nothing stands out yet — look at the board, or sharpen the question."
 }

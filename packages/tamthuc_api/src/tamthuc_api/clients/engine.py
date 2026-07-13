@@ -72,6 +72,23 @@ class StubEngineClient:
         }
 
 
+def probe_cast_cli(cast_cli: str | None = None) -> dict[str, Any]:
+    """Readiness probe for CAST_CLI (configured path + executable)."""
+    path = cast_cli if cast_cli is not None else os.environ.get("CAST_CLI")
+    configured = bool(path and str(path).strip())
+    present = False
+    if configured and path is not None:
+        p = Path(path).expanduser()
+        present = p.is_file() and os.access(p, os.X_OK)
+    mode = "cast_cli" if present else "local_fallback"
+    return {
+        "cast_cli_configured": configured,
+        "cast_cli_present": present,
+        "cast_cli_path": path if configured else None,
+        "engine_mode": mode,
+    }
+
+
 class LocalEngineClient:
     """Deterministic local cast with chart-ready ban; optional CAST_CLI."""
 

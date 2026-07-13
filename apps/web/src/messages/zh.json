@@ -356,5 +356,17 @@
   "home.diff.themLabel": "网上常见",
   "home.diff.usLabel": "在这里",
   "cast.advanced": "高级选项（时区、经度…）",
-  "cast.formTitle": "画图所需的一点信息"
+  "cast.formTitle": "画图所需的一点信息",
+  "results.story.system.qimen": "你正透过时机的罗盘来看。",
+  "results.story.system.liuren": "你正看双方之间的一场对话。",
+  "results.story.system.taiyi": "你正看一段路的大节奏。",
+  "results.story.system.ky_mon": "你正透过时机的罗盘来看。",
+  "results.story.system.luc_nham": "你正看双方之间的一场对话。",
+  "results.story.system.thai_at": "你正看一段路的大节奏。",
+  "results.story.pattern_line": "亮点：{name}。",
+  "results.story.stance.cat": "轻提示：可再迈一步——仍留余地。",
+  "results.story.stance.hung": "轻提示：宜放慢，先核对条件再前进。",
+  "results.story.stance.trung": "轻提示：盘势中性——对照现实情境。",
+  "results.story.closing": "这是思考框架，不是裁决。决定权仍在你。",
+  "results.story.empty": "图已画成。暂无突出亮点——先看图，或把问题问得更具体。"
 }

@@ -1,0 +1,22 @@
+#!/usr/bin/env sh
+# Combined pre-commit: cyberos status regen + quality (WEB-020).
+# Install:
+#   cp scripts/git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+
+root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$root" || exit 1
+
+# —— cyberos-status-hook v1 (non-blocking) ——
+if git diff --cached --name-only | grep -qE '^(docs/feature-requests/|CHANGELOG\.md$|VERSION$)'; then
+  if [ -f .cyberos/migrate-frs.sh ]; then
+    bash .cyberos/migrate-frs.sh --page >/dev/null 2>&1 || true
+    git add docs/status 2>/dev/null || true
+  fi
+fi
+
+# —— quality (blocks on fail) ——
+if [ -f scripts/git-hooks/pre-commit-quality.sh ]; then
+  bash scripts/git-hooks/pre-commit-quality.sh || exit 1
+fi
+
+exit 0

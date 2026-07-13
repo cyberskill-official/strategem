@@ -36,6 +36,25 @@ echo '{"system":"liuren","lich_phap":{"datetime":"2004-01-01T10:30:00","tz":"+07
 - VPS: `DATABASE_URL`, JWT secrets, `CAST_CLI`, CORS origins
 - Supabase: connection string only to VPS (never to browser)
 
+## Readiness probes (API)
+
+```bash
+# Liveness
+curl -sS "$API_BASE/healthz"
+
+# Readiness — cast-cli diagnostics
+curl -sS "$API_BASE/ready"
+# Production (optional strict): READY_REQUIRE_CAST_CLI=1 → 503 if CLI missing
+```
+
+## Git hooks (local)
+
+```bash
+cp scripts/git-hooks/pre-commit .git/hooks/pre-commit
+chmod +x .git/hooks/pre-commit
+# runs ruff format/check on staged py + eslint on web when those paths are staged
+```
+
 ## Done when
 
 - [ ] Gates green on `main`

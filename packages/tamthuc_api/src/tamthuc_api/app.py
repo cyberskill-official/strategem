@@ -1,10 +1,13 @@
 from __future__ import annotations
 
+import os
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
 from tamthuc_api.audit import AuditLog
+from tamthuc_api.clients.engine import probe_cast_cli
 from tamthuc_api.errors import STATUS_BY_CODE, error_envelope
 from tamthuc_api.orchestrator import Orchestrator
 from tamthuc_api.persistence import PersistenceService
@@ -54,7 +57,29 @@ def create_app(
 
     @app.get("/healthz")
     def healthz() -> dict[str, str]:
+        """Liveness — process is up."""
         return {"status": "ok"}
+
+    @app.get("/ready")
+    def ready() -> JSONResponse:
+        """Readiness — diagnostics for CAST_CLI / engine mode.
+
+        Set READY_REQUIRE_CAST_CLI=1 to return 503 when cast-cli is missing.
+        """
+        checks = probe_cast_cli()
+        require_cli = os.environ.get("READY_REQUIRE_CAST_CLI", "").strip() in {
+            "1",
+            "true",
+            "yes",
+        }
+        ok = True
+        if require_cli and not checks["cast_cli_present"]:
+            ok = False
+        body = {
+            "status": "ok" if ok else "not_ready",
+            "checks": checks,
+        }
+        return JSONResponse(status_code=200 if ok else 503, content=body)
 
     @app.exception_handler(Exception)
     async def _unhandled(_req: Request, exc: Exception) -> JSONResponse:

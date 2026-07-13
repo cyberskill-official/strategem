@@ -34,6 +34,7 @@ assert.match(panel, /read-only/i);
 assert.doesNotMatch(panel, /\.ban\s*=/);
 assert.match(panel, /results-story-summary/);
 assert.match(panel, /results\.storyTitle/);
+assert.match(panel, /composeStorySummary|results-story-narrative/);
 
 assert.match(interp, /AIDisclosureBadge/);
 assert.match(interp, /HumanReviewGate/);
