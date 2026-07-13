@@ -256,3 +256,9 @@ This is **not under-implementation of Grok UI** alone — it is **reconciled dir
 ---
 
 **Bottom line:** Against **Grok’s product map**, the system is a **working decision-support spine** (engines + cast + multi-system charts + beginner results + i18n + ethics) at roughly **mid-coverage**. Against **Grok’s full MVP checklist**, the largest holes are **Timing Optimizer, Scenario compare, Auth UX, full RAG production path, and deploy-linked persistence** — not the story-first landing.
+
+---
+
+## 12. Path to 100% (FR pack)
+
+See **`docs/feature-requests/cov-wave/README.md`** — COV-001..026. Grok-critical: COV-007–011, 009, 020, 012, 016, 018–019, 024, 026.
