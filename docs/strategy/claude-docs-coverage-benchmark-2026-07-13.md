@@ -276,3 +276,9 @@ It is **not yet** a full Claude-grade claim of:
 - **full** RAG-on-classical + four-level training platform.
 
 The highest-leverage Claude-aligned next work is **oracle goldens + flag completeness + pattern/khoa-the depth**, not more marketing pages.
+
+---
+
+## 12. Path to 100% (FR pack)
+
+See **`docs/feature-requests/cov-wave/README.md`** — COV-001..026. Claude-critical: COV-001–006, 011, 013–015, 002–003, 025.
