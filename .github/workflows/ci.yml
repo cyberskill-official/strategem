@@ -64,6 +64,14 @@ jobs:
           uv run pytest packages/tamthuc_api/tests/test_e2e_cast.py -q --tb=short
         shell: bash
 
+  status-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Status page must match FR frontmatter (done counts)
+        run: bash scripts/check-status-sync.sh
+        shell: bash
+
   web:
     runs-on: ubuntu-latest
     steps:

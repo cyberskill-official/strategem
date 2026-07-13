@@ -86,11 +86,18 @@ class PgQueryStore:
         return qid
 
     def get(self, query_id: str) -> dict[str, Any] | None:
-        with self._conn() as conn:
-            row = conn.execute(
-                "SELECT payload FROM app_query_store WHERE id = %s",
-                (query_id,),
-            ).fetchone()
+        try:
+            with self._conn() as conn:
+                row = conn.execute(
+                    "SELECT payload FROM app_query_store WHERE id = %s",
+                    (query_id,),
+                ).fetchone()
+        except Exception as e:
+            # Invalid UUID / bad id → treat as miss (404 at route), not 500
+            msg = str(e).lower()
+            if "uuid" in msg or "invalid input" in msg or "syntax" in msg:
+                return None
+            raise
         if not row:
             return None
         payload = cast(Any, row)["payload"]

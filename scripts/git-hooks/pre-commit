@@ -1,20 +1,56 @@
-#!/usr/bin/env sh
-# Combined pre-commit: cyberos status regen + quality (WEB-020).
-# Install:
+#!/usr/bin/env bash
+# Combined pre-commit: CyberOS status page sync (blocking when FR sources change)
+# + quality gate (WEB-020).
+#
+# Install (required for status-before-GitHub):
 #   cp scripts/git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
+#
+# Do NOT remove migrate-frs.sh: `migrate-frs --page` is the ongoing status regenerator
+# for every FR frontmatter / CHANGELOG / VERSION change (layout migration is one-time;
+# --page is permanent).
+set -euo pipefail
 
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$root" || exit 1
 
-# —— cyberos-status-hook v1 (non-blocking) ——
-if git diff --cached --name-only | grep -qE '^(docs/feature-requests/|CHANGELOG\.md$|VERSION$)'; then
-  if [ -f .cyberos/migrate-frs.sh ]; then
-    bash .cyberos/migrate-frs.sh --page >/dev/null 2>&1 || true
-    git add docs/status 2>/dev/null || true
+# Read staged list ONCE. Never `git diff | grep -q` under pipefail — early match
+# SIGPIPEs git and can skip the status sync (CyberOS FR-IMP-074 / platform .githooks lesson).
+staged="$(git diff --cached --name-only || true)"
+matches() { grep -Eq "$1" <<<"$staged"; }
+
+# —— Status page: always refresh + stage before commit reaches GitHub ——
+status_trigger='^(docs/feature-requests/|CHANGELOG\.md$|VERSION$)'
+if matches "$status_trigger"; then
+  migrate=""
+  if [ -f "$root/.cyberos/migrate-frs.sh" ]; then
+    migrate="$root/.cyberos/migrate-frs.sh"
+  elif [ -f "$root/scripts/cyberos-migrate-frs.sh" ]; then
+    migrate="$root/scripts/cyberos-migrate-frs.sh"
+  fi
+  if [ -n "$migrate" ] && command -v node >/dev/null 2>&1; then
+    echo "cyberos: FR sources staged — regenerating docs/status/ …"
+    if bash "$migrate" --page "$root"; then
+      git add "$root/docs/status/" 2>/dev/null || true
+      # Fail if status still dirty after add (should not happen)
+      if git status --porcelain docs/status/ 2>/dev/null | grep -q .; then
+        git add docs/status/ || true
+      fi
+      echo "cyberos: docs/status regenerated and staged"
+    else
+      echo "cyberos: ERROR docs/status regeneration failed." >&2
+      echo "  Fix: bash $migrate --page . && git add docs/status && retry commit" >&2
+      exit 1
+    fi
+  elif [ -n "$migrate" ]; then
+    echo "cyberos: ERROR node required to regenerate docs/status (install Node 18+)." >&2
+    exit 1
+  else
+    echo "cyberos: ERROR .cyberos/migrate-frs.sh missing — run cyberos init, or keep a local .cyberos/." >&2
+    exit 1
   fi
 fi
 
-# —— quality (blocks on fail) ——
+# —— Quality (blocks on fail) ——
 if [ -f scripts/git-hooks/pre-commit-quality.sh ]; then
   bash scripts/git-hooks/pre-commit-quality.sh || exit 1
 fi

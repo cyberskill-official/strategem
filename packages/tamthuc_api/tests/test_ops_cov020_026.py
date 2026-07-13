@@ -92,11 +92,16 @@ def test_payment_single_rail_checkout_and_webhook() -> None:
 
 
 def test_coverage_gate_script_exists() -> None:
+    """COV-025: coverage gate is tracked under scripts/ (not .cyberos/, which is gitignored)."""
     p = ROOT / "scripts/coverage-gate.sh"
     assert p.is_file()
-    assert "90" in p.read_text() or "COVERAGE_MIN" in (ROOT / ".cyberos/gates.env").read_text()
-    gates = (ROOT / ".cyberos/gates.env").read_text()
-    assert "coverage-gate" in gates or "COVERAGE_CMD" in gates
+    text = p.read_text()
+    assert "COVERAGE_MIN" in text or "90" in text
+    # Optional local gates.env (cyberos init) — never required on CI
+    gates = ROOT / ".cyberos/gates.env"
+    if gates.is_file():
+        g = gates.read_text()
+        assert "coverage-gate" in g or "COVERAGE_CMD" in g or "COVERAGE_MIN" in g
 
 
 def test_playwright_journey_config_exists() -> None:
