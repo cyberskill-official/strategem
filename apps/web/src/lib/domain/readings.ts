@@ -128,7 +128,16 @@ export function composeStorySummary(
           ? "taiyi"
           : he || "qimen";
 
-  const top = input.patterns.slice(0, 3);
+  // Unique patterns by display name (API may emit same pattern on multiple palaces)
+  const seenNames = new Set<string>();
+  const top: ReadingInput["patterns"] = [];
+  for (const p of input.patterns) {
+    const key = (p.name ?? "").trim();
+    if (!key || seenNames.has(key)) continue;
+    seenNames.add(key);
+    top.push(p);
+    if (top.length >= 3) break;
+  }
   let stance: "cat" | "hung" | "trung" | null = null;
   for (const p of top) {
     const pol = (p.polarity ?? "").toLowerCase();
