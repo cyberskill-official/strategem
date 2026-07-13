@@ -1,6 +1,7 @@
 "use client";
 
 import { useLocale } from "../i18n/locale-provider";
+import { displayPatternName } from "../../lib/domain/glossary";
 
 export type CitationCardProps = {
   citationId?: string;
@@ -11,6 +12,7 @@ export type CitationCardProps = {
   source?: string;
 };
 
+/** Vernacular first; classical Han secondary; never lead with raw engine id. */
 export function CitationCard({
   citationId,
   han,
@@ -20,30 +22,33 @@ export function CitationCard({
   source,
 }: CitationCardProps) {
   const { t, locale } = useLocale();
-  // Never mix: for vi/zh hide English dich if it looks like EN stub
   const showDich =
     dich &&
     (locale === "en" ||
       !/Retrieved classical|Educational|local \/ stub/i.test(dich));
 
+  // Prefer vernacular; if only engine-ish latin id, try display name
+  const vernacular =
+    bachThoai ||
+    (han && /[\u4e00-\u9fff]/.test(han) ? undefined : displayPatternName(han || "", locale));
+
+  const classical = han && /[\u4e00-\u9fff]/.test(han) ? han : undefined;
+
   return (
-    <article
-      data-testid="citation-card"
-      id={citationId ? `cite-${citationId}` : undefined}
-      className="cs-card"
-      style={{ padding: 14, marginBottom: 10 }}
-    >
-      {source ? (
-        <div style={{ fontWeight: 650, marginBottom: 6 }}>{source}</div>
-      ) : null}
-      {han ? (
-        <p data-testid="cite-han" style={{ fontFamily: "serif", fontSize: "1.1rem" }}>
-          <strong>{t("chart.citationHan")}:</strong> {han}
+    <article data-testid="citation-card" id={citationId ? `cite-${citationId}` : undefined} className="cs-card cs-citation">
+      {source ? <div className="cs-citation__source">{source}</div> : null}
+      {vernacular ? (
+        <p data-testid="cite-bach">
+          <strong>{t("chart.citationVernacular")}:</strong> {vernacular}
         </p>
       ) : null}
-      {bachThoai ? (
-        <p data-testid="cite-bach">
-          <strong>{t("chart.citationVernacular")}:</strong> {bachThoai}
+      {classical ? (
+        <p data-testid="cite-han" className="cs-citation__han">
+          <strong>{t("chart.citationHan")}:</strong> {classical}
+        </p>
+      ) : han && !classical && !vernacular ? (
+        <p data-testid="cite-han" className="cs-citation__han">
+          <strong>{t("chart.citationHan")}:</strong> {displayPatternName(han, locale)}
         </p>
       ) : null}
       {showDich ? (
@@ -52,7 +57,7 @@ export function CitationCard({
         </p>
       ) : null}
       {locator ? (
-        <p data-testid="cite-locator" className="cs-muted" style={{ marginBottom: 0 }}>
+        <p data-testid="cite-locator" className="cs-muted">
           {locator}
         </p>
       ) : null}

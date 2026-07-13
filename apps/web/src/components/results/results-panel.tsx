@@ -13,7 +13,7 @@ import {
 import { NextStepCard } from "./next-step-card";
 import { PatternList, type PatternItem } from "./pattern-list";
 import { displayPatternName } from "../../lib/domain/glossary";
-import { composeStorySummary } from "../../lib/domain/readings";
+import { composeStorySummary, rankPatterns } from "../../lib/domain/readings";
 
 export type QueryResponseView = {
   query_id: string;
@@ -24,16 +24,22 @@ export type QueryResponseView = {
   patterns?: PatternItem[];
   interpretation?: InterpretationData | null;
   ai_disclosure?: DisclosureData | null;
+  /** soft meta for header strip */
+  place?: string;
+  cast_at?: string;
+  engine_mode?: "cast_cli" | "local_fallback" | "demo" | "unknown";
 };
 
 /**
- * Results right panel — FR-WEB-003.
- * Deterministic region (chart + patterns) is visually separated from AI region.
+ * Results right panel — FR-WEB-003 + trust hierarchy.
+ * Story first; technical board behind progressive disclosure.
  * Envelope is read-only; this component never mutates ban/cach_cuc.
  */
 export function ResultsPanel({ response }: { response: QueryResponseView }) {
   const { t, locale } = useLocale();
   const [selected, setSelected] = useState<number | null>(null);
+  const [showBoard, setShowBoard] = useState(false);
+  const [showAi, setShowAi] = useState(false);
 
   const chart = useMemo(() => {
     const charts = response.charts ?? {};
@@ -48,13 +54,24 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
     return Array.isArray(cc) ? (cc as PatternItem[]) : [];
   }, [response.patterns, chart]);
 
-  const isDemo = response.query_id.startsWith("demo-");
+  const ranked = useMemo(() => rankPatterns(patterns), [patterns]);
+  const best = ranked[0];
+
+  const isDemo =
+    response.query_id.startsWith("demo-") || response.engine_mode === "demo";
 
   const systemLabel = (() => {
     if (!he) return null;
     const key = `system.${he}`;
     const label = t(key);
     return label.startsWith("[missing:") ? he : label;
+  })();
+
+  const engineBadge = (() => {
+    if (isDemo) return t("results.engine.demo");
+    if (response.engine_mode === "local_fallback") return t("results.engine.local");
+    if (response.engine_mode === "cast_cli") return t("results.engine.live");
+    return null;
   })();
 
   function renderBoard() {
@@ -88,7 +105,6 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
         />
       );
     }
-    // ky_mon / qimen default
     return (
       <QimenNinePalace
         ban={
@@ -107,14 +123,27 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
     );
   }
 
+  const story = composeStorySummary(
+    { he, patterns, persona: "beginner" },
+    locale,
+  );
+
   return (
-    <div
-      data-testid="results-panel"
-      className="cs-stagger"
-      style={{ display: "grid", gap: 24 }}
-    >
+    <div data-testid="results-panel" className="cs-results-stack">
       {isDemo ? (
         <div className="cs-banner cs-banner--ochre">{t("results.demoBanner")}</div>
+      ) : null}
+      {engineBadge && !isDemo ? (
+        <div
+          className={`cs-banner ${
+            response.engine_mode === "local_fallback"
+              ? "cs-banner--ochre"
+              : "cs-banner--info"
+          }`}
+          data-testid="engine-mode-badge"
+        >
+          {engineBadge}
+        </div>
       ) : null}
 
       <section
@@ -124,92 +153,132 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
       >
         <h2>{t("results.storyTitle")}</h2>
         <p className="cs-muted">{t("results.storyLead")}</p>
-        {(() => {
-          const story = composeStorySummary(
-            { he, patterns, persona: "beginner" },
-            locale,
-          );
-          return (
-            <div className="cs-story-narrative" data-testid="results-story-narrative">
-              {story.lines.map((line, i) => (
-                <p key={i} className={i === 0 ? "cs-story-narrative__lead" : "cs-muted"}>
-                  {line}
-                </p>
-              ))}
-            </div>
-          );
-        })()}
-        {systemLabel || patterns[0] ? (
+        <div className="cs-story-narrative" data-testid="results-story-narrative">
+          {story.lines.map((line, i) => (
+            <p key={i} className={i === 0 ? "cs-story-narrative__lead" : "cs-muted"}>
+              {line}
+            </p>
+          ))}
+        </div>
+        {systemLabel || best?.name ? (
           <div className="cs-story-chips">
             {systemLabel ? (
               <span className="cs-badge cs-badge--trung">{systemLabel}</span>
             ) : null}
-            {patterns[0]?.name ? (
+            {best?.name ? (
               <span
                 className={`cs-badge ${
-                  (patterns[0].polarity ?? "").toLowerCase() === "hung"
+                  (best.polarity ?? "").toLowerCase() === "hung"
                     ? "cs-badge--hung"
-                    : (patterns[0].polarity ?? "").toLowerCase() === "cat"
+                    : (best.polarity ?? "").toLowerCase() === "cat"
                       ? "cs-badge--cat"
                       : "cs-badge--trung"
                 }`}
               >
-                {displayPatternName(patterns[0].name, locale)}
+                {displayPatternName(best.name, locale)}
               </span>
             ) : null}
           </div>
         ) : null}
+        <p className="cs-disclaimer" data-testid="results-disclaimer-mid">
+          {t("results.disclaimer.mid")}
+        </p>
       </section>
 
-      <section
-        data-testid="deterministic-region"
-        className="cs-region"
-        aria-label={t("results.chartRegion")}
-      >
-        <div className="cs-section-title" style={{ marginBottom: 12 }}>
-          <h2 style={{ marginTop: 0 }}>{t("results.chartRegion")}</h2>
-          {systemLabel ? (
-            <span className="cs-badge cs-badge--trung">{systemLabel}</span>
-          ) : null}
-        </div>
-        {renderBoard()}
-        <h3 style={{ marginTop: 20 }}>{t("results.patterns")}</h3>
-        <PatternList patterns={patterns} />
-      </section>
+      <div className="cs-results-actions">
+        <button
+          type="button"
+          className="cs-link-btn cs-link-btn--secondary"
+          data-testid="toggle-board"
+          aria-expanded={showBoard}
+          onClick={() => setShowBoard((v) => !v)}
+        >
+          {showBoard ? t("results.chartHide") : t("results.chartToggle")}
+        </button>
+      </div>
 
-      <hr data-testid="region-boundary" className="cs-region-boundary" aria-hidden />
-
-      <section
-        data-testid="ai-region"
-        className="cs-region cs-region--ai"
-        aria-label={t("results.aiRegion")}
-      >
-        <h2 style={{ marginTop: 0 }}>{t("results.aiRegion")}</h2>
-        {response.interpretation || patterns.length ? (
-          <InterpretationView
-            interpretation={
-              response.interpretation ?? {
-                beginner: "",
-                expert: "",
-                recommendations: [],
-                citations: [],
-              }
+      {showBoard ? (
+        <section
+          data-testid="deterministic-region"
+          className="cs-region"
+          aria-label={t("results.chartRegion")}
+        >
+          <div className="cs-section-title">
+            <h2>{t("results.chartRegion")}</h2>
+            {systemLabel ? (
+              <span className="cs-badge cs-badge--trung">{systemLabel}</span>
+            ) : null}
+          </div>
+          {renderBoard()}
+          <h3 className="cs-subhead">{t("results.patterns")}</h3>
+          <PatternList
+            patterns={
+              (ranked.length ? ranked : patterns).filter(
+                (p): p is PatternItem => typeof p.name === "string" && p.name.length > 0,
+              )
             }
-            disclosure={response.ai_disclosure}
-            patterns={patterns}
-            he={he || undefined}
           />
-        ) : (
-          <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>
-        )}
-      </section>
+        </section>
+      ) : null}
+
+      <button
+        type="button"
+        className="cs-advanced-toggle"
+        data-testid="toggle-ai"
+        aria-expanded={showAi}
+        onClick={() => setShowAi((v) => !v)}
+      >
+        {showAi ? "▾ " : "▸ "}
+        {t("results.aiMore")}
+      </button>
+
+      {showAi ? (
+        <>
+          <hr data-testid="region-boundary" className="cs-region-boundary" aria-hidden />
+          <section
+            data-testid="ai-region"
+            className="cs-region cs-region--ai"
+            aria-label={t("results.aiRegion")}
+          >
+            <h2>{t("results.aiRegion")}</h2>
+            {response.interpretation || patterns.length ? (
+              <InterpretationView
+                interpretation={
+                  response.interpretation ?? {
+                    beginner: "",
+                    expert: "",
+                    recommendations: [],
+                    citations: [],
+                  }
+                }
+                disclosure={response.ai_disclosure}
+                patterns={patterns}
+                he={he || undefined}
+              />
+            ) : (
+              <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>
+            )}
+          </section>
+        </>
+      ) : null}
+
+      <details className="cs-tech-details" data-testid="tech-details">
+        <summary>{t("results.techDetails")}</summary>
+        <p className="cs-muted">
+          {t("results.techId")}:{" "}
+          <code className="cs-mono">{response.query_id}</code>
+        </p>
+        {he ? (
+          <p className="cs-muted">
+            he=<code className="cs-mono">{he}</code>
+          </p>
+        ) : null}
+      </details>
 
       <NextStepCard
         systemLabel={systemLabel ?? undefined}
         patternHint={
-          patterns[0]?.name
-            ? displayPatternName(patterns[0].name, locale)
-            : undefined
+          best?.name ? displayPatternName(best.name, locale) : undefined
         }
       />
     </div>

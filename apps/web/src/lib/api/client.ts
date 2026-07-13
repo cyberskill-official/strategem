@@ -37,7 +37,31 @@ async function parseError(res: Response): Promise<ApiClientError> {
   } catch {
     /* ignore */
   }
+  if (res.status === 429) code = "RATE_LIMITED";
+  if (res.status === 403) code = "FORBIDDEN_TIER";
   return new ApiClientError(res.status, code, message, details);
+}
+
+const DEFAULT_TIMEOUT_MS = 25_000;
+
+async function fetchWithTimeout(
+  fetchFn: typeof fetch,
+  input: string,
+  init: RequestInit,
+  timeoutMs = DEFAULT_TIMEOUT_MS,
+): Promise<Response> {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    return await fetchFn(input, { ...init, signal: ctrl.signal });
+  } catch (e) {
+    if (e instanceof Error && e.name === "AbortError") {
+      throw new ApiClientError(0, "TIMEOUT", "request timed out");
+    }
+    throw new ApiClientError(0, "NETWORK", "network error");
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 export async function cast(
@@ -55,7 +79,7 @@ export async function cast(
     "Content-Type": "application/json",
   };
   if (opts?.token) headers.Authorization = `Bearer ${opts.token}`;
-  const res = await fetchFn(`${base}/api/v1/calculate/${system}`, {
+  const res = await fetchWithTimeout(fetchFn, `${base}/api/v1/calculate/${system}`, {
     method: "POST",
     headers,
     body: JSON.stringify({
@@ -77,7 +101,10 @@ export async function cast(
   // client-side cache for immediate results navigation
   if (typeof window !== "undefined" && data.query_id) {
     try {
-      sessionStorage.setItem(`query:${data.query_id}`, JSON.stringify(data));
+      sessionStorage.setItem(
+        `query:${data.query_id}`,
+        JSON.stringify({ ...data, _place: body.place, _cast_at: body.datetime }),
+      );
     } catch {
       /* ignore quota */
     }
@@ -98,18 +125,20 @@ export async function getQuery(
 
   // Prefer live API
   try {
-    const res = await fetchFn(`${base}/api/v1/queries/${encodeURIComponent(queryId)}`, {
-      method: "GET",
-      headers,
-      cache: "no-store",
-    });
+    const res = await fetchWithTimeout(
+      fetchFn,
+      `${base}/api/v1/queries/${encodeURIComponent(queryId)}`,
+      { method: "GET", headers, cache: "no-store" },
+    );
     if (res.ok) {
       return (await res.json()) as QueryResponse;
     }
     if (res.status !== 404) throw await parseError(res);
   } catch (e) {
-    if (e instanceof ApiClientError) throw e;
-    // network error — fall through to session cache
+    if (e instanceof ApiClientError && e.code !== "NETWORK" && e.code !== "TIMEOUT") {
+      throw e;
+    }
+    // network / timeout — fall through to session cache
   }
 
   if (typeof window !== "undefined") {

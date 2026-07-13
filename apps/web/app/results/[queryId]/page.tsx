@@ -12,25 +12,48 @@ import {
 } from "../../../src/components/results/results-panel";
 import type { QueryResponse } from "../../../src/lib/api/schemas";
 
-function toView(res: QueryResponse): QueryResponseView {
+function toView(
+  res: QueryResponse,
+  extra?: Partial<QueryResponseView>,
+): QueryResponseView {
   return {
     query_id: res.query_id,
     charts: res.charts as QueryResponseView["charts"],
     patterns: (res.patterns || []) as QueryResponseView["patterns"],
     interpretation: res.interpretation as QueryResponseView["interpretation"],
     ai_disclosure: res.ai_disclosure as QueryResponseView["ai_disclosure"],
+    ...extra,
   };
+}
+
+function formatWhen(iso: string, locale: string): string {
+  if (!iso) return "—";
+  try {
+    const d = new Date(iso);
+    if (Number.isNaN(d.getTime())) return iso.slice(0, 16).replace("T", " ");
+    return new Intl.DateTimeFormat(locale === "zh" ? "zh-CN" : locale === "en" ? "en-GB" : "vi-VN", {
+      dateStyle: "medium",
+      timeStyle: "short",
+    }).format(d);
+  } catch {
+    return iso.slice(0, 16);
+  }
 }
 
 export default function ResultsPage() {
   const params = useParams();
   const queryId = String(params?.queryId ?? "");
-  const { t } = useLocale();
+  const { t, locale } = useLocale();
   const [response, setResponse] = useState<QueryResponseView | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [reportId, setReportId] = useState<string | undefined>();
-  const [meta, setMeta] = useState({ he: "ky_mon", question_type: "trach_thoi", cast_at: "" });
+  const [meta, setMeta] = useState({
+    he: "ky_mon",
+    question_type: "trach_thoi",
+    cast_at: "",
+    place: "",
+  });
 
   useEffect(() => {
     let cancelled = false;
@@ -45,14 +68,22 @@ export default function ResultsPage() {
       try {
         const res = await getQuery(queryId);
         if (!cancelled) {
-          setResponse(toView(res));
           const first = Object.values(res.charts ?? {})[0] as
-            | { he?: string }
+            | { he?: string; ban?: { place?: string } }
             | undefined;
+          const he = first?.he ?? "ky_mon";
+          const isDemo = queryId.startsWith("demo-");
+          setResponse(
+            toView(res, {
+              engine_mode: isDemo ? "demo" : "cast_cli",
+              place: meta.place || "Hà Nội",
+              cast_at: meta.cast_at,
+            }),
+          );
           setMeta((m) => ({
             ...m,
-            he: first?.he ?? m.he,
-            cast_at: new Date().toISOString(),
+            he,
+            cast_at: m.cast_at || new Date().toISOString(),
           }));
           try {
             const { getHistory } = await import("../../../src/lib/api/history");
@@ -60,11 +91,21 @@ export default function ResultsPage() {
             const hit = hist.items.find((i) => i.query_id === queryId);
             if (hit) {
               setReportId(hit.report_id);
-              setMeta({
+              setMeta((prev) => ({
                 he: hit.he,
                 question_type: hit.question_type,
                 cast_at: hit.created_at,
-              });
+                place: prev.place || "Hà Nội",
+              }));
+              setResponse((prev) =>
+                prev
+                  ? {
+                      ...prev,
+                      cast_at: hit.created_at,
+                      place: prev.place || "Hà Nội",
+                    }
+                  : prev,
+              );
             }
           } catch {
             /* ignore */
@@ -72,9 +113,12 @@ export default function ResultsPage() {
         }
       } catch (e) {
         if (!cancelled) {
-          setError(
-            e instanceof ApiClientError ? e.message : t("results.error"),
-          );
+          if (e instanceof ApiClientError) {
+            if (e.code === "RATE_LIMITED") setError(t("error.rateLimited"));
+            else if (e.status === 0 || e.code === "NETWORK") setError(t("error.apiDown"));
+            else if (e.code === "TIMEOUT") setError(t("error.timeout"));
+            else setError(e.message || t("results.error"));
+          } else setError(t("results.error"));
         }
       } finally {
         if (!cancelled) setLoading(false);
@@ -84,22 +128,34 @@ export default function ResultsPage() {
     return () => {
       cancelled = true;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- load once per queryId
   }, [queryId, t]);
+
+  const systemLabel = (() => {
+    const key = `system.${meta.he}`;
+    const label = t(key);
+    return label.startsWith("[missing:") ? meta.he : label;
+  })();
 
   return (
     <div className="cs-page cs-reveal">
-      <header style={{ display: "grid", gap: 8 }}>
+      <header className="cs-results-header">
         <p className="cs-kicker">{t("nav.results")}</p>
-        <h1 style={{ marginBottom: 0 }}>{t("results.title")}</h1>
-        {queryId ? (
-          <p
-            className="cs-muted"
-            style={{ margin: 0, fontFamily: "ui-monospace, monospace", fontSize: 12 }}
-          >
-            {queryId}
-          </p>
-        ) : null}
-        <div style={{ display: "flex", flexWrap: "wrap", gap: 10, marginTop: 4 }}>
+        <h1>{t("results.title")}</h1>
+        <p className="cs-results-meta" data-testid="results-meta">
+          <span>
+            {t("results.meta.when", {
+              when: formatWhen(meta.cast_at || new Date().toISOString(), locale),
+            })}
+          </span>
+          <span aria-hidden>·</span>
+          <span>
+            {t("results.meta.place", { place: meta.place || "Hà Nội" })}
+          </span>
+          <span aria-hidden>·</span>
+          <span>{t("results.meta.system", { system: systemLabel })}</span>
+        </p>
+        <div className="cs-results-actions">
           {queryId ? (
             <PinButton
               queryId={queryId}
@@ -113,26 +169,28 @@ export default function ResultsPage() {
             <Link
               href={`/report/${encodeURIComponent(reportId)}`}
               className="cs-link-btn cs-link-btn--secondary"
-              style={{ minHeight: 40, padding: "0 14px" }}
             >
               {t("results.openReport")}
             </Link>
           ) : null}
-          <Link
-            href="/cast"
-            className="cs-link-btn cs-link-btn--primary"
-            style={{ minHeight: 40, padding: "0 14px" }}
-          >
+          <Link href="/cast" className="cs-link-btn cs-link-btn--primary">
             {t("cast.button")}
           </Link>
         </div>
       </header>
-      {loading && <p data-testid="results-loading">{t("results.loading")}</p>}
-      {error && (
-        <p data-testid="results-error" style={{ color: "var(--color-danger)" }}>
+
+      {loading ? (
+        <div className="cs-skeleton" data-testid="results-loading">
+          <div className="cs-skeleton__bar" />
+          <div className="cs-skeleton__bar cs-skeleton__bar--short" />
+          <p className="cs-muted">{t("results.loading")}</p>
+        </div>
+      ) : null}
+      {error ? (
+        <p data-testid="results-error" className="cs-error-banner">
           {error}
         </p>
-      )}
+      ) : null}
       {response && !loading ? <ResultsPanel response={response} /> : null}
     </div>
   );

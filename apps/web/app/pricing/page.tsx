@@ -95,9 +95,14 @@ export default function PricingPage() {
       </div>
 
       <p className="cs-disclaimer">{t("pricing.note")}</p>
+      <p className="cs-disclaimer" data-testid="waitlist-local-note">
+        {t("pricing.waitlistLocal")}
+      </p>
 
-      <section id="waitlist" className="cs-card" style={{ maxWidth: 480 }}>
-        <h2 style={{ fontSize: "1.15rem", marginTop: 0 }}>{t("pricing.insight.cta")}</h2>
+      <section id="waitlist" className="cs-card cs-waitlist-card">
+        <h2 className="cs-subhead" style={{ marginTop: 0 }}>
+          {t("pricing.insight.cta")}
+        </h2>
         <form
           onSubmit={(e) => {
             e.preventDefault();

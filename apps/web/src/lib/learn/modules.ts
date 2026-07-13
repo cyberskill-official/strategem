@@ -34,7 +34,7 @@ export const LEARN_MODULES: LearnModule[] = [
       en: "Before the map: is your question concrete? Who holds the matter?",
       zh: "画图前：问题够具体吗？谁在「拿」这件事？",
     },
-    practiceHref: "/cast",
+    practiceHref: "/cast?system=qimen",
     body: {
       vi: [
         {
@@ -250,7 +250,7 @@ export const LEARN_MODULES: LearnModule[] = [
       en: "Every highlight has a name and a source. Read as hints — not verdicts.",
       zh: "每个亮点有名称与出处。当提示读——不当判决。",
     },
-    practiceHref: "/cast",
+    practiceHref: "/cast?system=liuren",
     body: {
       vi: [
         {

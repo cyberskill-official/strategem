@@ -45,10 +45,22 @@ export default function LearnPage() {
         </div>
         <div className="cs-cta-actions">
           <Link
-            href="/cast"
+            href="/cast?system=qimen"
             className="cs-link-btn cs-link-btn--accent cs-link-btn--pulse"
           >
-            {t("learn.ctaCast")}
+            {t("learn.ctaCastQimen")}
+          </Link>
+          <Link
+            href="/cast?system=liuren"
+            className="cs-link-btn cs-link-btn--secondary"
+          >
+            {t("learn.ctaCastLiuren")}
+          </Link>
+          <Link
+            href="/cast?system=taiyi"
+            className="cs-link-btn cs-link-btn--secondary"
+          >
+            {t("learn.ctaCastTaiyi")}
           </Link>
           <Link
             href="/results/demo-ky-mon-showcase"

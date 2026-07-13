@@ -59,18 +59,14 @@ export function QueryForm({
       onSuccess?.(res.query_id, res);
     } catch (err) {
       if (err instanceof ApiClientError) {
-        if (err.code === "VALIDATION_ERROR") setFieldError(err.message);
-        else if (err.code === "FORBIDDEN_TIER")
-          setError(t("error.forbiddenTier"));
+        if (err.code === "VALIDATION_ERROR") setFieldError(t("error.validation"));
+        else if (err.code === "FORBIDDEN_TIER") setError(t("error.forbiddenTier"));
         else if (err.code === "RATE_LIMITED") {
           setCastDisabled(true);
-          const reset = err.details?.reset_at;
-          setError(
-            reset
-              ? t("error.rateLimitedUntil", { reset: String(reset) })
-              : t("error.rateLimited"),
-          );
-        } else setError(err.message || t("error.generic"));
+          setError(t("error.rateLimited"));
+        } else if (err.code === "TIMEOUT") setError(t("error.timeout"));
+        else if (err.code === "NETWORK") setError(t("error.apiDown"));
+        else setError(err.message || t("error.generic"));
       } else setError(t("cast.apiError"));
     } finally {
       setLoading(false);
@@ -168,15 +164,23 @@ export function QueryForm({
       </p>
 
       {fieldError && (
-        <p data-testid="field-error" style={{ color: "var(--color-danger)" }}>
+        <p data-testid="field-error" className="cs-error-banner">
           {fieldError}
         </p>
       )}
       {error && (
-        <p data-testid="form-error" style={{ color: "var(--color-danger)" }}>
+        <p data-testid="form-error" className="cs-error-banner">
           {error}
         </p>
       )}
+      {loading ? (
+        <div className="cs-skeleton" data-testid="cast-loading">
+          <div className="cs-skeleton__bar" />
+          <div className="cs-skeleton__bar cs-skeleton__bar--short" />
+          <p className="cs-muted">{t("cast.skeleton")}</p>
+          <p className="cs-muted">{t("cast.loadingHint")}</p>
+        </div>
+      ) : null}
       <Button
         type="submit"
         disabled={loading || castDisabled}

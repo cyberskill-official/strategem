@@ -48,8 +48,8 @@ export function PatternList({ patterns }: { patterns: PatternItem[] }) {
             <div>
               <strong>
                 {name}
-                {name !== p.name ? (
-                  <span className="cs-muted" style={{ marginLeft: 8, fontWeight: 400 }}>
+                {name !== p.name && /[\u4e00-\u9fff]/.test(p.name) ? (
+                  <span className="cs-muted cs-pattern-classical">
                     {p.name}
                   </span>
                 ) : null}
