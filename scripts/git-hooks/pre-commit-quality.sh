@@ -7,8 +7,11 @@ set -euo pipefail
 root="$(git rev-parse --show-toplevel)"
 cd "$root"
 
-staged_py="$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.py$' || true)"
-staged_web="$(git diff --cached --name-only --diff-filter=ACMR | grep -E '^apps/web/.*\.(ts|tsx|js|mjs|css)$' || true)"
+# Pipefail-safe: materialize staged list once
+staged="$(git diff --cached --name-only --diff-filter=ACMR || true)"
+staged_py="$(grep -E '\.py$' <<<"$staged" || true)"
+staged_web="$(grep -E '^apps/web/.*\.(ts|tsx|js|mjs|css)$' <<<"$staged" || true)"
+staged_rs="$(grep -E '\.rs$' <<<"$staged" || true)"
 
 fail=0
 
@@ -44,6 +47,14 @@ if [ -n "$staged_web" ]; then
     else
       echo "pre-commit-quality: WARN eslint not available — skip" >&2
     fi
+  fi
+fi
+
+if [ -n "$staged_rs" ] && command -v cargo >/dev/null 2>&1; then
+  echo "pre-commit-quality: cargo fmt --check (staged rust)"
+  if ! cargo fmt --all -- --check; then
+    echo "pre-commit-quality: run: cargo fmt --all" >&2
+    fail=1
   fi
 fi
 

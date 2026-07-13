@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# Pre-push: block GitHub until local CI floor is green.
+# Install:
+#   cp scripts/git-hooks/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+#
+# Default is a solid floor without full act matrix (slow). Override:
+#   LOCAL_CI_QUICK=1 git push     # lint + status only
+#   LOCAL_CI_FULL=1 git push      # + act status-sync (+ ACT_ALL for full ci.yml)
+#   SKIP_TEST=1 git push          # skip pytest/cargo test
+set -euo pipefail
+
+root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$root" || exit 1
+
+# remote ref args from git (unused but keep interface)
+while read -r _local_ref _local_sha _remote_ref _remote_sha; do
+  :
+done
+
+if [ ! -x scripts/local-ci.sh ]; then
+  echo "pre-push: scripts/local-ci.sh missing" >&2
+  exit 1
+fi
+
+echo "pre-push: running scripts/local-ci.sh (set LOCAL_CI_QUICK=1 to slim) …"
+# Default pre-push: include tests + compose validate; skip full act unless FULL
+export SKIP_ACT="${SKIP_ACT:-1}"
+export LOCAL_CI_WEB_BUILD="${LOCAL_CI_WEB_BUILD:-0}"
+bash scripts/local-ci.sh
+echo "pre-push: OK — push may proceed"
