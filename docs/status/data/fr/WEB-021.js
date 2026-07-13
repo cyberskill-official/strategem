@@ -1,0 +1,1 @@
+window.CS_SPEC=window.CS_SPEC||{};window.CS_SPEC["WEB-021"]="<h1>WEB-021</h1>\n<h2>Goal</h2>\n<p>Results: soft meta (time/place/system), hide UUID, progressive board disclosure, mid disclaimer, engine mode badge, one best pattern story.</p>";

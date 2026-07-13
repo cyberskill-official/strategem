@@ -1,0 +1,1 @@
+window.CS_SPEC=window.CS_SPEC||{};window.CS_SPEC["WEB-022"]="<h1>WEB-022</h1>\n<h2>Goal</h2>\n<p>Copy voice enforcement, mapped client errors, e2e-live-smoke, API golden ban contracts, waitlist honesty, learn deep-links, coverage floor 80%.</p>";

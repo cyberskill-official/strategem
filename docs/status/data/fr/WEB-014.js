@@ -1,0 +1,1 @@
+window.CS_SPEC=window.CS_SPEC||{};window.CS_SPEC["WEB-014"]="<h1>WEB-014</h1>\n<h2>§1</h2>\n<ol><li>Shared icon/scene primitives (SVG) for journey steps and systems.</li><li>Story cards prefer image/icon + short caption over paragraphs.</li><li>Reduced wall-of-text density on home and pricing.</li></ol>";

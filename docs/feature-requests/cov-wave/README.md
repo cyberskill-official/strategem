@@ -13,15 +13,16 @@ All COV-* start as `ready_to_implement`. Only a human sets `done`.
 ## Suggested order (critical path)
 
 1. COV-001 oracle suite
-2. COV-002 flag stamp + COV-003 flag UI
-3. COV-004/005/006 engine depth
-4. COV-010 postgres + COV-020 deploy wiring
-5. COV-007/008 timing + scenario product
-6. COV-009 auth product
-7. COV-011 RAG default path
-8. COV-013–016 education surfaces
-9. COV-012, 017–019 polish
-10. COV-021–026 ops/monetize/coverage floors
+2. **COV-027 local Docker full-stack** + **COV-028 LMStudio OpenAI-compatible AI** (enterprise local path)
+3. COV-002 flag stamp + COV-003 flag UI
+4. COV-004/005/006 engine depth
+5. COV-010 postgres + COV-020 deploy wiring
+6. COV-007/008 timing + scenario product
+7. COV-009 auth product
+8. COV-011 RAG default path (uses COV-028 client)
+9. COV-013–016 education surfaces
+10. COV-012, 017–019 polish
+11. COV-021–026 ops/monetize/coverage floors
 
 ## Index
 
@@ -53,12 +54,14 @@ All COV-* start as `ready_to_implement`. Only a human sets `done`.
 | COV-024 | MUST | P1 | WEB | Playwright full product journeys (home→cast→results→timing→a… | 16 |
 | COV-025 | SHOULD | P1 | PLAT | Raise coverage floors to 90% engines+API and wire gates.env… | 12 |
 | COV-026 | SHOULD | P2 | WEB | Single payment rail for premium tier (one provider only)… | 20 |
+| COV-027 | MUST | P0 | PLAT | Local full-stack Docker compose — build api+web+cast-cli from source… | 20 |
+| COV-028 | MUST | P0 | RAG | LMStudio local AI — OpenAI-compatible LLM client + honest degraded path… | 16 |
 
-**Total effort (sum): 452 h** (rough).
+**Total effort (sum): 488 h** (rough). Includes enterprise local Docker + LMStudio (COV-027/028).
 
 ## Definition of 100%
 
-When all COV-* MUST items are human-accepted `done`, and SHOULD/COULD either done or explicitly waived in benchmark addenda:
+When all COV-* MUST items are human-accepted `done` (including **COV-027** local Docker and **COV-028** LMStudio), and SHOULD/COULD either done or explicitly waived in benchmark addenda:
 - Claude weighted score ≥ 100% on capability dimensions in the benchmark tables.
 - Grok weighted score ≥ 100% on MVP + ops dimensions (or waived with operator signature).
 - Both benchmark docs updated with evidence links.

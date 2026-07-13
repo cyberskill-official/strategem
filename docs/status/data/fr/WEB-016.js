@@ -1,0 +1,1 @@
+window.CS_SPEC=window.CS_SPEC||{};window.CS_SPEC["WEB-016"]="<h1>WEB-016</h1>\n<h2>§1</h2>\n<ol><li>Top of results: plain-language “what this board is saying” card before technical chart.</li><li>Short story sentences, not engine jargon first.</li></ol>";

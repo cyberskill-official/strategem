@@ -2,7 +2,7 @@
 id: COV-001
 title: "Oracle certification suite — kinqimen/kinliuren/kintaiyi + jieqi <1′ gate"
 module: CORE
-status: ready_to_implement
+status: ready_to_review
 class: product
 priority: MUST
 phase: P0

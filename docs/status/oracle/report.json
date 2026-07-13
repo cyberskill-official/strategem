@@ -1,0 +1,41 @@
+{
+  "schema": "oracle-cert-report@1",
+  "fr": "COV-001",
+  "generated": "2026-07-13",
+  "systems": {
+    "qimen": {
+      "fixture": "crates/cyberos-qimen/tests/fixtures/qimen_cert_v1.csv",
+      "case_count": 36,
+      "min_required": 30,
+      "gate": "cache_key equality under stamped flags",
+      "oracle_source": "engine_golden_v1+cast_cli"
+    },
+    "liuren": {
+      "fixture": "crates/cyberos-luchnham/tests/fixtures/liuren_cert_v1.csv",
+      "case_count": 30,
+      "min_required": 30,
+      "gate": "cache_key equality under stamped flags",
+      "oracle_source": "engine_golden_v1+cast_cli"
+    },
+    "taiyi": {
+      "fixture": "crates/cyberos-thaiat/tests/fixtures/taiyi_cert_v1.csv",
+      "case_count": 24,
+      "min_required": 20,
+      "gate": "cache_key equality under stamped flags",
+      "oracle_source": "engine_golden_v1+cast_cli"
+    },
+    "tiet_khi": {
+      "fixture": "crates/cyberos-lichphap/tests/fixtures/tietkhi_cert_multiyear.csv",
+      "case_count": 120,
+      "min_required": 50,
+      "gate": "max_abs_error_seconds < 60",
+      "oracle_source": "engine_golden_multiyear_2018_2022",
+      "note": "Self-consistent multi-year lock; external sxwnl span remains CORE-006 oracle_harness"
+    }
+  },
+  "ci": {
+    "workflow": ".github/workflows/oracle-certification.yml",
+    "legacy_core": ".github/workflows/core-oracle.yml"
+  },
+  "status": "suite_landed_awaiting_hitl"
+}

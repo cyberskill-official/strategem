@@ -1,0 +1,1 @@
+window.CS_SPEC=window.CS_SPEC||{};window.CS_SPEC["WEB-015"]="<h1>WEB-015</h1>\n<h2>§1</h2>\n<ol><li>Cast page opens with “what will happen” in 2 short lines.</li><li>System chips use plain helper text (for people, for timing, for big cycles).</li><li>Form labels plain Vietnamese; technical terms secondary.</li></ol>";
