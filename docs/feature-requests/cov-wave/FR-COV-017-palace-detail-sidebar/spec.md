@@ -2,7 +2,7 @@
 id: COV-017
 title: "Palace/detail sidebar for interactive charts"
 module: CHART
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P1

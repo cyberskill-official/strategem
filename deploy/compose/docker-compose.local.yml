@@ -1,0 +1,71 @@
+# COV-027: local full-stack from source (not GHCR staging images).
+# Docs: docs/deploy/local-docker-lmstudio.md
+#
+#   docker compose -f deploy/compose/docker-compose.local.yml up --build -d
+#
+# LMStudio runs on the host (default :1234). API reaches it via host.docker.internal.
+
+name: strategem-local
+
+services:
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: strategem
+    ports:
+      - "${LOCAL_PG_PORT:-5432}:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d strategem"]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "${LOCAL_REDIS_PORT:-6379}:6379"
+
+  api:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/api.Dockerfile
+    ports:
+      - "${LOCAL_API_PORT:-8000}:8000"
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
+      CAST_CLI: /src/cast-cli
+      READY_REQUIRE_CAST_CLI: "1"
+      TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:-local-dev-only-change-me}
+      LLM_BACKEND: ${LLM_BACKEND:-openai_compatible}
+      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:1234/v1}
+      LLM_MODEL: ${LLM_MODEL:-local-model}
+      LLM_API_KEY: ${LLM_API_KEY:-}
+      LLM_TIMEOUT_S: ${LLM_TIMEOUT_S:-60}
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+  web:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/web.Dockerfile
+      args:
+        # Browser-facing API (host ports). Local default 18000 when LOCAL_API_PORT set.
+        NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:8000}
+        # In-compose server proxy target (route handlers + Next rewrites).
+        API_URL: ${API_URL:-http://api:8000}
+    ports:
+      - "${LOCAL_WEB_PORT:-3000}:3000"
+    environment:
+      # Server-side fetch from Next route handlers → api service on compose network
+      API_URL: ${API_URL:-http://api:8000}
+      # Client-side absolute API (browser on host)
+      NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:8000}
+    depends_on:
+      - api

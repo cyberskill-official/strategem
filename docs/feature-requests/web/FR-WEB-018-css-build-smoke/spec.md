@@ -1,7 +1,7 @@
 ---
 id: WEB-018
 title: CSS build smoke — critical story classnames
-status: ready_to_test
+status: done
 class: improvement
 priority: MUST
 depends_on: [WEB-014]

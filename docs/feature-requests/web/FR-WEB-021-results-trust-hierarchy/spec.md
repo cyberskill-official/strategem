@@ -1,7 +1,7 @@
 ---
 id: WEB-021
 title: Results trust hierarchy + meta strip
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-019]

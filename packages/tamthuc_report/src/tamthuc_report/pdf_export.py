@@ -6,11 +6,41 @@ from typing import Literal
 
 from tamthuc_report.models import StructuredReport
 
+# COV-023: full legal disclaimer (VOICE / LEGAL) — always on PDF
+FULL_LEGAL_DISCLAIMER_VI = (
+    "Tuyên bố pháp lý: Tài liệu này chỉ dùng để suy nghĩ và học hỏi văn hoá "
+    "Tam Thức. Không phải lời bói chắc chắn, không thay thế tư vấn y tế, "
+    "pháp lý hay tài chính. Quyết định cuối cùng thuộc về người đọc."
+)
+FULL_LEGAL_DISCLAIMER_EN = (
+    "Legal disclaimer: This document is for cultural reflection and learning only. "
+    "It is not fortune-telling and not a substitute for medical, legal, or financial advice. "
+    "Final decisions remain with the reader."
+)
+
+
+def _vernacular_pattern_name(name: str) -> str:
+    """Prefer human-facing names; keep classical as secondary when mixed."""
+    # lightweight map for common classical forms (product surface)
+    table = {
+        "青龍返首": "Thanh Long Phản Thủ",
+        "飛鳥跌穴": "Phi Điểu Điệt Huyệt",
+        "白虎猖狂": "Bạch Hổ Xương Cuồng",
+        "門迫": "Môn Bách",
+        "元首": "Nguyên Thủ",
+        "掩": "Yểm",
+    }
+    return table.get(name, name)
+
 
 def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi") -> str:
     """Read-only layout of StructuredReport. Never mutates report fields."""
     patterns_rows = "".join(
-        f"<tr><td>{p.name}</td><td>{p.polarity}</td><td>{p.cung or ''}</td></tr>"
+        (
+            f"<tr><td><span class='vernacular'>{_vernacular_pattern_name(p.name)}</span>"
+            f"{f' <span class="classical">{p.name}</span>' if _vernacular_pattern_name(p.name) != p.name else ''}"
+            f"</td><td>{p.polarity}</td><td>{p.cung or ''}</td></tr>"
+        )
         for p in report.detected_patterns
     )
     cites = "".join(
@@ -21,16 +51,29 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
     beginner = report.interpretation.beginner
     expert = report.interpretation.expert
     disc = report.ai_disclosure
+    recs = report.interpretation.recommendations
+    rec_items = "".join(
+        f"<li>{r if isinstance(r, str) else (r.get('text') if isinstance(r, dict) else r)}</li>"
+        for r in recs
+    )
+    disclaimer = (
+        f"<p>{FULL_LEGAL_DISCLAIMER_VI}</p><p>{FULL_LEGAL_DISCLAIMER_EN}</p>"
+        if lang == "bi"
+        else f"<p>{FULL_LEGAL_DISCLAIMER_EN if lang == 'en' else FULL_LEGAL_DISCLAIMER_VI}</p>"
+    )
     return f"""<!DOCTYPE html>
 <html lang="vi">
 <head>
 <meta charset="utf-8"/>
 <title>Report {report.report_id}</title>
 <style>
-  body {{ font-family: "Be Vietnam Pro", system-ui, sans-serif; color: #45210E; }}
+  body {{ font-family: "Be Vietnam Pro", system-ui, sans-serif; color: #45210E; line-height: 1.55; }}
   .brand {{ background: #45210E; color: #F4BA17; padding: 12px 16px; }}
   .panel {{ border: 2px solid #F4BA17; padding: 12px; margin: 12px 0; background: #fff; }}
   .label {{ font-weight: 700; color: #45210E; }}
+  .disclaimer {{ background: #FBF6EE; border-left: 4px solid #45210E; padding: 12px 16px; margin: 12px 0; }}
+  .classical {{ color: #6b4a2e; font-size: 0.9em; }}
+  .vernacular {{ font-weight: 600; }}
   @media print {{
     .panel {{ background: #fff !important; box-shadow: none; }}
     body {{ line-height: 1.55; }}
@@ -38,13 +81,22 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
 </style>
 </head>
 <body>
-  <header class="brand">CyberSkill · Tam Thuc Report</header>
+  <header class="brand">CyberSkill · Tam Thức Report</header>
   <p>report_id={report.report_id} · query_id={report.query_id} · {report.created_at.isoformat()}</p>
 
+  <section class="disclaimer" data-panel="legal-disclaimer">
+    <div class="label">Legal disclaimer</div>
+    {disclaimer}
+  </section>
+
   <section class="panel" data-panel="engine">
-    <div class="label">Engine — deterministic</div>
+    <div class="label">Chart summary — deterministic</div>
     <p>he={report.chart_summary.he}</p>
     <p>{report.chart_summary.lich_phap_summary}</p>
+  </section>
+
+  <section class="panel" data-panel="patterns">
+    <div class="label">Patterns (vernacular first)</div>
     <table><thead><tr><th>Pattern</th><th>Polarity</th><th>Cung</th></tr></thead>
     <tbody>{patterns_rows}</tbody></table>
   </section>
@@ -53,7 +105,11 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
     <div class="label">AI interpretation</div>
     <p data-lang="beginner">{beginner}</p>
     <p data-lang="expert">{expert}</p>
-    <ul>{"".join(f"<li>{r}</li>" for r in report.interpretation.recommendations)}</ul>
+  </section>
+
+  <section class="panel" data-panel="recommendations">
+    <div class="label">Recommendations</div>
+    <ul>{rec_items}</ul>
   </section>
 
   <section class="panel" data-panel="disclosure">
@@ -61,6 +117,7 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
     <p>model={disc.model}</p>
     <p>limits={disc.limits}</p>
     <p>review_status={disc.review_status}</p>
+    <p>is_ai_generated=true</p>
   </section>
 
   <section class="panel" data-panel="citations">

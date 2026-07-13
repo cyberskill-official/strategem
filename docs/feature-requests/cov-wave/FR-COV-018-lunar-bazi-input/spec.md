@@ -2,7 +2,7 @@
 id: COV-018
 title: "Lunar calendar and Bát tự input modes"
 module: WEB
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P2

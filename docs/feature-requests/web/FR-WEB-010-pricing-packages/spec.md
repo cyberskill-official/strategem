@@ -1,7 +1,7 @@
 ---
 id: WEB-010
 title: Pricing packages surface
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-009, LEGAL-001]

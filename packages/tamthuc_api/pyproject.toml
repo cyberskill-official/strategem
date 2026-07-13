@@ -9,6 +9,11 @@ dependencies = [
   "httpx>=0.27",
   "uvicorn[standard]>=0.30",
   "tamthuc-report",
+  "tamthuc-strat",
+  "tamthuc-auth",
+  "tamthuc-kb",
+  "tamthuc-edu",
+  "psycopg[binary]>=3.2",
 ]
 
 [build-system]
@@ -20,3 +25,7 @@ packages = ["src/tamthuc_api"]
 
 [tool.uv.sources]
 tamthuc-report = { workspace = true }
+tamthuc-strat = { workspace = true }
+tamthuc-auth = { workspace = true }
+tamthuc-kb = { workspace = true }
+tamthuc-edu = { workspace = true }

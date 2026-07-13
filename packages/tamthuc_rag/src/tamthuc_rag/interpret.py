@@ -7,7 +7,7 @@ from typing import Any
 from tamthuc_rag.disclosure import build_disclosure
 from tamthuc_rag.fuse import RankedHit
 from tamthuc_rag.guard import framing_ok, strip_unknown_citations
-from tamthuc_rag.llm import LlmClient, StubLlm
+from tamthuc_rag.llm import LlmClient, llm_from_env
 from tamthuc_rag.prompt_builder import PROMPT_VERSION, build_prompt
 from tamthuc_rag.schema import CitationCard, Interpretation
 
@@ -21,7 +21,8 @@ def interpret(
     # Read-only: work on a copy; assert caller envelope unchanged externally
     chart = copy.deepcopy(laso)
     allowed = {c.citation_id for c in chunks}
-    client = llm or StubLlm()
+    # COV-028: default to env-configured client (LMStudio / stub / off)
+    client = llm or llm_from_env()
 
     if not chunks:
         disc = build_disclosure(

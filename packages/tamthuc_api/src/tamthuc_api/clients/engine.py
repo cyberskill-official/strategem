@@ -60,13 +60,18 @@ class StubEngineClient:
 
     def cast(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
         he = {"qimen": "ky_mon", "liuren": "luc_nham", "taiyi": "thai_at"}.get(system, system)
+        lp = dict(lich_phap)
+        lp.setdefault(
+            "co_lich_phap",
+            {"stamped": True, "source": "stub", "tz": lp.get("tz", "+07:00")},
+        )
         return {
             "envelope_version": 1,
             "he": he,
-            "lich_phap": lich_phap,
+            "lich_phap": lp,
             "ban": {"stub": True},
             "cach_cuc": [],
-            "co_truong_phai": {},
+            "co_truong_phai": lp.get("co_truong_phai") or {"stamped": "default", "source": "stub"},
             "dau_vao": {},
             "provenance": {"engine": system, "engine_version": "0.1.0"},
         }
@@ -119,10 +124,23 @@ class LocalEngineClient:
         out: dict[str, Any] = json.loads(proc.stdout)
         if "envelope_version" not in out and "he" not in out:
             raise KeyError("cast-cli output missing envelope fields")
-        # stamp co_truong_phai from request if CLI omitted it
+        # COV-002: stamp school + calendar flags if CLI omitted them
         ctp = lich_phap.get("co_truong_phai")
         if ctp and not out.get("co_truong_phai"):
             out["co_truong_phai"] = ctp
+        if not out.get("co_truong_phai"):
+            out["co_truong_phai"] = {"stamped": "default", "source": "cast_cli_client"}
+        lp = out.get("lich_phap")
+        if not isinstance(lp, dict):
+            lp = {}
+            out["lich_phap"] = lp
+        if "co_lich_phap" not in lp or not lp.get("co_lich_phap"):
+            lp["co_lich_phap"] = lich_phap.get("co_lich_phap") or {
+                "tz": lich_phap.get("tz", "+07:00"),
+                "longitude": lich_phap.get("kinh_do") or lich_phap.get("longitude") or 106.7,
+                "stamped": True,
+                "source": "cast_cli_client",
+            }
         return out
 
     def _cast_local(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
@@ -309,19 +327,34 @@ class LocalEngineClient:
                 }
             ]
 
+        # COV-002: always stamp full school + calendar flags (no silent omit)
+        co_truong = dict(lich_phap.get("co_truong_phai") or {})
+        if not co_truong:
+            co_truong = {"stamped": "default", "source": "local_engine"}
+        co_lich = dict(lich_phap.get("co_lich_phap") or {})
+        if not co_lich:
+            co_lich = {
+                "tz": str(lich_phap.get("tz") or dau_vao.get("tz") or "+07:00"),
+                "longitude": lich_phap.get("kinh_do", dau_vao.get("kinh_do", 106.7)),
+                "stamped": True,
+                "source": "local_engine",
+            }
+        lich_out = dict(lich_phap)
+        lich_out["co_lich_phap"] = co_lich
+
         return {
             "envelope_version": 1,
             "he": he,
             "dau_vao": dau_vao,
-            "lich_phap": lich_phap,
+            "lich_phap": lich_out,
             "ban": ban,
             "cach_cuc": cach_cuc,
-            "co_truong_phai": lich_phap.get("co_truong_phai") or {},
+            "co_truong_phai": co_truong,
             "provenance": {
                 "engine": system,
                 "engine_version": "local-0.1.0",
                 "cache_key": hashlib.sha256(
-                    json.dumps({"s": system, "l": lich_phap}, sort_keys=True, default=str).encode()
+                    json.dumps({"s": system, "l": lich_out}, sort_keys=True, default=str).encode()
                 ).hexdigest()[:16],
             },
         }

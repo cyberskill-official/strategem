@@ -1,6 +1,7 @@
 //! LiuRen engine assembly — FR-LN-006.
 
 use crate::ban::{BanLucNham, ThienDiaBan};
+use crate::khoathe::recognize_khoa_the;
 use crate::tamtruyen::lap_tam_truyen;
 use crate::thiendiaban::{dia_ban, quay_thien_ban};
 use crate::thientuong::{lap_thien_tuong, QuyNhanVariant};
@@ -57,7 +58,9 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
     let tam_truyen = lap_tam_truyen(&tu_khoa, &thien, state, input.can_ngay);
     let thien_tuong = lap_thien_tuong(input.can_ngay, input.gio_chiem, input.quy_nhan_variant);
 
-    let khoa_the = vec![format!("{:?}", tam_truyen.khoa_the)];
+    // COV-005: emit recognized khoa_the names (not Debug strings)
+    let khoa_hits = recognize_khoa_the(&tam_truyen);
+    let khoa_the: Vec<String> = khoa_hits.iter().map(|h| h.name.clone()).collect();
     let ban = BanLucNham {
         thien_dia_ban: thien_dia,
         tu_khoa,
@@ -79,7 +82,10 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         "khoi_quy_nhan".into(),
         format!("{:?}", ban.thien_tuong.khoi).to_ascii_lowercase(),
     );
+    // COV-005: stamp truong_sinh / school flags used
     flags.insert("truong_sinh_phai".into(), "ngu_hanh".into());
+    flags.insert("truong_sinh".into(), "stamped".into());
+    flags.insert("school".into(), "luc_nham".into());
 
     let dau_vao = json!({
         "datetime": input.datetime,
@@ -95,6 +101,16 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         "lich_phap": {
             "nguyet_tuong": input.nguyet_tuong.glyph(),
             "gio_chiem": input.gio_chiem.glyph(),
+            // COV-002: full calendar flag stamp (never silent)
+            "co_lich_phap": {
+                "tz": input.tz,
+                "longitude": input.kinh_do,
+                "can_ngay": input.can_ngay.glyph(),
+                "chi_ngay": input.chi_ngay.glyph(),
+                "nguyet_tuong": input.nguyet_tuong.glyph(),
+                "gio_chiem": input.gio_chiem.glyph(),
+                "stamped": true,
+            },
         },
         "ban": {
             "nguyet_tuong": input.nguyet_tuong.glyph(),
@@ -115,14 +131,16 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
                 "trung": ban.tam_truyen.trung.glyph(),
                 "mat": ban.tam_truyen.mat.glyph(),
                 "phap": format!("{:?}", ban.tam_truyen.phap),
+                "khoa_the": format!("{:?}", ban.tam_truyen.khoa_the),
             },
             "thien_tuong": ban.thien_tuong.generals.iter().map(|g| format!("{g:?}")).collect::<Vec<_>>(),
             "khoa_the": khoa_the,
         },
-        "cach_cuc": ban.khoa_the.iter().map(|k| json!({
-            "id": k,
-            "name": k,
-            "polarity": "trung",
+        "cach_cuc": khoa_hits.iter().map(|h| json!({
+            "id": h.id,
+            "name": h.name,
+            "polarity": h.polarity,
+            "layer": h.layer,
         })).collect::<Vec<_>>(),
         "co_truong_phai": flags,
         "provenance": {

@@ -1,7 +1,7 @@
 ---
 id: WEB-009
 title: Monetization conversion home
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-001, WEB-006, LEGAL-001]

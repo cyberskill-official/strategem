@@ -22,7 +22,8 @@ export const SCHOOL_FLAGS: FlagDef[] = [
   {
     key: "dingju_method",
     system: "ky_mon",
-    options: ["chaibu", "zhirunzhuo"],
+    // COV-003: maoshan is a supported engine dingju option (cast-cli / cyberos-qimen)
+    options: ["chaibu", "zhirunzhuo", "maoshan"],
     default: "chaibu",
     description: "QiMen dinh cục method (no school is marked correct)",
   },
@@ -41,6 +42,14 @@ export const SCHOOL_FLAGS: FlagDef[] = [
     description: "QiMen am/duong pan",
   },
   {
+    // COV-003: zhong gong ky placement for QiMen
+    key: "zhong_gong_ky",
+    system: "ky_mon",
+    options: ["khon2", "giu_nguyen"],
+    default: "khon2",
+    description: "QiMen middle-palace ky placement",
+  },
+  {
     key: "khoi_quy_nhan",
     system: "luc_nham",
     options: ["day_night_default", "force_day", "force_night"],
@@ -48,11 +57,26 @@ export const SCHOOL_FLAGS: FlagDef[] = [
     description: "LiuRen quý nhân selection",
   },
   {
+    key: "quy_nhan_variant",
+    system: "luc_nham",
+    options: ["giap_mau_canh", "tach_giap"],
+    default: "giap_mau_canh",
+    description: "LiuRen quý nhân school variant",
+  },
+  {
     key: "epoch",
     system: "thai_at",
     options: ["kim_kinh", "co_dien"],
     default: "kim_kinh",
     description: "TaiYi epoch",
+  },
+  {
+    // COV-003: dem_toan counting side for TaiYi
+    key: "dem_toan",
+    system: "thai_at",
+    options: ["truoc_thai_at", "sau_thai_at"],
+    default: "truoc_thai_at",
+    description: "TaiYi counting before/after Thai At",
   },
   {
     key: "use_true_solar_time",

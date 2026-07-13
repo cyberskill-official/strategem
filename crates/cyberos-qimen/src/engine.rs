@@ -112,6 +112,18 @@ pub fn cast_qimen(input: &CastInput) -> Result<CastResult, String> {
             "so_cuc": ban.dinh_cuc.so_cuc,
             "duong_don": ban.dinh_cuc.duong_don,
             "nguyen": ban.dinh_cuc.nguyen,
+            // COV-002: full calendar flag stamp (never silent)
+            "co_lich_phap": {
+                "tz": input.tz,
+                "longitude": input.kinh_do,
+                "term_index": input.term_index,
+                "branch_index": input.branch_index,
+                "hour_can": input.hour_can,
+                "hour_chi": input.hour_chi,
+                "hour_stem_palace": input.hour_stem_palace,
+                "use_true_solar_time": f.chan_thai_duong_thoi,
+                "stamped": true,
+            },
         },
         "ban": {
             "dinh_cuc": {

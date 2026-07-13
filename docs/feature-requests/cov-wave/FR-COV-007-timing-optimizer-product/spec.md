@@ -2,7 +2,7 @@
 id: COV-007
 title: "Timing Optimizer product path — un-stub API + web page"
 module: STRAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

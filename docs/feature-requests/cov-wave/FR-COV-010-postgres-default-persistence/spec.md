@@ -2,7 +2,7 @@
 id: COV-010
 title: "Postgres default persistence for queries/charts/reports in non-test runs"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

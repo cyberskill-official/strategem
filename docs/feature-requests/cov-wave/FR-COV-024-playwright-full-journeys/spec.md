@@ -2,7 +2,7 @@
 id: COV-024
 title: "Playwright full product journeys (home→cast→results→timing→auth)"
 module: WEB
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

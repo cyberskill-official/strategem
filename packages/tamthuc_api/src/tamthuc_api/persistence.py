@@ -1,10 +1,12 @@
-"""Query/chart/report persistence — FR-API-004."""
+"""Query/chart/report persistence — FR-API-004 + COV-010 Postgres default."""
 
 from __future__ import annotations
 
+import os
 from dataclasses import dataclass, field
 from typing import Any
 
+from tamthuc_api.pg_store import PgQueryStore, database_url, require_database_or_memory
 from tamthuc_api.repositories import (
     ChartRepo,
     InMemoryChartRepo,
@@ -28,6 +30,19 @@ class PersistenceService:
     charts: ChartRepo = field(default_factory=InMemoryChartRepo)
     reports: ReportRepo = field(default_factory=InMemoryReportRepo)
     fail_next: bool = False
+    # COV-010: optional Postgres full-result store
+    pg: PgQueryStore | None = None
+    backend: str = "memory"
+
+    @classmethod
+    def from_env(cls) -> PersistenceService:
+        """Postgres when DATABASE_URL set; memory for dev/test; fail-closed in prod."""
+        mode = require_database_or_memory()
+        if mode == "postgres":
+            dsn = database_url()
+            assert dsn
+            return cls(pg=PgQueryStore(dsn=dsn), backend="postgres")
+        return cls(backend="memory")
 
     def persist_query_result(
         self,
@@ -46,6 +61,38 @@ class PersistenceService:
         # strip secrets from input_data
         safe_req = {k: v for k, v in req.items() if k not in ("password", "token")}
         systems = list(charts.keys())
+
+        if self.pg is not None and full_result is not None:
+            stored = dict(full_result)
+            report_id = None
+            if report is not None:
+                report_id = report.get("report_id") or stored.get("report_id")
+                stored.setdefault("report", report)
+                if report_id:
+                    stored["report_id"] = report_id
+            else:
+                report_id = stored.get("report_id")
+            qid = self.pg.create(
+                user_id,
+                safe_req,
+                systems,
+                stored,
+                query_id=str(stored["query_id"]) if stored.get("query_id") else None,
+            )
+            return PersistResult(query_id=qid, chart_ids=list(systems), report_id=report_id)
+        if self.pg is not None and full_result is None:
+            # still store a minimal payload so cast history survives
+            minimal = {"charts": charts, "patterns": patterns}
+            if report is not None:
+                minimal["report"] = report
+                minimal["report_id"] = report.get("report_id")
+            qid = self.pg.create(user_id, safe_req, systems, minimal)
+            return PersistResult(
+                query_id=qid,
+                chart_ids=list(systems),
+                report_id=minimal.get("report_id"),
+            )
+
         query_id = self.queries.create(user_id, safe_req, systems)
         chart_ids: list[str] = []
         for system, envelope in charts.items():
@@ -63,6 +110,8 @@ class PersistenceService:
         return PersistResult(query_id=query_id, chart_ids=chart_ids, report_id=report_id)
 
     def get_query_result(self, query_id: str) -> dict[str, Any] | None:
+        if self.pg is not None:
+            return self.pg.get(query_id)
         row = self.queries.get(query_id)
         if row is None:
             return None
@@ -91,6 +140,13 @@ class PersistenceService:
         question_type: str | None = None,
         limit: int = 50,
     ) -> list[dict[str, Any]]:
+        if self.pg is not None:
+            return self.pg.list_queries(
+                user_id=user_id,
+                he=he,
+                question_type=question_type,
+                limit=limit,
+            )
         return self.queries.list_queries(
             user_id=user_id,
             he=he,
@@ -99,6 +155,8 @@ class PersistenceService:
         )
 
     def get_report(self, report_id: str) -> dict[str, Any] | None:
+        if self.pg is not None:
+            return self.pg.get_report(report_id)
         row = self.reports.get_by_id(report_id)
         if row is None:
             return None
@@ -109,3 +167,21 @@ class PersistenceService:
             out.setdefault("query_id", row.get("query_id"))
             return out
         return None
+
+    def save_result(self, query_id: str, result: dict[str, Any]) -> None:
+        """Upsert full result after final id assignment (memory or Postgres)."""
+        if self.pg is not None:
+            systems = list((result.get("charts") or {}).keys())
+            self.pg.create(
+                str(result.get("user_id") or "anon"),
+                {"question_type": (result.get("request") or {}).get("question_type")},
+                systems,
+                result,
+                query_id=query_id,
+            )
+            return
+        self.queries.save_result(query_id, result)
+
+
+# silence unused import if tooling only uses from_env
+_ = os

@@ -1,7 +1,7 @@
 ---
 id: WEB-019
 title: Results story narrative from patterns
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-016]

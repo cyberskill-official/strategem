@@ -2,7 +2,7 @@
 id: COV-016
 title: "First-run onboarding + help center product"
 module: EDU
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P2

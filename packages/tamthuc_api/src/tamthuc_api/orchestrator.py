@@ -84,8 +84,8 @@ class Orchestrator:
                     report_dict["report_id"] = pr.report_id
                     report_dict["query_id"] = query_id
                     result["report"] = report_dict
-                    # re-save with final ids
-                    self.persistence.queries.save_result(query_id, result)
+                    # re-save with final ids (memory or Postgres — COV-010)
+                    self.persistence.save_result(query_id, result)
         if self.audit is not None:
             self.audit.audit(
                 body.get("user_id"),
@@ -149,7 +149,7 @@ class Orchestrator:
                     report_dict["report_id"] = pr.report_id
                     report_dict["query_id"] = query_id
                     result["report"] = report_dict
-                    self.persistence.queries.save_result(query_id, result)
+                    self.persistence.save_result(query_id, result)
         if self.audit is not None:
             self.audit.audit(
                 body.get("user_id"),

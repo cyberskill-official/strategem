@@ -24,7 +24,8 @@ echo '{"system":"liuren","lich_phap":{"datetime":"2004-01-01T10:30:00","tz":"+07
 
 | # | Surface | Action |
 |---|---------|--------|
-| 1 | **Supabase** | Create project; set `DATABASE_URL`; run `deploy/vps/migrate.sh` or apply `db/migrations/*` |
+| 1 | **Supabase** | Create project; set `DATABASE_URL`; run `deploy/vps/migrate.sh` or apply `db/migrations/*` (includes `0010_app_query_store.sql` for COV-010) |
+| 1b | **Local Docker Postgres** | `docker compose -f deploy/compose/docker-compose.local.yml up -d postgres` then `DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:15432/strategem python -m db_schema.migrate` (see `docs/deploy/local-docker-lmstudio.md` §5) |
 | 2 | **VPS API** | Provision host; copy `deploy/vps/.env.example` → `.env`; set `CAST_CLI` in image; `deploy/vps/deploy.sh` |
 | 3 | **Vercel web** | Link monorepo; set `NEXT_PUBLIC_API_BASE=https://api.<domain>`; deploy |
 | 4 | **CORS** | VPS allows Vercel production + preview origins |
@@ -61,3 +62,8 @@ chmod +x .git/hooks/pre-commit
 - [ ] API `healthz` 200 on VPS
 - [ ] Web production cast against live API
 - [ ] Migrations applied; RLS fail-closed still holds
+
+## Staging (COV-020)
+
+See `docs/deploy/staging-runbook.md` and `bash scripts/smoke-staging.sh`.
+

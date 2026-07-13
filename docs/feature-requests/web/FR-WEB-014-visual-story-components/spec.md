@@ -1,7 +1,7 @@
 ---
 id: WEB-014
 title: Visual story components (icons, scenes, step rail)
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-013]

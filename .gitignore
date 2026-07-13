@@ -67,3 +67,7 @@ tmp/
 .codex/skills/ship-feature-requests
 .opencode/skill/ship-feature-requests
 # <<< cyberos <<<
+
+# pytest coverage data
+.coverage
+.coverage.*

@@ -168,6 +168,14 @@ export default function HomePage() {
         </Link>
       </section>
 
+      {/* WEB-009 §1.6 — soft social-proof with honest empty state (no invented quotes) */}
+      <section className="cs-section cs-proof" data-testid="home-proof">
+        <h2 className="cs-section-heading">{t("home.proofTitle")}</h2>
+        <div className="cs-visual-card cs-proof__empty" data-testid="home-proof-empty">
+          <p className="cs-muted">{t("home.proofEmpty")}</p>
+        </div>
+      </section>
+
       <section className="cs-section" data-testid="home-faq">
         <h2 className="cs-section-heading">{t("home.faqTitle")}</h2>
         <div className="cs-faq-list">

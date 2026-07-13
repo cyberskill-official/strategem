@@ -8,11 +8,19 @@ import { useLocale } from "../i18n/locale-provider";
 const NAV = [
   { href: "/", key: "nav.home" },
   { href: "/cast", key: "nav.cast" },
+  { href: "/timing", key: "nav.timing" },
+  { href: "/scenarios", key: "nav.scenarios" },
+  { href: "/cross-system", key: "nav.cross" },
+  { href: "/patterns", key: "nav.patterns" },
+  { href: "/library", key: "nav.library" },
+  { href: "/practice", key: "nav.practice" },
   { href: "/dashboard", key: "nav.dashboard" },
   { href: "/learn", key: "nav.learn" },
+  { href: "/help", key: "nav.help" },
   { href: "/pricing", key: "nav.pricing" },
   { href: "/manage/history", key: "nav.history" },
   { href: "/manage/settings", key: "nav.settings" },
+  { href: "/login", key: "nav.login" },
 ] as const;
 
 function isActive(pathname: string, href: string): boolean {

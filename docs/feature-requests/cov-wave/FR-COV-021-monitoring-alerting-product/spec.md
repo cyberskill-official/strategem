@@ -2,7 +2,7 @@
 id: COV-021
 title: "Monitoring & alerting productization (metrics, cast latency, error budget)"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P2

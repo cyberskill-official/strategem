@@ -2,7 +2,7 @@
 id: COV-027
 title: "Local full-stack Docker compose — build api+web+cast-cli from source (not GHCR-only)"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P0

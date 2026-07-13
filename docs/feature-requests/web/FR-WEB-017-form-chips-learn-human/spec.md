@@ -1,7 +1,7 @@
 ---
 id: WEB-017
 title: Visual form chips + beginner learn modules
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-013, WEB-015]

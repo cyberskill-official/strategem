@@ -2,7 +2,7 @@
 id: COV-028
 title: "LMStudio local AI — OpenAI-compatible LLM client + honest degraded path"
 module: RAG
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P0

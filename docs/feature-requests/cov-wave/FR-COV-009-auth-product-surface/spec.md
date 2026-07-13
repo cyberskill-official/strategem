@@ -2,7 +2,7 @@
 id: COV-009
 title: "Auth product surface — login/signup + session + optional cast gate"
 module: AUTH
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

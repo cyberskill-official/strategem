@@ -38,6 +38,17 @@ assert.match(panel, /composeStorySummary|results-story-narrative/);
 assert.match(panel, /toggle-board|chartToggle/);
 assert.match(panel, /results\.disclaimer\.mid|disclaimer\.mid/);
 assert.match(panel, /tech-details|techDetails/);
+// WEB-012 / WEB-021 — next-step upsell + engine mode trust surface
+assert.match(panel, /NextStepCard|next-step-card|results-next-step/);
+assert.match(panel, /engine_mode|results\.engine/);
+
+const nextStep = readFileSync(
+  join(root, "src/components/results/next-step-card.tsx"),
+  "utf8",
+);
+assert.match(nextStep, /data-testid="results-next-step"/);
+assert.match(nextStep, /share-insight|navigator\.share/);
+assert.match(nextStep, /\/pricing/);
 
 assert.match(interp, /AIDisclosureBadge/);
 assert.match(interp, /HumanReviewGate/);

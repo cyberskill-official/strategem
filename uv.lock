@@ -990,8 +990,13 @@ source = { editable = "packages/tamthuc_api" }
 dependencies = [
     { name = "fastapi" },
     { name = "httpx" },
+    { name = "psycopg", extra = ["binary"] },
     { name = "pydantic" },
+    { name = "tamthuc-auth" },
+    { name = "tamthuc-edu" },
+    { name = "tamthuc-kb" },
     { name = "tamthuc-report" },
+    { name = "tamthuc-strat" },
     { name = "uvicorn", extra = ["standard"] },
 ]
 
@@ -999,8 +1004,13 @@ dependencies = [
 requires-dist = [
     { name = "fastapi", specifier = ">=0.111" },
     { name = "httpx", specifier = ">=0.27" },
+    { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
     { name = "pydantic", specifier = ">=2.7" },
+    { name = "tamthuc-auth", editable = "packages/tamthuc_auth" },
+    { name = "tamthuc-edu", editable = "packages/tamthuc_edu" },
+    { name = "tamthuc-kb", editable = "packages/tamthuc_kb" },
     { name = "tamthuc-report", editable = "packages/tamthuc_report" },
+    { name = "tamthuc-strat", editable = "packages/tamthuc_strat" },
     { name = "uvicorn", extras = ["standard"], specifier = ">=0.30" },
 ]
 

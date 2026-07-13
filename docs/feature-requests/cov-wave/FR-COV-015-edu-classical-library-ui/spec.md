@@ -2,7 +2,7 @@
 id: COV-015
 title: "Bilingual classical library reader UI"
 module: EDU
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P2

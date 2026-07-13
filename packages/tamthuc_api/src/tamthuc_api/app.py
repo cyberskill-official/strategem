@@ -4,14 +4,24 @@ import os
 
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, PlainTextResponse
 
 from tamthuc_api.audit import AuditLog
 from tamthuc_api.clients.engine import probe_cast_cli
 from tamthuc_api.errors import STATUS_BY_CODE, error_envelope
+from tamthuc_api.observability.metrics import MetricsRegistry, render_prometheus
 from tamthuc_api.orchestrator import Orchestrator
 from tamthuc_api.persistence import PersistenceService
-from tamthuc_api.routes import calculate, knowledge, queries, reports, timing
+from tamthuc_api.routes import (
+    calculate,
+    calendar,
+    edu,
+    knowledge,
+    payments,
+    queries,
+    reports,
+    timing,
+)
 from tamthuc_api.versioning.router import VersioningMiddleware, mount_versioned
 
 
@@ -22,8 +32,10 @@ def create_app(
     enable_cors: bool = True,
 ) -> FastAPI:
     app = FastAPI(title="tamthuc-api", version="0.1.0")
-    persistence = PersistenceService()
+    # COV-010: Postgres when DATABASE_URL set; memory in dev/test; fail-closed in prod
+    persistence = PersistenceService.from_env()
     audit = AuditLog()
+    metrics = MetricsRegistry()
     if orch is None:
         orch = Orchestrator(persistence=persistence, audit=audit)
     elif orch.persistence is None:
@@ -33,18 +45,33 @@ def create_app(
     app.state.orch = orch
     app.state.persistence = orch.persistence or persistence
     app.state.audit = orch.audit or audit
+    app.state.metrics = metrics
+    # COV-009: mount JWT auth product surface (free cast stays open)
+    try:
+        from tamthuc_auth.routes import router as auth_router
+        from tamthuc_auth.service import AuthService
+
+        app.state.auth_service = AuthService()
+        app.include_router(auth_router)
+    except ImportError:
+        app.state.auth_service = None
     # FR-API-002: URL-primary versioning (/api/v1, …)
     mount_versioned(app, calculate.router)
+    mount_versioned(app, calendar.router)
+    mount_versioned(app, edu.router)
     mount_versioned(app, knowledge.router)
+    mount_versioned(app, payments.router)
     mount_versioned(app, reports.router)
     mount_versioned(app, timing.router)
     mount_versioned(app, queries.router)
     app.add_middleware(VersioningMiddleware)
 
     if enable_cors:
+        origins_env = os.environ.get("CORS_ORIGINS", "").strip()
+        origins = [o.strip() for o in origins_env.split(",") if o.strip()] or ["*"]
         app.add_middleware(
             CORSMiddleware,
-            allow_origins=["*"],
+            allow_origins=origins,
             allow_credentials=True,
             allow_methods=["*"],
             allow_headers=["*"],
@@ -75,11 +102,20 @@ def create_app(
         ok = True
         if require_cli and not checks["cast_cli_present"]:
             ok = False
+            metrics.record_ready_failure("cast_cli_missing")
         body = {
             "status": "ok" if ok else "not_ready",
             "checks": checks,
         }
         return JSONResponse(status_code=200 if ok else 503, content=body)
+
+    @app.get("/metrics")
+    def metrics_endpoint() -> PlainTextResponse:
+        """COV-021: Prometheus text exposition for cast latency / ready failures."""
+        return PlainTextResponse(
+            render_prometheus(metrics),
+            media_type="text/plain; version=0.0.4; charset=utf-8",
+        )
 
     @app.exception_handler(Exception)
     async def _unhandled(_req: Request, exc: Exception) -> JSONResponse:

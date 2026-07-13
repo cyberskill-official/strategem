@@ -2,7 +2,7 @@
 id: COV-004
 title: "QiMen full cat/hung cach_cuc tables as pattern-as-data + detection coverage"
 module: QMDG
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P0

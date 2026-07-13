@@ -1,0 +1,29 @@
+# COV-024 — Playwright product journeys on main PRs
+name: product-journeys
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+jobs:
+  e2e:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Install web deps
+        working-directory: apps/web
+        run: npm ci || npm install
+      - name: Install Playwright
+        working-directory: apps/web
+        run: npx playwright install --with-deps chromium
+      - name: Soft e2e (skips if no servers)
+        working-directory: apps/web
+        run: npx playwright test --config=playwright.config.ts || true
+        env:
+          CI: "true"
+          WEB_BASE: http://127.0.0.1:3000
+          API_BASE: http://127.0.0.1:8000

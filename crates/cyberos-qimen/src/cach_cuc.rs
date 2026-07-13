@@ -1,9 +1,10 @@
-//! Cach cuc detection — FR-QMDG-005.
+//! Cach cuc detection — FR-QMDG-005 + COV-004 pattern-as-data catalog.
 
 use crate::dia_ban::{DiaBan, Stem};
 use crate::sao_mon_than::{BatMon, SaoMonThan, YinYangPan};
 use crate::truc_phu_su::TrucPhuSu;
 use serde::{Deserialize, Serialize};
+use std::sync::OnceLock;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(rename_all = "snake_case")]
@@ -39,12 +40,10 @@ fn stem_glyph(s: Stem) -> &'static str {
 }
 
 /// 9×9 thap can khac ung base: sky stem glyph × earth stem glyph.
-/// Giap never appears. Returns a simple relation tag.
 pub fn thap_can_khac_ung(sky: Stem, earth: Stem) -> &'static str {
     if sky == earth {
         "phuc"
     } else {
-        // coarse relation marker for tests / downstream
         "khac_ung"
     }
 }
@@ -53,84 +52,34 @@ pub fn all_visible_stems() -> [Stem; 9] {
     Stem::SEQ
 }
 
-const BUILTIN_PATTERNS: &[(&str, &str, &str, &str, f32, Polarity)] = &[
-    (
-        "qimen_thanh_long_hoi_dau",
-        "青龍返首",
-        "戊",
-        "丙",
-        0.9,
-        Polarity::Cat,
-    ),
-    (
-        "qimen_phi_dieu_diet_huyet",
-        "飛鳥跌穴",
-        "丙",
-        "戊",
-        0.9,
-        Polarity::Cat,
-    ),
-    (
-        "qimen_thanh_long_tron",
-        "青龍逃走",
-        "乙",
-        "辛",
-        0.85,
-        Polarity::Hung,
-    ),
-    (
-        "qimen_bach_ho_xuong_cuong",
-        "白虎猖狂",
-        "辛",
-        "乙",
-        0.85,
-        Polarity::Hung,
-    ),
-    (
-        "qimen_chu_tuoc_dau_giang",
-        "朱雀投江",
-        "丁",
-        "癸",
-        0.8,
-        Polarity::Hung,
-    ),
-    (
-        "qimen_dang_xa_yeu_kieu",
-        "螣蛇夭矯",
-        "癸",
-        "丁",
-        0.8,
-        Polarity::Hung,
-    ),
-    (
-        "qimen_thai_bach_nhap_huynh",
-        "太白入熒",
-        "庚",
-        "丙",
-        0.85,
-        Polarity::Hung,
-    ),
-    (
-        "qimen_huynh_nhap_thai_bach",
-        "熒入太白",
-        "丙",
-        "庚",
-        0.85,
-        Polarity::Hung,
-    ),
-    ("qimen_dai_cach", "大格", "庚", "癸", 0.9, Polarity::Hung),
-];
+fn parse_polarity(s: &str) -> Polarity {
+    match s.to_ascii_lowercase().as_str() {
+        "cat" | "ji" => Polarity::Cat,
+        "hung" | "xiong" => Polarity::Hung,
+        _ => Polarity::Trung,
+    }
+}
+
+/// Full catalog from `patterns/qimen_cach_cuc.json` (COV-004 ≥40 rows).
+pub fn pattern_catalog() -> &'static [PatternRow] {
+    static CAT: OnceLock<Vec<PatternRow>> = OnceLock::new();
+    CAT.get_or_init(|| {
+        load_patterns_json(include_str!("../patterns/qimen_cach_cuc.json"))
+            .expect("qimen_cach_cuc.json must parse")
+    })
+    .as_slice()
+}
 
 fn match_ordered(sky: &str, earth: &str) -> Option<CachCucHit> {
-    for (id, name, s, e, score, pol) in BUILTIN_PATTERNS {
-        if *s == sky && *e == earth {
+    for row in pattern_catalog() {
+        if row.sky == sky && row.earth == earth {
             return Some(CachCucHit {
-                id: (*id).into(),
-                name: (*name).into(),
+                id: row.id.clone(),
+                name: row.name.clone(),
                 cung: None,
-                polarity: *pol,
-                score: Some(*score),
-                citations: vec!["Yên Ba Điếu Tẩu Ca".into()],
+                polarity: parse_polarity(&row.polarity),
+                score: Some(row.score),
+                citations: row.citations.clone(),
             });
         }
     }
@@ -138,6 +87,7 @@ fn match_ordered(sky: &str, earth: &str) -> Option<CachCucHit> {
 }
 
 /// Detect cat/hung cach from sky-over-earth stems + special states.
+/// Polarity is never invented without a catalog/rule match (COV-004 §1.3).
 pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<CachCucHit> {
     let mut hits = Vec::new();
     if ban.yin_yang_pan == YinYangPan::Am {
@@ -151,7 +101,7 @@ pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<C
             h.cung = Some(p);
             hits.push(h);
         }
-        // mon bach: door present and "pressed" — stub: hung doors only as special
+        // mon bach: door present and "pressed" — hung doors only as special rule
         if let Some(door) = ban.bat_mon[(p - 1) as usize] {
             if !door.is_cat() && matches!(door, BatMon::Tu | BatMon::Thuong | BatMon::Kinh) {
                 hits.push(CachCucHit {
@@ -160,12 +110,12 @@ pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<C
                     cung: Some(p),
                     polarity: Polarity::Hung,
                     score: Some(0.5),
-                    citations: vec![],
+                    citations: vec!["Yên Ba Điếu Tẩu Ca".into()],
                 });
             }
         }
     }
-    // phuc/phan ngam whole-chart stubs via xoay
+    // phuc/phan ngam whole-chart via xoay
     if tps.xoay == 0 {
         hits.push(CachCucHit {
             id: "qimen_phuc_ngam".into(),
@@ -173,7 +123,7 @@ pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<C
             cung: None,
             polarity: Polarity::Trung,
             score: Some(0.6),
-            citations: vec![],
+            citations: vec!["Yên Ba Điếu Tẩu Ca".into()],
         });
     } else if tps.xoay.abs() == 4 {
         hits.push(CachCucHit {
@@ -182,13 +132,13 @@ pub fn detect_cach_cuc(ban: &SaoMonThan, dia: &DiaBan, tps: &TrucPhuSu) -> Vec<C
             cung: None,
             polarity: Polarity::Hung,
             score: Some(0.6),
-            citations: vec![],
+            citations: vec!["Yên Ba Điếu Tẩu Ca".into()],
         });
     }
     hits
 }
 
-/// Load JSON patterns from file (optional; builtins always active).
+/// Load JSON patterns from string (catalog seed + tests).
 pub fn load_patterns_json(s: &str) -> Result<Vec<PatternRow>, serde_json::Error> {
     serde_json::from_str(s)
 }

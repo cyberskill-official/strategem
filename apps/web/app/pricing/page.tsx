@@ -3,7 +3,11 @@
 import Link from "next/link";
 import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
+import { apiBase } from "../../src/lib/api/client";
 
+/**
+ * COV-026: free cast open; single Stripe rail for premium; advisory stays waitlist.
+ */
 const TIERS = [
   {
     id: "free",
@@ -13,30 +17,19 @@ const TIERS = [
     cta: "pricing.free.cta",
     href: "/cast",
     featured: true,
-    waitlist: false,
+    mode: "free" as const,
     emoji: "🗺️",
   },
   {
-    id: "insight",
+    id: "premium",
     name: "pricing.insight.name",
     price: "pricing.insight.price",
     bullets: ["pricing.insight.b1", "pricing.insight.b2", "pricing.insight.b3"],
-    cta: "pricing.insight.cta",
-    href: "#waitlist",
+    cta: "pricing.premium.cta",
+    href: "#checkout",
     featured: false,
-    waitlist: true,
+    mode: "checkout" as const,
     emoji: "🔍",
-  },
-  {
-    id: "deep",
-    name: "pricing.deep.name",
-    price: "pricing.deep.price",
-    bullets: ["pricing.deep.b1", "pricing.deep.b2", "pricing.deep.b3"],
-    cta: "pricing.deep.cta",
-    href: "#waitlist",
-    featured: false,
-    waitlist: true,
-    emoji: "📜",
   },
   {
     id: "advisory",
@@ -46,7 +39,7 @@ const TIERS = [
     cta: "pricing.advisory.cta",
     href: "#waitlist",
     featured: false,
-    waitlist: true,
+    mode: "waitlist" as const,
     emoji: "🤝",
   },
 ] as const;
@@ -55,6 +48,42 @@ export default function PricingPage() {
   const { t } = useLocale();
   const [note, setNote] = useState("");
   const [ok, setOk] = useState(false);
+  const [checkoutMsg, setCheckoutMsg] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+
+  async function startCheckout() {
+    setLoading(true);
+    setCheckoutMsg(null);
+    try {
+      const res = await fetch(`${apiBase()}/api/v1/payments/checkout`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          user_id: "local-user",
+          success_url: typeof window !== "undefined" ? `${window.location.origin}/pricing?paid=1` : "/pricing",
+          cancel_url: typeof window !== "undefined" ? `${window.location.origin}/pricing?cancelled=1` : "/pricing",
+        }),
+      });
+      const body = await res.json();
+      if (!res.ok) {
+        setCheckoutMsg(body?.error?.message || t("pricing.checkoutError"));
+        return;
+      }
+      const url = body.checkout_url as string;
+      setCheckoutMsg(
+        body.mode === "mock_contract"
+          ? t("pricing.checkoutMock")
+          : t("pricing.checkoutRedirect"),
+      );
+      if (url && body.mode === "live" && typeof window !== "undefined") {
+        window.location.href = url;
+      }
+    } catch {
+      setCheckoutMsg(t("pricing.checkoutError"));
+    } finally {
+      setLoading(false);
+    }
+  }
 
   return (
     <div className="cs-page cs-reveal" data-testid="pricing-page">
@@ -63,6 +92,10 @@ export default function PricingPage() {
         <h1>{t("pricing.title")}</h1>
         <p className="cs-lead-short">{t("pricing.lead")}</p>
       </header>
+
+      <p className="cs-disclaimer" data-testid="single-rail-note">
+        {t("pricing.singleRail")}
+      </p>
 
       <div className="cs-pricing-grid">
         {TIERS.map((tier) => (
@@ -81,7 +114,17 @@ export default function PricingPage() {
                 <li key={b}>{t(b)}</li>
               ))}
             </ul>
-            {tier.waitlist ? (
+            {tier.mode === "checkout" ? (
+              <button
+                type="button"
+                className="cs-link-btn cs-link-btn--primary"
+                onClick={() => void startCheckout()}
+                disabled={loading}
+                data-testid="premium-checkout"
+              >
+                {loading ? t("pricing.checkoutLoading") : t(tier.cta)}
+              </button>
+            ) : tier.mode === "waitlist" ? (
               <a href="#waitlist" className="cs-link-btn cs-link-btn--secondary">
                 {t(tier.cta)}
               </a>
@@ -94,6 +137,12 @@ export default function PricingPage() {
         ))}
       </div>
 
+      {checkoutMsg ? (
+        <p className="cs-card" data-testid="checkout-msg">
+          {checkoutMsg}
+        </p>
+      ) : null}
+
       <p className="cs-disclaimer">{t("pricing.note")}</p>
       <p className="cs-disclaimer" data-testid="waitlist-local-note">
         {t("pricing.waitlistLocal")}
@@ -101,7 +150,7 @@ export default function PricingPage() {
 
       <section id="waitlist" className="cs-card cs-waitlist-card">
         <h2 className="cs-subhead" style={{ marginTop: 0 }}>
-          {t("pricing.insight.cta")}
+          {t("pricing.advisory.cta")}
         </h2>
         <form
           onSubmit={(e) => {

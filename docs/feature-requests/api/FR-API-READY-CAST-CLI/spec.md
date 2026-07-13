@@ -1,7 +1,7 @@
 ---
 id: API-READY
 title: /ready probe + CAST_CLI presence
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: []

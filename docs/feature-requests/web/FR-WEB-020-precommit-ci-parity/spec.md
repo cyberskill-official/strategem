@@ -1,7 +1,7 @@
 ---
 id: WEB-020
 title: Pre-commit quality hook + CI parity
-status: ready_to_test
+status: done
 class: improvement
 priority: MUST
 depends_on: []

@@ -1,11 +1,566 @@
 [
-  {"id":"qimen_thanh_long_hoi_dau","name":"青龍返首","polarity":"cat","score":0.9,"sky":"戊","earth":"丙","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_phi_dieu_diet_huyet","name":"飛鳥跌穴","polarity":"cat","score":0.9,"sky":"丙","earth":"戊","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_thanh_long_tron","name":"青龍逃走","polarity":"hung","score":0.85,"sky":"乙","earth":"辛","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_bach_ho_xuong_cuong","name":"白虎猖狂","polarity":"hung","score":0.85,"sky":"辛","earth":"乙","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_chu_tuoc_dau_giang","name":"朱雀投江","polarity":"hung","score":0.8,"sky":"丁","earth":"癸","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_dang_xa_yeu_kieu","name":"螣蛇夭矯","polarity":"hung","score":0.8,"sky":"癸","earth":"丁","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_thai_bach_nhap_huynh","name":"太白入熒","polarity":"hung","score":0.85,"sky":"庚","earth":"丙","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_huynh_nhap_thai_bach","name":"熒入太白","polarity":"hung","score":0.85,"sky":"丙","earth":"庚","citations":["Yên Ba Điếu Tẩu Ca"]},
-  {"id":"qimen_dai_cach","name":"大格","polarity":"hung","score":0.9,"sky":"庚","earth":"癸","citations":["Yên Ba Điếu Tẩu Ca"]}
+  {
+    "id": "qimen_thanh_long_hoi_dau",
+    "name": "青龍返首",
+    "polarity": "cat",
+    "score": 0.9,
+    "sky": "戊",
+    "earth": "丙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_phi_dieu_diet_huyet",
+    "name": "飛鳥跌穴",
+    "polarity": "cat",
+    "score": 0.9,
+    "sky": "丙",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thanh_long_tron",
+    "name": "青龍逃走",
+    "polarity": "hung",
+    "score": 0.85,
+    "sky": "乙",
+    "earth": "辛",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_bach_ho_xuong_cuong",
+    "name": "白虎猖狂",
+    "polarity": "hung",
+    "score": 0.85,
+    "sky": "辛",
+    "earth": "乙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_chu_tuoc_dau_giang",
+    "name": "朱雀投江",
+    "polarity": "hung",
+    "score": 0.8,
+    "sky": "丁",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_dang_xa_yeu_kieu",
+    "name": "螣蛇夭矯",
+    "polarity": "hung",
+    "score": 0.8,
+    "sky": "癸",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thai_bach_nhap_huynh",
+    "name": "太白入熒",
+    "polarity": "hung",
+    "score": 0.85,
+    "sky": "庚",
+    "earth": "丙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_huynh_nhap_thai_bach",
+    "name": "熒入太白",
+    "polarity": "hung",
+    "score": 0.85,
+    "sky": "丙",
+    "earth": "庚",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_dai_cach",
+    "name": "大格",
+    "polarity": "hung",
+    "score": 0.9,
+    "sky": "庚",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_tieu_cach",
+    "name": "小格",
+    "polarity": "hung",
+    "score": 0.75,
+    "sky": "癸",
+    "earth": "庚",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thanh_long_chiet_tuc",
+    "name": "青龍折足",
+    "polarity": "hung",
+    "score": 0.8,
+    "sky": "戊",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thanh_long_hoa_dao",
+    "name": "青龍華蓋",
+    "polarity": "cat",
+    "score": 0.7,
+    "sky": "戊",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_bach_ho_xuat_linh",
+    "name": "白虎出林",
+    "polarity": "hung",
+    "score": 0.75,
+    "sky": "辛",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_chu_tuoc_vuong_mon",
+    "name": "朱雀旺門",
+    "polarity": "trung",
+    "score": 0.55,
+    "sky": "丁",
+    "earth": "丙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_dang_xa_van_hoa",
+    "name": "螣蛇蜿蜒",
+    "polarity": "hung",
+    "score": 0.65,
+    "sky": "癸",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thai_am_trong_thien",
+    "name": "太陰重天",
+    "polarity": "cat",
+    "score": 0.7,
+    "sky": "己",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_luc_hop_phu",
+    "name": "六合扶",
+    "polarity": "cat",
+    "score": 0.65,
+    "sky": "己",
+    "earth": "乙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_cuu_dia_an",
+    "name": "九地安",
+    "polarity": "cat",
+    "score": 0.6,
+    "sky": "己",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_cuu_thien_cao",
+    "name": "九天高",
+    "polarity": "cat",
+    "score": 0.7,
+    "sky": "壬",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_phu_giap",
+    "name": "天輔夾",
+    "polarity": "cat",
+    "score": 0.65,
+    "sky": "丁",
+    "earth": "乙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_tam_chinh",
+    "name": "天心正",
+    "polarity": "cat",
+    "score": 0.7,
+    "sky": "庚",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_xung_dong",
+    "name": "天衝動",
+    "polarity": "cat",
+    "score": 0.65,
+    "sky": "壬",
+    "earth": "丙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_nhue_benh",
+    "name": "天芮病",
+    "polarity": "hung",
+    "score": 0.7,
+    "sky": "己",
+    "earth": "庚",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_bong_thuy",
+    "name": "天蓬水",
+    "polarity": "trung",
+    "score": 0.55,
+    "sky": "壬",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_tru_kim",
+    "name": "天柱金",
+    "polarity": "trung",
+    "score": 0.55,
+    "sky": "庚",
+    "earth": "辛",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_nham_tho",
+    "name": "天任土",
+    "polarity": "trung",
+    "score": 0.55,
+    "sky": "己",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_thien_anh_hoa",
+    "name": "天英火",
+    "polarity": "trung",
+    "score": 0.55,
+    "sky": "丁",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_canh_binh_xung",
+    "name": "刑格",
+    "polarity": "hung",
+    "score": 0.7,
+    "sky": "庚",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_nham_ky",
+    "name": "壬己合",
+    "polarity": "cat",
+    "score": 0.6,
+    "sky": "壬",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_tan_binh",
+    "name": "辛丙克",
+    "polarity": "hung",
+    "score": 0.65,
+    "sky": "辛",
+    "earth": "丙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_at_dinh",
+    "name": "乙丁和",
+    "polarity": "cat",
+    "score": 0.55,
+    "sky": "乙",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_quy_mau",
+    "name": "癸戊克",
+    "polarity": "hung",
+    "score": 0.6,
+    "sky": "癸",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_binh_ky",
+    "name": "丙己生",
+    "polarity": "cat",
+    "score": 0.55,
+    "sky": "丙",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_dinh_canh",
+    "name": "丁庚合",
+    "polarity": "cat",
+    "score": 0.6,
+    "sky": "丁",
+    "earth": "庚",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_mau_nham",
+    "name": "戊壬生",
+    "polarity": "cat",
+    "score": 0.55,
+    "sky": "戊",
+    "earth": "壬",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_ky_tan",
+    "name": "己辛生",
+    "polarity": "trung",
+    "score": 0.5,
+    "sky": "己",
+    "earth": "辛",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_canh_at",
+    "name": "庚乙克",
+    "polarity": "hung",
+    "score": 0.65,
+    "sky": "庚",
+    "earth": "乙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_tan_quy",
+    "name": "辛癸生",
+    "polarity": "trung",
+    "score": 0.5,
+    "sky": "辛",
+    "earth": "癸",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_quy_at",
+    "name": "癸乙生",
+    "polarity": "cat",
+    "score": 0.55,
+    "sky": "癸",
+    "earth": "乙",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_at_ky",
+    "name": "乙己生",
+    "polarity": "cat",
+    "score": 0.55,
+    "sky": "乙",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_binh_tan",
+    "name": "丙辛克",
+    "polarity": "hung",
+    "score": 0.6,
+    "sky": "丙",
+    "earth": "辛",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_dinh_nham",
+    "name": "丁壬合",
+    "polarity": "cat",
+    "score": 0.65,
+    "sky": "丁",
+    "earth": "壬",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_mau_tan",
+    "name": "戊辛生",
+    "polarity": "trung",
+    "score": 0.5,
+    "sky": "戊",
+    "earth": "辛",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_ky_nham",
+    "name": "己壬克",
+    "polarity": "hung",
+    "score": 0.55,
+    "sky": "己",
+    "earth": "壬",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_canh_mau",
+    "name": "庚戊克",
+    "polarity": "hung",
+    "score": 0.55,
+    "sky": "庚",
+    "earth": "戊",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_tan_dinh",
+    "name": "辛丁克",
+    "polarity": "hung",
+    "score": 0.6,
+    "sky": "辛",
+    "earth": "丁",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  },
+  {
+    "id": "qimen_pair_戊_己",
+    "name": "戊臨己",
+    "polarity": "trung",
+    "score": 0.4,
+    "sky": "戊",
+    "earth": "己",
+    "citations": [
+      "Yên Ba Điếu Tẩu Ca",
+      "Claude-03 s7"
+    ]
+  }
 ]

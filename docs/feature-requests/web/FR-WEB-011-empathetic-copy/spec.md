@@ -1,7 +1,7 @@
 ---
 id: WEB-011
 title: Empathetic decision-support copy pass
-status: ready_to_test
+status: done
 class: improvement
 priority: MUST
 depends_on: [WEB-006, WEB-009]

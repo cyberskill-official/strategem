@@ -1,7 +1,7 @@
 ---
 id: WEB-015
 title: Beginner cast voice and plain labels
-status: ready_to_test
+status: done
 class: improvement
 priority: MUST
 depends_on: [WEB-002, WEB-013]

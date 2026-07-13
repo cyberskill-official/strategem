@@ -108,6 +108,25 @@ export function LiurenChart({ laso }: { laso: LaSoLike }) {
           }
         />
       </section>
+      {/* COV-005: khoa_the names on results */}
+      {Array.isArray(ban.khoa_the) && ban.khoa_the.length > 0 ? (
+        <section data-testid="liuren-khoa-the">
+          <h3>{t("chart.liuren.khoaThe")}</h3>
+          <ul className="cs-pattern-list" style={{ listStyle: "none", padding: 0, margin: 0 }}>
+            {ban.khoa_the.map((name, i) => {
+              const label = displayDomainTerm(name, locale) || name;
+              return (
+                <li key={`${name}-${i}`} className="cs-pattern-row" data-testid="khoa-the-item">
+                  <strong>{label}</strong>
+                  {label !== name && /[\u4e00-\u9fff]/.test(name) ? (
+                    <span className="cs-muted cs-pattern-classical"> {name}</span>
+                  ) : null}
+                </li>
+              );
+            })}
+          </ul>
+        </section>
+      ) : null}
       <section>
         <h3>{t("chart.liuren.thienTuong")}</h3>
         <ThienTuongRing generals={generals} />

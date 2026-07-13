@@ -24,6 +24,25 @@ class MetricsRegistry:
         self.observe("chart_gen_seconds", seconds, {"family": "technical"})
         self.inc("chart_gen_total", {"family": "business"})
 
+    def record_cast(
+        self,
+        seconds: float,
+        *,
+        system: str,
+        engine_mode: str = "unknown",
+        ok: bool = True,
+    ) -> None:
+        """COV-021: cast latency by system + engine_mode."""
+        labels = {"system": system, "engine_mode": engine_mode, "family": "product"}
+        self.observe("cast_latency_seconds", seconds, labels)
+        self.inc("cast_total", {**labels, "result": "ok" if ok else "error"})
+        if not ok:
+            self.inc("cast_errors_total", labels)
+
+    def record_ready_failure(self, reason: str = "cast_cli_missing") -> None:
+        """COV-021: alert signal when /ready fails under READY_REQUIRE_CAST_CLI."""
+        self.inc("ready_failures_total", {"reason": reason, "family": "ops"})
+
     def record_error(self) -> None:
         self.inc("http_errors_total", {"family": "technical"})
 
@@ -41,6 +60,14 @@ def render_prometheus(reg: MetricsRegistry) -> str:
         "# TYPE chart_gen_seconds histogram",
         "# HELP chart_gen_total Charts generated",
         "# TYPE chart_gen_total counter",
+        "# HELP cast_latency_seconds Cast path latency by system/engine_mode",
+        "# TYPE cast_latency_seconds histogram",
+        "# HELP cast_total Cast attempts",
+        "# TYPE cast_total counter",
+        "# HELP cast_errors_total Cast failures",
+        "# TYPE cast_errors_total counter",
+        "# HELP ready_failures_total /ready failures (CAST_CLI gate)",
+        "# TYPE ready_failures_total counter",
         "# HELP http_errors_total HTTP errors",
         "# TYPE http_errors_total counter",
         "# HELP expert_validation_pass_ratio Quality gate",

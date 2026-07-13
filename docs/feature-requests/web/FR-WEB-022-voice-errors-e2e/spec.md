@@ -1,7 +1,7 @@
 ---
 id: WEB-022
 title: Voice denylist, error pack, live e2e smoke, golden bans
-status: ready_to_test
+status: done
 class: improvement
 priority: MUST
 depends_on: [WEB-020, WEB-021]

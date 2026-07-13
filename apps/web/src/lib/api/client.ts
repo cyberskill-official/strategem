@@ -13,14 +13,18 @@ export class ApiClientError extends Error {
   }
 }
 
-/** Browser uses same-origin /api (Next rewrite). Server can use absolute API_URL. */
+/**
+ * Browser: NEXT_PUBLIC_API_BASE (host-published API) or same-origin "" for rewrites.
+ * Server: API_URL / API_INTERNAL_URL only — never NEXT_PUBLIC_* (breaks in Docker).
+ */
 export function apiBase(opts?: { baseUrl?: string }): string {
   if (opts?.baseUrl) return opts.baseUrl.replace(/\/$/, "");
   if (typeof window === "undefined") {
-    return (process.env.API_URL || process.env.NEXT_PUBLIC_API_BASE || "http://127.0.0.1:8000").replace(
-      /\/$/,
-      "",
-    );
+    return (
+      process.env.API_URL ||
+      process.env.API_INTERNAL_URL ||
+      "http://127.0.0.1:8000"
+    ).replace(/\/$/, "");
   }
   return (process.env.NEXT_PUBLIC_API_BASE || "").replace(/\/$/, "");
 }

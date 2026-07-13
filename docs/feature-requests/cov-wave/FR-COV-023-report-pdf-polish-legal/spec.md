@@ -2,7 +2,7 @@
 id: COV-023
 title: "Report PDF polish + full legal disclaimer block"
 module: REPORT
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P1

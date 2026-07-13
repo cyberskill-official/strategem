@@ -1,7 +1,7 @@
 ---
 id: WEB-012
 title: Results upsell + shareable insight teaser
-status: ready_to_test
+status: done
 class: product
 priority: SHOULD
 depends_on: [WEB-003, WEB-010]

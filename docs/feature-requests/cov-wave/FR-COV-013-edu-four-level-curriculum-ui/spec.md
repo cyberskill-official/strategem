@@ -2,7 +2,7 @@
 id: COV-013
 title: "Four-level curriculum UI wired to EDU-001 data"
 module: EDU
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P2

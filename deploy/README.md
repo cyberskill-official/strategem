@@ -25,12 +25,19 @@ Full diagram: `docs/deploy/topology.md`.
 
 ## Local
 
+Full stack (build from source) + LMStudio: **`docs/deploy/local-docker-lmstudio.md`** (COV-027/028).
+
 ```bash
 # integration tests (needs DATABASE_URL)
 export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/strategem
 just db-test
 
-# build images
+# local compose (api+web+postgres+redis, builds cast-cli into api)
+export LOCAL_API_PORT=18000 LOCAL_WEB_PORT=13000 LOCAL_PG_PORT=15432
+export NEXT_PUBLIC_API_BASE=http://127.0.0.1:18000
+docker compose -f deploy/compose/docker-compose.local.yml up --build -d
+
+# build images alone
 docker build -f deploy/docker/api.Dockerfile -t strategem-api:local .
 ```
 

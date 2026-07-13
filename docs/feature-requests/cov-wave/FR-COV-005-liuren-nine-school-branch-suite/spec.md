@@ -2,7 +2,7 @@
 id: COV-005
 title: "LiuRen nine-school tam truyen branch suite + khoa_the UX"
 module: LN
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

@@ -195,8 +195,21 @@ export function composeStorySummary(
     lines.push(sysLine[systemKey] ?? sysLine.qimen);
   }
 
+  // COV-006: TaiYi empty-state uses dedicated long-rhythm copy (not silent)
   if (!best) {
-    if (locale === "vi") {
+    if (systemKey === "taiyi") {
+      if (locale === "vi") {
+        lines.push(
+          "Chưa có cách cục nổi — vẫn xem chủ–khách toán và trường/đoản trên ban Thái Ất.",
+        );
+      } else if (locale === "zh") {
+        lines.push("暂无突出格局——仍可看太乙主客算与长短计数。");
+      } else {
+        lines.push(
+          "No standing pattern yet — still read host/guest counts and long/short on the TaiYi board.",
+        );
+      }
+    } else if (locale === "vi") {
       lines.push(
         "Hình đã vẽ xong. Chưa có điểm nổi bật — hãy nhìn hình, hoặc hỏi cụ thể hơn.",
       );

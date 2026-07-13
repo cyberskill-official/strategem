@@ -1,0 +1,31 @@
+name: Oracle certification (COV-001)
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+    paths:
+      - "crates/cyberos-qimen/**"
+      - "crates/cyberos-luchnham/**"
+      - "crates/cyberos-thaiat/**"
+      - "crates/cyberos-lichphap/**"
+      - "crates/cast-cli/**"
+      - ".github/workflows/oracle-certification.yml"
+      - "docs/status/oracle/**"
+
+jobs:
+  certification:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: QiMen cert ≥30
+        run: cargo test -p cyberos-qimen --test certification_suite
+      - name: LiuRen cert ≥30
+        run: cargo test -p cyberos-luchnham --test certification_suite
+      - name: TaiYi cert ≥20
+        run: cargo test -p cyberos-thaiat --test certification_suite
+      - name: Tiet khi multi-year <60s ≥50
+        run: cargo test -p cyberos-lichphap --test tietkhi_certification
+      - name: Legacy core oracle harness
+        run: cargo test -p cyberos-lichphap --test oracle_harness

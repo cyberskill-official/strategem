@@ -76,5 +76,5 @@ fn detect_on_duong_chart() {
 fn patterns_json_loads() {
     let raw = include_str!("../patterns/qimen_cach_cuc.json");
     let rows = cyberos_qimen::load_patterns_json(raw).unwrap();
-    assert!(rows.len() >= 9);
+    assert!(rows.len() >= 40, "COV-004 catalog size");
 }

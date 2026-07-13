@@ -2,7 +2,7 @@
 id: COV-006
 title: "TaiYi cach_cuc + chu-khach victory surfaced in API and story"
 module: TAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

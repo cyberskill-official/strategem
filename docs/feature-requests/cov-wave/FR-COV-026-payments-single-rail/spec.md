@@ -2,7 +2,7 @@
 id: COV-026
 title: "Single payment rail for premium tier (one provider only)"
 module: WEB
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P2

@@ -2,7 +2,7 @@
 id: COV-011
 title: "Production RAG default interpretation path (or honest template mode flag)"
 module: RAG
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

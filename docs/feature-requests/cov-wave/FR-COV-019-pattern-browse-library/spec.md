@@ -2,7 +2,7 @@
 id: COV-019
 title: "Searchable pattern library (top seeds across 3 systems)"
 module: WEB
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P1

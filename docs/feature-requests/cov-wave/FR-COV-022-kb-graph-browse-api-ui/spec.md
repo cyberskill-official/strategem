@@ -2,7 +2,7 @@
 id: COV-022
 title: "Knowledge-graph browse API + lightweight explorer UI"
 module: KB
-status: ready_to_implement
+status: done
 class: product
 priority: COULD
 phase: P2

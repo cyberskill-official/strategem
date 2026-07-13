@@ -1,7 +1,7 @@
 ---
 id: WEB-013
 title: Story-first home for absolute beginners
-status: ready_to_test
+status: done
 class: product
 priority: MUST
 depends_on: [WEB-009, WEB-011]

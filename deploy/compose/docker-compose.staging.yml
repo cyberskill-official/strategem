@@ -20,9 +20,22 @@ services:
 
   api:
     image: ghcr.io/${GITHUB_REPOSITORY:-cyberskill/strategem}/api:${IMAGE_TAG:-staging}
+    ports:
+      - "${STAGING_API_PORT:-8000}:8000"
     environment:
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/strategem
       TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:?set secret}
+      # COV-020: cast readiness gate for staging/prod
+      CAST_CLI: ${CAST_CLI:-/src/cast-cli}
+      READY_REQUIRE_CAST_CLI: "1"
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      CORS_ORIGINS: ${CORS_ORIGINS:-https://staging.example.com,http://localhost:3000}
+    healthcheck:
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:8000/healthz || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 6
     depends_on:
       postgres:
         condition: service_healthy
@@ -30,6 +43,8 @@ services:
   web:
     image: ghcr.io/${GITHUB_REPOSITORY:-cyberskill/strategem}/web:${IMAGE_TAG:-staging}
     ports:
-      - "3000:3000"
+      - "${STAGING_WEB_PORT:-3000}:3000"
+    environment:
+      NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:8000}
     depends_on:
       - api

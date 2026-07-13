@@ -2,7 +2,7 @@
 id: COV-020
 title: "Staging deploy wiring — Vercel + VPS API + Supabase linked runbook"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P1

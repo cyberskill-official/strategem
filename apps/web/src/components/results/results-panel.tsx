@@ -2,7 +2,9 @@
 
 import { useMemo, useState } from "react";
 import { useLocale } from "../i18n/locale-provider";
+import { cellsFromBan } from "../chart/qimen-nine-palace";
 import { LiurenChart } from "../chart/liuren-chart";
+import { PalaceDetailSidebar } from "../chart/palace-detail-sidebar";
 import { QimenNinePalace } from "../chart/qimen-nine-palace";
 import { TaiyiChart } from "../chart/taiyi-chart";
 import {
@@ -209,7 +211,39 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
               <span className="cs-badge cs-badge--trung">{systemLabel}</span>
             ) : null}
           </div>
-          {renderBoard()}
+          {/* COV-017: board + palace detail sidebar */}
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "minmax(0, 1fr) minmax(200px, 280px)",
+              gap: "1rem",
+              alignItems: "start",
+            }}
+            data-testid="chart-with-sidebar"
+          >
+            <div>{renderBoard()}</div>
+            <PalaceDetailSidebar
+              selected={selected}
+              cell={
+                he === "ky_mon" || he === "qimen" || !he
+                  ? cellsFromBan(chart?.ban as Parameters<typeof cellsFromBan>[0]).find(
+                      (c) => c.palace === selected,
+                    )
+                  : selected != null
+                    ? {
+                        palace: selected,
+                        stem: undefined,
+                        star: undefined,
+                        door: undefined,
+                        god: undefined,
+                      }
+                    : null
+              }
+              patterns={patterns}
+              system={he || "qimen"}
+              onClose={() => setSelected(null)}
+            />
+          </div>
           <h3 className="cs-subhead">{t("results.patterns")}</h3>
           <PatternList
             patterns={
@@ -272,6 +306,30 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
           <p className="cs-muted">
             he=<code className="cs-mono">{he}</code>
           </p>
+        ) : null}
+        {/* COV-003: stamped school + calendar flags from envelope */}
+        {chart && typeof chart === "object" ? (
+          <div data-testid="stamped-flags" className="cs-muted" style={{ marginTop: 8 }}>
+            <p style={{ fontWeight: 600 }}>{t("results.stampedFlags")}</p>
+            <pre
+              className="cs-mono"
+              style={{ fontSize: 11, whiteSpace: "pre-wrap", margin: 0 }}
+            >
+              {JSON.stringify(
+                {
+                  co_truong_phai:
+                    (chart as { co_truong_phai?: unknown }).co_truong_phai ?? null,
+                  co_lich_phap:
+                    (
+                      (chart as { lich_phap?: { co_lich_phap?: unknown } }).lich_phap ||
+                      {}
+                    ).co_lich_phap ?? null,
+                },
+                null,
+                2,
+              )}
+            </pre>
+          </div>
         ) : null}
       </details>
 

@@ -2,7 +2,7 @@
 id: COV-014
 title: "Auto-graded chart practice UI (engine as marker)"
 module: EDU
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P2

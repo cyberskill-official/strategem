@@ -11,6 +11,12 @@ const FLOWS = [
     href: "/cast",
   },
   {
+    id: "timing",
+    titleKey: "dashboard.flow.timing",
+    descKey: "dashboard.flow.timingDesc",
+    href: "/timing",
+  },
+  {
     id: "learning",
     titleKey: "dashboard.flow.learning",
     descKey: "dashboard.flow.learningDesc",

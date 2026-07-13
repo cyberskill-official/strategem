@@ -68,7 +68,38 @@ if (!home?.ok) {
   const cast = await tryFetch(WEB + "/cast");
   assert.ok(cast?.ok);
   passed++;
+  const timing = await tryFetch(WEB + "/timing");
+  assert.ok(timing?.ok, "timing page");
+  passed++;
   console.log("WEB pages ok");
+}
+
+// Timing optimize happy path when API is up
+if (health?.ok) {
+  const opt = await tryFetch(`${API}/api/v1/timing/optimize`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      start: "2004-01-01T08:00:00",
+      end: "2004-01-01T14:00:00",
+      granularity: "gio",
+      loai_cau_hoi: "trach_thoi",
+      tz: "+07:00",
+      longitude: 106.7,
+      top_n: 3,
+    }),
+  });
+  if (opt?.ok) {
+    const body = await opt.json();
+    assert.ok(Array.isArray(body.windows));
+    assert.ok(body.windows.length >= 1);
+    assert.ok(body.disclaimer);
+    passed++;
+    console.log("timing optimize ok", body.windows.length);
+  } else {
+    console.log("e2e-live-smoke: timing optimize skipped/failed", opt?.status);
+    skipped++;
+  }
 }
 
 console.log(`e2e-live-smoke: passed=${passed} skipped_blocks=${skipped}`);

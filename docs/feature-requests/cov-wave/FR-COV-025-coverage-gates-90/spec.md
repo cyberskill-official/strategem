@@ -2,7 +2,7 @@
 id: COV-025
 title: "Raise coverage floors to 90% engines+API and wire gates.env"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P1

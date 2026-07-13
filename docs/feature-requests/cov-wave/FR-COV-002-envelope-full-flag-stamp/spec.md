@@ -2,7 +2,7 @@
 id: COV-002
 title: "Every cast stamps full co_truong_phai + co_lich_phap on envelope"
 module: PLAT
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P0

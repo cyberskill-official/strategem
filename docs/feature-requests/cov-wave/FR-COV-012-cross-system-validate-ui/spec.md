@@ -2,7 +2,7 @@
 id: COV-012
 title: "Cross-system validation UI (calculate/all + consensus view)"
 module: STRAT
-status: ready_to_implement
+status: done
 class: product
 priority: SHOULD
 phase: P1

@@ -2,7 +2,7 @@
 id: COV-003
 title: "Complete school-flag matrix UI (maoshan, zhong_gong_ky, dem_toan, …)"
 module: WEB
-status: ready_to_implement
+status: done
 class: product
 priority: MUST
 phase: P0

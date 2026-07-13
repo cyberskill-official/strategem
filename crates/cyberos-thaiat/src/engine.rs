@@ -2,6 +2,7 @@
 
 use crate::ban::{Cap, TatFlags, ThaiAtBan};
 use crate::battuong::place_bat_tuong;
+use crate::cachcuc::{map_to_envelope_cach_cuc, nhan_dien_cach_cuc};
 use crate::flags::Epoch;
 use crate::thaplucthan::THAP_LUC_THAN;
 use crate::tichnien::compute_tich_nien;
@@ -81,6 +82,9 @@ pub fn cast_thai_at(input: &CastInput) -> CastResult {
     };
     let flags = flag_map(f);
     let key = cache_key(input.nam_ce, &flags);
+    // COV-006: emit cach_cuc when classical conditions met; always stamp chu/khach toan
+    let detected = nhan_dien_cach_cuc(&ban.bat_tuong, ban.seat.thai_at_ring);
+    let cach_cuc = map_to_envelope_cach_cuc(&detected);
     let dau_vao = json!({
         "datetime": input.datetime,
         "tz": input.tz,
@@ -95,6 +99,15 @@ pub fn cast_thai_at(input: &CastInput) -> CastResult {
         "lich_phap": {
             "nam_ce": input.nam_ce,
             "duong_don": f.duong_don,
+            // COV-002: full calendar flag stamp (never silent)
+            "co_lich_phap": {
+                "tz": input.tz,
+                "longitude": input.kinh_do,
+                "nam_ce": input.nam_ce,
+                "year_chi_idx": input.year_chi_idx,
+                "duong_don": f.duong_don,
+                "stamped": true,
+            },
         },
         "ban": {
             "tich": {
@@ -120,14 +133,22 @@ pub fn cast_thai_at(input: &CastInput) -> CastResult {
                 "chu_tham_tuong": ban.bat_tuong.chu_tham_tuong,
                 "khach_tham_tuong": ban.bat_tuong.khach_tham_tuong,
             },
+            // COV-006: chu/khach toan + truong_doan always present
             "cac_toan": {
                 "chu_toan": ban.bat_tuong.chu_toan.value,
                 "khach_toan": ban.bat_tuong.khach_toan.value,
                 "chu_truong_doan": ban.bat_tuong.chu_toan.label,
                 "khach_truong_doan": ban.bat_tuong.khach_toan.label,
             },
+            "chu_khach": {
+                "chu_toan": ban.bat_tuong.chu_toan.value,
+                "khach_toan": ban.bat_tuong.khach_toan.value,
+                "chu_truong_doan": ban.bat_tuong.chu_toan.label,
+                "khach_truong_doan": ban.bat_tuong.khach_toan.label,
+                "note": "positional counts only — not a victory verdict",
+            },
         },
-        "cach_cuc": [],
+        "cach_cuc": cach_cuc,
         "co_truong_phai": flags,
         "provenance": {
             "engine": "tat",

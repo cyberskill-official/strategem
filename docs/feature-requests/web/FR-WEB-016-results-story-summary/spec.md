@@ -1,7 +1,7 @@
 ---
 id: WEB-016
 title: Results story summary for beginners
-status: ready_to_test
+status: done
 class: product
 priority: SHOULD
 depends_on: [WEB-003, WEB-012]

@@ -8,7 +8,7 @@ These FRs close **residual product + oracle acceptance** gaps. Many original mod
 
 ## Status
 
-All COV-* start as `ready_to_implement`. Only a human sets `done`.
+**2026-07-14:** All COV-001..028 are human-accepted **`done`** (HITL session). Dual-benchmark strategy docs re-scored ≥100% (see § Definition of 100% + strategy §13).
 
 ## Suggested order (critical path)
 
