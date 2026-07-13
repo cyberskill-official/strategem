@@ -152,7 +152,11 @@ pub fn lap_tam_truyen(
 
 fn empty_census_branch(tk: &TuKhoa, thien: &[Chi; 12], can_ngay: Can) -> TamTruyen {
     // Prefer Dau (酉) as so for MaoTinh when present as upper
-    let dau_so = tk.khoa.iter().map(|k| k.thuong_than).find(|c| *c == Chi::Dau);
+    let dau_so = tk
+        .khoa
+        .iter()
+        .map(|k| k.thuong_than)
+        .find(|c| *c == Chi::Dau);
 
     // Probe candidate sos for closed 3-step chain (bat chuyen)
     for k in &tk.khoa {
@@ -177,7 +181,10 @@ fn empty_census_branch(tk: &TuKhoa, thien: &[Chi; 12], can_ngay: Can) -> TamTruy
         tk.khoa[0].thuong_than
     };
     // BietTrach: when dao_so equals a lower (ha) of another khoa → "choice" branch
-    let hits_ha = tk.khoa.iter().any(|k| k.ha_than == dao_so && k.thuong_than != dao_so);
+    let hits_ha = tk
+        .khoa
+        .iter()
+        .any(|k| k.ha_than == dao_so && k.thuong_than != dao_so);
     if hits_ha {
         return make(dao_so, thien, Phap::BietTrach, KhoaThe::Other);
     }

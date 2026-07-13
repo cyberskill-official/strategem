@@ -94,7 +94,7 @@ def list_patterns(
 
 
 @lru_cache(maxsize=1)
-def _seeded_graph():
+def _seeded_graph() -> Any:
     """COV-022: in-memory ngũ hành graph — only stored edges, never invented."""
     from tamthuc_kb.graph.seed import seed_ngu_hanh
     from tamthuc_kb.graph.store import InMemoryGraphStore

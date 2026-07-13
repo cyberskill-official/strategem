@@ -4,6 +4,7 @@ import json
 import threading
 from http.server import BaseHTTPRequestHandler, HTTPServer
 
+import pytest
 from tamthuc_rag.llm import OpenAICompatibleLlm, StubLlm, llm_from_env
 
 
@@ -73,12 +74,12 @@ def test_openai_compatible_unreachable() -> None:
         assert "llm_unreachable" in str(e) or "llm_http" in str(e) or "llm_timeout" in str(e)
 
 
-def test_llm_from_env_stub_default(monkeypatch) -> None:
+def test_llm_from_env_stub_default(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.delenv("LLM_BACKEND", raising=False)
     assert isinstance(llm_from_env(), StubLlm)
 
 
-def test_llm_from_env_openai(monkeypatch) -> None:
+def test_llm_from_env_openai(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("LLM_BACKEND", "lmstudio")
     monkeypatch.setenv("LLM_BASE_URL", "http://127.0.0.1:1234/v1")
     client = llm_from_env()

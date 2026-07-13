@@ -10,11 +10,7 @@ use std::collections::HashSet;
 use std::fs;
 use std::path::PathBuf;
 
-fn tk_from_rels(
-    rels: [Option<KhacTac>; 4],
-    tops: [Chi; 4],
-    bottoms: [Chi; 4],
-) -> TuKhoa {
+fn tk_from_rels(rels: [Option<KhacTac>; 4], tops: [Chi; 4], bottoms: [Chi; 4]) -> TuKhoa {
     TuKhoa {
         khoa: [
             Khoa {
@@ -154,7 +150,10 @@ fn branch_empty_census_bat_dao_biet_mao() {
     );
     let tt_mao = lap_tam_truyen(&tk_mao, &thien2, TrangThaiBan::Thuong, Can::Giap);
     assert!(
-        matches!(tt_mao.phap, Phap::MaoTinh | Phap::BatChuyen | Phap::DaoKhac | Phap::BietTrach),
+        matches!(
+            tt_mao.phap,
+            Phap::MaoTinh | Phap::BatChuyen | Phap::DaoKhac | Phap::BietTrach
+        ),
         "empty census must land a named branch, got {:?}",
         tt_mao.phap
     );
@@ -355,7 +354,11 @@ fn golden_30_with_tu_khoa_and_tam_truyen() {
         assert!(ban["tam_truyen"]["trung"].as_str().is_some(), "{}", cols[0]);
         assert!(ban["tam_truyen"]["mat"].as_str().is_some(), "{}", cols[0]);
         assert!(ban["tam_truyen"]["phap"].as_str().is_some(), "{}", cols[0]);
-        assert!(!ban["khoa_the"].as_array().unwrap().is_empty(), "{}", cols[0]);
+        assert!(
+            !ban["khoa_the"].as_array().unwrap().is_empty(),
+            "{}",
+            cols[0]
+        );
         rows += 1;
     }
     assert!(rows >= 30, "need ≥30 LN goldens, got {rows}");
@@ -367,5 +370,7 @@ fn recognize_names_not_debug() {
     let tk = lap_tu_khoa(&thien, Can::Giap, Chi::Ty);
     let tt = lap_tam_truyen(&tk, &thien, st, Can::Giap);
     let hits = recognize_khoa_the(&tt);
-    assert!(hits.iter().any(|h| h.name == "伏吟" || h.name.contains("吟")));
+    assert!(hits
+        .iter()
+        .any(|h| h.name == "伏吟" || h.name.contains("吟")));
 }

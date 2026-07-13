@@ -97,7 +97,8 @@ def timing_optimize(body: TimingOptimizeBody, request: Request) -> dict[str, Any
             "question_type": r.loai_cau_hoi,
             "co_truong_phai": r.co_truong_phai,
         }
-        return orch.engine.cast("qimen", lich)
+        casted = orch.engine.cast("qimen", lich)
+        return casted if isinstance(casted, dict) else dict(casted)
 
     try:
         result = optimize_timing(req, engine_fn)
@@ -213,7 +214,8 @@ def scenario_compare(body: ScenarioCompareBody, request: Request) -> dict[str, A
             "co_truong_phai": r.co_truong_phai,
         }
         # Reuse same cast path as timing optimizer — no invented scores
-        return orch.engine.cast("qimen", lich)
+        casted = orch.engine.cast("qimen", lich)
+        return casted if isinstance(casted, dict) else dict(casted)
 
     try:
         cmp = compare_scenarios(ScenarioSet(scenarios=scenarios, top_n=top_n), engine_fn)
@@ -287,7 +289,7 @@ def cross_system_validate(body: CrossSystemBody, request: Request) -> dict[str, 
         if he in {"ky_mon", "luc_nham", "thai_at"} and he not in systems:
             systems.append(he)
 
-    def make_engine(system_key: str):
+    def make_engine(system_key: str) -> Any:
         def _eng(_he: str, payload: dict[str, Any]) -> dict[str, Any]:
             lich = {
                 "datetime": payload.get("datetime"),
@@ -305,10 +307,12 @@ def cross_system_validate(body: CrossSystemBody, request: Request) -> dict[str, 
                 "thai_at": "taiyi",
             }.get(system_key, system_key)
             out = orch.engine.cast(cast_sys, lich)
+            if not isinstance(out, dict):
+                out = dict(out)
             # expose cache_key at top for cast_ref
-            if isinstance(out, dict) and "cache_key" not in out:
+            if "cache_key" not in out:
                 prov = out.get("provenance") or {}
-                if prov.get("cache_key"):
+                if isinstance(prov, dict) and prov.get("cache_key"):
                     out = {**out, "cache_key": prov["cache_key"]}
             return out
 

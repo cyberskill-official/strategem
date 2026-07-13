@@ -39,10 +39,7 @@ fn liuren_cert_v1_min_30_and_cache_keys_match() {
         let r = cast_luc_nham(&input);
         assert_eq!(r.envelope["he"], "luc_nham", "{id}");
         assert!(r.envelope["ban"]["tu_khoa"].is_array(), "{id}");
-        assert_eq!(
-            r.cache_key, expected_key,
-            "{id}: cache_key mismatch"
-        );
+        assert_eq!(r.cache_key, expected_key, "{id}: cache_key mismatch");
         let r2 = cast_luc_nham(&input);
         assert_eq!(r.cache_key, r2.cache_key, "{id} nondeterministic");
         rows += 1;

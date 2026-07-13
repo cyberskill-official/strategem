@@ -47,7 +47,13 @@ fn epoch_and_dem_toan_flag_combinations() {
                 assert!(ctp.contains_key("epoch"));
                 assert!(ctp.contains_key("dem_toan"));
                 let ban = &r.envelope["ban"];
-                assert!(ban["cac_toan"]["chu_toan"].is_number() || ban["cac_toan"]["chu_toan"].is_i64() || ban["cac_toan"]["chu_toan"].as_u64().is_some() || ban["cac_toan"]["chu_toan"].as_i64().is_some() || ban["cac_toan"]["chu_toan"].is_number());
+                assert!(
+                    ban["cac_toan"]["chu_toan"].is_number()
+                        || ban["cac_toan"]["chu_toan"].is_i64()
+                        || ban["cac_toan"]["chu_toan"].as_u64().is_some()
+                        || ban["cac_toan"]["chu_toan"].as_i64().is_some()
+                        || ban["cac_toan"]["chu_toan"].is_number()
+                );
                 // cach_cuc is array (may be empty when no classical condition)
                 assert!(r.envelope["cach_cuc"].is_array());
             }

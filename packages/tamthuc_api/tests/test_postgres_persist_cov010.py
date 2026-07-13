@@ -69,12 +69,18 @@ def test_postgres_cast_get_survives_new_service(monkeypatch: pytest.MonkeyPatch)
         "report_id": "rep-1",
         "report": {"report_id": "rep-1", "summary": "ok"},
     }
+    charts = payload["charts"]
+    patterns = payload["patterns"]
+    report = payload["report"]
+    assert isinstance(charts, dict)
+    assert isinstance(patterns, list)
+    assert isinstance(report, dict)
     pr = a.persist_query_result(
         "anon",
         {"question_type": "trach_thoi", "datetime": "2004-01-01T10:30:00"},
-        payload["charts"],
-        payload["patterns"],
-        report=payload["report"],
+        charts,
+        patterns,
+        report=report,
         full_result=payload,
     )
     assert pr.query_id

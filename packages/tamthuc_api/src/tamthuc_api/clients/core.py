@@ -212,10 +212,18 @@ class LocalCoreClient:
             return base
 
         if mode in {"lunar", "am", "am_lich"}:
+            raw_y = payload.get("lunar_year") or payload.get("year")
+            raw_m = payload.get("lunar_month") or payload.get("month")
+            raw_d = payload.get("lunar_day") or payload.get("day")
+            if raw_y is None or raw_m is None or raw_d is None:
+                raise CalendarConvertError(
+                    "LUNAR_MISSING",
+                    "Thiếu năm/tháng/ngày âm lịch (số nguyên).",
+                )
             try:
-                y = int(payload.get("lunar_year") or payload.get("year"))
-                m = int(payload.get("lunar_month") or payload.get("month"))
-                d = int(payload.get("lunar_day") or payload.get("day"))
+                y = int(raw_y)
+                m = int(raw_m)
+                d = int(raw_d)
             except (TypeError, ValueError) as e:
                 raise CalendarConvertError(
                     "LUNAR_MISSING",

@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from typing import Any
+
 import pytest
 from tamthuc_api.clients.rag import LocalRagClient
 from tamthuc_rag.config import interpret_mode, is_restricted_category
@@ -21,12 +23,15 @@ def test_interpret_mode_explicit_rag(monkeypatch: pytest.MonkeyPatch) -> None:
 def test_template_mode_badge_no_fake_rag(monkeypatch: pytest.MonkeyPatch) -> None:
     monkeypatch.setenv("INTERPRET_MODE", "template")
     client = LocalRagClient()
-    env = {
+    patterns: list[dict[str, Any]] = [
+        {"id": "p1", "name": "青龍返首", "polarity": "cat", "citations": ["yba_1"]}
+    ]
+    env: dict[str, Any] = {
         "he": "ky_mon",
-        "cach_cuc": [{"id": "p1", "name": "青龍返首", "polarity": "cat", "citations": ["yba_1"]}],
+        "cach_cuc": patterns,
         "provenance": {"cache_key": "abc"},
     }
-    out = client.interpret(env, env["cach_cuc"])
+    out = client.interpret(env, patterns)
     assert client.last_mode == "template"
     disc = out.get("ai_disclosure") or {}
     assert disc.get("is_ai_generated") is False or disc.get("mode_badge") == "template"

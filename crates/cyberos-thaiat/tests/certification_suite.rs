@@ -45,10 +45,7 @@ fn taiyi_cert_v1_min_20_and_cache_keys_match() {
             r.envelope["ban"]["thap_luc_than"].as_array().unwrap().len() == 16,
             "{id}"
         );
-        assert_eq!(
-            r.cache_key, expected_key,
-            "{id}: cache_key mismatch"
-        );
+        assert_eq!(r.cache_key, expected_key, "{id}: cache_key mismatch");
         let r2 = cast_thai_at(&input);
         assert_eq!(r.cache_key, r2.cache_key, "{id} nondeterministic");
         rows += 1;

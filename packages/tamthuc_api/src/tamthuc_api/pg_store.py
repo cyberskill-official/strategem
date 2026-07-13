@@ -6,7 +6,7 @@ import json
 import os
 from dataclasses import dataclass
 from datetime import UTC, datetime
-from typing import Any
+from typing import Any, cast
 from uuid import uuid4
 
 import psycopg
@@ -42,7 +42,8 @@ class PgQueryStore:
 
     dsn: str
 
-    def _conn(self) -> psycopg.Connection:
+    def _conn(self) -> Any:
+        # dict_row → dict[str, Any] rows; cast avoids psycopg generic mismatch under mypy
         return psycopg.connect(self.dsn, row_factory=dict_row)
 
     def create(
@@ -92,10 +93,10 @@ class PgQueryStore:
             ).fetchone()
         if not row:
             return None
-        payload = row["payload"]
+        payload = cast(Any, row)["payload"]
         if isinstance(payload, str):
-            return json.loads(payload)
-        return dict(payload) if payload else None
+            return cast(dict[str, Any], json.loads(payload))
+        return dict(payload) if isinstance(payload, dict) else None
 
     def list_queries(
         self,
@@ -119,21 +120,24 @@ class PgQueryStore:
         out: list[dict[str, Any]] = []
         with self._conn() as conn:
             rows = conn.execute(sql, args).fetchall()
-        for r in rows:
+        for raw in rows:
+            r = cast(dict[str, Any], raw)
             systems = list(r.get("systems") or [])
             he_val = systems[0] if systems else ""
-            he_label = he_map.get(he_val, he_val)
+            he_label = he_map.get(str(he_val), str(he_val))
             if he and he not in (he_val, he_label) and he not in systems:
                 continue
             created = r.get("created_at")
+            if created is not None and hasattr(created, "isoformat"):
+                created_s = created.isoformat()
+            else:
+                created_s = str(created or "")
             out.append(
                 {
                     "query_id": str(r["id"]),
                     "he": he_label or he_val,
                     "question_type": r.get("question_type") or "unknown",
-                    "created_at": created.isoformat()
-                    if hasattr(created, "isoformat")
-                    else str(created or ""),
+                    "created_at": created_s,
                     "report_id": r.get("report_id"),
                     "user_id": r.get("user_id"),
                 }
@@ -161,7 +165,7 @@ class PgQueryStore:
                 ).fetchone()
         if not row:
             return None
-        payload = row["payload"]
+        payload = cast(Any, row)["payload"]
         if isinstance(payload, str):
             payload = json.loads(payload)
         if not isinstance(payload, dict):

@@ -64,14 +64,16 @@ class PersistenceService:
 
         if self.pg is not None and full_result is not None:
             stored = dict(full_result)
-            report_id = None
+            report_id: str | None = None
             if report is not None:
-                report_id = report.get("report_id") or stored.get("report_id")
+                raw_rid = report.get("report_id") or stored.get("report_id")
+                report_id = str(raw_rid) if raw_rid is not None else None
                 stored.setdefault("report", report)
                 if report_id:
                     stored["report_id"] = report_id
             else:
-                report_id = stored.get("report_id")
+                raw_rid = stored.get("report_id")
+                report_id = str(raw_rid) if raw_rid is not None else None
             qid = self.pg.create(
                 user_id,
                 safe_req,
@@ -82,15 +84,19 @@ class PersistenceService:
             return PersistResult(query_id=qid, chart_ids=list(systems), report_id=report_id)
         if self.pg is not None and full_result is None:
             # still store a minimal payload so cast history survives
-            minimal = {"charts": charts, "patterns": patterns}
+            minimal: dict[str, Any] = {"charts": charts, "patterns": patterns}
+            report_id = None
             if report is not None:
                 minimal["report"] = report
-                minimal["report_id"] = report.get("report_id")
+                raw_rid = report.get("report_id")
+                report_id = str(raw_rid) if raw_rid is not None else None
+                if report_id:
+                    minimal["report_id"] = report_id
             qid = self.pg.create(user_id, safe_req, systems, minimal)
             return PersistResult(
                 query_id=qid,
                 chart_ids=list(systems),
-                report_id=minimal.get("report_id"),
+                report_id=report_id,
             )
 
         query_id = self.queries.create(user_id, safe_req, systems)

@@ -6,12 +6,15 @@ use std::path::PathBuf;
 
 #[test]
 fn tietkhi_multiyear_cert_min_50_within_60s() {
-    let path = PathBuf::from(env!("CARGO_MANIFEST_DIR"))
-        .join("tests/fixtures/tietkhi_cert_multiyear.csv");
+    let path =
+        PathBuf::from(env!("CARGO_MANIFEST_DIR")).join("tests/fixtures/tietkhi_cert_multiyear.csv");
     let text = fs::read_to_string(&path).expect("tietkhi_cert_multiyear.csv");
     let mut rows = 0usize;
     let mut max_err = 0.0f64;
-    for line in text.lines().filter(|l| !l.starts_with('#') && !l.trim().is_empty()) {
+    for line in text
+        .lines()
+        .filter(|l| !l.starts_with('#') && !l.trim().is_empty())
+    {
         let mut parts = line.split(',');
         let year: i32 = parts.next().unwrap().parse().unwrap();
         let idx: u8 = parts.next().unwrap().parse().unwrap();

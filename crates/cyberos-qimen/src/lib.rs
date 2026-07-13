@@ -13,8 +13,7 @@ pub mod truc_phu_su;
 pub use ban::{KyMonBan, QiMenFlags};
 pub use cach_cuc::{
     all_visible_stems, detect_cach_cuc, load_patterns_json, pattern_catalog, thap_can_khac_ung,
-    CachCucHit,
-    PatternRow, Polarity,
+    CachCucHit, PatternRow, Polarity,
 };
 pub use dia_ban::{
     bo_dia_ban, bo_dia_ban_raw, buoc_nghich_lac_thu, buoc_thuan_lac_thu, DiaBan, Stem,

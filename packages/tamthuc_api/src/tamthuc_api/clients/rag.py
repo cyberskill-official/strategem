@@ -232,20 +232,20 @@ class LocalRagClient:
         if restricted or interp.requires_human_review:
             gated = process_interpretation(interp, self._queue, high_stakes=restricted)
             if not gated.get("released"):
-                view = gated.get("withheld_view") or {}
+                view = dict(gated.get("withheld_view") or {})
                 view["mode"] = self.last_mode
                 view["human_review_gate"] = "pending"
                 return view
-            out = gated["interpretation"]
+            out = dict(gated["interpretation"])
             out["mode"] = self.last_mode
             out["human_review_gate"] = "released"
             return out
 
-        out = interp.model_dump()
+        out = dict(interp.model_dump())
         out["mode"] = self.last_mode
         out["review_status"] = "not_required"
         # surface mode badge for web
-        disc = out.get("ai_disclosure") or {}
+        disc = dict(out.get("ai_disclosure") or {})
         if self.last_mode == "template":
             disc["mode_badge"] = "template"
             disc["is_ai_generated"] = False
