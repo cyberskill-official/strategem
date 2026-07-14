@@ -6,7 +6,7 @@
 #
 #   cp scripts/git-hooks/pre-commit .git/hooks/pre-commit && chmod +x .git/hooks/pre-commit
 #
-# migrate-frs --page is permanent (do not remove). Layout migrate is one-time.
+# Status regen via .cyberos/lib/status-page.sh (layout migrate is one-time via install).
 set -euo pipefail
 
 root="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
@@ -19,9 +19,9 @@ matches() { grep -Eq "$1" <<<"$staged"; }
 status_trigger='^(docs/feature-requests/|CHANGELOG\.md$|VERSION$)'
 if matches "$status_trigger"; then
   migrate=""
-  [ -f "$root/.cyberos/migrate-frs.sh" ] && migrate="$root/.cyberos/migrate-frs.sh"
+  [ -f "$root/.cyberos/lib/status-page.sh" ] && migrate="$root/.cyberos/lib/status-page.sh"
   if [ -z "$migrate" ]; then
-    echo "cyberos: ERROR .cyberos/migrate-frs.sh missing — run cyberos init" >&2
+    echo "cyberos: ERROR .cyberos/lib/status-page.sh missing — run cyberos install" >&2
     exit 1
   fi
   if ! command -v node >/dev/null 2>&1; then
@@ -29,7 +29,7 @@ if matches "$status_trigger"; then
     exit 1
   fi
   echo "cyberos: regenerating docs/status/ …"
-  bash "$migrate" --page "$root" || {
+  bash "$migrate" "$root" || {
     echo "cyberos: ERROR status regen failed" >&2
     exit 1
   }
