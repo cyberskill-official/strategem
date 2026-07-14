@@ -57,6 +57,10 @@ jobs:
           uv run pytest -q
         shell: bash
       - name: E2E cast path (calculate + get query)
+        env:
+          # Deterministic interpret path in CI (no live LLM / soft-review flakiness)
+          INTERPRET_MODE: template
+          LLM_BACKEND: stub
         run: |
           # Build cast-cli for optional CAST_CLI path (API falls back if missing)
           cargo build -p cast-cli --release

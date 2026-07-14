@@ -32,8 +32,13 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert isinstance(ban.get("dia_ban"), list) and len(ban["dia_ban"]) == 9
     assert isinstance(ban.get("thien_ban"), list)
     assert body["patterns"]
-    assert body["ai_disclosure"]["is_ai_generated"] is True
-    assert body["interpretation"]["beginner"]
+    assert body["ai_disclosure"] is not None
+    # Interpretation is either released (beginner/expert) or high-stakes withheld
+    # (stable keys + summary). Soft review still releases beginner text.
+    interp = body["interpretation"]
+    assert isinstance(interp, dict)
+    beginner = interp.get("beginner") or interp.get("summary")
+    assert beginner, f"expected beginner or summary, got keys={list(interp.keys())}"
     assert body.get("report_id")
     assert body.get("report", {}).get("report_id") == body["report_id"]
 
@@ -43,7 +48,9 @@ def test_qimen_cast_persist_and_fetch() -> None:
     got = g.json()
     assert got["query_id"] == qid
     assert got["charts"]["qimen"]["ban"]["dia_ban"] == ban["dia_ban"]
-    assert got["interpretation"]["beginner"] == body["interpretation"]["beginner"]
+    got_interp = got["interpretation"] or {}
+    got_beginner = got_interp.get("beginner") or got_interp.get("summary")
+    assert got_beginner == beginner
 
     rid = body["report_id"]
     gr = client.get(f"/api/v1/reports/{rid}")

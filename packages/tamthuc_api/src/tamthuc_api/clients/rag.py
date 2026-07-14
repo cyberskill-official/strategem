@@ -238,7 +238,11 @@ class LocalRagClient:
                 return view
             out = dict(gated["interpretation"])
             out["mode"] = self.last_mode
-            out["human_review_gate"] = "released"
+            # Soft-review releases keep review_status=pending; only mark released when not_required
+            if out.get("review_status") == "not_required":
+                out["human_review_gate"] = "released"
+            else:
+                out.setdefault("human_review_gate", "pending")
             return out
 
         out = dict(interp.model_dump())

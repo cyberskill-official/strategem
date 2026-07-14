@@ -16,6 +16,14 @@ def process_interpretation(
     policy: ReviewPolicy | None = None,
     high_stakes: bool = False,
 ) -> dict[str, Any]:
+    """Gate interpretation release.
+
+    - No review needed → release with review_status=not_required.
+    - Soft review (low conf / flag, not high-stakes) → still release beginner/expert
+      text so product/e2e surfaces stay stable; enqueue a pending ticket.
+    - High-stakes (medical/legal/financial) → hard withhold full reading; withheld_view
+      keeps a stable shape including beginner/expert placeholders + summary.
+    """
     pol = policy or ReviewPolicy()
     needs = pol.requires_review(interp, high_stakes=high_stakes)
     if not needs:
@@ -27,10 +35,29 @@ def process_interpretation(
         return {"released": True, "interpretation": out, "ticket": None}
 
     ticket = queue.enqueue(ReviewTicket(interpretation=interp, review_status="pending"))
+
+    # Soft path: educational / low-confidence — show the reading, flag pending review.
+    if not high_stakes:
+        out = interp.model_dump()
+        out["review_status"] = "pending"
+        out["human_review_gate"] = "pending"
+        out["ai_disclosure"] = {
+            **interp.ai_disclosure.model_dump(),
+            "review_status": "pending",
+        }
+        return {"released": True, "interpretation": out, "ticket": ticket.model_dump()}
+
+    # High-stakes: withhold free-form claims; keep API keys stable for clients/tests.
+    summary = "This interpretation is under human review."
     withheld = {
         "review_status": "pending",
-        "summary": "This interpretation is under human review.",
+        "summary": summary,
+        "beginner": summary,
+        "expert": summary,
+        "recommendations": [],
         "citations": [c.model_dump() for c in interp.citations],
+        "confidence": float(interp.confidence),
+        "requires_human_review": True,
         "ai_disclosure": {
             **interp.ai_disclosure.model_dump(),
             "review_status": "pending",

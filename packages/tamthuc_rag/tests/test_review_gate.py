@@ -25,12 +25,28 @@ def test_not_required_released() -> None:
     assert out["interpretation"]["review_status"] == "not_required"
 
 
-def test_pending_withhold_and_decide() -> None:
+def test_soft_review_releases_text() -> None:
+    """Low-confidence / flag review must still surface beginner/expert (not high-stakes)."""
     q = ReviewQueue()
-    out = process_interpretation(_interp(req=True), q)
+    out = process_interpretation(_interp(req=True, conf=0.2), q, high_stakes=False)
+    assert out["released"] is True
+    assert out["interpretation"]["beginner"] == "b"
+    assert out["interpretation"]["expert"] == "e"
+    assert out["interpretation"]["review_status"] == "pending"
+    assert out["ticket"] is not None
+
+
+def test_high_stakes_withhold_and_decide() -> None:
+    q = ReviewQueue()
+    out = process_interpretation(_interp(req=True), q, high_stakes=True)
     assert out["released"] is False
     tid = out["ticket"]["ticket_id"]
-    assert out["withheld_view"]["review_status"] == "pending"
+    view = out["withheld_view"]
+    assert view["review_status"] == "pending"
+    # Stable keys for clients / e2e (no KeyError on beginner)
+    assert view["beginner"]
+    assert view["expert"]
+    assert view["summary"]
     with __import__("pytest").raises(PermissionError):
         decide(tid, ReviewDecision(decision="approve", reason="ok", reviewer="a", role="user"), q)
     with __import__("pytest").raises(ValueError):
