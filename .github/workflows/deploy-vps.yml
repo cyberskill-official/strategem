@@ -53,9 +53,22 @@ jobs:
     runs-on: ubuntu-latest
     # Uncomment for human prod gate:
     # environment: production
-    if: ${{ secrets.VPS_HOST != '' }}
+    # NOTE: job-level `if: secrets.*` is invalid — GitHub does not expose `secrets`
+    # in job `if` expressions. Gate the SSH step via env + step if instead.
     steps:
+      - name: Check VPS deploy secrets
+        id: vps
+        env:
+          VPS_HOST: ${{ secrets.VPS_HOST }}
+        run: |
+          if [ -n "${VPS_HOST:-}" ]; then
+            echo "configured=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "configured=false" >> "$GITHUB_OUTPUT"
+            echo "VPS_HOST secret empty — skip SSH deploy (set VPS_HOST/VPS_USER/VPS_SSH_KEY when ready)"
+          fi
       - name: SSH deploy
+        if: steps.vps.outputs.configured == 'true'
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.VPS_HOST }}
