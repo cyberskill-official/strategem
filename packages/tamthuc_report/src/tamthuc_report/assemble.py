@@ -1,4 +1,4 @@
-"""Pure report assembler — FR-REPORT-001. Copy-only; no engine I/O."""
+"""Pure report assembler — TASK-REPORT-001. Copy-only; no engine I/O."""
 
 from __future__ import annotations
 

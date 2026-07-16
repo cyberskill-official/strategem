@@ -1,4 +1,4 @@
-"""Deterministic interpretation metrics — FR-RAG-006."""
+"""Deterministic interpretation metrics — TASK-RAG-006."""
 
 from __future__ import annotations
 

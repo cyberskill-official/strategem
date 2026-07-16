@@ -1,4 +1,4 @@
-"""Chart cache keyed on PLAT-002 cache_key — FR-PLAT-006."""
+"""Chart cache keyed on PLAT-002 cache_key — TASK-PLAT-006."""
 
 from __future__ import annotations
 

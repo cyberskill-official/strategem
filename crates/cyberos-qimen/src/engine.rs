@@ -1,4 +1,4 @@
-//! QiMen engine assembly — FR-QMDG-006.
+//! QiMen engine assembly — TASK-QMDG-006.
 
 use crate::ban::{KyMonBan, QiMenFlags};
 use crate::bo_dia_ban;

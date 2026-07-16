@@ -1,4 +1,4 @@
-# Resilience policy (FR-PLAT-008)
+# Resilience policy (TASK-PLAT-008)
 
 | Control | Default |
 |---|---|

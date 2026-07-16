@@ -1,4 +1,4 @@
-//! LichPhap JSON object. FR-CORE-005.
+//! LichPhap JSON object. TASK-CORE-005.
 
 use crate::derived::{truong_sinh_stage, tuan_khong, vuong_suy, Season};
 use crate::flags::LichFlags;

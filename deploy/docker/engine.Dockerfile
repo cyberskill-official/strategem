@@ -1,4 +1,4 @@
-# FR-PLAT-004: Rust engine service (deterministic branch)
+# TASK-PLAT-004: Rust engine service (deterministic branch)
 FROM rust:1.85-bookworm AS build
 WORKDIR /src
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./

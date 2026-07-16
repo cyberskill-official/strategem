@@ -1,4 +1,4 @@
-//! Thai At ban types — FR-TAT-006.
+//! Thai At ban types — TASK-TAT-006.
 
 use crate::anthaiat::ThaiAtSeat;
 use crate::battuong::BatTuong;

@@ -144,7 +144,7 @@ Same brand ecosystem / market expectation users associate with “tâm lý học
 
 ---
 
-## 6. New FRs (authored this cycle)
+## 6. New tasks (authored this cycle)
 
 | ID | Title | Priority |
 |---|---|---|
@@ -153,7 +153,7 @@ Same brand ecosystem / market expectation users associate with “tâm lý học
 | **WEB-011** | Empathetic decision-support copy pass (vi-first, pure locale) | MUST |
 | **WEB-012** | Results upsell + shareable insight teaser | SHOULD |
 
-See `docs/feature-requests/web/FR-WEB-009…012` and BACKLOG update.
+See `docs/tasks/web/TASK-WEB-009…012` and BACKLOG update.
 
 ---
 

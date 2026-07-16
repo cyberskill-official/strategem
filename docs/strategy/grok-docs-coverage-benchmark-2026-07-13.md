@@ -3,7 +3,7 @@
 **Date:** 2026-07-13 (baseline) · **Re-score:** 2026-07-14 after COV-001..028 HITL `done`  
 **Sources:** `docs/Grok/` (51 PDFs + mockups + BACKLOG/AGENTS/README) reconciled with `docs/strategy/tam-thuc-unified-plan-2026-07-08.md`  
 **Code HEAD:** post WEB-021/022 + **cov-wave COV-001..028**  
-**Method:** Map Grok BACKLOG epics + PRD MVP scope + UI screens + API to inventory + live-verify. Formal ≥100% per `docs/feature-requests/cov-wave/README.md` Definition of 100% + operator HITL.
+**Method:** Map Grok BACKLOG epics + PRD MVP scope + UI screens + API to inventory + live-verify. Formal ≥100% per `docs/tasks/cov-wave/README.md` Definition of 100% + operator HITL.
 
 Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (built differently by design / Claude source).
 
@@ -254,23 +254,23 @@ This is **not under-implementation of Grok UI** alone — it is **reconciled dir
 
 ---
 
-## 12. Path to 100% (FR pack) — COMPLETED
+## 12. Path to 100% (task pack) — COMPLETED
 
-See **`docs/feature-requests/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
+See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
 
 ---
 
 ## 13. Formal re-score after HITL (2026-07-14) — ≥100%
 
-**Operator HITL:** session decision “HITL accept all 28 COV” → all FR specs `done`.
+**Operator HITL:** session decision “HITL accept all 28 COV” → all task specs `done`.
 
 | Evidence class | Artefacts |
 |----------------|-----------|
-| FR pack | `docs/feature-requests/cov-wave/FR-COV-*/spec.md` status `done` |
+| task pack | `docs/tasks/cov-wave/TASK-COV-*/spec.md` status `done` |
 | Local Docker dual cast | smoke KM/LN/TA + stamp_flags on `:18000` |
 | LMStudio path | `docs/deploy/local-docker-lmstudio.md`; OpenAI-compat client tests; honest degrade when host AI down |
 | Product screens | web `:13000` routes 200: cast, timing, scenarios, login, practice, learn, library, help, patterns, cross-system, pricing |
 | Metrics | `GET /metrics` Prometheus 200 |
-| Definition | `docs/feature-requests/cov-wave/README.md` § Definition of 100% |
+| Definition | `docs/tasks/cov-wave/README.md` § Definition of 100% |
 
 **Historical note:** Sections 2–7 narrative rows may still show pre-wave wording in places; **§1 executive scores and this §13 supersede** for formal coverage claims.

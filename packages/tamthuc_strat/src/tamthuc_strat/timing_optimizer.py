@@ -1,4 +1,4 @@
-"""Timing Optimizer — FR-STRAT-001. Calls engine; never re-casts plates."""
+"""Timing Optimizer — TASK-STRAT-001. Calls engine; never re-casts plates."""
 
 from __future__ import annotations
 

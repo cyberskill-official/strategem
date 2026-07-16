@@ -1,4 +1,4 @@
-"""FR-KB-004 curation workflow tests."""
+"""TASK-KB-004 curation workflow tests."""
 
 from __future__ import annotations
 

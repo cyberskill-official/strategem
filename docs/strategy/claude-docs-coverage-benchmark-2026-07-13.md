@@ -3,7 +3,7 @@
 **Date:** 2026-07-13 (baseline) · **Re-score:** 2026-07-14 after COV-001..028 HITL `done`  
 **Sources:** `docs/Claude/` (7 Markdown volumes + PDFs + muc luc) + unified plan `docs/strategy/tam-thuc-unified-plan-2026-07-08.md` §2.1, §4–7  
 **Code:** monorepo engines/API/web post WEB-021/022 + **cov-wave COV-001..028**  
-**Method:** Map Claude tập 1–7 requirements to crates/packages/web inventory + live-verify evidence. Formal ≥100% claim gated by `docs/feature-requests/cov-wave/README.md` Definition of 100% + operator HITL on COV pack.
+**Method:** Map Claude tập 1–7 requirements to crates/packages/web inventory + live-verify evidence. Formal ≥100% claim gated by `docs/tasks/cov-wave/README.md` Definition of 100% + operator HITL on COV pack.
 
 Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (unified-plan decision).
 
@@ -270,19 +270,19 @@ Against **`docs/Claude`**, after COV-001..028 HITL acceptance (2026-07-14), the 
 
 ---
 
-## 12. Path to 100% (FR pack) — COMPLETED
+## 12. Path to 100% (task pack) — COMPLETED
 
-See **`docs/feature-requests/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
+See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
 
 ---
 
 ## 13. Formal re-score after HITL (2026-07-14) — ≥100%
 
-**Operator HITL:** session decision “HITL accept all 28 COV” → all FR specs `done`.
+**Operator HITL:** session decision “HITL accept all 28 COV” → all task specs `done`.
 
-| Cluster closed | FR(s) | Evidence |
+| Cluster closed | task(s) | Evidence |
 |----------------|-------|----------|
-| Oracle suite | COV-001 | FR done + golden/oracle tests |
+| Oracle suite | COV-001 | task done + golden/oracle tests |
 | Flag stamps + UI matrix | COV-002, 003 | engines + school-flags; live stamp_flags |
 | KM/LN/TA depth | COV-004–006 | cach_cuc, 9-school, victory UX |
 | Persist + RAG + local AI | COV-010, 011, 028 | pg_store; INTERPRET_MODE; OpenAICompatibleLlm |

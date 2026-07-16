@@ -1,4 +1,4 @@
-//! Ngu hanh of can/chi, sinh/khac, and dia chi relations (FR-CORE-007).
+//! Ngu hanh of can/chi, sinh/khac, and dia chi relations (TASK-CORE-007).
 
 use crate::ganzhi::{Can, Chi, NguHanh};
 

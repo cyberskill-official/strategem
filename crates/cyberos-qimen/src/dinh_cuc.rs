@@ -1,4 +1,4 @@
-//! Dinh cuc table 24 jieqi × 3 nguyen. FR-QMDG-001.
+//! Dinh cuc table 24 jieqi × 3 nguyen. TASK-QMDG-001.
 
 use crate::flags::DingjuMethod;
 use serde::{Deserialize, Serialize};

@@ -1,4 +1,4 @@
-/** Mirrors CSS custom properties in styles/tokens.css (FR-WEB-001). */
+/** Mirrors CSS custom properties in styles/tokens.css (TASK-WEB-001). */
 export const tokens = {
   color: {
     ochre: "#F4BA17",

@@ -1,4 +1,4 @@
-"""Eval cases projected from FR-KB-002 validation rows — FR-RAG-006."""
+"""Eval cases projected from TASK-KB-002 validation rows — TASK-RAG-006."""
 
 from __future__ import annotations
 
@@ -47,7 +47,7 @@ def _row_to_case(row: dict[str, Any]) -> EvalCase:
 
 
 def load_cases(system: System | None = None, *, root: Path | None = None) -> list[EvalCase]:
-    """Adapt FR-KB-002 seeded patterns into EvalCase list (validation_cases projection)."""
+    """Adapt TASK-KB-002 seeded patterns into EvalCase list (validation_cases projection)."""
     base = root or _patterns_root()
     systems: tuple[str, ...] = (system,) if system else ("qimen", "liuren", "taiyi")
     cases: list[EvalCase] = []

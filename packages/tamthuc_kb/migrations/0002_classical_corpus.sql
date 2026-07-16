@@ -1,4 +1,4 @@
--- FR-KB-003 classical corpus tables (umbrella with PLAT-003 runner)
+-- TASK-KB-003 classical corpus tables (umbrella with PLAT-003 runner)
 
 CREATE TABLE IF NOT EXISTS classical_sources (
   source_id text PRIMARY KEY,

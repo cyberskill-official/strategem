@@ -3,7 +3,7 @@
 import { useLocale } from "../i18n/locale-provider";
 
 /**
- * Export triggers FR-REPORT-002 PDF and FR-CHART-004 PNG/SVG —
+ * Export triggers TASK-REPORT-002 PDF and TASK-CHART-004 PNG/SVG —
  * client does not re-render the files.
  */
 export function ExportMenu({

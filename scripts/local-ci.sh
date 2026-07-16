@@ -41,7 +41,7 @@ lane_py=0; lane_rs=0; lane_web=0; lane_fr=0; lane_compose=0
 if has '\.py$' || has '^packages/' || has 'pyproject'; then lane_py=1; fi
 if has '\.rs$' || has '^crates/' || has 'Cargo'; then lane_rs=1; fi
 if has '^apps/web/' || has 'pnpm-lock'; then lane_web=1; fi
-if has '^docs/feature-requests/' || has 'CHANGELOG' || has '^VERSION$'; then lane_fr=1; fi
+if has '^docs/tasks/' || has 'CHANGELOG' || has '^VERSION$'; then lane_fr=1; fi
 if has 'docker-compose|Dockerfile'; then lane_compose=1; fi
 
 # If nothing detected (first run / empty), assume all product lanes
@@ -49,14 +49,14 @@ if [ "$lane_py$lane_rs$lane_web" = "000" ]; then
   lane_py=1; lane_rs=1; lane_web=1
 fi
 
-echo "local-ci: lanes py=$lane_py rs=$lane_rs web=$lane_web fr=$lane_fr compose=$lane_compose"
+echo "local-ci: lanes py=$lane_py rs=$lane_rs web=$lane_web task=$lane_fr compose=$lane_compose"
 
 # ── 1) Status page ──────────────────────────────────────────────────────────
 if [ "${SKIP_STATUS:-0}" != "1" ]; then
   if [ "$lane_fr" = "1" ] || [ -n "${FORCE_STATUS:-}" ]; then
-    if [ -f .cyberos/migrate-frs.sh ] && command -v node >/dev/null 2>&1; then
+    if [ -f .cyberos/migrate-tasks.sh ] && command -v node >/dev/null 2>&1; then
       echo "local-ci: regenerating docs/status …"
-      bash .cyberos/migrate-frs.sh --page "$root" >/dev/null
+      bash .cyberos/migrate-tasks.sh --page "$root" >/dev/null
     fi
   fi
   if [ -x scripts/check-status-sync.sh ]; then

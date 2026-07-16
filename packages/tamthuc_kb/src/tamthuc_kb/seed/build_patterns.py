@@ -1,4 +1,4 @@
-"""CLI entry: validate seed and print counts — FR-KB-002."""
+"""CLI entry: validate seed and print counts — TASK-KB-002."""
 
 from __future__ import annotations
 

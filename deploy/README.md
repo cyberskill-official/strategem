@@ -1,6 +1,6 @@
 # Deploy
 
-## Target topology (FR-PLAT-011)
+## Target topology (TASK-PLAT-011)
 
 | Surface | Platform | Docs |
 |---|---|---|
@@ -20,7 +20,7 @@ Full diagram: `docs/deploy/topology.md`.
 | `vps/` | production API compose, Caddy, migrate + deploy scripts |
 | `environments/*.md` | staging + production contracts |
 | `.github/workflows/cd.yml` | legacy multi-image CD (Docker web optional) |
-| `.github/workflows/deploy-vps.yml` | **API** → GHCR → VPS (FR-PLAT-015) |
+| `.github/workflows/deploy-vps.yml` | **API** → GHCR → VPS (TASK-PLAT-015) |
 | `.github/workflows/security-scan.yml` | Trivy fs + gitleaks on PR |
 
 ## Local
@@ -44,7 +44,7 @@ docker build -f deploy/docker/api.Dockerfile -t strategem-api:local .
 ## Secrets
 
 Never commit secrets. Pipeline reads from GitHub Actions secrets / Environments.
-See FR-PLAT-007 for the control set.
+See TASK-PLAT-007 for the control set.
 
 ## Production approval
 

@@ -1,4 +1,4 @@
-# Strategem API stack on VPS (FR-PLAT-013).
+# Strategem API stack on VPS (TASK-PLAT-013).
 # Usage:
 #   docker compose --env-file .env -f docker-compose.api.yml up -d
 services:

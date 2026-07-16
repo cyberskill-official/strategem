@@ -3,7 +3,7 @@ name = "cyberos-rule"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Pattern-as-data schema + seed loader (FR-RULE-001)"
+description = "Pattern-as-data schema + seed loader (TASK-RULE-001)"
 
 [dependencies]
 serde = { workspace = true }

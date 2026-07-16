@@ -1,4 +1,4 @@
-"""Roles, capabilities, and the ROLE_CAPABILITIES map (FR-AUTH-002)."""
+"""Roles, capabilities, and the ROLE_CAPABILITIES map (TASK-AUTH-002)."""
 
 from __future__ import annotations
 

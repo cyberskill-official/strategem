@@ -1,4 +1,4 @@
-"""Postgres fixtures for FR-PLAT-003. Skip when DATABASE_URL is unset."""
+"""Postgres fixtures for TASK-PLAT-003. Skip when DATABASE_URL is unset."""
 
 from __future__ import annotations
 

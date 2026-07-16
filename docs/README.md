@@ -5,8 +5,8 @@ This folder holds the sources and the engineering plan for the Tam Thuc Stratege
 ## Where to start
 
 - New to the project: read `strategy/tam-thuc-unified-plan-2026-07-08.md`. It analyzes the two source doc sets, reconciles them, and fixes the architecture, module taxonomy, phases, and risks. Everything else refs it.
-- Building a feature: open `feature-requests/README.md` (the catalog), then the module folder for the FR you want.
-- Running the program with agents: invoke the `strategem-implement` skill to build the next task and `strategem-review` to sign it off (both under `.claude/skills/`); `feature-requests/IMPLEMENTATION_ORDER.md` is the build order and status.
+- Building a feature: open `tasks/README.md` (the catalog), then the module folder for the task you want.
+- Running the program with agents: invoke the `strategem-implement` skill to build the next task and `strategem-review` to sign it off (both under `.claude/skills/`); `tasks/IMPLEMENTATION_ORDER.md` is the build order and status.
 
 ## Layout
 
@@ -15,8 +15,8 @@ This folder holds the sources and the engineering plan for the Tam Thuc Stratege
 | `Claude/` | Source doc set A - 8 dense Markdown/PDF volumes (engines, calendar core, architecture, product/UI). Authoritative on algorithms and design. |
 | `Grok/` | Source doc set B - 51 outline PDFs + UI mockups (PRD, backend, DB, API, ops, security, testing, i18n, legal). Authoritative on product breadth. |
 | `strategy/` | The unified plan and source reconciliation - the anchor report. |
-| `feature-requests/` | 87 FRs across 16 modules. Each module has a README index; each FR is a heavyweight contract (section 1-11), all 87 authored. |
-| `feature-requests/` (also) | The build-order and trigger layer, folded in alongside the FRs: `IMPLEMENTATION_ORDER.md` (status + phase waves), `backlog.yaml`, `PROMPT.md`, `LEDGER.md`. `docs/improvement/` is intentionally not created; it is reserved for the post-launch audit and evolution stage. |
+| `tasks/` | 87 tasks across 16 modules. Each module has a README index; each task is a heavyweight contract (section 1-11), all 87 authored. |
+| `tasks/` (also) | The build-order and trigger layer, folded in alongside the tasks: `IMPLEMENTATION_ORDER.md` (status + phase waves), `backlog.yaml`, `PROMPT.md`, `LEDGER.md`. `docs/improvement/` is intentionally not created; it is reserved for the post-launch audit and evolution stage. |
 
 ## The one principle
 
@@ -24,6 +24,6 @@ Everything is built around a hard split: a deterministic engine casts the chart 
 
 ## Status (2026-07-08)
 
-Plan complete and validated. All 87 FR bodies are authored as heavyweight contracts across the 16 modules. The backlog is acyclic, single-rooted at PLAT-001, and agent-runnable via `feature-requests/PROMPT.md`.
+Plan complete and validated. All 87 task bodies are authored as heavyweight contracts across the 16 modules. The backlog is acyclic, single-rooted at PLAT-001, and agent-runnable via `tasks/PROMPT.md`.
 
 Hien Thuc Hoa Y Chi.

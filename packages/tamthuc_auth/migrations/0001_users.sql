@@ -1,8 +1,8 @@
--- FR-AUTH-001: auth-owned users shape (coordinates with FR-PLAT-003 umbrella).
+-- TASK-AUTH-001: auth-owned users shape (coordinates with TASK-PLAT-003 umbrella).
 -- PLAT-003 created base users; this migration adds AUTH columns when missing.
 -- Apply after db/migrations/0002_users.sql (or as documentation of AUTH ownership).
 
--- email_verified (FR-AUTH-003 completes the flow; default false at register)
+-- email_verified (TASK-AUTH-003 completes the flow; default false at register)
 ALTER TABLE users ADD COLUMN IF NOT EXISTS email_verified boolean NOT NULL DEFAULT false;
 
 -- preferences (language, default systems, school flags)
@@ -17,6 +17,6 @@ ALTER TABLE users ADD COLUMN IF NOT EXISTS social_provider text;
 ALTER TABLE users ADD COLUMN IF NOT EXISTS social_subject text;
 
 COMMENT ON COLUMN users.birth_data IS
-  'AES-256-GCM envelope {alg,iv,ct,tag,wrapped_dek}; never plaintext (FR-AUTH-001 RISK-5).';
+  'AES-256-GCM envelope {alg,iv,ct,tag,wrapped_dek}; never plaintext (TASK-AUTH-001 RISK-5).';
 COMMENT ON COLUMN users.password_hash IS
   'argon2 hash; null for social-only accounts. Never log.';

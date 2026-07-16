@@ -3,7 +3,7 @@ name = "cyberos-lichphap"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Calendar core: ganzhi primitives and relations (FR-CORE-007+)"
+description = "Calendar core: ganzhi primitives and relations (TASK-CORE-007+)"
 
 [dependencies]
 serde = { workspace = true }

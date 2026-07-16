@@ -1,4 +1,4 @@
-//! Thai At engine assembly — FR-TAT-006.
+//! Thai At engine assembly — TASK-TAT-006.
 
 use crate::ban::{Cap, TatFlags, ThaiAtBan};
 use crate::battuong::place_bat_tuong;

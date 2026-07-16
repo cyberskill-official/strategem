@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Combined pre-commit (install → .git/hooks/pre-commit):
-#   1) CyberOS status page regen (blocking) when FR/CHANGELOG/VERSION staged
+#   1) CyberOS status page regen (blocking) when TASK/CHANGELOG/VERSION staged
 #   2) Quality lint on staged py/web/rust
 #   3) Status-sync count check
 #
@@ -16,7 +16,7 @@ staged="$(git diff --cached --name-only || true)"
 matches() { grep -Eq "$1" <<<"$staged"; }
 
 # —— 1) Status page ——
-status_trigger='^(docs/feature-requests/|CHANGELOG\.md$|VERSION$)'
+status_trigger='^(docs/tasks/|CHANGELOG\.md$|VERSION$)'
 if matches "$status_trigger"; then
   migrate=""
   [ -f "$root/.cyberos/lib/status-page.sh" ] && migrate="$root/.cyberos/lib/status-page.sh"

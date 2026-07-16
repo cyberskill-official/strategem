@@ -1,4 +1,4 @@
-"""FR-RAG-006 interpretation eval loop tests."""
+"""TASK-RAG-006 interpretation eval loop tests."""
 
 from __future__ import annotations
 

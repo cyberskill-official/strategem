@@ -1,4 +1,4 @@
-"""Cache warming for common casts — FR-PLAT-006."""
+"""Cache warming for common casts — TASK-PLAT-006."""
 
 from __future__ import annotations
 

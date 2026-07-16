@@ -1,6 +1,6 @@
-# RLS session contract (FR-PLAT-003)
+# RLS session contract (TASK-PLAT-003)
 
-Fail-closed row-level security is the RISK-5 gate for personal divination data. This document is the seam FR-AUTH-001 and FR-API-004 **must** honour on every Postgres transaction that touches user-scoped tables.
+Fail-closed row-level security is the RISK-5 gate for personal divination data. This document is the seam TASK-AUTH-001 and TASK-API-004 **must** honour on every Postgres transaction that touches user-scoped tables.
 
 ## GUCs
 

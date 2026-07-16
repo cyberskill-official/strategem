@@ -1,4 +1,4 @@
-/** Screen-reader labels for chart components — FR-CHART-004. */
+/** Screen-reader labels for chart components — TASK-CHART-004. */
 
 export function palaceLabel(palace: number, content: string[]): string {
   const body = content.filter(Boolean).join(", ") || "empty";

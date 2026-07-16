@@ -1,7 +1,7 @@
 "use client";
 
 /**
- * Interactive 9-palace QiMen chart — FR-CHART-001.
+ * Interactive 9-palace QiMen chart — TASK-CHART-001.
  * Reads envelope ban read-only; never re-computes plates.
  */
 

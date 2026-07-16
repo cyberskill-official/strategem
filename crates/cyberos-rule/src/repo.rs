@@ -1,4 +1,4 @@
-//! Pattern repositories (seed + stub). FR-RULE-003.
+//! Pattern repositories (seed + stub). TASK-RULE-003.
 
 use crate::pattern::{Pattern, Status, System};
 use crate::seed::{load_seed, SeedError};

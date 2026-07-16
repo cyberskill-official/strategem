@@ -1,4 +1,4 @@
-//! Cuu tinh / bat mon / bat than placement — FR-QMDG-004.
+//! Cuu tinh / bat mon / bat than placement — TASK-QMDG-004.
 
 use crate::dinh_cuc::DinhCuc;
 use crate::truc_phu_su::{TrucPhuSu, ZhongGongKy};

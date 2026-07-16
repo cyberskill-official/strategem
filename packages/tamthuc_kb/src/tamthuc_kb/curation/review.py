@@ -1,4 +1,4 @@
-"""Accept/reject decisions — FR-KB-004."""
+"""Accept/reject decisions — TASK-KB-004."""
 
 from __future__ import annotations
 

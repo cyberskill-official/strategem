@@ -1,4 +1,4 @@
-"""URL-primary API versioning — FR-API-002."""
+"""URL-primary API versioning — TASK-API-002."""
 
 from __future__ import annotations
 
@@ -91,7 +91,7 @@ def calculation_stability_note() -> dict[str, Any]:
     return {
         "calculation_output": {
             "stability": "stable",
-            "changes_via": "FR-PLAT-002 envelope_version bump + migration note only",
+            "changes_via": "TASK-PLAT-002 envelope_version bump + migration note only",
         },
         "interpretation": {
             "stability": "variable",

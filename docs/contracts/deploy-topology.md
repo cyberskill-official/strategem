@@ -1,4 +1,4 @@
-# Deploy topology contract (FR-PLAT-011)
+# Deploy topology contract (TASK-PLAT-011)
 
 Normative prose: `docs/deploy/topology.md`.
 

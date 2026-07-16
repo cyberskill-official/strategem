@@ -1,4 +1,4 @@
-//! Calendar core (`cyberos-lichphap`). FR-CORE-001 solar terms + FR-CORE-007 ganzhi.
+//! Calendar core (`cyberos-lichphap`). TASK-CORE-001 solar terms + TASK-CORE-007 ganzhi.
 
 pub mod api;
 pub mod delta_t;

@@ -1,4 +1,4 @@
-# CD split (FR-PLAT-015)
+# CD split (TASK-PLAT-015)
 
 | Surface | Mechanism |
 |---|---|
@@ -19,8 +19,8 @@
 
 ## Production approval
 
-Optional: GitHub Environment `production` required reviewers before VPS job (same spirit as FR-PLAT-004).
+Optional: GitHub Environment `production` required reviewers before VPS job (same spirit as TASK-PLAT-004).
 
 ## Cutover note
 
-Existing `cd.yml` may still build multi-image Docker CD; treat FR-PLAT-015 as the **target** path for the Vercel + Supabase + VPS topology. Disable conflicting web-in-Docker prod deploys when Vercel is primary.
+Existing `cd.yml` may still build multi-image Docker CD; treat TASK-PLAT-015 as the **target** path for the Vercel + Supabase + VPS topology. Disable conflicting web-in-Docker prod deploys when Vercel is primary.

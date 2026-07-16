@@ -80,7 +80,7 @@ pub struct LaSo {
     pub envelope_version: u16,
     pub he: He,
     pub dau_vao: DauVao,
-    /// CORE calendar output + all flags used. See FR-CORE-005 for the detailed shape.
+    /// CORE calendar output + all flags used. See TASK-CORE-005 for the detailed shape.
     /// Engines stamp every flag that affected the result here (under co_lich_phap or top level).
     pub lich_phap: Value,
     /// Engine-specific plates. Opaque at this boundary.
@@ -117,11 +117,11 @@ pub fn require_supported_version(la: &LaSo) -> Result<(), EnvelopeError> {
 }
 
 /// Compute a stable cache key for a LaSo.
-/// Rule (per FR): hash of (he, dau_vao rounded to casting granularity, co_truong_phai sorted, lich_phap.co_lich_phap sorted).
+/// Rule (per task): hash of (he, dau_vao rounded to casting granularity, co_truong_phai sorted, lich_phap.co_lich_phap sorted).
 /// We use canonical JSON (BTreeMap already sorted) + sha256 for cross-lang stability.
 pub fn cache_key(la: &LaSo) -> String {
     // Build a deterministic sub-object for hashing.
-    // Use only the parts that affect determinism per the FR.
+    // Use only the parts that affect determinism per the task.
     let mut canon = serde_json::Map::new();
     canon.insert("he".to_string(), serde_json::to_value(&la.he).unwrap());
 

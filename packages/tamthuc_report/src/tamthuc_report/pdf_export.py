@@ -1,4 +1,4 @@
-"""PDF export — FR-REPORT-002. Pure HTML renderer (PDF bytes via UTF-8 HTML wrapper)."""
+"""PDF export — TASK-REPORT-002. Pure HTML renderer (PDF bytes via UTF-8 HTML wrapper)."""
 
 from __future__ import annotations
 

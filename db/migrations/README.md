@@ -1,4 +1,4 @@
-# Database migrations (FR-PLAT-003)
+# Database migrations (TASK-PLAT-003)
 
 Forward-only SQL migrations for the Tam Thuc Strategem data tier. No ORM owns this schema; both the Rust engine branch and the Python API/RAG branch target the same DDL.
 

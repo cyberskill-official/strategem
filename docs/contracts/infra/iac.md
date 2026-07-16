@@ -1,4 +1,4 @@
-# Infrastructure as code (FR-PLAT-010)
+# Infrastructure as code (TASK-PLAT-010)
 
 Terraform modules + Kubernetes manifests under `deploy/iac/` (scaffolded).
 
@@ -18,5 +18,5 @@ deploy/iac/
 ## Principles
 
 - No secrets in git; inject via sealed secrets / external secrets operator
-- Staging then prod promotion (FR-PLAT-004 CD)
+- Staging then prod promotion (TASK-PLAT-004 CD)
 - Chart calculation engines scale independently of API/web

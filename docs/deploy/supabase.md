@@ -1,8 +1,8 @@
-# Supabase database (FR-PLAT-012)
+# Supabase database (TASK-PLAT-012)
 
 ## Schema source of truth
 
-Forward-only SQL: `db/migrations/0001_*.sql` … `0009_*.sql` (FR-PLAT-003).
+Forward-only SQL: `db/migrations/0001_*.sql` … `0009_*.sql` (TASK-PLAT-003).
 
 ## Connection URLs
 

@@ -1,4 +1,4 @@
-//! Canonical calendar flags. FR-CORE-005.
+//! Canonical calendar flags. TASK-CORE-005.
 
 use crate::derived::TruongSinhPhai;
 use crate::pillars::LateZiHandling;

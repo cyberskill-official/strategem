@@ -1,4 +1,4 @@
-"""DSAR erasure with crypto-shred — FR-AUTH-004."""
+"""DSAR erasure with crypto-shred — TASK-AUTH-004."""
 
 from __future__ import annotations
 
@@ -71,7 +71,7 @@ def erase_user_data(
         hist[table] = [r for r in rows if str(r.get("user_id")) != user_id]
         erased.append(table)
 
-    retained = [{"table": "audit", "reason": "legal retention (FR-LEGAL-002)"}]
+    retained = [{"table": "audit", "reason": "legal retention (TASK-LEGAL-002)"}]
     if already_erased is not None:
         already_erased.add(user_id)
 

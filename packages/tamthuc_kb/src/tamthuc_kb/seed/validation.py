@@ -1,4 +1,4 @@
-"""Validate pattern seed rows — FR-KB-002."""
+"""Validate pattern seed rows — TASK-KB-002."""
 
 from __future__ import annotations
 

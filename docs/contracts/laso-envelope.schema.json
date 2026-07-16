@@ -55,7 +55,7 @@
     },
     "lich_phap": {
       "type": "object",
-      "description": "Full CORE calendar/ganzhi output and flags (see FR-CORE-005). Opaque here but must be stamped completely.",
+      "description": "Full CORE calendar/ganzhi output and flags (see TASK-CORE-005). Opaque here but must be stamped completely.",
       "additionalProperties": true
     },
     "ban": {

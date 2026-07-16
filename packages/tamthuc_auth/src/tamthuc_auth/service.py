@@ -34,7 +34,7 @@ from tamthuc_auth.tokens import (
 
 log = logging.getLogger("tamthuc_auth.service")
 
-# Verification event sink for FR-AUTH-003 (emit only; no delivery here).
+# Verification event sink for TASK-AUTH-003 (emit only; no delivery here).
 _verification_events: list[dict[str, Any]] = []
 
 # Precomputed argon2 hash so missing-user path still runs verify (no enumeration).

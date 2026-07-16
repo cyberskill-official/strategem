@@ -1,4 +1,4 @@
-# PDPD / GDPR compliance pack (FR-LEGAL-002)
+# PDPD / GDPR compliance pack (TASK-LEGAL-002)
 
 ## Legal basis
 
@@ -12,7 +12,7 @@ Birth data and question text are **sensitive personal data**. Charts/reports are
 
 ## Logging rule
 
-No plaintext `birth_data` or full question text in logs, metrics labels, Sentry, or analytics (aligns with FR-PLAT-005 redaction).
+No plaintext `birth_data` or full question text in logs, metrics labels, Sentry, or analytics (aligns with TASK-PLAT-005 redaction).
 
 ## Modules
 
@@ -20,5 +20,5 @@ No plaintext `birth_data` or full question text in logs, metrics labels, Sentry,
 |---|---|
 | `retention-schedule.md` + `retention.py` | per-class retention |
 | `consent.md` | granular signup consent |
-| `docs/contracts/dsar.schema.json` | export/erasure shapes for FR-AUTH-004 |
+| `docs/contracts/dsar.schema.json` | export/erasure shapes for TASK-AUTH-004 |
 | `tamthuc_compliance` | typed contracts + stub |

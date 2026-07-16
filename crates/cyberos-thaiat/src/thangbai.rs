@@ -1,4 +1,4 @@
-//! Four victory *criteria* as deterministic facts — FR-TAT-005.
+//! Four victory *criteria* as deterministic facts — TASK-TAT-005.
 //! No "who wins" verdict field; AI layer owns the reading.
 
 use crate::battuong::BatTuong;

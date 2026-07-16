@@ -1,4 +1,4 @@
-//! Luc than + dung than — FR-LN-005.
+//! Luc than + dung than — TASK-LN-005.
 
 use cyberos_lichphap::{khac, ngu_hanh_of_can, ngu_hanh_of_chi, sinh, Can, Chi, NguHanh};
 use serde::{Deserialize, Serialize};

@@ -97,7 +97,7 @@ def test_coverage_gate_script_exists() -> None:
     assert p.is_file()
     text = p.read_text()
     assert "COVERAGE_MIN" in text or "90" in text
-    # Optional local gates.env (cyberos init) — never required on CI
+    # Optional local gates.env (cyberos install) — never required on CI
     gates = ROOT / ".cyberos/gates.env"
     if gates.is_file():
         g = gates.read_text()

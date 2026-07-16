@@ -1,4 +1,4 @@
-# STRIDE threat model (FR-PLAT-007)
+# STRIDE threat model (TASK-PLAT-007)
 
 | Threat | Control | Evidence |
 |---|---|---|

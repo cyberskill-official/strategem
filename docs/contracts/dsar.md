@@ -1,6 +1,6 @@
-# DSAR self-service (FR-AUTH-004)
+# DSAR self-service (TASK-AUTH-004)
 
-Implements the export / erasure mechanisms required by FR-LEGAL-002 (PDPD / GDPR).
+Implements the export / erasure mechanisms required by TASK-LEGAL-002 (PDPD / GDPR).
 
 ## Export
 

@@ -1,4 +1,4 @@
-"""Auth HTTP routes (mounted by FR-API-001)."""
+"""Auth HTTP routes (mounted by TASK-API-001)."""
 
 from __future__ import annotations
 

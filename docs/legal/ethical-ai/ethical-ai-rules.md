@@ -1,3 +1,3 @@
-# Ethical AI rules (FR-LEGAL-003)
+# Ethical AI rules (TASK-LEGAL-003)
 
-Extends FR-LEGAL-001 forbidden lexicon. Enforced by `tamthuc_rag.ethics.check_ethics`.
+Extends TASK-LEGAL-001 forbidden lexicon. Enforced by `tamthuc_rag.ethics.check_ethics`.

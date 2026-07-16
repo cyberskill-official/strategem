@@ -1,4 +1,4 @@
-/** PNG export seam — FR-CHART-004 (browser canvas path). */
+/** PNG export seam — TASK-CHART-004 (browser canvas path). */
 
 import { exportSvg } from "./export-svg";
 

@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Roll Strategem API on the VPS (FR-PLAT-013 / FR-PLAT-015).
+# Roll Strategem API on the VPS (TASK-PLAT-013 / TASK-PLAT-015).
 # CyberOS pattern: git pull → migrate → pull images → up -d
 # Note: this script git-pulls, so changes to deploy.sh apply on the *next* deploy.
 set -euo pipefail

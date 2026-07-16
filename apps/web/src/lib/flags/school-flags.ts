@@ -1,5 +1,5 @@
 /**
- * School flag enums + defaults — FR-WEB-007.
+ * School flag enums + defaults — TASK-WEB-007.
  * Options match engine closed enums; no school is marked "correct".
  */
 
@@ -125,7 +125,7 @@ export function defaultSchoolConfig(): SchoolConfig {
   return { co_truong_phai, co_lich_phap };
 }
 
-/** Carry flags into FR-WEB-002 cast request (UI sets; engine stamps). */
+/** Carry flags into TASK-WEB-002 cast request (UI sets; engine stamps). */
 export function toCastOverrides(cfg: SchoolConfig): {
   co_truong_phai: Record<string, string>;
   co_lich_phap: Record<string, string>;

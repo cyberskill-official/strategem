@@ -1,4 +1,4 @@
-"""Coverage for migrate CLI paths and error branches (FR-PLAT-003 ≥90% gate)."""
+"""Coverage for migrate CLI paths and error branches (TASK-PLAT-003 ≥90% gate)."""
 
 from __future__ import annotations
 

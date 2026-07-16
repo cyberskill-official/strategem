@@ -1,4 +1,4 @@
-//! Derived states: tuần không, vượng suy, trường sinh. FR-CORE-004.
+//! Derived states: tuần không, vượng suy, trường sinh. TASK-CORE-004.
 
 use crate::ganzhi::{Can, Chi, NguHanh};
 use crate::relations::{ngu_hanh_of_can, ngu_hanh_of_chi};

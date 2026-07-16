@@ -1,4 +1,4 @@
-"""Append-only audit log — FR-API-004."""
+"""Append-only audit log — TASK-API-004."""
 
 from __future__ import annotations
 

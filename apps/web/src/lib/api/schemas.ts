@@ -1,4 +1,4 @@
-/** FR-WEB-002 / FR-API-001 request+response shapes (manual mirror; zod optional). */
+/** TASK-WEB-002 / TASK-API-001 request+response shapes (manual mirror; zod optional). */
 
 export type QueryRequest = {
   datetime: string;

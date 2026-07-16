@@ -1,4 +1,4 @@
-"""FR-RAG-005 term-sense expansion tests."""
+"""TASK-RAG-005 term-sense expansion tests."""
 
 from __future__ import annotations
 

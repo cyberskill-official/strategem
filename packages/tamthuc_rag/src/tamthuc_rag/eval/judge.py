@@ -1,4 +1,4 @@
-"""Optional advisory judge — FR-RAG-006 (marker-gated, never hard gate)."""
+"""Optional advisory judge — TASK-RAG-006 (marker-gated, never hard gate)."""
 
 from __future__ import annotations
 

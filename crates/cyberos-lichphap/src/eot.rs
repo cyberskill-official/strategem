@@ -1,4 +1,4 @@
-//! Equation of time (minutes). Meeus low-precision. FR-CORE-002.
+//! Equation of time (minutes). Meeus low-precision. TASK-CORE-002.
 
 use crate::delta_t::utc_jd_to_tt_jd;
 use crate::solar::julian_day_utc;

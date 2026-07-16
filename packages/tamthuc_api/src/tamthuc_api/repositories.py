@@ -1,4 +1,4 @@
-"""In-memory repositories for FR-API-004 (swap for Postgres + RLS in prod)."""
+"""In-memory repositories for TASK-API-004 (swap for Postgres + RLS in prod)."""
 
 from __future__ import annotations
 

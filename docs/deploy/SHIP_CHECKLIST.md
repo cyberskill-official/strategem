@@ -1,6 +1,6 @@
 # Ship checklist — batch ops (post-FR complete)
 
-All product FRs are **done** (BACKLOG: 93). Remaining work is **operator linking**, not code.
+All product tasks are **done** (BACKLOG: 93). Remaining work is **operator linking**, not code.
 
 ## Pre-flight (local)
 

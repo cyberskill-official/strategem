@@ -1,5 +1,5 @@
 /**
- * Domain content plane (FR-WEB-006): fetch expert translations from backend.
+ * Domain content plane (TASK-WEB-006): fetch expert translations from backend.
  * NEVER machine-translates; NEVER strips Han.
  */
 

@@ -1,5 +1,5 @@
 # Legal-facing copy keys consumed by WEB shell / AIDisclosureBadge.
-# Counsel review required before public launch (FR-LEGAL-004).
+# Counsel review required before public launch (TASK-LEGAL-004).
 # Statutes: VN Nghị định 13/2023/NĐ-CP; GDPR.
 
 disclaimer.product.vi:
@@ -18,4 +18,4 @@ ai.limits.en:
 
 meta:
   counsel_review_required: true
-  review_fr: FR-LEGAL-004
+  review_fr: TASK-LEGAL-004

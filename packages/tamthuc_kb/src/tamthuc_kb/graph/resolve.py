@@ -1,4 +1,4 @@
-"""Seed token → graph node resolution — FR-KB-005."""
+"""Seed token → graph node resolution — TASK-KB-005."""
 
 from __future__ import annotations
 

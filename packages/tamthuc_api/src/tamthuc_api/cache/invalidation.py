@@ -1,4 +1,4 @@
-"""Pattern-update invalidation — FR-PLAT-006."""
+"""Pattern-update invalidation — TASK-PLAT-006."""
 
 from __future__ import annotations
 

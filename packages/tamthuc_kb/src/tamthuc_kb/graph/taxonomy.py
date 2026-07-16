@@ -1,4 +1,4 @@
-"""Closed node/edge taxonomy — FR-KB-001."""
+"""Closed node/edge taxonomy — TASK-KB-001."""
 
 from __future__ import annotations
 

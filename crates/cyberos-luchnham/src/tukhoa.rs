@@ -1,4 +1,4 @@
-//! Tu khoa (四課) — FR-LN-002.
+//! Tu khoa (四課) — TASK-LN-002.
 
 use crate::kycung::ky_cung;
 use crate::thiendiaban::{dia_ban, thien_over};

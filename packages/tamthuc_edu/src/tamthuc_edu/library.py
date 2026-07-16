@@ -1,4 +1,4 @@
-"""Bilingual classical library browser — FR-EDU-003."""
+"""Bilingual classical library browser — TASK-EDU-003."""
 
 from __future__ import annotations
 

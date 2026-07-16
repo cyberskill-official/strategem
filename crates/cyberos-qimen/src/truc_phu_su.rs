@@ -1,4 +1,4 @@
-//! Truc phu / truc su + thien ban rotation — FR-QMDG-003.
+//! Truc phu / truc su + thien ban rotation — TASK-QMDG-003.
 
 use crate::dia_ban::{DiaBan, Stem};
 use serde::{Deserialize, Serialize};
@@ -19,7 +19,7 @@ pub enum ZhongGongKy {
     GiuNguyen,
 }
 
-/// Placeholder star/door indices 0..8 until FR-QMDG-004 formalizes names.
+/// Placeholder star/door indices 0..8 until TASK-QMDG-004 formalizes names.
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
 pub struct TrucPhuSu {
     pub truc_phu: u8,

@@ -1,4 +1,4 @@
-//! Cach cuc detection — FR-QMDG-005 + COV-004 pattern-as-data catalog.
+//! Cach cuc detection — TASK-QMDG-005 + COV-004 pattern-as-data catalog.
 
 use crate::dia_ban::{DiaBan, Stem};
 use crate::sao_mon_than::{BatMon, SaoMonThan, YinYangPan};

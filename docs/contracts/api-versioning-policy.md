@@ -1,4 +1,4 @@
-# API versioning policy (FR-API-002)
+# API versioning policy (TASK-API-002)
 
 ## Scheme
 
@@ -6,7 +6,7 @@
 - **Option:** request header `X-API-Version: {major}`.
 - **Precedence:** when both URL and header are present, **the URL wins**.
 
-Unsupported majors are rejected with the FR-API-001 error envelope (`NOT_FOUND`), never silently rewritten to another version.
+Unsupported majors are rejected with the TASK-API-001 error envelope (`NOT_FOUND`), never silently rewritten to another version.
 
 ## Breaking vs additive
 
@@ -28,7 +28,7 @@ Unsupported majors are rejected with the FR-API-001 error envelope (`NOT_FOUND`)
 
 | Surface | Stability | Changes via |
 |---|---|---|
-| Calculation output (la so envelope / chart `ban`) | **Stable**, reproducible | FR-PLAT-002 `envelope_version` bump + migration note only |
+| Calculation output (la so envelope / chart `ban`) | **Stable**, reproducible | TASK-PLAT-002 `envelope_version` bump + migration note only |
 | Interpretation (RAG-003 prose) | **May vary** / improve | Not version-frozen; not byte-stable |
 | Request/response field set | Additive within a major; breaking → new major | This policy + `CHANGELOG.md` |
 

@@ -1,4 +1,4 @@
-"""Education module — FR-EDU-001..004."""
+"""Education module — TASK-EDU-001..004."""
 
 from tamthuc_edu.curriculum import Level, curriculum_levels, progression_ok
 from tamthuc_edu.grade import GradeResult, grade_chart_practice

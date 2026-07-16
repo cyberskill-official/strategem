@@ -1,4 +1,4 @@
-//! Toan counting — FR-TAT-003.
+//! Toan counting — TASK-TAT-003.
 
 use crate::anthaiat::ThaiAtSeat;
 use crate::thaplucthan::{is_chinh_cung, LoaiThan, THAP_LUC_THAN};

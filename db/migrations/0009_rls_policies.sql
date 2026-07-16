@@ -1,4 +1,4 @@
--- FR-PLAT-003: fail-closed RLS.
+-- TASK-PLAT-003: fail-closed RLS.
 -- Deny by default: ENABLE + FORCE with no permissive policy → zero rows visible.
 -- Owner policies key on app.current_user_id (SET LOCAL per request; see db/rls/session.md).
 -- Admin bypass is an explicit separate policy on role app_admin + app.current_role = 'admin'.

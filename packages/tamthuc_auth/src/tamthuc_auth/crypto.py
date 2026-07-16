@@ -1,4 +1,4 @@
-"""AES-256-GCM envelope encryption for birth_data with wrapped DEK (FR-AUTH-001)."""
+"""AES-256-GCM envelope encryption for birth_data with wrapped DEK (TASK-AUTH-001)."""
 
 from __future__ import annotations
 

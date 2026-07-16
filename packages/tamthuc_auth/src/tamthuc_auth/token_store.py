@@ -1,4 +1,4 @@
-"""Hashed, single-use, expiring email tokens — FR-AUTH-003."""
+"""Hashed, single-use, expiring email tokens — TASK-AUTH-003."""
 
 from __future__ import annotations
 

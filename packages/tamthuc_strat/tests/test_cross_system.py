@@ -1,4 +1,4 @@
-"""FR-STRAT-004 cross-system validate tests."""
+"""TASK-STRAT-004 cross-system validate tests."""
 
 from __future__ import annotations
 

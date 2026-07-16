@@ -1,4 +1,4 @@
-"""RAG interpretation client — FR-API-001 + COV-011 production default path."""
+"""RAG interpretation client — TASK-API-001 + COV-011 production default path."""
 
 from __future__ import annotations
 

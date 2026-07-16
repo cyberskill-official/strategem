@@ -1,4 +1,4 @@
-# Pattern seed sources (FR-KB-002)
+# Pattern seed sources (TASK-KB-002)
 
 | System | Work | Citation id prefix | Layers |
 |---|---|---|---|
@@ -7,4 +7,4 @@
 | liuren | 大六壬 (Đại Lục Nhâm) | `ln_` | Han / bach thoai |
 | taiyi | 太乙金鏡 (Thái Ất Kim Kính) | `tat_` | Han / bach thoai |
 
-Active patterns require at least one citation id resolving into FR-KB-003 classical corpus.
+Active patterns require at least one citation id resolving into TASK-KB-003 classical corpus.

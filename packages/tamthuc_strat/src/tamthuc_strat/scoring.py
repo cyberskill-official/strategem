@@ -1,4 +1,4 @@
-"""Deterministic scoring over cach_cuc — FR-STRAT-001."""
+"""Deterministic scoring over cach_cuc — TASK-STRAT-001."""
 
 from __future__ import annotations
 

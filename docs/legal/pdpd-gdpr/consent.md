@@ -10,4 +10,4 @@ Consent is **granular**, **revocable**, **versioned**, and **timestamped** at si
 | `subject_id` | user id |
 | `revoked_at` | null until withdrawal |
 
-FR-AUTH-001 registration emits verification; FR-AUTH-003 completes email verify; consent rows are stored with the user profile (implementation FR-AUTH-004/API-004).
+TASK-AUTH-001 registration emits verification; TASK-AUTH-003 completes email verify; consent rows are stored with the user profile (implementation TASK-AUTH-004/API-004).

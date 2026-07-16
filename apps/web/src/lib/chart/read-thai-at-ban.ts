@@ -1,4 +1,4 @@
-/** Read-only TaiYi ban adapter — FR-CHART-003. */
+/** Read-only TaiYi ban adapter — TASK-CHART-003. */
 
 export type ThaiAtBanView = {
   thai_at_cung?: number;

@@ -1,5 +1,5 @@
 /**
- * Chu-khach DecisionFrame presenter types — FR-STRAT-003.
+ * Chu-khach DecisionFrame presenter types — TASK-STRAT-003.
  * Mirrors packages/tamthuc_strat/chu_khach.py DecisionFrame.
  */
 

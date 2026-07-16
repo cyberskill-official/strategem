@@ -1,4 +1,4 @@
-"""Rate limiting — FR-API-003. Quotas from AUTH-002 / rbac-tiers.json."""
+"""Rate limiting — TASK-API-003. Quotas from AUTH-002 / rbac-tiers.json."""
 
 from __future__ import annotations
 

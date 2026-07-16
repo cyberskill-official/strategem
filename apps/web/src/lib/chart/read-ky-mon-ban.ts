@@ -1,4 +1,4 @@
-/** Read-only adapter over la so envelope for QiMen chart (FR-CHART-001). */
+/** Read-only adapter over la so envelope for QiMen chart (TASK-CHART-001). */
 
 export type LaSoLike = {
   he?: string;

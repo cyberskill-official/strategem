@@ -1,4 +1,4 @@
-//! Four pillars (tứ trụ). FR-CORE-003.
+//! Four pillars (tứ trụ). TASK-CORE-003.
 
 use crate::don_tables::{advance_can, ngu_ho_don_first_month_can, ngu_thu_don_zi_can};
 use crate::ganzhi::{can_chi_of, giap_ty_from_can_chi, Can, Chi, GiapTy};

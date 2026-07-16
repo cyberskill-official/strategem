@@ -1,4 +1,4 @@
-# FR-PLAT-015: build API image → GHCR → SSH roll VPS
+# TASK-PLAT-015: build API image → GHCR → SSH roll VPS
 # Requires secrets: VPS_HOST, VPS_USER, VPS_SSH_KEY
 # Web deploys separately via Vercel Git integration.
 

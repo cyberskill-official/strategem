@@ -1,4 +1,4 @@
-"""Redis-backed chart / RAG caches — FR-PLAT-006."""
+"""Redis-backed chart / RAG caches — TASK-PLAT-006."""
 
 from __future__ import annotations
 

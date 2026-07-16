@@ -1,7 +1,7 @@
--- FR-PLAT-003: extensions required by the data-tier schema.
+-- TASK-PLAT-003: extensions required by the data-tier schema.
 -- pgcrypto: gen_random_uuid()
 -- citext: case-insensitive email uniqueness
--- pgvector: reserved for FR-RAG-001 embeddings (no tables here)
+-- pgvector: reserved for TASK-RAG-001 embeddings (no tables here)
 
 CREATE EXTENSION IF NOT EXISTS pgcrypto;
 CREATE EXTENSION IF NOT EXISTS citext;

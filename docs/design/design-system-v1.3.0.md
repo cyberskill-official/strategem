@@ -1,4 +1,4 @@
-# CyberSkill Design System v1.3.0 (FR-WEB-001)
+# CyberSkill Design System v1.3.0 (TASK-WEB-001)
 
 - Brand ochre `#F4BA17` — primary, focus, accent only
 - Info `#2C5F8A` — AI disclosure

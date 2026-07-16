@@ -1,4 +1,4 @@
-"""FR-AUTH-002 RBAC / tiers / API keys."""
+"""TASK-AUTH-002 RBAC / tiers / API keys."""
 
 from __future__ import annotations
 

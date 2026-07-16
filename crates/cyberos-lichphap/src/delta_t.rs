@@ -1,4 +1,4 @@
-//! ΔT ≈ TT − UT1 (seconds). FR-CORE-001 uses this for TT↔UTC direction.
+//! ΔT ≈ TT − UT1 (seconds). TASK-CORE-001 uses this for TT↔UTC direction.
 
 /// Polynomial approximation (Espenak/Meeus-style) for years 1900–2100.
 /// Returns ΔT in seconds. Positive: TT is ahead of UT.

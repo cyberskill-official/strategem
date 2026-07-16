@@ -1,4 +1,4 @@
-//! Oracle harness (FR-CORE-006). Compares against committed self-generated fixtures.
+//! Oracle harness (TASK-CORE-006). Compares against committed self-generated fixtures.
 //! External sxwnl/tyme4py only used offline via scripts/gen_oracle_fixtures.py — not Cargo deps.
 
 use cyberos_lichphap::{

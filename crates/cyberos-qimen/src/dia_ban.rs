@@ -1,4 +1,4 @@
-//! Bo dia ban (布地盤) — FR-QMDG-002.
+//! Bo dia ban (布地盤) — TASK-QMDG-002.
 
 use crate::dinh_cuc::DinhCuc;
 use serde::{Deserialize, Serialize};

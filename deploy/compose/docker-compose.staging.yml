@@ -1,4 +1,4 @@
-# Staging compose bootstrap (FR-PLAT-004). Replaced by K8s in FR-PLAT-010.
+# Staging compose bootstrap (TASK-PLAT-004). Replaced by K8s in TASK-PLAT-010.
 services:
   postgres:
     image: postgres:16

@@ -1,1 +1,1 @@
-"""Tam Thuc API package (observability lands first — FR-PLAT-005)."""
+"""Tam Thuc API package (observability lands first — TASK-PLAT-005)."""

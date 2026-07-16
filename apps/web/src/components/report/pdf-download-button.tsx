@@ -6,7 +6,7 @@ import { useLocale } from "../i18n/locale-provider";
 import { Button } from "../ui/button";
 
 /**
- * PDF download triggers FR-REPORT-002 export by report_id.
+ * PDF download triggers TASK-REPORT-002 export by report_id.
  * Client does not re-render the PDF itself.
  */
 export function PdfDownloadButton({

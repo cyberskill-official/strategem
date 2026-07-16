@@ -1,4 +1,4 @@
-"""FR-PLAT-003: ordered SQL migration apply + schema helpers."""
+"""TASK-PLAT-003: ordered SQL migration apply + schema helpers."""
 
 from __future__ import annotations
 

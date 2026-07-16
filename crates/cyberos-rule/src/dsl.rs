@@ -1,4 +1,4 @@
-//! Condition DSL AST. FR-RULE-002.
+//! Condition DSL AST. TASK-RULE-002.
 
 use serde_json::Value;
 use thiserror::Error;

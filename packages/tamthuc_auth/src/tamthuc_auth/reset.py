@@ -1,4 +1,4 @@
-"""Password reset — FR-AUTH-003 (enumeration-safe, revokes refresh on confirm)."""
+"""Password reset — TASK-AUTH-003 (enumeration-safe, revokes refresh on confirm)."""
 
 from __future__ import annotations
 

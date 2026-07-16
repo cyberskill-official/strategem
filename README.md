@@ -10,7 +10,7 @@ Decision-support platform digitizing the Tam Thuc (三式) classical East Asian 
 - **Interpretation & orchestration** (Python + FastAPI, `packages/`): RAG over classical text, LLM structured output, report assembly. Never mutate engine fields.
 - **Frontend** (Next.js, `apps/web`): query input, interactive charts, cited results, learning surfaces. CyberSkill Design System.
 
-See `docs/strategy/tam-thuc-unified-plan-2026-07-08.md` and the FR catalog under `docs/feature-requests/`.
+See `docs/strategy/tam-thuc-unified-plan-2026-07-08.md` and the task catalog under `docs/tasks/`.
 
 ## Getting started (dev)
 
@@ -43,14 +43,14 @@ packages/        # uv Python workspace (api, rag, kb, auth, ...)
 apps/web/        # Next.js app
 docs/
   strategy/
-  feature-requests/   # the living spec + IMPLEMENTATION_ORDER.md + backlog.yaml
+  tasks/   # the living spec + IMPLEMENTATION_ORDER.md + backlog.yaml
   contracts/          # cross-language schemas (envelope etc.)
 .github/workflows/ci.yml
 ```
 
 ## Safety & invariants
 
-See strategy §4.4 and docs/feature-requests/README.md. Key:
+See strategy §4.4 and docs/tasks/README.md. Key:
 - Engines stamp every school flag; never hardcode variants.
 - Interpretation never writes `ban`/`cach_cuc`/`lich_phap`/`co_truong_phai`; always cites + AIDisclosure.
 - CORE accuracy: solar term <60s error is stop-ship.
@@ -60,7 +60,7 @@ See strategy §4.4 and docs/feature-requests/README.md. Key:
 
 P0+P1 = MVP (QiMen flagship + LiuRen + strategic tools + cited reports).
 
-This is the initial monorepo skeleton (FR-PLAT-001).
+This is the initial monorepo skeleton (TASK-PLAT-001).
 
 ## License
 

@@ -1,4 +1,4 @@
-//! Can / Chi / GiapTy primitives (FR-CORE-007).
+//! Can / Chi / GiapTy primitives (TASK-CORE-007).
 
 use serde::{Deserialize, Deserializer, Serialize, Serializer};
 use thiserror::Error;

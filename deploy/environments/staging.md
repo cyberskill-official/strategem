@@ -1,4 +1,4 @@
-# Staging environment (FR-PLAT-004)
+# Staging environment (TASK-PLAT-004)
 
 | Item | Value |
 |---|---|

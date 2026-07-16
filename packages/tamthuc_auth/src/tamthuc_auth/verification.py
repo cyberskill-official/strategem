@@ -1,4 +1,4 @@
-"""Email verification — FR-AUTH-003."""
+"""Email verification — TASK-AUTH-003."""
 
 from __future__ import annotations
 

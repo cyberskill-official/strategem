@@ -1,6 +1,6 @@
 # Pre-launch checklist
 
-| Item | Owner FR |
+| Item | Owner task |
 |---|---|
 | Disclaimer + AI disclosure copy | LEGAL-001 |
 | PDPD/GDPR retention + DSAR | LEGAL-002 |

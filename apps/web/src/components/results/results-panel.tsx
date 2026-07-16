@@ -33,7 +33,7 @@ export type QueryResponseView = {
 };
 
 /**
- * Results right panel — FR-WEB-003 + trust hierarchy.
+ * Results right panel — TASK-WEB-003 + trust hierarchy.
  * Story first; technical board behind progressive disclosure.
  * Envelope is read-only; this component never mutates ban/cach_cuc.
  */

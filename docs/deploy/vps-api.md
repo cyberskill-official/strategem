@@ -1,4 +1,4 @@
-# VPS API runtime (FR-PLAT-013)
+# VPS API runtime (TASK-PLAT-013)
 
 Pattern mirrors CyberOS `deploy/vps/deploy.sh`: **CI builds images → GHCR → VPS pulls**.
 

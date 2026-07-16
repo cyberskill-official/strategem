@@ -1,4 +1,4 @@
-//! In-memory pattern cache. FR-RULE-003.
+//! In-memory pattern cache. TASK-RULE-003.
 
 use crate::pattern::{Pattern, System};
 use crate::repo::{PatternRepository, RepoError};

@@ -1,4 +1,4 @@
-"""Citation collection along graph paths — FR-KB-005."""
+"""Citation collection along graph paths — TASK-KB-005."""
 
 from __future__ import annotations
 

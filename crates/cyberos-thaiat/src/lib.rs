@@ -1,4 +1,4 @@
-//! Thai At — FR-TAT-001..004 + FR-TAT-006 assembly.
+//! Thai At — TASK-TAT-001..004 + TASK-TAT-006 assembly.
 
 pub mod anthaiat;
 pub mod ban;

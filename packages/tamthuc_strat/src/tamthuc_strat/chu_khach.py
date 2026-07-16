@@ -1,4 +1,4 @@
-"""Chu-khach decision framework — FR-STRAT-003.
+"""Chu-khach decision framework — TASK-STRAT-003.
 
 Reads a la so envelope and a RAG-003 interpretation read-only; never casts or
 re-computes a chart. Ends at a user decision handoff, not a verdict.
@@ -35,7 +35,7 @@ _VERDICT_RE = re.compile(
 
 
 class AIDisclosure(BaseModel):
-    """Frame-local disclosure; compatible with FR-RAG-003 fields we carry."""
+    """Frame-local disclosure; compatible with TASK-RAG-003 fields we carry."""
 
     model_config = ConfigDict(extra="allow")
     model: str

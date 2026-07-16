@@ -1,4 +1,4 @@
-//! Public calendar API entrypoint. FR-CORE-005.
+//! Public calendar API entrypoint. TASK-CORE-005.
 
 use crate::flags::LichFlags;
 use crate::output::{build_lich_phap, LichPhap};

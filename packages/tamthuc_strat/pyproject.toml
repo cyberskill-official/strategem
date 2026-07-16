@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-strat"
 version = "0.1.0"
-description = "Strategic tools — Timing Optimizer (FR-STRAT-001)"
+description = "Strategic tools — Timing Optimizer (TASK-STRAT-001)"
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.7"]
 

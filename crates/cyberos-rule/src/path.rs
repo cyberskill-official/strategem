@@ -1,4 +1,4 @@
-//! JSON path lookup into a chart object. FR-RULE-002.
+//! JSON path lookup into a chart object. TASK-RULE-002.
 
 use serde_json::Value;
 

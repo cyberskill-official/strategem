@@ -1,4 +1,4 @@
-"""Assemble StructuredReport from calculate outputs — FR-REPORT-001 bridge."""
+"""Assemble StructuredReport from calculate outputs — TASK-REPORT-001 bridge."""
 
 from __future__ import annotations
 
@@ -34,7 +34,7 @@ def normalize_for_assemble(
     interpretation: dict[str, Any],
     patterns: list[dict[str, Any]],
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """Shape engine/RAG payloads to FR-REPORT-001 assemble() inputs."""
+    """Shape engine/RAG payloads to TASK-REPORT-001 assemble() inputs."""
     env = dict(envelope)
     # ensure cach_cuc has Citation-shaped citations for patterns
     fixed_cc: list[dict[str, Any]] = []

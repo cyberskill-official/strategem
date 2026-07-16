@@ -1,4 +1,4 @@
-"""FR-EDU-001..004 smoke tests."""
+"""TASK-EDU-001..004 smoke tests."""
 
 from __future__ import annotations
 

@@ -1,11 +1,11 @@
-# Deploy topology (FR-PLAT-011)
+# Deploy topology (TASK-PLAT-011)
 
 Aligned with CyberOS multi-surface deploy (`docs/deploy/*`, `deploy/vps/*`) and the operator preference for Strategem:
 
 | Surface | Platform | What runs |
 |---|---|---|
 | **User web** | [Vercel](https://vercel.com) | Next.js `apps/web` |
-| **Database** | [Supabase](https://supabase.com) Postgres | `db/migrations/*` + RLS (FR-PLAT-003) |
+| **Database** | [Supabase](https://supabase.com) Postgres | `db/migrations/*` + RLS (TASK-PLAT-003) |
 | **Backend API** | Custom **VPS** | `tamthuc-api` container, `cast-cli`, Caddy TLS |
 
 ```
@@ -28,7 +28,7 @@ Aligned with CyberOS multi-surface deploy (`docs/deploy/*`, `deploy/vps/*`) and 
 
 ## Related
 
-- FR-PLAT-012 Supabase migrate path → `docs/deploy/supabase.md`
-- FR-PLAT-013 VPS API → `docs/deploy/vps-api.md`
-- FR-PLAT-014 Vercel web → `docs/deploy/vercel-web.md`
-- FR-PLAT-015 CD split → `docs/deploy/cd-split.md`
+- TASK-PLAT-012 Supabase migrate path → `docs/deploy/supabase.md`
+- TASK-PLAT-013 VPS API → `docs/deploy/vps-api.md`
+- TASK-PLAT-014 Vercel web → `docs/deploy/vercel-web.md`
+- TASK-PLAT-015 CD split → `docs/deploy/cd-split.md`

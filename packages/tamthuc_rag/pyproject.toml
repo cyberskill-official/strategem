@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-rag"
 version = "0.1.0"
-description = "FR-RAG-001 classical ingest + embed + vector store"
+description = "TASK-RAG-001 classical ingest + embed + vector store"
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.7"]
 

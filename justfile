@@ -1,6 +1,6 @@
 # Tam Thuc Strategem - root justfile
 # One entry point per gate. CI and devs run the identical recipes.
-# See docs/feature-requests/README.md "Gates".
+# See docs/tasks/README.md "Gates".
 #
 # Frontend / web work ALWAYS uses pnpm (never npm).
 # Runtime: Node 24 (see .node-version), pnpm 9+.
@@ -59,7 +59,7 @@ web-test:
 web-gate: web-install web-build web-lint web-test
     @echo "✅ web-gate passed"
 
-# ---------------- DB lane (FR-PLAT-003) ----------------
+# ---------------- DB lane (TASK-PLAT-003) ----------------
 # Requires DATABASE_URL pointing at Postgres 16+ (CI service or local).
 db-migrate:
     uv run python -m db_schema.migrate

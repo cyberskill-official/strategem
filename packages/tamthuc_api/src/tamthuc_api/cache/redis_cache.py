@@ -1,4 +1,4 @@
-"""Redis cache protocol + in-memory fail-open backend — FR-PLAT-006."""
+"""Redis cache protocol + in-memory fail-open backend — TASK-PLAT-006."""
 
 from __future__ import annotations
 

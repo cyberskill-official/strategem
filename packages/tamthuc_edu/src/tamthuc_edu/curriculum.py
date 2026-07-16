@@ -1,4 +1,4 @@
-"""Four-level curriculum — FR-EDU-001."""
+"""Four-level curriculum — TASK-EDU-001."""
 
 from __future__ import annotations
 

@@ -55,7 +55,7 @@ def create_app(
         app.include_router(auth_router)
     except ImportError:
         app.state.auth_service = None
-    # FR-API-002: URL-primary versioning (/api/v1, …)
+    # TASK-API-002: URL-primary versioning (/api/v1, …)
     mount_versioned(app, calculate.router)
     mount_versioned(app, calendar.router)
     mount_versioned(app, edu.router)

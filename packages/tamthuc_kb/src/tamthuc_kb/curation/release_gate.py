@@ -1,4 +1,4 @@
-"""Release gate: every active changed object must be accepted — FR-KB-004 / RISK-9."""
+"""Release gate: every active changed object must be accepted — TASK-KB-004 / RISK-9."""
 
 from __future__ import annotations
 

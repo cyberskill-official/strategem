@@ -1,4 +1,4 @@
-"""Typed auth errors and the generic API error envelope shape (FR-API-001 preview)."""
+"""Typed auth errors and the generic API error envelope shape (TASK-API-001 preview)."""
 
 from __future__ import annotations
 

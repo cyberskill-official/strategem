@@ -1,4 +1,4 @@
--- FR-PLAT-003: GIN on JSONB containment paths + btree helpers for hot paths.
+-- TASK-PLAT-003: GIN on JSONB containment paths + btree helpers for hot paths.
 
 CREATE INDEX charts_envelope_gin        ON charts             USING gin (envelope       jsonb_path_ops);
 CREATE INDEX patterns_conditions_gin    ON knowledge_patterns USING gin (conditions     jsonb_path_ops);

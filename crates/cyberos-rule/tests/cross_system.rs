@@ -1,4 +1,4 @@
-//! FR-RULE-004 cross-system evaluation tests.
+//! TASK-RULE-004 cross-system evaluation tests.
 
 use cyberos_rule::{evaluate, evaluate_set, resolve_in_set, score_set, ChartSet, Cond, Pattern};
 use serde_json::json;

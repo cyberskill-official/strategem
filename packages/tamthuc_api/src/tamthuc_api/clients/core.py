@@ -1,4 +1,4 @@
-"""Calendar / lich phap client — FR-API-001 + COV-018 input modes."""
+"""Calendar / lich phap client — TASK-API-001 + COV-018 input modes."""
 
 from __future__ import annotations
 

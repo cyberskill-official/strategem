@@ -1,4 +1,4 @@
-"""Email dispatch seam — FR-AUTH-003 (provider-agnostic; fake for tests)."""
+"""Email dispatch seam — TASK-AUTH-003 (provider-agnostic; fake for tests)."""
 
 from __future__ import annotations
 

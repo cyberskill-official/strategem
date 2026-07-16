@@ -1,4 +1,4 @@
-"""Engine clients — FR-API-001 / E2E cast path.
+"""Engine clients — TASK-API-001 / E2E cast path.
 
 `LocalEngineClient` produces la so envelopes with ban shapes the web chart
 consumes. It prefers an optional Rust cast CLI when `CAST_CLI` is set; otherwise
@@ -191,7 +191,7 @@ class LocalEngineClient:
                     }
                 )
         elif system == "liuren" or he == "luc_nham":
-            # Shape matches cyberos-luchnham envelope ban (FR-LN-006 / FR-CHART-002)
+            # Shape matches cyberos-luchnham envelope ban (TASK-LN-006 / TASK-CHART-002)
             chi12 = ["子", "丑", "寅", "卯", "辰", "巳", "午", "未", "申", "酉", "戌", "亥"]
             offset = seed % 12
             dia = list(chi12)
@@ -250,7 +250,7 @@ class LocalEngineClient:
                 }
             ]
         else:
-            # Tai Yi shape (FR-CHART-003)
+            # Tai Yi shape (TASK-CHART-003)
             thai_cung = (seed % 8) + 1  # 1..9 skip 5 often
             if thai_cung == 5:
                 thai_cung = 3

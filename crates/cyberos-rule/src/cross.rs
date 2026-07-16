@@ -1,4 +1,4 @@
-//! Cross-system ChartSet + qualified paths — FR-RULE-004.
+//! Cross-system ChartSet + qualified paths — TASK-RULE-004.
 
 use crate::dsl::{Cond, Op};
 use crate::path::get_path;

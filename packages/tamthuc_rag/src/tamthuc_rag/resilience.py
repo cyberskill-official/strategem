@@ -1,4 +1,4 @@
-"""Resilient LLM wrapper — FR-RAG-007."""
+"""Resilient LLM wrapper — TASK-RAG-007."""
 
 from __future__ import annotations
 

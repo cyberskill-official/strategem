@@ -1,10 +1,10 @@
-# Backup + DR (FR-PLAT-009)
+# Backup + DR (TASK-PLAT-009)
 
 | Objective | Target |
 |---|---|
 | RPO | 1 hour (PITR continuous WAL / continuous backup) |
 | RTO | 4 hours |
-| Primary store | Postgres (FR-PLAT-003) with point-in-time recovery |
+| Primary store | Postgres (TASK-PLAT-003) with point-in-time recovery |
 | Drill | Quarterly restore drill; evidence logged |
 
 ## Procedure (summary)

@@ -1,4 +1,4 @@
-"""FR-STRAT-003 chu-khach framework tests."""
+"""TASK-STRAT-003 chu-khach framework tests."""
 
 from __future__ import annotations
 

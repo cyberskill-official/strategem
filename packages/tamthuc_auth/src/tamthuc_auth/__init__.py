@@ -1,4 +1,4 @@
-"""tamthuc_auth — FR-AUTH-001 identity, tokens, social hooks, birth_data crypto."""
+"""tamthuc_auth — TASK-AUTH-001 identity, tokens, social hooks, birth_data crypto."""
 
 from tamthuc_auth.crypto import decrypt_birth_data, encrypt_birth_data, rewrap_dek
 from tamthuc_auth.errors import AuthError, InvalidCredentials, TokenExpired, TokenInvalid

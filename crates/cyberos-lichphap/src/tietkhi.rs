@@ -1,4 +1,4 @@
-//! 24 solar terms (tiết khí). FR-CORE-001.
+//! 24 solar terms (tiết khí). TASK-CORE-001.
 
 use crate::delta_t::{tt_jd_to_utc_jd, utc_jd_to_tt_jd};
 use crate::solar::{ang_diff, julian_day_utc, kinh_do_mat_troi};

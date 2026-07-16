@@ -1,7 +1,7 @@
 """Social OIDC id-token verification (Authlib-style; stubbable for tests).
 
 Production: wire Authlib against Google/Apple discovery. MVP verifies a signed JWT
-id_token with configured audience + issuer, matching FR-AUTH-001 verification rules.
+id_token with configured audience + issuer, matching TASK-AUTH-001 verification rules.
 """
 
 from __future__ import annotations

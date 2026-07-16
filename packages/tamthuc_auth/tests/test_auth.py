@@ -1,4 +1,4 @@
-"""Auth flow tests (FR-AUTH-001 §4, §5)."""
+"""Auth flow tests (TASK-AUTH-001 §4, §5)."""
 
 from __future__ import annotations
 

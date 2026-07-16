@@ -1,4 +1,4 @@
--- FR-PLAT-003: RLS isolation harness (psql).
+-- TASK-PLAT-003: RLS isolation harness (psql).
 -- Expected to run after 0001..0009 on a clean DB, as a role subject to RLS.
 -- Exit non-zero on failure when used with: psql -v ON_ERROR_STOP=1 -f ...
 --

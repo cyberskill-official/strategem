@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-auth"
 version = "0.1.0"
-description = "FR-AUTH-001: identity, JWT, social OIDC hooks, birth_data AES-256-GCM"
+description = "TASK-AUTH-001: identity, JWT, social OIDC hooks, birth_data AES-256-GCM"
 requires-python = ">=3.12"
 dependencies = [
   "pydantic>=2.7",

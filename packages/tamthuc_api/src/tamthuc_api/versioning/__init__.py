@@ -1,4 +1,4 @@
-"""API versioning + deprecation — FR-API-002."""
+"""API versioning + deprecation — TASK-API-002."""
 
 from __future__ import annotations
 

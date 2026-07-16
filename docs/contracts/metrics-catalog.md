@@ -1,4 +1,4 @@
-# Metrics catalog (FR-PLAT-005)
+# Metrics catalog (TASK-PLAT-005)
 
 | Metric | Family | Labels |
 |---|---|---|

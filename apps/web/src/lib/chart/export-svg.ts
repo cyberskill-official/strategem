@@ -1,4 +1,4 @@
-/** SVG export seam — FR-CHART-004. */
+/** SVG export seam — TASK-CHART-004. */
 
 export function exportSvg(root: Element): string {
   // Prefer an inner SVG; otherwise wrap HTML chart in foreignObject SVG.

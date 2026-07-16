@@ -1,4 +1,4 @@
-"""Minimal graph seed for ngu hanh + can/chi — FR-KB-001."""
+"""Minimal graph seed for ngu hanh + can/chi — TASK-KB-001."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""Onboarding + help center — FR-EDU-004."""
+"""Onboarding + help center — TASK-EDU-004."""
 
 from __future__ import annotations
 

@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-kb"
 version = "0.1.0"
-description = "FR-KB-003 classical-text three-layer store"
+description = "TASK-KB-003 classical-text three-layer store"
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.7"]
 

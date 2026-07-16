@@ -1,4 +1,4 @@
-"""Abuse detection — FR-API-003."""
+"""Abuse detection — TASK-API-003."""
 
 from __future__ import annotations
 

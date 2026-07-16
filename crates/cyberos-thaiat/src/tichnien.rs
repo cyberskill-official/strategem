@@ -1,4 +1,4 @@
-//! Tich nien + three reductions — FR-TAT-001.
+//! Tich nien + three reductions — TASK-TAT-001.
 
 use crate::epoch::tich_nien_raw;
 use crate::flags::Epoch;

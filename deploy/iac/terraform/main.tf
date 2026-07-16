@@ -1,4 +1,4 @@
-# FR-PLAT-010 — Terraform skeleton (no live credentials)
+# TASK-PLAT-010 — Terraform skeleton (no live credentials)
 terraform {
   required_version = ">= 1.5"
   required_providers {

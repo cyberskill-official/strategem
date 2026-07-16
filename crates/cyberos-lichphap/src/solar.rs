@@ -1,4 +1,4 @@
-//! Apparent solar longitude (Meeus low-precision). FR-CORE-001.
+//! Apparent solar longitude (Meeus low-precision). TASK-CORE-001.
 
 use crate::delta_t::utc_jd_to_tt_jd;
 

@@ -1,0 +1,138 @@
+---
+id: TASK-AUTH-003
+title: "Email verification and password reset - verification-token issuance and confirmation completing the AUTH-001 unverified-user hook, plus a secure password-reset flow (single-use, expiring, enumeration-safe tokens); never reveals whether an email exists"
+module: AUTH
+priority: SHOULD
+status: done
+phase: P1
+slice: 1
+lang: python
+effort_h: 6
+owner: Stephen Cheng (Founder/CPO)
+created: 2026-07-08
+refs: [Grok-36, strategy 4.4, strategy RISK-5]
+related_frs: [TASK-AUTH-001, TASK-AUTH-002, TASK-API-001, TASK-API-004, TASK-LEGAL-002]
+depends_on: [TASK-AUTH-001]
+blocks: []
+new_paths:
+  - packages/tamthuc_auth/tamthuc_auth/verification.py
+  - packages/tamthuc_auth/tamthuc_auth/reset.py
+  - packages/tamthuc_auth/tamthuc_auth/email.py
+  - packages/tamthuc_auth/migrations/0002_email_tokens.sql
+  - packages/tamthuc_auth/tests/test_verification.py
+  - packages/tamthuc_auth/tests/test_reset.py
+---
+
+## §1 - Description (BCP-14 normative)
+
+This task completes the two account-lifecycle flows TASK-AUTH-001 left as hooks: email verification and password reset. It extends the `tamthuc_auth` package. It owns the verification and reset token lifecycle and the email dispatch seam; it does NOT re-issue session tokens (TASK-AUTH-001 owns access/refresh) nor own the email transport itself (that is a provider behind the `email.py` seam).
+
+Registration in TASK-AUTH-001 creates an unverified user (`email_verified=false`) and emits a verification event; this task SHALL issue the verification token, send it, and confirm it. A verification token SHALL be single-use, SHALL expire after a bounded window, SHALL be stored hashed at rest (never in plaintext), and on confirmation SHALL set `email_verified=true` and be consumed so it cannot be replayed. Re-requesting verification SHALL invalidate any prior outstanding token for that address. Provider-asserted social emails (Google/Apple) MAY be treated as already verified per the TASK-AUTH-001 decision and SHALL NOT require this step.
+
+Password reset SHALL follow the same token discipline: a reset request SHALL issue a single-use, expiring, hashed-at-rest token bound to the account; confirmation SHALL require the token plus a new password, SHALL hash the new password with argon2 (TASK-AUTH-001 `passwords.py`), and SHALL consume the token and revoke outstanding refresh tokens (TASK-AUTH-001 `revoke_refresh`) so a reset ends other sessions. Both flows SHALL be account-enumeration-safe: the request endpoints SHALL return the same generic response whether or not the email exists, matching the TASK-AUTH-001 posture, and SHALL NOT reveal account existence through status codes, timing, or message text. All failures SHALL return the TASK-API-001 structured error envelope. Verification, reset-request, reset-confirm, and the resulting session revocation SHALL be audited via TASK-API-004.
+
+## §2 - Why this design (rationale for humans)
+
+These two flows are small but they are exactly where account-security bugs live, so the discipline is the point. A verification or reset token is a bearer credential to an account; if it is long-lived, reusable, or stored in plaintext, it is a standing key under the doormat. Making every token single-use, expiring, and hashed at rest means a leaked database row is not a usable token and a token cannot be replayed after it is spent. Invalidating prior tokens on re-request closes the window where several valid tokens float around for one address. Revoking refresh tokens on a successful password reset is the property users actually expect from "reset my password" - it ends the sessions a compromised password left open, rather than resetting the password while the attacker's session keeps running.
+
+Account-enumeration safety carries over directly from TASK-AUTH-001 and matters twice as much here, because reset and verification request endpoints are unauthenticated and take an email as input - a naive implementation that says "no such account" turns the reset form into an email-existence oracle an attacker can scrape. Returning the same generic response either way, and being careful that timing and status do not leak, keeps these endpoints from becoming a reconnaissance tool against a userbase whose accounts hold sensitive birth data (RISK-5). Keeping the email transport behind a seam means the security-relevant logic (token lifecycle, enumeration safety) is testable without a real mail provider, and the provider is swappable.
+
+## §3 - Contract (tokens / endpoints / email)
+
+### Token store (`migrations/0002_email_tokens.sql`; run by the PLAT migration runner)
+
+| Column | Type | Notes |
+|---|---|---|
+| id | uuid PK | |
+| user_id | uuid FK users(id) | |
+| purpose | text | `email_verify` \| `password_reset` |
+| token_hash | text | hash of the token; the bare token is never stored |
+| expires_at | timestamptz | bounded lifetime |
+| consumed_at | timestamptz | null until spent; single-use |
+| created_at | timestamptz | |
+
+### Verification (`verification.py`) and reset (`reset.py`)
+
+```python
+async def issue_verification(user_id: str) -> None:            # create token, invalidate priors, send email
+async def confirm_verification(token: str) -> None:            # validate + consume -> email_verified=true
+async def request_password_reset(email: str) -> None:          # enumeration-safe: same response either way
+async def confirm_password_reset(token: str, new_password: str) -> None:
+    # validate + consume; argon2-hash the new password; revoke outstanding refresh tokens (TASK-AUTH-001)
+```
+
+### Endpoints (mounted by TASK-API-001)
+
+```
+POST /auth/verify/request                     (Bearer or email)  -> 200 generic
+POST /auth/verify/confirm         { token }                      -> 200 { email_verified: true }
+POST /auth/password/reset/request { email }                      -> 200 generic (no account disclosure)
+POST /auth/password/reset/confirm { token, new_password }        -> 200; refresh tokens revoked
+```
+
+### Email seam (`email.py`)
+
+A provider-agnostic `send(template, to, context)` with a fake for tests; the security logic never depends on the concrete provider.
+
+## §4 - Acceptance criteria
+
+1. A verification token is single-use and expiring: confirming it sets `email_verified=true`; a second confirm of the same token fails; an expired token fails; the token is stored hashed (no plaintext token in the DB).
+2. Re-requesting verification invalidates any prior outstanding token for that address (only the newest is valid).
+3. A password reset issues a single-use expiring token; confirming with the token + a new password argon2-hashes the new password and consumes the token; the old password no longer authenticates.
+4. A successful password reset revokes outstanding refresh tokens (other sessions end); a revoked refresh `jti` is rejected afterward.
+5. Both request endpoints are account-enumeration-safe: the response for a known and an unknown email is identical (status, body, and no timing/message tell); a test asserts indistinguishability.
+6. Social accounts with a provider-asserted verified email skip email verification (per TASK-AUTH-001); every flow event is audited via TASK-API-004 and errors use the TASK-API-001 envelope.
+
+## §5 - Verification
+
+- `tests/test_verification.py`: issue/confirm happy path; single-use (double-confirm fails); expiry; hashed-at-rest (no plaintext token column); prior-token invalidation on re-request.
+- `tests/test_reset.py`: reset issue/confirm; argon2 re-hash; token single-use + expiry; refresh-token revocation on reset; the enumeration-safe request response for known vs unknown email.
+- Security checks: no token logged in plaintext (log-capture assertion); timing of the request endpoints does not distinguish known vs unknown email within tolerance.
+- Gates: `ruff check`, `ruff format --check`, `mypy tamthuc_auth`, `pytest packages/tamthuc_auth`.
+
+## §6 - Implementation skeleton
+
+1. `migrations/0002_email_tokens.sql`: the hashed, single-use, expiring token store (verify + reset share it via `purpose`).
+2. `verification.py`: issue (invalidate priors, send), confirm (validate + consume -> `email_verified=true`).
+3. `reset.py`: request (enumeration-safe), confirm (validate + consume, argon2 re-hash, revoke refresh tokens).
+4. `email.py`: the provider-agnostic send seam + a fake for tests.
+5. Wire the endpoints into the TASK-API-001 router; emit audit events (TASK-API-004) for verify/reset/revocation; render errors in the TASK-API-001 envelope.
+
+## §7 - Dependencies
+
+Depends on TASK-AUTH-001 (the unverified-user hook and the emitted verification event this completes, the argon2 `passwords.py` used to re-hash on reset, the `revoke_refresh` used to end sessions, and the account-enumeration-safe response posture it mirrors). The token-store DDL is run through the PLAT migration runner (as with the TASK-AUTH-001 `users` table). Endpoints are mounted by TASK-API-001 and errors use its envelope; flow events are audited by TASK-API-004. Coordinates with TASK-LEGAL-002 (verification and reset communications are transactional, not marketing, and fall under the consent/communications policy).
+
+## §8 - Example payloads
+
+```json
+// POST /auth/password/reset/request  -> identical response whether or not the email exists
+{ "message": "If an account exists for that address, a reset link has been sent." }
+```
+
+```json
+// POST /auth/verify/confirm { "token": "..." }  -> on success
+{ "email_verified": true }
+// stored token row (illustrative) - hashed, single-use, expiring
+{ "purpose": "email_verify", "token_hash": "argon2/sha256:...", "expires_at": "...", "consumed_at": null }
+```
+
+## §9 - Open questions
+
+- Token lifetimes: verification vs reset windows. Default: a longer verification window (hours to a day) and a short reset window (minutes to an hour, the higher-risk credential); both are config, not hardcoded, and both remain single-use.
+- Whether an unverified user can use the product before verifying. Default: allow read/limited use but gate sensitive or paid actions until verified (a soft gate, coordinated with TASK-AUTH-002 capabilities); a hard block at registration is a stricter option if abuse appears.
+- Reset delivery channel beyond email (e.g. SMS) for higher-tier accounts. Default: email only at MVP behind the `email.py` seam; a second factor/channel is a later hardening step that reuses the same single-use-token discipline.
+
+## §10 - Failure modes inventory
+
+| Mode | Trigger | Required behavior |
+|---|---|---|
+| Account enumeration | request endpoint reveals whether an email exists | forbidden; identical generic response, no status/timing/message tell (RISK-5) |
+| Token replay | a spent or expired token reused | single-use + expiring; consumed tokens rejected; a double-confirm fails |
+| Token in plaintext | bare token stored or logged | tokens stored hashed; never logged; a test asserts no plaintext token |
+| Stale valid tokens | multiple outstanding tokens per address | re-request invalidates priors; only the newest is valid |
+| Reset without session cut | password reset leaves old sessions live | reset revokes outstanding refresh tokens; other sessions end |
+| Unaudited lifecycle event | verify/reset with no audit row | verify, reset-request, reset-confirm, and revocation are audited via TASK-API-004 |
+
+## §11 - Notes
+
+This task is small and entirely about discipline: every verification and reset token is single-use, expiring, hashed at rest, and invalidated-on-reissue, and both request endpoints are account-enumeration-safe exactly as TASK-AUTH-001's login is. The one behavior users expect and implementations often miss is revoking refresh tokens on a successful password reset, so a reset actually ends the compromised sessions. It extends the same `tamthuc_auth` package (adding `verification`, `reset`, `email` modules and the token-store migration), keeps the email provider behind a seam so the security logic is testable without real mail, and audits every lifecycle event through TASK-API-004.

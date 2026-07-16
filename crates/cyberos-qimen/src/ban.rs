@@ -1,4 +1,4 @@
-//! KyMon ban types — FR-QMDG-006.
+//! KyMon ban types — TASK-QMDG-006.
 
 use crate::dia_ban::{DiaBan, Stem};
 use crate::dinh_cuc::DinhCuc;

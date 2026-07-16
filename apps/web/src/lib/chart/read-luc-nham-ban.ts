@@ -1,4 +1,4 @@
-/** Read-only adapter for LiuRen chart (FR-CHART-002). */
+/** Read-only adapter for LiuRen chart (TASK-CHART-002). */
 
 export type LucNhamBan = {
   thien_dia_ban?: {

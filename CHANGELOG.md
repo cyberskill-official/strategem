@@ -1,6 +1,6 @@
 # Changelog
 
-All notable API and contract changes are documented here (FR-API-002).
+All notable API and contract changes are documented here (TASK-API-002).
 
 Format: each major records **breaking** (with migration) and **additive** notes. Deprecated items state the deprecation major, successor, and planned sunset (retained ≥ 2–3 majors).
 
@@ -8,8 +8,8 @@ Format: each major records **breaking** (with migration) and **additive** notes.
 
 ### Added
 
-- Initial public API under `/api/v1` (FR-API-001): calculate (qimen / liuren / taiyi / all), knowledge patterns, reports, timing.
-- URL-primary versioning with optional `X-API-Version` header; URL wins on conflict (FR-API-002).
+- Initial public API under `/api/v1` (TASK-API-001): calculate (qimen / liuren / taiyi / all), knowledge patterns, reports, timing.
+- URL-primary versioning with optional `X-API-Version` header; URL wins on conflict (TASK-API-002).
 - Calculation-stable / interpretation-variable invariant documented in `docs/contracts/api-versioning-policy.md`.
 
 ### Deprecated
@@ -22,5 +22,5 @@ Format: each major records **breaking** (with migration) and **additive** notes.
 
 ### Stability
 
-- Chart / la so calculation output changes only via FR-PLAT-002 `envelope_version`.
+- Chart / la so calculation output changes only via TASK-PLAT-002 `envelope_version`.
 - Interpretation prose is not held to byte-stability across releases.

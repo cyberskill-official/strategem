@@ -1,4 +1,4 @@
--- FR-PLAT-003: queries — user-scoped cast requests (question + datetime + flags).
+-- TASK-PLAT-003: queries — user-scoped cast requests (question + datetime + flags).
 
 CREATE TABLE queries (
   id             uuid PRIMARY KEY DEFAULT gen_random_uuid(),

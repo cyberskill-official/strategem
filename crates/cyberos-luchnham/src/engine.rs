@@ -1,4 +1,4 @@
-//! LiuRen engine assembly — FR-LN-006.
+//! LiuRen engine assembly — TASK-LN-006.
 
 use crate::ban::{BanLucNham, ThienDiaBan};
 use crate::khoathe::recognize_khoa_the;
@@ -115,7 +115,7 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         "ban": {
             "nguyet_tuong": input.nguyet_tuong.glyph(),
             "gio_chiem": input.gio_chiem.glyph(),
-            // Full heaven–earth plates for FR-CHART-002 (was missing; UI fell back to raw CHI12)
+            // Full heaven–earth plates for TASK-CHART-002 (was missing; UI fell back to raw CHI12)
             "thien_dia_ban": {
                 "dia": ban.thien_dia_ban.dia.iter().map(|c| c.glyph()).collect::<Vec<_>>(),
                 "thien": ban.thien_dia_ban.thien.iter().map(|c| c.glyph()).collect::<Vec<_>>(),

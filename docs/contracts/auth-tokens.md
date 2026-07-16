@@ -1,11 +1,11 @@
-# Auth token contract (FR-AUTH-001)
+# Auth token contract (TASK-AUTH-001)
 
 ## Access token (JWT)
 
 | Claim | Type | Notes |
 |---|---|---|
 | `sub` | string (UUID) | user id |
-| `tier` | string | `free` / `premium` / `enterprise` / `admin` (FR-AUTH-002) |
+| `tier` | string | `free` / `premium` / `enterprise` / `admin` (TASK-AUTH-002) |
 | `iat` | int | issued-at unix seconds |
 | `exp` | int | expiry; default TTL 15 minutes |
 | `jti` | string (UUID) | unique id |
@@ -27,7 +27,7 @@ On `/auth/refresh`, the presented refresh `jti` is revoked and a new pair is iss
 
 ## Endpoints
 
-See FR-AUTH-001 §3. Bearer scheme on `/auth/me`.
+See TASK-AUTH-001 §3. Bearer scheme on `/auth/me`.
 
 ## Errors
 

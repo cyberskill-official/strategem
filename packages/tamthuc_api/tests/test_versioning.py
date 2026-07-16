@@ -1,4 +1,4 @@
-"""FR-API-002 versioning + deprecation tests."""
+"""TASK-API-002 versioning + deprecation tests."""
 
 from __future__ import annotations
 

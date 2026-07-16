@@ -1,4 +1,4 @@
-"""FR-KB-005 graph query tests."""
+"""TASK-KB-005 graph query tests."""
 
 from __future__ import annotations
 

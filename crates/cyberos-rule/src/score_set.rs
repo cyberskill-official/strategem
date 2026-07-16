@@ -1,4 +1,4 @@
-//! Weighted cross-system scoring — FR-RULE-004.
+//! Weighted cross-system scoring — TASK-RULE-004.
 
 use crate::cross::{evaluate_set, ChartSet};
 use crate::dsl::Cond;

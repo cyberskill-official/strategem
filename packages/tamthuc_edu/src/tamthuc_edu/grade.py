@@ -1,4 +1,4 @@
-"""Auto-graded chart practice — FR-EDU-002 (engine as grader)."""
+"""Auto-graded chart practice — TASK-EDU-002 (engine as grader)."""
 
 from __future__ import annotations
 

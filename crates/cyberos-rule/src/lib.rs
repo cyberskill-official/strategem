@@ -1,4 +1,4 @@
-//! Pattern-as-data (FR-RULE-001) + condition DSL (FR-RULE-002) + cross-system (FR-RULE-004).
+//! Pattern-as-data (TASK-RULE-001) + condition DSL (TASK-RULE-002) + cross-system (TASK-RULE-004).
 
 pub mod cache;
 pub mod cross;

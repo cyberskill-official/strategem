@@ -1,4 +1,4 @@
-//! LiuRen ban assembly types — FR-LN-006.
+//! LiuRen ban assembly types — TASK-LN-006.
 
 use crate::tamtruyen::TamTruyen;
 use crate::thiendiaban::TrangThaiBan;

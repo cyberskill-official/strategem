@@ -1,4 +1,4 @@
-"""DSAR orchestration — FR-AUTH-004."""
+"""DSAR orchestration — TASK-AUTH-004."""
 
 from __future__ import annotations
 

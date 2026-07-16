@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-report"
 version = "0.1.0"
-description = "Structured report assembly (FR-REPORT-001)"
+description = "Structured report assembly (TASK-REPORT-001)"
 requires-python = ">=3.12"
 dependencies = ["pydantic>=2.7"]
 

@@ -14,7 +14,7 @@ import { ThienTuongRing } from "./thien-tuong-ring";
 import { TuKhoaView, type KhoaPair } from "./tu-khoa";
 
 /**
- * Interactive LiuRen chart — FR-CHART-002.
+ * Interactive LiuRen chart — TASK-CHART-002.
  * Pure reader of he=luc_nham ban; never re-computes plates.
  * If thien_dia arrays are missing, aligns heaven from stamped 月将+占时 only.
  */

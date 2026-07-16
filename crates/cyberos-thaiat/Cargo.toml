@@ -3,7 +3,7 @@ name = "cyberos-thaiat"
 version.workspace = true
 edition.workspace = true
 license.workspace = true
-description = "Thai At Than So — tich nien (FR-TAT-001)"
+description = "Thai At Than So — tich nien (TASK-TAT-001)"
 
 [dependencies]
 serde = { workspace = true }

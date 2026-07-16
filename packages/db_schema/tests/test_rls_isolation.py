@@ -1,4 +1,4 @@
-"""FR-PLAT-003 acceptance: migration apply, fail-closed RLS, isolation, GIN, admin.
+"""TASK-PLAT-003 acceptance: migration apply, fail-closed RLS, isolation, GIN, admin.
 
 Requires DATABASE_URL (CI service Postgres). Unit inventory tests always run.
 """

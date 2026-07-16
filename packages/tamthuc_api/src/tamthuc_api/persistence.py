@@ -1,4 +1,4 @@
-"""Query/chart/report persistence — FR-API-004 + COV-010 Postgres default."""
+"""Query/chart/report persistence — TASK-API-004 + COV-010 Postgres default."""
 
 from __future__ import annotations
 

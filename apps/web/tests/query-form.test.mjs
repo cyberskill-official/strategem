@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 
 const root = join(dirname(fileURLToPath(import.meta.url)), "..");
 
-// schema shape contract (mirrors FR-API-001)
+// schema shape contract (mirrors TASK-API-001)
 function validateQueryRequest(body) {
   if (!body.datetime) return "datetime required";
   if (!body.tz) return "tz required";

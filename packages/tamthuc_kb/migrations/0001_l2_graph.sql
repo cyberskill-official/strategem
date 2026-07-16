@@ -1,4 +1,4 @@
--- FR-KB-001: relational graph tables (Postgres default store)
+-- TASK-KB-001: relational graph tables (Postgres default store)
 CREATE TABLE IF NOT EXISTS l2_node (
   id   text PRIMARY KEY,
   kind text NOT NULL,

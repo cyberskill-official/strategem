@@ -9,4 +9,4 @@ target
 .coverage
 *.pyc
 apps/web/.next
-docs/feature-requests/.workflow
+docs/tasks/.workflow

@@ -1,4 +1,4 @@
-//! Cach cuc recognition between Thai At and tuong — FR-TAT-005.
+//! Cach cuc recognition between Thai At and tuong — TASK-TAT-005.
 //! Emits positional facts only; no victory verdict.
 
 use crate::battuong::BatTuong;
@@ -188,7 +188,7 @@ pub fn nhan_dien_cach_cuc(bat: &BatTuong, thai_at_ring: u8) -> Vec<CachCucTat> {
     out
 }
 
-/// Map to FR-PLAT-002 envelope cach_cuc entries (facts + citations, no verdict).
+/// Map to TASK-PLAT-002 envelope cach_cuc entries (facts + citations, no verdict).
 pub fn map_to_envelope_cach_cuc(cach: &[CachCucTat]) -> Vec<serde_json::Value> {
     cach.iter()
         .map(|c| {

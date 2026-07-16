@@ -1,4 +1,4 @@
-"""AES-256-GCM envelope tests (FR-AUTH-001 §4.5, §5)."""
+"""AES-256-GCM envelope tests (TASK-AUTH-001 §4.5, §5)."""
 
 from __future__ import annotations
 

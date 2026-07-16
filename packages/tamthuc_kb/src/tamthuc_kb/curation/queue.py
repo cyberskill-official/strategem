@@ -1,4 +1,4 @@
-"""Curation review queue — FR-KB-004."""
+"""Curation review queue — TASK-KB-004."""
 
 from __future__ import annotations
 

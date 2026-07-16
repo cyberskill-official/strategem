@@ -1,4 +1,4 @@
-"""Curated classical term glossary — FR-RAG-005."""
+"""Curated classical term glossary — TASK-RAG-005."""
 
 from __future__ import annotations
 

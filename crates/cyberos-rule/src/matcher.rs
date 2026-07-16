@@ -1,4 +1,4 @@
-//! match(la_so) -> Vec<CachCuc>. FR-RULE-003.
+//! match(la_so) -> Vec<CachCuc>. TASK-RULE-003.
 
 use crate::cache::PatternCache;
 use crate::pattern::{Polarity, System};

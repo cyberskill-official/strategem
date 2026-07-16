@@ -1,4 +1,4 @@
-"""FR-PLAT-006 invalidation + warming tests."""
+"""TASK-PLAT-006 invalidation + warming tests."""
 
 from __future__ import annotations
 

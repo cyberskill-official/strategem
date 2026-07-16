@@ -1,4 +1,4 @@
-"""Query result read path — E2E cast / FR-API-004."""
+"""Query result read path — E2E cast / TASK-API-004."""
 
 from __future__ import annotations
 
@@ -20,7 +20,7 @@ def list_queries(
     user_id: str | None = Query(default=None),
     limit: int = Query(default=50, ge=1, le=200),
 ) -> dict[str, Any] | JSONResponse:
-    """List saved casts for manage history (FR-WEB-007)."""
+    """List saved casts for manage history (TASK-WEB-007)."""
     persistence = getattr(request.app.state, "persistence", None)
     if persistence is None:
         return JSONResponse(

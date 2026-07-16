@@ -1,4 +1,4 @@
-//! FR-TAT-004 bon phep tests (kintaiyi-aligned anchors).
+//! TASK-TAT-004 bon phep tests (kintaiyi-aligned anchors).
 
 use cyberos_thaiat::{
     map_1_72, tich_nguyet_ke, tich_nhat_ke, tich_nien_ke, tich_thoi_ke, Cap, Epoch,

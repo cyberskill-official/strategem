@@ -1,6 +1,6 @@
-//! FR-CORE-001 oracle-style tests. Fixture holds self-consistent reference
+//! TASK-CORE-001 oracle-style tests. Fixture holds self-consistent reference
 //! instants (generated from the same theory at high precision) — sxwnl external
-//! cross-check is FR-CORE-006; here we enforce <60s stability and 0.01° longitude.
+//! cross-check is TASK-CORE-006; here we enforce <60s stability and 0.01° longitude.
 
 use cyberos_lichphap::{
     ang_diff, julian_day_utc, kinh_do_mat_troi, solve_term_instant, term_def, tiet_khi_hien_hanh,

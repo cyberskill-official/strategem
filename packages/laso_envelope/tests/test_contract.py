@@ -107,7 +107,7 @@ def test_cache_key_changes_when_flag_changes() -> None:
 
 
 def test_supported_versions_single_source_of_truth() -> None:
-    # FR-LASO-001: the supported set is an importable single source of truth,
+    # TASK-LASO-001: the supported set is an importable single source of truth,
     # and require_supported_version decides solely by membership in it.
     assert 1 in SUPPORTED_ENVELOPE_VERSIONS
     la = LaSo.model_validate(load_fixture("ky_mon.json"))

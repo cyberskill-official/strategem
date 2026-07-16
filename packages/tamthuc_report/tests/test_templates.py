@@ -1,4 +1,4 @@
-"""FR-REPORT-003 template tests."""
+"""TASK-REPORT-003 template tests."""
 
 from __future__ import annotations
 

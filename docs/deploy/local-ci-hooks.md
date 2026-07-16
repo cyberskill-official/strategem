@@ -6,7 +6,7 @@ Status page, lint, build, and tests must pass **on the machine** before code hit
 
 | Piece | Role |
 |-------|------|
-| `.cyberos/migrate-frs.sh` | **`migrate-frs --page`** regenerates `docs/status/` from FR frontmatter. Permanent. |
+| `.cyberos/migrate-tasks.sh` | **`migrate-tasks --page`** regenerates `docs/status/` from task frontmatter. Permanent. |
 | `docs/status/` | Tracked HTML board — what GitHub Pages / operators open |
 | `scripts/check-status-sync.sh` | CI + local: fail if board counts lag frontmatter |
 | `scripts/local-ci.sh` | One-shot local CI floor |
@@ -26,15 +26,15 @@ CyberOS `init` also installs a **status-hook v2** into pre-commit (blocking rege
 
 | Event | Status page | Version | Lint | Build / compose | Tests | act |
 |-------|-------------|---------|------|-----------------|-------|-----|
-| **pre-commit** (FR/CHANGELOG/VERSION staged) | regen + stage + check | VERSION↔package.json if VERSION staged | staged py/web/rust | — | — | — |
-| **pre-push** | check (+ regen if FR lane) | package.json info + VERSION match | lanes | cargo + compose config | pytest/cargo/web | optional FULL |
+| **pre-commit** (task/CHANGELOG/VERSION staged) | regen + stage + check | VERSION↔package.json if VERSION staged | staged py/web/rust | — | — | — |
+| **pre-push** | check (+ regen if task lane) | package.json info + VERSION match | lanes | cargo + compose config | pytest/cargo/web | optional FULL |
 | **GitHub CI** | `status-sync` job | — | full | full | full | n/a |
 
 ## Manual commands
 
 ```bash
 # Status only
-bash .cyberos/migrate-frs.sh --page .
+bash .cyberos/migrate-tasks.sh --page .
 bash scripts/check-status-sync.sh
 
 # Local CI floor (same as pre-push default)

@@ -1,6 +1,6 @@
 {
   "schema": "oracle-cert-report@1",
-  "fr": "COV-001",
+  "task": "COV-001",
   "generated": "2026-07-13",
   "systems": {
     "qimen": {

@@ -1,4 +1,4 @@
-//! Pattern match → CachCuc. FR-RULE-002.
+//! Pattern match → CachCuc. TASK-RULE-002.
 
 use crate::dsl::Cond;
 use crate::eval::evaluate;
@@ -6,7 +6,7 @@ use crate::pattern::Pattern;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 
-/// Matches laso-envelope CachCuc shape (FR-PLAT-002).
+/// Matches laso-envelope CachCuc shape (TASK-PLAT-002).
 #[derive(Debug, Clone, PartialEq, Serialize, Deserialize)]
 pub struct CachCuc {
     pub id: String,

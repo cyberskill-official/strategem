@@ -1,4 +1,4 @@
-# FR-PLAT-004 / COV-027: Next.js web app
+# TASK-PLAT-004 / COV-027: Next.js web app
 FROM node:24-bookworm-slim AS build
 WORKDIR /src
 RUN corepack enable

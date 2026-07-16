@@ -1,4 +1,4 @@
-# FR-PLAT-004: HIGH/CRITICAL suppressions must include owner + reason.
+# TASK-PLAT-004: HIGH/CRITICAL suppressions must include owner + reason.
 # Format: CVE-ID  # owner: reason
 #
 # Prefer fix upstream (deps / apt upgrade) and ignore-unfixed=true in CD.

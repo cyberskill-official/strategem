@@ -1,4 +1,4 @@
-"""DSAR contracts AUTH-004 must implement (FR-LEGAL-002)."""
+"""DSAR contracts AUTH-004 must implement (TASK-LEGAL-002)."""
 
 from __future__ import annotations
 

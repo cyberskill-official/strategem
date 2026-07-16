@@ -1,4 +1,4 @@
-"""GraphStore protocol + in-memory default — FR-KB-001."""
+"""GraphStore protocol + in-memory default — TASK-KB-001."""
 
 from __future__ import annotations
 

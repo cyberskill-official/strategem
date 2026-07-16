@@ -1,4 +1,4 @@
-//! Deterministic condition evaluation. FR-RULE-002.
+//! Deterministic condition evaluation. TASK-RULE-002.
 
 use crate::dsl::{Cond, Op};
 use crate::path::get_path;

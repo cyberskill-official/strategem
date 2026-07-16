@@ -1,4 +1,4 @@
-//! True solar time (EoT + longitude). FR-CORE-002.
+//! True solar time (EoT + longitude). TASK-CORE-002.
 
 use crate::eot::equation_of_time_minutes;
 use crate::solar::julian_day_utc;

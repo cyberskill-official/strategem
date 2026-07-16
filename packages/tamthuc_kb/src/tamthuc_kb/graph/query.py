@@ -1,4 +1,4 @@
-"""Graph traversal query API — FR-KB-005."""
+"""Graph traversal query API — TASK-KB-005."""
 
 from __future__ import annotations
 
@@ -173,7 +173,7 @@ def graph_retriever_hits(
     cach_cuc_ids: list[str],
     k: int = 12,
 ) -> list[dict[str, Any]]:
-    """FR-RAG-002 seam: ChartContext → GraphQuery → simplified hits."""
+    """TASK-RAG-002 seam: ChartContext → GraphQuery → simplified hits."""
     seeds = list(entities) + list(cach_cuc_ids)
     if system == "qimen":
         sys_lit: System = "qimen"

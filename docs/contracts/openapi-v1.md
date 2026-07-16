@@ -1,4 +1,4 @@
-# OpenAPI v1 sketch (FR-API-001)
+# OpenAPI v1 sketch (TASK-API-001)
 
 - `POST /api/v1/calculate/qimen` — single system cast + interpret
 - `POST /api/v1/calculate/all` — multi-system (premium+)

@@ -1,4 +1,4 @@
-"""Scenario Comparison — FR-STRAT-002. Thin composition over STRAT-001."""
+"""Scenario Comparison — TASK-STRAT-002. Thin composition over STRAT-001."""
 
 from __future__ import annotations
 

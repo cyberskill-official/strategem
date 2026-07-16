@@ -1,4 +1,4 @@
-"""Eval run + CI gate — FR-RAG-006."""
+"""Eval run + CI gate — TASK-RAG-006."""
 
 from __future__ import annotations
 

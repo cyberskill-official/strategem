@@ -1,4 +1,4 @@
-"""Pattern match client — FR-API-001."""
+"""Pattern match client — TASK-API-001."""
 
 from __future__ import annotations
 

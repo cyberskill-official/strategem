@@ -1,4 +1,4 @@
-"""Cross-system validation — FR-STRAT-004.
+"""Cross-system validation — TASK-STRAT-004.
 
 Calls engines; never re-casts or merges into a single verdict.
 """

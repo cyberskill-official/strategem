@@ -2,9 +2,9 @@
 
 Version 1.0 - 2026-07-08 - CyberSkill - "Turn Your Will Into Real"
 
-This is the anchor report for the Tam Thuc Strategem product. It analyzes the two source doc sets under `docs/Claude/` and `docs/Grok/`, reconciles where they disagree, fixes the architecture and the module taxonomy, and lays out the phased roadmap. Every feature request under `docs/feature-requests/` and every task in the build order (`docs/feature-requests/IMPLEMENTATION_ORDER.md`) cites a section of this report in its `refs`. The FR block is the spec; this report is the rationale. Read the referenced section before implementing.
+This is the anchor report for the Tam Thuc Strategem product. It analyzes the two source doc sets under `docs/Claude/` and `docs/Grok/`, reconciles where they disagree, fixes the architecture and the module taxonomy, and lays out the phased roadmap. Every task under `docs/tasks/` and every task in the build order (`docs/tasks/IMPLEMENTATION_ORDER.md`) cites a section of this report in its `refs`. The task block is the spec; this report is the rationale. Read the referenced section before implementing.
 
-Status values used across this program: FRs use `draft | ready_to_implement | implementing | in_review | done | superseded`. Backlog tasks use `todo | doing | review | done | blocked`. Only a human reviewer sets `done`.
+Status values used across this program: tasks use `draft | ready_to_implement | implementing | in_review | done | superseded`. Backlog tasks use `todo | doing | review | done | blocked`. Only a human reviewer sets `done`.
 
 ## 1. What the product is
 
@@ -48,7 +48,7 @@ Four decisions were confirmed with the operator (Stephen) on 2026-07-08 and are 
 
 ### 3.1 DEC-1 Output location: self-contained in strategem
 
-FRs live under `strategem/docs/feature-requests/<module>/`; the build order and agent trigger live alongside the FRs (`IMPLEMENTATION_ORDER.md`, `backlog.yaml`, `PROMPT.md`, `LEDGER.md`), because at greenfield stage the FRs are the plan; `docs/improvement/` is reserved for the post-launch audit and evolution stage, cyberos-style. Layout mirrors the cyberos convention so a later absorption into cyberos is mechanical, but the strategem repo owns its own ID space and lifecycle.
+tasks live under `strategem/docs/tasks/<module>/`; the build order and agent trigger live alongside the tasks (`IMPLEMENTATION_ORDER.md`, `backlog.yaml`, `PROMPT.md`, `LEDGER.md`), because at greenfield stage the tasks are the plan; `docs/improvement/` is reserved for the post-launch audit and evolution stage, cyberos-style. Layout mirrors the cyberos convention so a later absorption into cyberos is mechanical, but the strategem repo owns its own ID space and lifecycle.
 
 ### 3.2 DEC-2 Tech stack: hybrid (Rust engines, Python AI, Next.js frontend)
 
@@ -109,7 +109,7 @@ Every engine emits the same envelope shape. This is the single most important cr
 
 Rules: the engine fills `ban`, `cach_cuc`, and stamps `co_truong_phai` and `lich_phap` with every flag that changed the result; the AI layer reads `he`, `ban`, `cach_cuc`, and `co_truong_phai` and never writes them. A chart is reproducible from `dau_vao` + `co_truong_phai` + `lich_phap` flags alone.
 
-### 4.4 Cross-cutting invariants (every FR must honor)
+### 4.4 Cross-cutting invariants (every task must honor)
 
 - School differences are config flags, never hardcoded; every chart stamps the full flag set it used.
 - Interpretation is retrieval-grounded, cited, and never asserts beyond the sources; the AIDisclosureBadge is mandatory on AI output.
@@ -120,7 +120,7 @@ Rules: the engine fills `ban`, `cach_cuc`, and stamps `co_truong_phai` and `lich
 
 ## 5. Unified module taxonomy
 
-Seventeen modules. Codes are the FR prefix (`FR-<CODE>-<NNN>`). "Lang" is the primary implementation language per DEC-2.
+Seventeen modules. Codes are the task prefix (`TASK-<CODE>-<NNN>`). "Lang" is the primary implementation language per DEC-2.
 
 | Code | Module | Lang | Responsibility | Primary sources |
 |---|---|---|---|---|
@@ -152,7 +152,7 @@ The four phases map onto the Claude five-phase roadmap and the Grok epics. P0 + 
 
 ## 7. Legal, ethical, and cultural guardrails
 
-These are product-defining, not add-ons, and every user-facing FR inherits them.
+These are product-defining, not add-ons, and every user-facing task inherits them.
 
 - Positioning: heritage education and structured decision support, never fortune-telling or destiny prediction. Language avoids asserting certain future events, avoids medical/legal/financial advice under a divination guise, and avoids fear or dependency.
 - VN legal context (informational, requires counsel review before launch): Nghi dinh 38/2021/ND-CP (administrative penalties in culture/advertising, including superstition), Dieu 320 Bo luat Hinh su (crime of practicing superstition for profit), Quyet dinh 34/2020/QD-TTg (sector list and management context). The product must sit clearly on the heritage-education side of the line.
@@ -161,7 +161,7 @@ These are product-defining, not add-ons, and every user-facing FR inherits them.
 
 ## 8. Risk register
 
-| ID | Risk | Severity | Mitigation | Owner FR area |
+| ID | Risk | Severity | Mitigation | Owner task area |
 |---|---|---|---|---|
 | RISK-1 | Calendar core error propagates to all three engines | critical | Highest test density in the project; cross-check two independent libs (sxwnl, tyme4py) over decades incl. boundary cases | CORE-006 |
 | RISK-2 | Engine silently mixes school variants, half of users reject the chart | high | No hardcoded school; every chart stamps its full flag set; oracle gate runs per flag combo | QMDG-005, LN, TAT |
@@ -173,14 +173,14 @@ These are product-defining, not add-ons, and every user-facing FR inherits them.
 | RISK-8 | Rust engine / Python orchestrator boundary drifts from the JSON envelope | medium | Envelope is a versioned contract in PLAT with a contract test on both sides | PLAT-002 |
 | RISK-9 | Interpretation quality cannot be measured, regressions ship silently | medium | Validation dataset of 150-200 classical cases; expert review each release; eval gate | KB-002, RAG, TEST tasks |
 
-## 9. How the FR catalog and the backlog relate
+## 9. How the task catalog and the backlog relate
 
 Two coupled artifacts, same as cyberos:
 
-- Feature requests (`docs/feature-requests/<module>/FR-<CODE>-<NNN>-<slug>.md`) are the durable contracts: what to build, the API and schema, acceptance criteria, dependencies, failure modes. Each module has a README indexing its FRs with priority, phase, hours, and deps.
-- The build order and trigger live alongside the FRs under `docs/feature-requests/`: `IMPLEMENTATION_ORDER.md` (master status index of every FR-as-task across phases), `backlog.yaml` (machine-readable), phase task cards, `PROMPT.md` (the agent trigger and the human review protocol), and `LEDGER.md` (append-only evidence). An agent picks the next eligible task, opens the referenced FR, implements it, records evidence, and moves to `in_review`; a human sets `done`.
+- Feature requests (`docs/tasks/<module>/TASK-<CODE>-<NNN>-<slug>.md`) are the durable contracts: what to build, the API and schema, acceptance criteria, dependencies, failure modes. Each module has a README indexing its tasks with priority, phase, hours, and deps.
+- The build order and trigger live alongside the tasks under `docs/tasks/`: `IMPLEMENTATION_ORDER.md` (master status index of every TASK-as-task across phases), `backlog.yaml` (machine-readable), phase task cards, `PROMPT.md` (the agent trigger and the human review protocol), and `LEDGER.md` (append-only evidence). An agent picks the next eligible task, opens the referenced task, implements it, records evidence, and moves to `in_review`; a human sets `done`.
 
-FR IDs never renumber. A task that grows scope becomes an FR; an FR that is dropped is marked `superseded`, never deleted.
+task IDs never renumber. A task that grows scope becomes an task; an task that is dropped is marked `superseded`, never deleted.
 
 ## 10. Coverage map (source -> module)
 
@@ -203,7 +203,7 @@ FR IDs never renumber. A task that grows scope becomes an FR; an FR that is drop
 | Claude 07 legal/ethics; Grok 19 legal, 25 ethics | LEGAL |
 | Grok 21 security, 22 devops, 27 structure, 39 deploy, 41 monitoring, 47 resilience, 48 perf, 50 checklist | PLAT |
 
-Every source document is accounted for. Business-context docs (Grok 03,04,05 PRD, 11 pitch, 13 budget, 16 competitive, 20 post-MVP, 43 partnership, 44 handoff) inform the roadmap and positioning but are not themselves engineering FRs; they are cited where relevant in STRAT, LEGAL, and this report.
+Every source document is accounted for. Business-context docs (Grok 03,04,05 PRD, 11 pitch, 13 budget, 16 competitive, 20 post-MVP, 43 partnership, 44 handoff) inform the roadmap and positioning but are not themselves engineering tasks; they are cited where relevant in STRAT, LEGAL, and this report.
 
 ---
 

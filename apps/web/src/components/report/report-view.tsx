@@ -7,7 +7,7 @@ import { InterpretationSection } from "./interpretation-section";
 import { PdfDownloadButton } from "./pdf-download-button";
 
 /**
- * Report view — FR-WEB-005.
+ * Report view — TASK-WEB-005.
  * Deterministic region visually separated from AI region.
  * Report object is read-only; this component never mutates it.
  */

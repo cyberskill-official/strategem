@@ -1,4 +1,4 @@
--- FR-PLAT-003: audit_logs — sensitive-access trail (strategy 4.4, RISK-5). Append-mostly.
+-- TASK-PLAT-003: audit_logs — sensitive-access trail (strategy 4.4, RISK-5). Append-mostly.
 
 CREATE TABLE audit_logs (
   id            bigserial PRIMARY KEY,

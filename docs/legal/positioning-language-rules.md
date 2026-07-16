@@ -1,4 +1,4 @@
-# Positioning language rules (FR-LEGAL-001)
+# Positioning language rules (TASK-LEGAL-001)
 
 Product posture: **heritage education and decision support**, never fortune-telling.
 

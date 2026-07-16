@@ -21,7 +21,7 @@ const TUONG_KEYS: Record<string, string> = {
 };
 
 /**
- * TaiYi chart view — FR-CHART-003. Pure reader of he=thai_at ban.
+ * TaiYi chart view — TASK-CHART-003. Pure reader of he=thai_at ban.
  * Center palace is marked skip (not used for Tai Yi station).
  */
 export function TaiyiChart({ laso }: { laso: LaSoLike }) {

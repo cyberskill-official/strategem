@@ -1,4 +1,4 @@
-"""FR-PLAT-006 chart cache tests."""
+"""TASK-PLAT-006 chart cache tests."""
 
 from __future__ import annotations
 

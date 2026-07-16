@@ -1,4 +1,4 @@
-//! Ngu Ho Don / Ngu Thu Don tables. FR-CORE-003.
+//! Ngu Ho Don / Ngu Thu Don tables. TASK-CORE-003.
 
 use crate::ganzhi::Can;
 

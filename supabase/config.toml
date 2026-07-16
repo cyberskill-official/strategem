@@ -1,4 +1,4 @@
-# Optional local Supabase CLI project (FR-PLAT-012).
+# Optional local Supabase CLI project (TASK-PLAT-012).
 # Production uses hosted Supabase; schema SoT remains db/migrations/.
 
 project_id = "strategem"

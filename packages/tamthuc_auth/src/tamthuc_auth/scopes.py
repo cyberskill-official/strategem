@@ -1,4 +1,4 @@
-"""Authorization helpers + FastAPI dependency factories (FR-AUTH-002)."""
+"""Authorization helpers + FastAPI dependency factories (TASK-AUTH-002)."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-"""FR-AUTH-004 erasure tests."""
+"""TASK-AUTH-004 erasure tests."""
 
 from __future__ import annotations
 

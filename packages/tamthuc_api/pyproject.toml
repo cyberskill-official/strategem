@@ -1,7 +1,7 @@
 [project]
 name = "tamthuc-api"
 version = "0.1.0"
-description = "API surface + query orchestration (FR-API-001) + observability (FR-PLAT-005)"
+description = "API surface + query orchestration (TASK-API-001) + observability (TASK-PLAT-005)"
 requires-python = ">=3.12"
 dependencies = [
   "pydantic>=2.7",

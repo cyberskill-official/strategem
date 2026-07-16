@@ -1,4 +1,4 @@
-"""FR-AUTH-003 password reset tests."""
+"""TASK-AUTH-003 password reset tests."""
 
 from __future__ import annotations
 

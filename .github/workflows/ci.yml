@@ -72,7 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Status page must match FR frontmatter (done counts)
+      - name: Status page must match task frontmatter (done counts)
         run: bash scripts/check-status-sync.sh
         shell: bash
 

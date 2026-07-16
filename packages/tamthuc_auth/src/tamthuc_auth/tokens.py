@@ -37,7 +37,7 @@ class RefreshClaims(BaseModel):
 
 
 class RevocationStore:
-    """In-process jti denylist; replace with Redis/DB in FR-AUTH-003 multi-device work."""
+    """In-process jti denylist; replace with Redis/DB in TASK-AUTH-003 multi-device work."""
 
     def __init__(self) -> None:
         self._revoked: dict[str, float] = {}  # jti -> exp

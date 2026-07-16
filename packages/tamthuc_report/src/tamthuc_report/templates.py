@@ -1,4 +1,4 @@
-"""Question-type report templates — FR-REPORT-003 (read-only presentation)."""
+"""Question-type report templates — TASK-REPORT-003 (read-only presentation)."""
 
 from __future__ import annotations
 

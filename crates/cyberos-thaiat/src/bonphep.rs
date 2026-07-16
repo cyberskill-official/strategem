@@ -1,5 +1,5 @@
-//! Bốn phép — nien / nguyet / nhat / thoi ke — FR-TAT-004.
-//! Reuses FR-TAT-001 reduction (map 1..=72) and epoch machinery.
+//! Bốn phép — nien / nguyet / nhat / thoi ke — TASK-TAT-004.
+//! Reuses TASK-TAT-001 reduction (map 1..=72) and epoch machinery.
 
 use crate::ban::Cap;
 use crate::flags::Epoch;
@@ -24,7 +24,7 @@ pub struct TichCap {
     pub duong_don: bool,
 }
 
-/// Year plate — identical to FR-TAT-001 tich nien path.
+/// Year plate — identical to TASK-TAT-001 tich nien path.
 pub fn tich_nien_ke(nam_ce: i32, epoch: Epoch) -> TichCap {
     let tn: TichNien = compute_tich_nien(nam_ce, epoch);
     TichCap {

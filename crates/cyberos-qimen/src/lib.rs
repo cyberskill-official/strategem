@@ -1,4 +1,4 @@
-//! QiMen — FR-QMDG-001..006.
+//! QiMen — TASK-QMDG-001..006.
 
 pub mod ban;
 pub mod cach_cuc;

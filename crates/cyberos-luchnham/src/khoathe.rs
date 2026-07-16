@@ -1,4 +1,4 @@
-//! Khoa the recognition — FR-LN-005 layer one (+ stubs for layer two).
+//! Khoa the recognition — TASK-LN-005 layer one (+ stubs for layer two).
 
 use crate::tamtruyen::{KhoaThe, Phap, TamTruyen};
 use serde::{Deserialize, Serialize};
@@ -11,7 +11,7 @@ pub struct KhoaTheHit {
     pub layer: u8,
 }
 
-/// Layer-one khoa the from FR-LN-003 method.
+/// Layer-one khoa the from TASK-LN-003 method.
 pub fn khoa_the_from_method(tt: &TamTruyen) -> KhoaTheHit {
     let (id, name, pol) = match tt.khoa_the {
         KhoaThe::NguyenThu => ("ln_nguyen_thu", "元首", "cat"),

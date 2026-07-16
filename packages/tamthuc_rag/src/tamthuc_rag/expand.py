@@ -1,4 +1,4 @@
-"""Term-sense query expansion — FR-RAG-005 (upstream of RAG-002)."""
+"""Term-sense query expansion — TASK-RAG-005 (upstream of RAG-002)."""
 
 from __future__ import annotations
 

@@ -1,4 +1,4 @@
-# DR drill checklist (FR-PLAT-009)
+# DR drill checklist (TASK-PLAT-009)
 
 - [ ] Snapshot / base backup available
 - [ ] WAL archive reachable

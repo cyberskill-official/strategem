@@ -1,5 +1,5 @@
 /**
- * Report API client — FR-WEB-005 (reads FR-REPORT-001 StructuredReport).
+ * Report API client — TASK-WEB-005 (reads TASK-REPORT-001 StructuredReport).
  * Read-only: never mutates the report object.
  */
 
@@ -69,7 +69,7 @@ export async function getReport(reportId: string): Promise<StructuredReport> {
   return { ...mockReport(), report_id: reportId };
 }
 
-/** Trigger FR-REPORT-002 export; client does not re-render the PDF. */
+/** Trigger TASK-REPORT-002 export; client does not re-render the PDF. */
 export async function downloadReportPdf(reportId: string): Promise<Blob> {
   const base = apiBase();
   const res = await fetch(

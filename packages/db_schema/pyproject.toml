@@ -1,7 +1,7 @@
 [project]
 name = "db-schema"
 version = "0.1.0"
-description = "FR-PLAT-003 migration apply helper + RLS isolation tests"
+description = "TASK-PLAT-003 migration apply helper + RLS isolation tests"
 requires-python = ">=3.12"
 dependencies = [
   "psycopg[binary]>=3.2",

@@ -1,4 +1,4 @@
-# VPS API deploy (FR-PLAT-013)
+# VPS API deploy (TASK-PLAT-013)
 
 See `docs/deploy/vps-api.md` and `docs/deploy/topology.md`.
 
