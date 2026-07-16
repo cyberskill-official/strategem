@@ -16,7 +16,7 @@ jobs:
   trivy-fs:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       # Pin to post-incident safe release (Aqua 2026-03 advisory: use v0.35.0+)
       - name: Trivy filesystem scan
         uses: aquasecurity/trivy-action@0.35.0
@@ -33,7 +33,7 @@ jobs:
   gitleaks:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
       - name: Install gitleaks

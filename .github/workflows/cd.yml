@@ -34,7 +34,7 @@ jobs:
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432/strategem
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: astral-sh/setup-uv@v3
         with:
           version: "latest"
@@ -58,7 +58,7 @@ jobs:
           - name: web
             file: deploy/docker/web.Dockerfile
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       - name: Build image
@@ -87,7 +87,7 @@ jobs:
     environment:
       name: staging
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Record deployed tag
         run: |
           echo "deploy_target=staging" >> "$GITHUB_STEP_SUMMARY"
@@ -105,7 +105,7 @@ jobs:
       # Protection rule (required reviewers) must be configured in GitHub
       # Settings → Environments → production. This job will not run until approved.
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Promote SHA to production
         run: |
           echo "deploy_target=production" >> "$GITHUB_STEP_SUMMARY"
