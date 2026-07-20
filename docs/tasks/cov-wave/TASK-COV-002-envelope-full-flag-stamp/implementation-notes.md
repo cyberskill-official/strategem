@@ -11,8 +11,8 @@
 ### Python API client
 
 - `packages/tamthuc_api/src/tamthuc_api/clients/engine.py`
-  - `StubEngineClient`, `_cast_via_cli`, `_cast_local` always stamp both objects
-  - Missing request flags → explicit `{stamped: "default"|true, source: ...}` (no silent empty omit)
+- `StubEngineClient`, `_cast_via_cli`, `_cast_local` always stamp both objects
+- Missing request flags → explicit `{stamped: "default"|true, source: ...}` (no silent empty omit)
 
 ### Tests
 

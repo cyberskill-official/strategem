@@ -281,10 +281,10 @@ Task id = task id (task `QMDG-001` implements `TASK-QMDG-001`). No second number
 - One task = one branch `auto/tt-<id-lowercase>` = one review packet.
 - Acceptance criteria in the task are binding; a task is not `in_review` until every criterion has evidence (test output, oracle-diff number, screenshot path, commit hash), recorded in `LEDGER.md`.
 - Gates by language (DEC-2):
-  - Rust: `cargo fmt --check`, `cargo clippy -p <crate> -- -D warnings`, `cargo test -p <crate>`.
-  - Python: `ruff check`, `mypy`, `python -m pytest packages/<pkg>`.
-  - Web: `pnpm -C apps/web lint`, `pnpm -C apps/web typecheck`, `pnpm -C apps/web test`, `pnpm -C apps/web build`.
-  - Engines additionally run the oracle cross-check (kinqimen / kinliuren / kintaiyi / sxwnl / tyme4py) per the task.
+- Rust: `cargo fmt --check`, `cargo clippy -p <crate> -- -D warnings`, `cargo test -p <crate>`.
+- Python: `ruff check`, `mypy`, `python -m pytest packages/<pkg>`.
+- Web: `pnpm -C apps/web lint`, `pnpm -C apps/web typecheck`, `pnpm -C apps/web test`, `pnpm -C apps/web build`.
+- Engines additionally run the oracle cross-check (kinqimen / kinliuren / kintaiyi / sxwnl / tyme4py) per the task.
 
 ### Safety invariants (non-negotiable)
 

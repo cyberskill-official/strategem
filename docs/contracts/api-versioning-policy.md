@@ -19,9 +19,9 @@ Unsupported majors are rejected with the TASK-API-001 error envelope (`NOT_FOUND
 
 - A deprecated field or endpoint **continues to function** for **at least 2–3 major versions** after deprecation.
 - Responses carry:
-  - `Deprecation: true`
-  - `Link: <successor>; rel="successor-version"`
-  - `Sunset: <HTTP-date>` when a date is set
+- `Deprecation: true`
+- `Link: <successor>; rel="successor-version"`
+- `Sunset: <HTTP-date>` when a date is set
 - Exact window per item is recorded in `CHANGELOG.md` and the `Sunset` header.
 
 ## Stability invariant (strategy 4.3)

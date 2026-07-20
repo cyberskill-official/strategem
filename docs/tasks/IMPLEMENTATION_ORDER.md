@@ -147,8 +147,7 @@ Status lives in `backlog.yaml`; this file is sequencing only. The task is the sp
 
 The only wave-0 task is the root PLAT-001 (monorepo + workspace + CI). After it lands, these tracks run in parallel; each arrow is a hard dependency.
 
-- Track A - calendar core (longest critical path):
-  CORE-001 -> CORE-002 -> CORE-003 -> CORE-004 -> CORE-005 -> CORE-006. CORE-007 (ganzhi primitives) runs alongside, depends only on PLAT-001. This track is the highest-risk work (RISK-1); do not rush it and do not let a >60s term error past CORE-006.
+- Track A - calendar core (longest critical path): CORE-001 -> CORE-002 -> CORE-003 -> CORE-004 -> CORE-005 -> CORE-006. CORE-007 (ganzhi primitives) runs alongside, depends only on PLAT-001. This track is the highest-risk work (RISK-1); do not rush it and do not let a >60s term error past CORE-006.
 - Track B - platform floor: PLAT-002 (envelope), PLAT-003 (db), PLAT-004 (ci/cd) all depend only on PLAT-001 and can run together. PLAT-002 blocks every engine; do it early.
 - Track C - rule + knowledge: RULE-001 -> RULE-002 -> RULE-003 (RULE-001 needs PLAT-003). KB-001 (needs PLAT-001) and KB-002 (needs RULE-001 + KB-001) run alongside; KB-002 is the 150-200 pattern seed and doubles as the eval set.
 - Track D - QiMen engine (needs CORE-005 and RULE-003): QMDG-001 -> 002 -> 003 -> 004 -> 005 -> 006. QMDG-006 also needs CORE-006 for its oracle gate. This is the flagship; the per-flag kinqimen match is mandatory.

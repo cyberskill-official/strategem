@@ -43,10 +43,8 @@ docker build -f deploy/docker/api.Dockerfile -t strategem-api:local .
 
 ## Secrets
 
-Never commit secrets. Pipeline reads from GitHub Actions secrets / Environments.
-See TASK-PLAT-007 for the control set.
+Never commit secrets. Pipeline reads from GitHub Actions secrets / Environments. See TASK-PLAT-007 for the control set.
 
 ## Production approval
 
-Configure repo → Settings → Environments → `production` → Required reviewers.
-Without approval, `deploy-prod` does not run.
+Configure repo → Settings → Environments → `production` → Required reviewers. Without approval, `deploy-prod` does not run.

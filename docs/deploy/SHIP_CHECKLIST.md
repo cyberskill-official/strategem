@@ -66,4 +66,3 @@ chmod +x .git/hooks/pre-commit
 ## Staging (COV-020)
 
 See `docs/deploy/staging-runbook.md` and `bash scripts/smoke-staging.sh`.
-

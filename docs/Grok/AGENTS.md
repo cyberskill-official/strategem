@@ -29,12 +29,12 @@
 **Thứ tự khuyến nghị:**
 
 1. **Qi Men Dun Jia Engine** (file `28_QiMen_Engine_Full_Implementation_Detail.pdf`)
-   - Bắt đầu với Ju calculation + Plate construction.
-   - Test với ít nhất 30-50 ví dụ cổ điển.
-   - Sau đó mới implement pattern detection.
+- Bắt đầu với Ju calculation + Plate construction.
+- Test với ít nhất 30-50 ví dụ cổ điển.
+- Sau đó mới implement pattern detection.
 
 2. **Rule Engine chung** (file `31_Rule_Engine_and_Pattern_Matching_Full_Detail.pdf`)
-   - Xây dựng engine đọc patterns từ JSON.
+- Xây dựng engine đọc patterns từ JSON.
 
 3. **Liu Ren Engine** (file `29_LiuRen_Engine_Full_Implementation_Detail.pdf`) — P1
 
