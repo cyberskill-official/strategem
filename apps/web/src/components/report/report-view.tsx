@@ -2,6 +2,7 @@
 
 import type { StructuredReport } from "../../lib/api/report";
 import { useLocale } from "../i18n/locale-provider";
+import { FollowUpChat } from "../domain/follow-up-chat";
 import { ChartSummarySection } from "./chart-summary-section";
 import { InterpretationSection } from "./interpretation-section";
 import { PdfDownloadButton } from "./pdf-download-button";
@@ -20,6 +21,7 @@ export function ReportView({
 }) {
   const { t } = useLocale();
   const snapshot = report;
+  const followUpId = snapshot.query_id || snapshot.report_id;
 
   return (
     <div data-testid="report-view" style={{ display: "grid", gap: 24 }}>
@@ -41,6 +43,10 @@ export function ReportView({
       />
 
       <InterpretationSection report={snapshot} />
+
+      {followUpId && !String(followUpId).startsWith("demo-") ? (
+        <FollowUpChat queryId={String(followUpId)} />
+      ) : null}
 
       <PdfDownloadButton
         reportId={snapshot.report_id}

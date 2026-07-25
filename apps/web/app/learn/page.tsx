@@ -77,7 +77,7 @@ export default function LearnPage() {
                 data-unlocked={unlocked ? "1" : "0"}
                 style={{
                   opacity: unlocked ? 1 : 0.55,
-                  outline: active ? "2px solid var(--color-ochre, #c4a35a)" : undefined,
+                  outline: active ? "2px solid var(--color-ochre)" : undefined,
                 }}
               >
                 <header style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>

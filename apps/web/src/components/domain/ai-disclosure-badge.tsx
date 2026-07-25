@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type KeyboardEvent } from "react";
+import { AIDisclosureBadge as DsAIDisclosureBadge } from "../../ds";
 import { useLocale } from "../i18n/locale-provider";
 
 export type AIDisclosureBadgeProps = {
@@ -10,6 +10,14 @@ export type AIDisclosureBadgeProps = {
   reviewStatus?: "pending" | "not_required" | "approved" | "rejected";
 };
 
+/**
+ * AI disclosure — delegates to the real @cyberskill/design AIDisclosureBadge
+ * (via src/ds), which owns the `.cs-ai-disclosure` pill/panel markup. Product
+ * content stays here and is richer than the DS default: model, limits,
+ * citations and the human-review status, localized VI-first (en/vi/zh).
+ * The DS `sources` prop is not used because its "Sources:" prefix is
+ * hardcoded English; the localized citations line rides in `details` instead.
+ */
 export function AIDisclosureBadge({
   model,
   limits,
@@ -17,68 +25,22 @@ export function AIDisclosureBadge({
   reviewStatus = "not_required",
 }: AIDisclosureBadgeProps) {
   const { t } = useLocale();
-  const [open, setOpen] = useState(false);
-  const panelId = useId();
-  const onKey = (e: KeyboardEvent) => {
-    if (e.key === "Enter" || e.key === " ") {
-      e.preventDefault();
-      setOpen((v) => !v);
-    }
-    if (e.key === "Escape") setOpen(false);
-  };
   return (
-    <span style={{ position: "relative", display: "inline-flex" }}>
-      <button
-        type="button"
-        aria-haspopup="dialog"
-        aria-expanded={open}
-        aria-controls={panelId}
-        onClick={() => setOpen((v) => !v)}
-        onKeyDown={onKey}
-        style={{
-          background: "var(--color-info)",
-          color: "var(--color-bg)",
-          borderRadius: "var(--radius-full)",
-          border: "none",
-          padding: "var(--space-2) var(--space-3)",
-          fontSize: "var(--font-size-sm)",
-          lineHeight: "var(--line-height-control)",
-          cursor: "pointer",
-          fontFamily: "inherit",
-        }}
-      >
-        {t("disclosure.ai")} · {t(`disclosure.status.${reviewStatus}`)}
-      </button>
-      {open ? (
-        <div
-          id={panelId}
-          role="dialog"
-          style={{
-            position: "absolute",
-            top: "110%",
-            left: 0,
-            zIndex: 10,
-            minWidth: 240,
-            background: "var(--color-surface)",
-            color: "var(--color-fg)",
-            border: "1px solid var(--color-border)",
-            borderRadius: "var(--radius-md)",
-            padding: "var(--space-3)",
-            boxShadow: "var(--shadow-sm)",
-          }}
-        >
-          <p>
+    <DsAIDisclosureBadge
+      label={`${t("disclosure.ai")} · ${t(`disclosure.status.${reviewStatus}`)}`}
+      details={
+        <>
+          <span className="cs-ai-disclosure__details">
             <strong>{t("disclosure.model")}:</strong> {model}
-          </p>
-          <p>
+          </span>
+          <span className="cs-ai-disclosure__details">
             <strong>{t("disclosure.limits")}:</strong> {limits}
-          </p>
-          <p>
-            <strong>{t("disclosure.citations")}:</strong>{" "}
-            {citations.join(", ") || "—"}
-          </p>
-        </div>
-      ) : null}
-    </span>
+          </span>
+          <span className="cs-ai-disclosure__sources">
+            {t("disclosure.citations")}: {citations.join(", ") || "—"}
+          </span>
+        </>
+      }
+    />
   );
 }

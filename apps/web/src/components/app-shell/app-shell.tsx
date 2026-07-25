@@ -3,6 +3,7 @@
 import type { ReactNode } from "react";
 import { LocaleProvider } from "../i18n/locale-provider";
 import { useLocale } from "../i18n/locale-provider";
+import { CounselReviewBanner } from "../domain/counsel-review-banner";
 import { StickyCta } from "./sticky-cta";
 import { TopBar } from "./top-bar";
 
@@ -14,6 +15,7 @@ function ShellFrame({ children }: { children: ReactNode }) {
       <main className="cs-main">{children}</main>
       <StickyCta />
       <footer className="cs-footer">
+        <CounselReviewBanner />
         <p className="cs-disclaimer">{t("disclaimer.short")}</p>
       </footer>
     </div>

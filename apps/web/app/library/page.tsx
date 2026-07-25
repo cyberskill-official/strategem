@@ -94,10 +94,15 @@ export default function LibraryPage() {
             data-testid="library-entry"
             style={{ marginBottom: "0.75rem" }}
           >
-            <h3 style={{ marginTop: 0 }}>{e.title}</h3>
-            <p className="cs-muted" style={{ fontSize: "0.85rem" }}>
-              {e.system} · {e.unit_id}
-            </p>
+            <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+              <h3 style={{ margin: 0 }}>{e.title}</h3>
+              {e.system ? (
+                <span className="cs-badge cs-badge--trung">{e.system}</span>
+              ) : null}
+              <span className="cs-muted" style={{ fontSize: "0.85rem" }}>
+                {e.unit_id}
+              </span>
+            </div>
             <div
               data-testid="library-layers"
               style={{

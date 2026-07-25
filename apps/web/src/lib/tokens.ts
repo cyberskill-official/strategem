@@ -1,23 +1,28 @@
-/** Mirrors CSS custom properties in styles/tokens.css (TASK-WEB-001). */
+/**
+ * Mirrors the @cyberskill/design token values the app relies on (light theme),
+ * plus the legacy CSS alias names kept in styles/tokens.css (TASK-WEB-001).
+ * Source of truth: @cyberskill/design/tokens — do not drift from the DS.
+ */
 export const tokens = {
   color: {
     ochre: "#F4BA17",
     ochreFocus: "#F4BA17",
     brandAccent: "#F4BA17",
-    success: "#2F7D4A",
+    umber: "#45210E",
+    success: "#166534",
     danger: "#B42318",
-    warning: "#B54708",
-    info: "#2C5F8A",
-    bg: "#FFFFFF",
-    fg: "#1A1A1A",
-    muted: "#6B7280",
-    border: "#E5E7EB",
-    surface: "#F9FAFB",
+    warning: "#92400E",
+    info: "#1D4ED8",
+    bg: "#FFFDF8",
+    fg: "#45210E",
+    muted: "#6E5A4C",
+    border: "#E7D9C6",
+    surface: "#FFFFFF",
   },
   space: { 1: "4px", 2: "8px", 3: "12px", 4: "16px", 5: "24px" },
-  radius: { sm: "4px", md: "8px", full: "9999px" },
-  shadow: { sm: "0 1px 2px rgb(0 0 0 / 0.06)" },
-  controlHeight: { xs: "24px", md: "44px" },
+  radius: { sm: "4px", md: "8px", full: "999px" },
+  shadow: { sm: "0 1px 2px rgb(69 33 14 / 0.06)" },
+  controlHeight: { xs: "36px", md: "44px" },
   lineHeight: { body: "1.65", control: "1.5" },
 } as const;
 

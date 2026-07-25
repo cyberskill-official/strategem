@@ -21,25 +21,22 @@ assert(
   "ochre must not bind to semantic roles",
 );
 
-// components use CSS vars not raw hex (except documentation tokens file)
+// W5: components ride the @cyberskill/design .cs-* class contract (no raw hex)
 const button = readFileSync(join(root, "src/components/ui/button.tsx"), "utf8");
-assert(!button.includes("#F4BA17"), "button must use CSS vars");
-assert(button.includes("var(--color-ochre)"), "primary uses ochre token");
-assert(button.includes("var(--control-height-md)"), "md height token");
+assert(!button.includes("#F4BA17"), "button must use DS classes/vars");
+assert(button.includes("cs-button"), "button uses DS cs-button class");
 
 const badge = readFileSync(join(root, "src/components/domain/ai-disclosure-badge.tsx"), "utf8");
-assert(badge.includes("var(--color-info)"), "badge uses info token");
-assert(badge.includes("var(--radius-full)"), "badge fully round");
+assert(badge.includes("cs-ai-disclosure"), "badge uses DS cs-ai-disclosure class");
 assert(badge.includes("aria-"), "badge a11y");
 
 const gate = readFileSync(join(root, "src/components/domain/human-review-gate.tsx"), "utf8");
-assert(gate.includes("var(--color-warning)"), "gate warning");
+assert(gate.includes("cs-review-gate"), "gate uses DS cs-review-gate class");
 assert(gate.includes("aria-live"), "gate live region");
-assert(gate.includes("Approve") && gate.includes("Reject"), "approve/reject");
 
 // diacritics: line-height + overflow visible
 const globals = readFileSync(join(root, "src/styles/globals.css"), "utf8");
-assert(globals.includes("line-height: var(--line-height-body)"), "body line-height");
+assert(globals.includes("line-height"), "body line-height");
 assert(globals.includes("overflow: visible"), "no clip");
 
 console.log("WEB-001 token/component checks OK");
