@@ -15,10 +15,10 @@ Format: each major records **breaking** (with migration) and **additive** notes.
 ### Deprecated
 
 - `/api/v1/knowledge/patterns` marked for successor `/api/v2/knowledge/patterns` when v2 lands.
-  - `deprecated_in`: v1
-  - `remove_in`: v4 (retained 3 majors after deprecation)
-  - `Sunset`: Wed, 08 Jul 2027 00:00:00 GMT
-  - Endpoint remains fully functional in v1; responses may carry `Deprecation` / `Link` / `Sunset`.
+- `deprecated_in`: v1
+- `remove_in`: v4 (retained 3 majors after deprecation)
+- `Sunset`: Wed, 08 Jul 2027 00:00:00 GMT
+- Endpoint remains fully functional in v1; responses may carry `Deprecation` / `Link` / `Sunset`.
 
 ### Stability
 

@@ -75,8 +75,8 @@ The two sources disagree on the first engine. The Claude source argues LiuRen fi
 1. Presentation - Next.js web (mobile later). Chart-casting screen, bilingual library, lessons.
 2. API and orchestration - FastAPI gateway. Auth, request validation, the nine-step query flow, versioning, rate limits.
 3. Core services - two parallel branches joined by the JSON chart:
-   - Deterministic branch (Rust): CORE calendar/ganzhi core, the three casting engines, and cach-cuc / pattern detection.
-   - Interpretation branch (Python): knowledge-graph traversal, RAG over classical text, LLM interpretation, human-review gate.
+- Deterministic branch (Rust): CORE calendar/ganzhi core, the three casting engines, and cach-cuc / pattern detection.
+- Interpretation branch (Python): knowledge-graph traversal, RAG over classical text, LLM interpretation, human-review gate.
 4. Data - PostgreSQL (users, queries, charts, patterns, reports, audit), a vector DB (Chroma or pgvector or Pinecone) for embeddings, a knowledge graph (Neo4j or a property-graph or relational edge table), a classical-text store (three parallel layers), and a Redis chart cache.
 5. External - LLM providers, auth providers, and the reference oracle libraries used in CI (kinqimen, kinliuren, kintaiyi, sxwnl, tyme4py).
 
