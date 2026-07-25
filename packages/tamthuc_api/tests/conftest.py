@@ -1,22 +1,27 @@
-"""API test fixtures — apply DB migrations when DATABASE_URL is set (CI / W2)."""
+"""Shared API test fixtures — auth secrets + development env (TT-003)."""
 
 from __future__ import annotations
 
-import os
+import base64
 
 import pytest
 
 
-@pytest.fixture(scope="session", autouse=True)
-def _migrate_postgres_if_configured() -> None:
-    """Ensure PLAT-003 + app_query_store exist before Postgres-backed API tests."""
-    dsn = os.environ.get("DATABASE_URL")
-    if not dsn:
-        return
+@pytest.fixture(autouse=True)
+def _auth_env_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Ensure create_app / AuthService can boot in tests without production secrets."""
+    monkeypatch.setenv("ENV", "test")
+    monkeypatch.setenv(
+        "TAMTHUC_AUTH_JWT_SECRET",
+        "test-jwt-secret-at-least-32-bytes-long!!",
+    )
+    monkeypatch.setenv(
+        "TAMTHUC_AUTH_MASTER_KEY_B64",
+        base64.urlsafe_b64encode(b"t" * 32).decode("ascii"),
+    )
     try:
-        from db_schema.migrate import apply_migrations
+        from tamthuc_auth.config import reset_settings_cache
 
-        apply_migrations(dsn)
-    except Exception:
-        # Individual tests skip when Postgres is unreachable.
-        return
+        reset_settings_cache()
+    except ImportError:
+        pass

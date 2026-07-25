@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
+from auth_helpers import auth_header, register_and_login
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 
 
 def test_scenario_compare_returns_ranked() -> None:
     client = TestClient(create_app())
+    tokens = register_and_login(client, email="scenario@example.com", tier="premium")
     r = client.post(
         "/api/v1/scenario/compare",
+        headers=auth_header(tokens["access"]),
         json={
             "top_n": 2,
             "scenarios": [
@@ -38,8 +41,10 @@ def test_scenario_compare_returns_ranked() -> None:
 
 def test_scenario_compare_rejects_one() -> None:
     client = TestClient(create_app())
+    tokens = register_and_login(client, email="scenario2@example.com", tier="premium")
     r = client.post(
         "/api/v1/scenario/compare",
+        headers=auth_header(tokens["access"]),
         json={
             "scenarios": [
                 {
@@ -55,15 +60,16 @@ def test_scenario_compare_rejects_one() -> None:
 
 def test_cross_system_validate_three_columns() -> None:
     client = TestClient(create_app())
+    tokens = register_and_login(client, email="cross@example.com", tier="premium")
     r = client.post(
         "/api/v1/cross-system/validate",
+        headers=auth_header(tokens["access"]),
         json={
             "datetime": "2004-01-01T10:30:00",
             "tz": "+07:00",
             "longitude": 106.7,
             "systems": ["qimen", "liuren", "taiyi"],
             "loai_cau_hoi": "trach_thoi",
-            "tier": "premium",
         },
     )
     assert r.status_code == 200, r.text

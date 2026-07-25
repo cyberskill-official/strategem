@@ -45,26 +45,22 @@ def timing_optimize(body: TimingOptimizeBody, request: Request) -> dict[str, Any
             content=error_envelope("NOT_IMPLEMENTED", "tamthuc_strat not installed"),
         )
 
-    # COV-009: free tier may cast, but timing depth is premium when authenticated free
-    auth_header = request.headers.get("authorization") or request.headers.get("Authorization")
-    if auth_header and auth_header.lower().startswith("bearer "):
-        token = auth_header.split(" ", 1)[1].strip()
-        svc = getattr(request.app.state, "auth_service", None)
-        if svc is not None:
-            try:
-                user = svc.current_user(token)
-                tier = (user.tier or "free").lower()
-                if tier in {"free", "Free"}:
-                    return JSONResponse(
-                        status_code=403,
-                        content=error_envelope(
-                            "FORBIDDEN_TIER",
-                            "timing_optimize requires premium+ (free cast remains open)",
-                        ),
-                    )
-            except Exception:
-                # invalid token → treat as anonymous (free cast path still ok elsewhere)
-                pass
+    # COV-009 / TT-002: tier from verified JWT only (middleware requires auth)
+    user = getattr(request.state, "current_user", None)
+    if user is None:
+        return JSONResponse(
+            status_code=401,
+            content=error_envelope("UNAUTHORIZED", "authentication required"),
+        )
+    tier = (user.tier or "free").lower()
+    if tier in {"free", ""}:
+        return JSONResponse(
+            status_code=403,
+            content=error_envelope(
+                "FORBIDDEN_TIER",
+                "timing_optimize requires premium+ (free cast remains open)",
+            ),
+        )
 
     orch = request.app.state.orch
     kinh = (

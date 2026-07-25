@@ -5,12 +5,18 @@ from __future__ import annotations
 import time
 
 import pytest
-from tamthuc_auth.config import get_settings
+from tamthuc_auth.config import get_settings, reset_settings_cache
 from tamthuc_auth.crypto import decrypt_birth_data, encrypt_birth_data
 from tamthuc_auth.dsar import DsarService, FreshAuthRequired
 from tamthuc_auth.erasure import erase_user_data
 from tamthuc_auth.passwords import hash_password
 from tamthuc_auth.store import InMemoryUserStore, new_user
+
+
+@pytest.fixture(autouse=True)
+def _test_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("ENV", "test")
+    reset_settings_cache()
 
 
 def test_crypto_shred() -> None:

@@ -3,6 +3,7 @@
  */
 
 import { apiBase } from "./client";
+import { authHeaders } from "../auth/session";
 
 export type ChartRef = {
   query_id: string;
@@ -23,7 +24,7 @@ export async function getHistory(filter?: {
   try {
     const res = await fetch(`${base}/api/v1/queries?${q}`, {
       method: "GET",
-      headers: { Accept: "application/json" },
+      headers: { Accept: "application/json", ...authHeaders() },
       cache: "no-store",
     });
     if (res.ok) {

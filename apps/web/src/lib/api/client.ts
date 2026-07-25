@@ -1,5 +1,6 @@
 import type { ApiError, QueryRequest, QueryResponse } from "./schemas";
 import { validateQueryRequest } from "./schemas";
+import { getAccessToken } from "../auth/session";
 
 export class ApiClientError extends Error {
   constructor(
@@ -97,7 +98,6 @@ export async function cast(
       persona_level: body.persona_level,
       co_truong_phai: body.co_truong_phai,
       question: body.question_type,
-      tier: "free",
     }),
   });
   if (!res.ok) throw await parseError(res);
@@ -116,59 +116,6 @@ export async function cast(
   return data;
 }
 
-export type FollowUpResponse = {
-  query_id: string;
-  message: string;
-  answer: {
-    beginner?: string;
-    expert?: string;
-    recommendations?: unknown[];
-    citations?: Array<Record<string, unknown>>;
-    confidence?: number;
-    requires_human_review?: boolean;
-  };
-  ai_disclosure: {
-    is_ai_generated?: boolean;
-    model?: string;
-    prompt_version?: string;
-    retrieved_citation_ids?: string[];
-    limits?: string;
-    review_status?: "pending" | "not_required" | "approved" | "rejected";
-    degraded?: boolean;
-  };
-  refused?: boolean;
-  refuse_reason?: string | null;
-};
-
-/** Cited follow-up turn — POST /queries/{id}/follow-up (W6). */
-export async function followUp(
-  queryId: string,
-  message: string,
-  opts?: { locale?: string; token?: string; baseUrl?: string; fetchImpl?: typeof fetch },
-): Promise<FollowUpResponse> {
-  const base = apiBase(opts);
-  const fetchFn = opts?.fetchImpl ?? fetch;
-  const headers: Record<string, string> = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
-  };
-  if (opts?.token) headers.Authorization = `Bearer ${opts.token}`;
-  const res = await fetchWithTimeout(
-    fetchFn,
-    `${base}/api/v1/queries/${encodeURIComponent(queryId)}/follow-up`,
-    {
-      method: "POST",
-      headers,
-      body: JSON.stringify({
-        message,
-        locale: opts?.locale ?? "vi",
-      }),
-    },
-  );
-  if (!res.ok) throw await parseError(res);
-  return (await res.json()) as FollowUpResponse;
-}
-
 export async function getQuery(
   queryId: string,
   opts?: { token?: string; baseUrl?: string; fetchImpl?: typeof fetch },
@@ -178,7 +125,12 @@ export async function getQuery(
   const headers: Record<string, string> = {
     Accept: "application/json",
   };
-  if (opts?.token) headers.Authorization = `Bearer ${opts.token}`;
+  if (opts?.token) {
+    headers.Authorization = `Bearer ${opts.token}`;
+  } else {
+    const t = getAccessToken();
+    if (t) headers.Authorization = `Bearer ${t}`;
+  }
 
   // Prefer live API
   try {
