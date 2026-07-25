@@ -32,7 +32,8 @@ def create_app(
     enable_cors: bool = True,
 ) -> FastAPI:
     app = FastAPI(title="tamthuc-api", version="0.1.0")
-    # COV-010: Postgres when DATABASE_URL set; memory in dev/test; fail-closed in prod
+    # W2 / COV-010: Postgres when DATABASE_URL set (compose default); memory for unit tests;
+    # fail-closed in production without DATABASE_URL.
     persistence = PersistenceService.from_env()
     audit = AuditLog()
     metrics = MetricsRegistry()
@@ -46,7 +47,9 @@ def create_app(
     app.state.persistence = orch.persistence or persistence
     app.state.audit = orch.audit or audit
     app.state.metrics = metrics
-    # COV-009: mount JWT auth product surface (free cast stays open)
+    app.state.persistence_backend = getattr(app.state.persistence, "backend", "memory")
+    # COV-009 / W2: JWT auth mounted. Free single-system cast stays open;
+    # premium (/calculate/all) + manage history (/queries) require Bearer JWT.
     try:
         from tamthuc_auth.routes import router as auth_router
         from tamthuc_auth.service import AuthService

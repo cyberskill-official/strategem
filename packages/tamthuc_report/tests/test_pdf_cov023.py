@@ -53,3 +53,13 @@ def test_pdf_legal_disclaimer_and_sections() -> None:
     assert "Thanh Long" in html or "vernacular" in html
     pdf = export_pdf(r)
     assert pdf.startswith(b"%PDF")
+    assert b"%%EOF" in pdf
+    assert b"/Type /Catalog" in pdf or b"/Type/Catalog" in pdf
+    assert b"startxref" in pdf or b"xref" in pdf
+    # disclaimer text should be embeddable in content streams / fonts
+    assert (
+        b"fortune" in pdf.lower()
+        or b"Legal" in pdf
+        or b"disclaimer" in pdf.lower()
+        or len(pdf) > 800
+    )

@@ -68,8 +68,26 @@ def test_apply_migrations_uses_explicit_file_list(tmp_path: Path) -> None:
     mock_cm = MagicMock()
     mock_cm.__enter__.return_value = mock_conn
     mock_cm.__exit__.return_value = False
+    # No prior ledger row → apply
+    mock_conn.execute.return_value.fetchone.return_value = None
     with patch.object(psycopg, "connect", return_value=mock_cm) as connect:
         n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])
     assert n == 1
     connect.assert_called_once()
-    mock_conn.execute.assert_called_once_with("SELECT 1;")
+    # ledger create + skip-check + apply SQL + ledger insert
+    assert mock_conn.execute.call_count >= 3
+
+
+def test_apply_migrations_skips_when_ledgered(tmp_path: Path) -> None:
+    import psycopg
+
+    sql = tmp_path / "0001_noop.sql"
+    sql.write_text("SELECT 1;", encoding="utf-8")
+    mock_conn = MagicMock()
+    mock_cm = MagicMock()
+    mock_cm.__enter__.return_value = mock_conn
+    mock_cm.__exit__.return_value = False
+    mock_conn.execute.return_value.fetchone.return_value = {"ok": 1}
+    with patch.object(psycopg, "connect", return_value=mock_cm):
+        n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])
+    assert n == 0

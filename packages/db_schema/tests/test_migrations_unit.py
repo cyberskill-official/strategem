@@ -12,7 +12,7 @@ def test_migrations_dir_exists() -> None:
 
 
 def test_ordered_migration_files() -> None:
-    """COV-010 added 0010_app_query_store; list is apply order (lexicographic)."""
+    """W2 added 0011_anon_user; list is apply order (lexicographic)."""
     files = list_migrations()
     names = [f.name for f in files]
     assert names == [
@@ -26,10 +26,11 @@ def test_ordered_migration_files() -> None:
         "0008_indexes_gin.sql",
         "0009_rls_policies.sql",
         "0010_app_query_store.sql",
+        "0011_anon_user.sql",
     ]
     # Lexicographic order is apply order
     assert names == sorted(names)
-    assert len(names) >= 10
+    assert len(names) >= 11
 
 
 def test_users_sql_has_soft_delete_and_bytea_birth() -> None:

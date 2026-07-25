@@ -1,8 +1,10 @@
-# COV-027: local full-stack from source (not GHCR staging images).
+# COV-027 / W2: local full-stack from source (not GHCR staging images).
 # Docs: docs/deploy/local-docker-lmstudio.md
 #
 #   docker compose -f deploy/compose/docker-compose.local.yml up --build -d
 #
+# Postgres is the default persistence path (DATABASE_URL → RLS domain tables +
+# app_query_store). Migrations run once via the migrate service before API boot.
 # LMStudio runs on the host (default :1234). API reaches it via host.docker.internal.
 
 name: strategem-local
@@ -27,6 +29,18 @@ services:
     ports:
       - "${LOCAL_REDIS_PORT:-6379}:6379"
 
+  migrate:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/api.Dockerfile
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
+    command: ["python", "-m", "db_schema.migrate"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+
   api:
     build:
       context: ../..
@@ -36,10 +50,12 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "8000"
+      # W2 default: Postgres-backed cast persistence (domain tables + app_query_store)
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
+      APP_ENV: ${APP_ENV:-local}
       CAST_CLI: /src/cast-cli
       READY_REQUIRE_CAST_CLI: "1"
-      TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:-local-dev-only-change-me}
+      TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:-local-dev-only-change-me-at-least-32b}
       LLM_BACKEND: ${LLM_BACKEND:-openai_compatible}
       LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:1234/v1}
       LLM_MODEL: ${LLM_MODEL:-local-model}
@@ -50,6 +66,8 @@ services:
     depends_on:
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
 
   web:
     build:

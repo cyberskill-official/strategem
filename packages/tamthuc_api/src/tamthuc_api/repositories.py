@@ -51,6 +51,8 @@ class ReportRepo(Protocol):
 
     def get_by_id(self, report_id: str) -> dict[str, Any] | None: ...
 
+    def get_by_query_id(self, query_id: str) -> dict[str, Any] | None: ...
+
 
 @dataclass
 class InMemoryQueryRepo:
@@ -198,5 +200,12 @@ class InMemoryReportRepo:
     def get_by_id(self, report_id: str) -> dict[str, Any] | None:
         for r in self.rows:
             if r["id"] == report_id:
+                return r
+        return None
+
+    def get_by_query_id(self, query_id: str) -> dict[str, Any] | None:
+        """Resolve report stored for a cast query id (GET /reports/{query_id})."""
+        for r in reversed(self.rows):
+            if r.get("query_id") == query_id:
                 return r
         return None

@@ -8,13 +8,14 @@ from __future__ import annotations
 import hashlib
 import os
 import time
-from typing import Any
+from typing import Annotated, Any
 from uuid import uuid4
 
-from fastapi import APIRouter, Request
+from fastapi import APIRouter, Depends, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict, Field
 
+from tamthuc_api.auth_deps import require_user, user_id_from
 from tamthuc_api.errors import error_envelope
 
 router = APIRouter(tags=["payments"])
@@ -56,11 +57,16 @@ def payment_provider() -> dict[str, Any]:
 
 
 @router.post("/payments/checkout", response_model=None)
-def create_checkout(body: CheckoutBody, request: Request) -> dict[str, Any] | JSONResponse:
-    """Create a Checkout session (real Stripe when key set; otherwise local mock session)."""
+def create_checkout(
+    body: CheckoutBody,
+    request: Request,
+    user: Annotated[object, Depends(require_user)],
+) -> dict[str, Any] | JSONResponse:
+    """Create a Checkout session — JWT required (account-bound premium upgrade)."""
     secret = os.environ.get(STRIPE_SECRET_ENV, "").strip()
     price = os.environ.get(PREMIUM_PRICE_ENV, "price_premium_local").strip()
     session_id = f"cs_test_{uuid4().hex[:24]}"
+    uid = user_id_from(user)
     # Mock OpenAPI-compatible Checkout Session fields (contract for Stripe)
     session = {
         "id": session_id,
@@ -68,8 +74,8 @@ def create_checkout(body: CheckoutBody, request: Request) -> dict[str, Any] | JS
         "mode": "subscription",
         "payment_status": "unpaid",
         "status": "open",
-        "customer_email": body.email,
-        "client_reference_id": body.user_id,
+        "customer_email": body.email or getattr(user, "email", None),
+        "client_reference_id": uid,
         "success_url": body.success_url,
         "cancel_url": body.cancel_url,
         "url": f"https://checkout.stripe.com/c/pay/{session_id}"
@@ -81,8 +87,8 @@ def create_checkout(body: CheckoutBody, request: Request) -> dict[str, Any] | JS
         "created": int(time.time()),
     }
     _sessions[session_id] = {
-        "user_id": body.user_id,
-        "email": body.email,
+        "user_id": uid,
+        "email": body.email or getattr(user, "email", None),
         "session": session,
     }
     return {
@@ -163,6 +169,19 @@ def payment_webhook(body: WebhookBody, request: Request) -> dict[str, Any] | JSO
     }
 
 
-@router.get("/payments/tier/{user_id}")
-def get_tier(user_id: str) -> dict[str, str]:
-    return {"user_id": user_id, "tier": _tier_by_user.get(user_id, "free")}
+@router.get("/payments/tier/{user_id}", response_model=None)
+def get_tier(
+    user_id: str,
+    user: Annotated[object, Depends(require_user)],
+) -> dict[str, str] | JSONResponse:
+    """Own-tier lookup — JWT required; cross-user reads forbidden."""
+    caller = user_id_from(user)
+    if caller != user_id:
+        return JSONResponse(
+            status_code=403,
+            content=error_envelope("FORBIDDEN_TIER", "cannot read another user's tier"),
+        )
+    # Prefer auth-store tier when present
+    auth_tier = str(getattr(user, "tier", "") or "")
+    tier = auth_tier or _tier_by_user.get(user_id, "free")
+    return {"user_id": user_id, "tier": tier}
