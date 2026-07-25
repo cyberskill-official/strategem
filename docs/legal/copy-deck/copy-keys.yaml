@@ -17,5 +17,14 @@ ai.limits.en:
   lang: en
 
 meta:
+  counsel_review: pending
   counsel_review_required: true
   review_fr: TASK-LEGAL-004
+  statutes_informational:
+    - Nghi dinh 38/2021/ND-CP
+    - Dieu 320 Bo luat Hinh su
+    - Quyet dinh 34/2020/QD-TTg
+  note: >-
+    Final wording and statute framing require Vietnamese counsel before public
+    launch. Do not treat this deck as legally signed-off while counsel_review
+    is pending.

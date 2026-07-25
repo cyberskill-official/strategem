@@ -81,6 +81,17 @@ db-gate: db-test
 py-gate-with-db: py-gate db-gate
     @echo "✅ py-gate-with-db passed (requires DATABASE_URL)"
 
+# ---------------- LEGAL-004 counsel gate (RISK-4) ----------------
+# Fail-closed until human VN counsel records sign-off.
+# Do not invent an approval — see docs/legal/vn-legal-review/operator-runbook.md
+counsel-gate:
+    bash scripts/check-counsel-signoff.sh
+
+# Public-launch readiness: counsel gate + machine gates.
+# Expected to fail while gate-status.json verdict is pending.
+ship-ready: counsel-gate rust-gate py-gate web-gate
+    @echo "✅ ship-ready: counsel + rust + py + web gates passed"
+
 # ---------------- All ----------------
 all: rust-gate py-gate web-gate
     @echo "✅ all gates passed (PLAT-001 skeleton; DB lane is separate — just db-gate)"

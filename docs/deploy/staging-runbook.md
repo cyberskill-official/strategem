@@ -53,3 +53,6 @@ Use env / secret manager only. Checklist: `docs/deploy/SHIP_CHECKLIST.md`.
 
 - Local Docker + LMStudio: `docs/deploy/local-docker-lmstudio.md`
 - Topology: `docs/deploy/topology.md`
+- Public launch / app-store: LEGAL-004 counsel gate (`docs/deploy/SHIP_CHECKLIST.md`,
+  `docs/legal/vn-legal-review/operator-runbook.md`). Staging may run while counsel
+  is pending; claiming public launch-ready requires `just counsel-gate` exit 0.

@@ -29,7 +29,7 @@ LEGAL-001 sets the positioning and copy the rest of the product renders; LEGAL-0
 ## Cross-module dependencies
 
 - Depends on WEB: LEGAL-001's disclaimer fills the TASK-WEB-001 shell slot and its AI-limits copy is what the `AIDisclosureBadge` popover shows (legal owns the words by key, the component owns the affordance). Depends on AUTH: LEGAL-002's erasure/export contracts operate on TASK-AUTH-001 user data and the TASK-PLAT-003 schema (soft-delete supports it). Depends on RAG: LEGAL-003 extends the TASK-RAG-003 framing guard (no interpretation asserts a certain future or gives medical/legal/financial advice).
-- Blocks launch: LEGAL-004 is the pre-launch counsel sign-off gate; the named VN statutes and the final disclaimer wording are informational until it records sign-off.
+- Blocks launch: LEGAL-004 is the pre-launch counsel sign-off gate; the named VN statutes and the final disclaimer wording are informational until it records sign-off. Operator runbook: `../../legal/vn-legal-review/operator-runbook.md`. Machine check: `bash scripts/check-counsel-signoff.sh` / `just counsel-gate`.
 - Consumed across the product: the positioning rules (LEGAL-001) and the ethical/cultural rules (LEGAL-003) apply to every user-facing task (WEB, CHART, RAG, REPORT, EDU), which inherit the heritage-education framing (strategy 7).
 
 ## Module notes
