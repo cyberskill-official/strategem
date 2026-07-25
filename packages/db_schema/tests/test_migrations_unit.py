@@ -12,7 +12,7 @@ def test_migrations_dir_exists() -> None:
 
 
 def test_ordered_migration_files() -> None:
-    """W2 added 0011_anon_user; list is apply order (lexicographic)."""
+    """COV-010 added 0010_app_query_store; list is apply order (lexicographic)."""
     files = list_migrations()
     names = [f.name for f in files]
     assert names == [
@@ -26,11 +26,13 @@ def test_ordered_migration_files() -> None:
         "0008_indexes_gin.sql",
         "0009_rls_policies.sql",
         "0010_app_query_store.sql",
-        "0011_anon_user.sql",
+        "0012_app_query_store_rls.sql",
+        "0013_auth_users_columns.sql",
+        "0014_refresh_token_revocations.sql",
     ]
     # Lexicographic order is apply order
     assert names == sorted(names)
-    assert len(names) >= 11
+    assert len(names) >= 10
 
 
 def test_users_sql_has_soft_delete_and_bytea_birth() -> None:
@@ -45,6 +47,13 @@ def test_rls_sql_force_and_fail_closed_guc() -> None:
     assert "FORCE ROW LEVEL SECURITY" in text
     assert "app.current_user_id" in text
     assert "app_admin" in text
+
+
+def test_app_query_store_rls_migration() -> None:
+    text = (migrations_dir() / "0012_app_query_store_rls.sql").read_text(encoding="utf-8")
+    assert "FORCE ROW LEVEL SECURITY" in text
+    assert "app_query_store_owner" in text
+    assert "app.current_user_id" in text
 
 
 def test_gin_indexes_present() -> None:
