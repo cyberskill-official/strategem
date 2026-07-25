@@ -1,3 +1,8 @@
+//! Rewrite `cache_key` column in `qimen_cert_v1.csv` from live `cast_qimen`.
+//!
+//! Use after intentional laso-envelope / dinh-cuc changes that alter the SHA-256
+//! digest (keys hash full `lich_phap`, including `so_cuc`). Do not invent keys.
+
 use cyberos_qimen::{
     cast_qimen, DingjuMethod, PanMethod, QiMenFlags, QimenCastInput, YinYangPan, ZhongGongKy,
 };
