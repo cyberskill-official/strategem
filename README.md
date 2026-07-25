@@ -64,4 +64,4 @@ This is the initial monorepo skeleton (TASK-PLAT-001).
 
 ## License
 
-UNLICENSED (internal / CyberSkill).
+UNLICENSED (proprietary / CyberSkill). See [`LICENSE`](./LICENSE).
