@@ -1,8 +1,17 @@
-# Oracle certification status (COV-001)
+# Oracle certification status (COV-001 + W4)
 
-Machine-readable + human report for dual-benchmark engine trust gates.
+Machine-readable + human report for engine trust gates.
 
-## Suite inventory
+## Two tracks (do not conflate)
+
+| Track | Location | Meaning |
+|-------|----------|---------|
+| **Self-oracle regression** | `crates/*/tests/fixtures/*_cert_v1.csv` | `oracle_source=engine_golden_v1+cast_cli` — deterministic lock against current engines. Not kin* certification. |
+| **External oracle (W4)** | `oracle/{kinqimen,kinliuren,kintaiyi,sxwnl}/` | Independent dumps. `sample/` = harness proof; `full/` = gate when present, **SKIP** when absent. |
+
+See [`oracle/README.md`](../../oracle/README.md) and [`oracle/FORMAT.md`](../../oracle/FORMAT.md).
+
+## Self-oracle suite inventory
 
 | System | Fixture | Min cases | Gate | Test |
 |--------|---------|----------:|------|------|
@@ -10,27 +19,22 @@ Machine-readable + human report for dual-benchmark engine trust gates.
 | LiuRen | `crates/cyberos-luchnham/tests/fixtures/liuren_cert_v1.csv` | 30 | `cache_key` match + double-cast | `certification_suite` |
 | TaiYi | `crates/cyberos-thaiat/tests/fixtures/taiyi_cert_v1.csv` | 20 | `cache_key` match + double-cast | `certification_suite` |
 | Tiet khi | `crates/cyberos-lichphap/tests/fixtures/tietkhi_cert_multiyear.csv` | 50 | \|Δt\| < 60s vs fixture | `tietkhi_certification` |
-| Calendar harness | CORE-006 fixtures | multi-decade | CI `core-oracle.yml` | `oracle_harness` |
+| Calendar harness | CORE-006 fixtures | multi-decade self | CI `core-oracle.yml` | `oracle_harness` |
 
-## Oracle / flag documentation
+## External suite inventory (W4)
 
-Each CSV row carries:
-
-- `oracle_source` — currently `engine_golden_v1+cast_cli` (deterministic regression goldens locked from `cast-cli` + in-process engines). External kinqimen/kinliuren/kintaiyi row-level ports remain additive; partial kin* CSVs under module `tests/fixtures/*kin*.csv` still run in module oracles.
-- `flags_doc` — school flags used for the case (dingju/pan for QiMen; quy_nhan for LiuRen; epoch/cap for TaiYi).
-
-Default flag assumptions for cert_v1 (must match `crates/cast-cli` mapping):
-
-| System | Flags |
-|--------|--------|
-| QiMen | `yin_yang=duong`, `zhong_gong_ky=khon2`, `chan_thai_duong_thoi=true`; dingju/pan vary per row |
-| LiuRen | `quy_nhan=giap_mau_canh` (cast-cli current default) |
-| TaiYi | `cap=nien`, `dem_toan=truoc_thai_at`, `duong_don=true`; epoch varies |
+| Source | Sample (always) | Full (gate or SKIP) | Test |
+|--------|-----------------|---------------------|------|
+| kinqimen | `oracle/kinqimen/sample/dinh_cuc.csv` | `oracle/kinqimen/full/dinh_cuc.csv` | `external_oracle_cert` |
+| kinliuren | `oracle/kinliuren/sample/khoa_the.csv` | `oracle/kinliuren/full/khoa_the.csv` | `external_oracle_cert` |
+| kintaiyi | `oracle/kintaiyi/sample/van_xuong.csv` | `oracle/kintaiyi/full/van_xuong.csv` | `external_oracle_cert` |
+| sxwnl | `oracle/sxwnl/sample/tietkhi.csv` | `oracle/sxwnl/full/tietkhi.csv` | `external_oracle_cert` |
 
 ## CI
 
 - Workflow: `.github/workflows/oracle-certification.yml`
-- Local: `cargo test -p cyberos-qimen --test certification_suite` (and peers above)
+- Local self-oracle: `cargo test -p cyberos-qimen --test certification_suite` (and peers)
+- Local external: `cargo test -p cyberos-qimen --test external_oracle_cert` (and peers)
 
 ## Report artefact
 

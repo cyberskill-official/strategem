@@ -1,0 +1,19 @@
+# kind: sample
+# source: Claude-02 / Tam-Thuc-02 Đại Lục Nhâm — classical 伏吟 / 返吟 definitions (§4.3),
+#         tặc-khắc pháp 元首 / 重審 (§4.2), thiên can ký cung (§2.4), nguyệt tướng gia thời (§2.3)
+# scope: harness proof only — NOT a kinliuren dump; full catalog needs oracle/kinliuren/full/
+# note: 伏吟 when nguyet_tuong == gio_chiem; 返吟 when offset == 6 (xung). Claude-02 §4.3.
+# note: 元首 = exactly one thuong-khac-ha in tu khoa; 重審 = exactly one ha-khac-thuong.
+#       Claude-02 §4.2. The 元首/重審 rows below are hand-derived: rotate thien ban by
+#       off = (nguyet_tuong - gio_chiem) mod 12 (§2.3), build tu khoa from can ky cung
+#       (§2.4: Giap→Dan, Binh→Ty2) and day chi (§3.1), then census khac/tac by ngu hanh.
+#       Derivations spelled out per row in cite_note.
+nguyet_tuong,gio_chiem,can_ngay,chi_ngay,expected_phap,expected_khoa_the_han,cite_note
+Ty,Ty,Giap,Ty,PhucNgam,伏吟,Claude-02 s4.3: nguyet tuong trung gio chiem => phuc ngam
+Ngo,Ty,Giap,Ty,PhanNgam,返吟,Claude-02 s4.3: nguyet tuong xung gio chiem => phan ngam
+Mao,Mao,At,Suu,PhucNgam,伏吟,Claude-02 s4.3: phuc ngam on am day (At Suu); tuong==gio
+Ngo,Ngo,Nham,Thin,PhucNgam,伏吟,Claude-02 s4.3: phuc ngam; tuong==gio (Ngo)
+Dau,Mao,Canh,Ngo,PhanNgam,返吟,Claude-02 s4.3: Dau xung Mao (offset 6) => phan ngam
+Ty2,Hoi,Dinh,Hoi,PhanNgam,返吟,Claude-02 s4.3: Ty(2) xung Hoi (offset 6) => phan ngam
+Thin,Ty,Giap,Ty,TacKhac,元首,Claude-02 s4.2: off=4; K1 Ngo/Giap(Moc) none; K2 Tuat/Ngo none; K3 Thin(Tho) khac Ty(Thuy) = single thuong-khac-ha; K4 Than/Thin none => Nguyen Thu
+Dan,Ty,Binh,Dan,TacKhac,重審,Claude-02 s4.2: off=2; K1 Mui/Binh(Hoa) none; K2 Dau/Mui none; K3 Dan(Moc) tac Thin(Tho) = single ha-khac-thuong; K4 Ngo/Thin none => Trong Tham

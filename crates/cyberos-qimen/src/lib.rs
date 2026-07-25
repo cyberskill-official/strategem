@@ -19,7 +19,8 @@ pub use dia_ban::{
     bo_dia_ban, bo_dia_ban_raw, buoc_nghich_lac_thu, buoc_thuan_lac_thu, DiaBan, Stem,
 };
 pub use dinh_cuc::{
-    dinh_cuc, luoshu_outer, phu_dau_nguyen, table_duong_don, table_so_cuc, DinhCuc,
+    dinh_cuc, luoshu_governed_terms, luoshu_outer, phu_dau_nguyen, table_duong_don, table_so_cuc,
+    DinhCuc,
 };
 pub use dung_than::{dung_than, selection_table, DungThanRole, LoaiCauHoi, LocatedDungThan};
 pub use engine::{cast_qimen, CastInput as QimenCastInput, CastResult as QimenCastResult};

@@ -1,0 +1,26 @@
+# kind: sample
+# source: published equinox/solstice UTC (USNO / astronomical-almanac class);
+#         same published set as crates/cyberos-lichphap/tests/fixtures/tietkhi_audit_ac.csv (W3 AC audit)
+# scope: harness proof only — NOT a multi-decade sxwnl 24×N dump
+# term_index (Lap-Xuan origin): 3=Xuan Phan@0°, 9=Ha Chi@90°, 15=Thu Phan@180°, 21=Dong Chi@270°
+year,term_index,jd_utc,cite_note
+2018,3,2458198.1773958332,USNO/almanac-class Xuan Phan 2018
+2018,9,2458290.9217361109,USNO/almanac-class Ha Chi 2018
+2018,15,2458384.5792245371,USNO/almanac-class Thu Phan 2018
+2018,21,2458474.4324537036,USNO/almanac-class Dong Chi 2018
+2019,3,2458563.4155671299,USNO/almanac-class Xuan Phan 2019
+2019,9,2458656.1626620372,USNO/almanac-class Ha Chi 2019
+2019,15,2458749.8265046296,USNO/almanac-class Thu Phan 2019
+2019,21,2458839.6801504628,USNO/almanac-class Dong Chi 2019
+2020,3,2458928.6594444443,USNO/almanac-class Xuan Phan 2020
+2020,9,2459021.4053240740,USNO/almanac-class Ha Chi 2020
+2020,15,2459115.0629398148,USNO/almanac-class Thu Phan 2020
+2020,21,2459204.9182754629,USNO/almanac-class Dong Chi 2020
+2021,3,2459293.9010069445,USNO/almanac-class Xuan Phan 2021
+2021,9,2459386.6473148149,USNO/almanac-class Ha Chi 2021
+2021,15,2459480.3062847224,USNO/almanac-class Thu Phan 2021
+2021,21,2459570.1661574072,USNO/almanac-class Dong Chi 2021
+2022,3,2459659.1481828704,USNO/almanac-class Xuan Phan 2022
+2022,9,2459751.8845949075,USNO/almanac-class Ha Chi 2022
+2022,15,2459845.5442129630,USNO/almanac-class Thu Phan 2022
+2022,21,2459935.4084490743,USNO/almanac-class Dong Chi 2022

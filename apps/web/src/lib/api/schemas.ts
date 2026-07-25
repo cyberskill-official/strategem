@@ -68,6 +68,7 @@ export type ChartEnvelope = {
 
 export type QueryResponse = {
   query_id: string;
+  report_id?: string;
   charts: Record<string, ChartEnvelope>;
   patterns: PatternItem[];
   interpretation?: InterpretationPayload | null;

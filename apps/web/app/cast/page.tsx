@@ -15,6 +15,7 @@ import {
   IconMap,
   IconSeasons,
 } from "../../src/components/visual/story-icons";
+import { systemElement } from "../../src/lib/domain/element";
 
 const SYSTEMS = [
   {
@@ -77,6 +78,7 @@ function CastInner() {
             type="button"
             className={`cs-visual-card cs-visual-card--door${system === s.id ? " is-active" : ""}`}
             aria-pressed={system === s.id}
+            data-cs-element={systemElement(s.id)}
             onClick={() => setSystem(s.id)}
           >
             <s.Icon className="cs-icon" />
@@ -91,7 +93,7 @@ function CastInner() {
         {t("cast.hint")}
       </p>
 
-      <div className="cs-grid-2">
+      <div className="cs-grid-2" data-cs-element={systemElement(system)}>
         <section className="cs-card" aria-label={t("cast.title")}>
           <QueryForm
             system={system}

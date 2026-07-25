@@ -1,5 +1,7 @@
-//! Oracle harness (TASK-CORE-006). Compares against committed self-generated fixtures.
-//! External sxwnl/tyme4py only used offline via scripts/gen_oracle_fixtures.py — not Cargo deps.
+//! Self-oracle calendar harness (TASK-CORE-006 regression).
+//! Compares against committed self-generated fixtures under tests/fixtures/.
+//! External sxwnl multi-decade dumps: `oracle/sxwnl/` gated by
+//! `external_oracle_cert.rs` (W4). Offline generator: scripts/gen_oracle_fixtures.py.
 
 use cyberos_lichphap::{
     day_pillar, eot_at_date, equation_of_time_minutes, julian_day_utc, solve_term_instant,

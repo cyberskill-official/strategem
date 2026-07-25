@@ -15,6 +15,9 @@ const apiOrigin = (
 const nextConfig: NextConfig = {
   // Required for deploy/docker/web.Dockerfile multi-stage COPY of .next/standalone
   output: "standalone",
+  // The DS ships raw JSX component sources (see src/ds/index.ts shim); the
+  // bundler must transpile them since node_modules is skipped by default.
+  transpilePackages: ["@cyberskill/design"],
   async rewrites() {
     return [
       {

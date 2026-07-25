@@ -1,5 +1,8 @@
-//! COV-001 — QiMen oracle certification suite (≥30 golden cases).
-//! Fixtures: `tests/fixtures/qimen_cert_v1.csv` (engine golden via cast-cli).
+//! Self-oracle regression suite (COV-001 goldens) — NOT kinqimen certification.
+//!
+//! Fixtures: `tests/fixtures/qimen_cert_v1.csv` with
+//! `oracle_source=engine_golden_v1+cast_cli`. External kinqimen dumps live under
+//! `oracle/kinqimen/` and are gated by `external_oracle_cert.rs` (W4).
 
 use cyberos_qimen::{
     cast_qimen, DingjuMethod, PanMethod, QiMenFlags, QimenCastInput, YinYangPan, ZhongGongKy,
@@ -27,7 +30,7 @@ fn parse_pan(s: &str) -> PanMethod {
 }
 
 #[test]
-fn qimen_cert_v1_min_30_and_cache_keys_match() {
+fn qimen_self_oracle_regression_min_30_and_cache_keys_match() {
     let text = fs::read_to_string(fixture_path()).expect("qimen_cert_v1.csv");
     let mut rows = 0usize;
     for line in text.lines().skip(1).filter(|l| !l.trim().is_empty()) {
@@ -79,6 +82,6 @@ fn qimen_cert_v1_min_30_and_cache_keys_match() {
     }
     assert!(
         rows >= 30,
-        "COV-001 requires ≥30 QiMen golden cases, got {rows}"
+        "self-oracle regression requires ≥30 QiMen golden cases, got {rows}"
     );
 }

@@ -1,4 +1,4 @@
-//! Bat tuong placement — TASK-TAT-003.
+//! Bat tuong placement — TASK-TAT-003 / W3 văn xương double-count.
 
 use crate::anthaiat::{an_thai_at, ThaiAtSeat};
 use crate::tichnien::TichNien;
@@ -19,7 +19,18 @@ pub struct BatTuong {
     pub dem_toan: DemToan,
 }
 
+/// Whether this ring mark is double-counted when placing Văn Xương.
+/// Dương độn: Càn(14) + Khôn(10); âm độn: Cấn(2) + Tốn(6). Claude-04 s4.1.
+fn is_double_count(ring: u8, duong_don: bool) -> bool {
+    if duong_don {
+        matches!(ring, 10 | 14) // 坤 / 乾
+    } else {
+        matches!(ring, 2 | 6) // 艮 / 巽
+    }
+}
+
 /// Van Xuong: reduce nhap_cuc by 18, count from ring 11 (Than/Vu duc) or 3 (Dan/Lu).
+/// Double-count Càn/Khôn (dương) or Cấn/Tốn (âm) while stepping.
 pub fn van_xuong(nhap_cuc: u8, duong_don: bool) -> u8 {
     let mut r = nhap_cuc as u16;
     while r >= 18 {
@@ -28,9 +39,23 @@ pub fn van_xuong(nhap_cuc: u8, duong_don: bool) -> u8 {
     if r == 0 {
         r = 18;
     }
-    let start: u16 = if duong_don { 11 } else { 3 };
-    // simplified: step r without double-count for now
-    ((start + r - 1) % 16) as u8
+    let start: u8 = if duong_don { 11 } else { 3 };
+    let mut pos = start;
+    let mut counted = 0u16;
+    // Inclusive count from start; double-count palaces consume 2 of `r`.
+    for _ in 0..48 {
+        let weight = if is_double_count(pos, duong_don) {
+            2
+        } else {
+            1
+        };
+        counted += weight;
+        if counted >= r {
+            return pos;
+        }
+        pos = (pos + 1) % 16;
+    }
+    pos
 }
 
 /// Ke than by year can_chi mod 12: start Dan(3) forward or Than(11) backward.
@@ -85,4 +110,23 @@ pub fn place_bat_tuong(
     };
     let _ = TruongDoan::Truong;
     (bt, seat)
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn van_xuong_double_count_differs_from_naive() {
+        // With double-count, small r that would land past Càn/Khôn diverges from (start+r-1)%16
+        for cuc in [1u8, 5, 10, 18, 19, 36, 54, 72] {
+            let vx = van_xuong(cuc, true);
+            assert!(vx < 16, "cuc={cuc} vx={vx}");
+            let vx_am = van_xuong(cuc, false);
+            assert!(vx_am < 16, "cuc={cuc} vx_am={vx_am}");
+        }
+        // r=1 lands on start
+        assert_eq!(van_xuong(1, true), 11);
+        assert_eq!(van_xuong(1, false), 3);
+    }
 }

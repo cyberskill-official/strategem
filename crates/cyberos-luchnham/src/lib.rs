@@ -15,11 +15,11 @@ pub mod tukhoa;
 
 pub use ban::{BanLucNham, ThienDiaBan};
 pub use engine::{cast_luc_nham, CastInput, CastResult};
-pub use khoathe::{khoa_the_from_method, recognize_khoa_the, KhoaTheHit};
+pub use khoathe::{khoa_the_from_method, recognize_khoa_the, recognize_khoa_the_full, KhoaTheHit};
 pub use kycung::ky_cung;
 pub use lucthan::{dung_than_kind, luc_than_of, pick_dung_than, LucThan};
 pub use nguyettuong::{nguyet_tuong_for_trung_khi_index, nguyet_tuong_tai};
-pub use tamtruyen::{lap_tam_truyen, KhoaThe, Phap, TamTruyen, NINE_PHAP};
+pub use tamtruyen::{lap_tam_truyen, thiep_hai_depth, KhoaThe, Phap, TamTruyen, NINE_PHAP};
 pub use thiendiaban::{dia_ban, quay_thien_ban, thien_over, TrangThaiBan};
 pub use thientuong::{
     is_thuan_bo, khoi_from_gio, lap_thien_tuong, quy_nhan_palace, KhoiQuyNhan, QuyNhanVariant,

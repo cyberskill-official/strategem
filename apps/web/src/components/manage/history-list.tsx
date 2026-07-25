@@ -52,52 +52,63 @@ export function HistoryList({ items }: { items: ChartRef[] }) {
           </select>
         </label>
       </div>
-      <ul style={{ listStyle: "none", padding: 0, margin: 0 }}>
-        {filtered.map((it) => (
-          <li
-            key={it.query_id}
-            data-testid="history-row"
-            style={{
-              padding: "12px 0",
-              borderBottom: "1px solid var(--color-border)",
-              display: "flex",
-              flexWrap: "wrap",
-              gap: 8,
-              alignItems: "center",
-            }}
-          >
-            <a href={`/results/${it.query_id}`}>
-              {t("history.resultsLink")} {it.query_id}
-            </a>
-            {it.report_id ? (
-              <>
-                {" · "}
-                <a href={`/report/${it.report_id}`}>{t("history.reportLink")}</a>
-              </>
-            ) : null}
-            <span className="cs-muted">
-              {t(`system.${it.he}`).startsWith("[missing:")
-                ? it.he
-                : t(`system.${it.he}`)}
-              {" · "}
-              {t(`cast.q.${it.question_type}`).startsWith("[missing:")
-                ? it.question_type
-                : t(`cast.q.${it.question_type}`)}
-            </span>
-            <button
-              type="button"
-              data-testid="share-btn"
-              onClick={async () => {
-                const { url } = await shareChart(it.query_id);
-                setShareUrl(url);
-              }}
-            >
-              {t("history.share")}
-            </button>
-            <ExportMenu queryId={it.query_id} reportId={it.report_id} />
-          </li>
-        ))}
-      </ul>
+      <div className="cs-table-wrap">
+        <table className="cs-table">
+          <thead>
+            <tr>
+              <th scope="col">{t("history.resultsLink")}</th>
+              <th scope="col">{t("history.filterSystem")}</th>
+              <th scope="col">{t("history.filterQuestion")}</th>
+              <th scope="col" aria-label={t("history.share")} />
+            </tr>
+          </thead>
+          <tbody>
+            {filtered.map((it) => (
+              <tr key={it.query_id} data-testid="history-row">
+                <td>
+                  <a href={`/results/${it.query_id}`}>
+                    {t("history.resultsLink")} {it.query_id}
+                  </a>
+                  {it.report_id ? (
+                    <>
+                      {" · "}
+                      <a href={`/report/${it.report_id}`}>{t("history.reportLink")}</a>
+                    </>
+                  ) : null}
+                </td>
+                <td>
+                  <span className="cs-badge cs-badge--trung">
+                    {t(`system.${it.he}`).startsWith("[missing:")
+                      ? it.he
+                      : t(`system.${it.he}`)}
+                  </span>
+                </td>
+                <td className="cs-muted">
+                  {t(`cast.q.${it.question_type}`).startsWith("[missing:")
+                    ? it.question_type
+                    : t(`cast.q.${it.question_type}`)}
+                </td>
+                <td>
+                  <span style={{ display: "inline-flex", gap: 8, alignItems: "center" }}>
+                    <button
+                      type="button"
+                      className="cs-button cs-button--secondary cs-button--xs"
+                      data-testid="share-btn"
+                      onClick={async () => {
+                        const { url } = await shareChart(it.query_id);
+                        setShareUrl(url);
+                      }}
+                    >
+                      {t("history.share")}
+                    </button>
+                    <ExportMenu queryId={it.query_id} reportId={it.report_id} />
+                  </span>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
       {shareUrl ? (
         <ShareDialog url={shareUrl} onClose={() => setShareUrl(null)} />
       ) : null}

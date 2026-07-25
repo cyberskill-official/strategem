@@ -451,6 +451,27 @@ svg.cs-icon--lg {
   animation-delay: 0.28s;
 }
 
+/* DS AIDisclosureBadge delegation (src/ds): our richer detail lines ride
+   inside the DS panel's single __details wrapper — stack them like the DS
+   panel grid does for direct children. */
+.cs-ai-disclosure__panel .cs-ai-disclosure__details {
+  display: grid;
+  gap: 0.375rem;
+}
+
+/* App-level accent variant for the DS .cs-button (ochre highlight; DS core
+   ships primary/secondary/tertiary/ghost/danger only). */
+.cs-button--accent {
+  background: var(--color-ochre);
+  border-color: transparent;
+  color: var(--cs-button-accent-fg);
+}
+
+.cs-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
 .cs-link-btn {
   transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
 }
@@ -1105,16 +1126,18 @@ a.cs-visual-card:hover {
   }
 }
 
-.cs-citation p {
+/* Rich citation card (Han + bạch thoại + dịch). Named cs-citation-card to
+   coexist with the DS .cs-citation row from @cyberskill/design. */
+.cs-citation-card p {
   margin: 0 0 6px;
 }
 
-.cs-citation__source {
+.cs-citation-card__source {
   font-weight: 650;
   margin-bottom: 6px;
 }
 
-.cs-citation__han {
+.cs-citation-card__han {
   font-family: serif;
   font-size: 1.05rem;
 }
@@ -1163,6 +1186,93 @@ a.cs-visual-card:hover {
   flex-wrap: wrap;
   gap: 8px;
   margin-top: var(--cs-space-2);
+}
+
+/* —— Dark theme (data-theme, DS axis): re-base the hardcoded light washes —— */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+  color: var(--cs-color-text-primary);
+}
+
+[data-theme="dark"] a:hover {
+  color: var(--cs-color-link-hover, var(--cs-color-text-primary));
+}
+
+[data-theme="dark"] body {
+  background-image:
+    radial-gradient(ellipse 120% 80% at 10% -20%, rgb(244 186 23 / 0.08), transparent 50%),
+    radial-gradient(ellipse 70% 50% at 50% 100%, rgb(244 186 23 / 0.04), transparent 50%);
+}
+
+[data-theme="dark"] .cs-topbar {
+  background: rgb(26 17 8 / 0.88);
+}
+
+[data-theme="dark"] .cs-sticky-cta {
+  background: rgb(26 17 8 / 0.94);
+}
+
+[data-theme="dark"] .cs-system-tile[aria-pressed="true"],
+[data-theme="dark"] .cs-system-tile.is-active {
+  background: linear-gradient(180deg, var(--cs-color-surface-panel), var(--cs-color-surface-raised));
+}
+
+[data-theme="dark"] .cs-hero-stage {
+  background:
+    linear-gradient(145deg, rgb(244 186 23 / 0.05) 0%, transparent 40%),
+    linear-gradient(180deg, var(--cs-color-surface-panel), var(--cs-color-surface-raised));
+}
+
+[data-theme="dark"] .cs-hero-stage--story .cs-hero__title,
+[data-theme="dark"] .cs-hero-stage .cs-hero__title {
+  background: linear-gradient(
+    120deg,
+    var(--cs-color-text-primary) 0%,
+    var(--cs-color-brand-ochre) 55%,
+    var(--cs-color-text-primary) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+[data-theme="dark"] .cs-brand__name,
+[data-theme="dark"] .cs-visual-card h2,
+[data-theme="dark"] .cs-visual-card h3,
+[data-theme="dark"] .cs-story-narrative__lead,
+[data-theme="dark"] .cs-stat__value,
+[data-theme="dark"] .cs-query-form__title,
+[data-theme="dark"] .cs-faq-item button {
+  color: var(--cs-color-text-primary);
+}
+
+[data-theme="dark"] .cs-nav-link:hover,
+[data-theme="dark"] .cs-nav-link[aria-current="page"],
+[data-theme="dark"] .cs-nav-link--menu[aria-current="true"],
+[data-theme="dark"] .cs-nav .cs-menu__item[aria-current="page"] {
+  color: var(--cs-color-brand-ochre);
+}
+
+[data-theme="dark"] .cs-chip.is-active {
+  background: var(--cs-color-brand-ochre);
+  color: var(--cs-color-brand-umber);
+  border-color: var(--cs-color-brand-ochre);
+}
+
+[data-theme="dark"] .cs-story-summary {
+  background: linear-gradient(
+    135deg,
+    rgb(244 186 23 / 0.1),
+    var(--cs-color-surface-panel)
+  );
+}
+
+[data-theme="dark"] [data-testid="qimen-nine-palace"] button[role="gridcell"] {
+  background: linear-gradient(
+    165deg,
+    var(--cs-color-surface-panel) 0%,
+    var(--cs-color-surface-raised) 100%
+  ) !important;
 }
 
 /* Pulse CTA */

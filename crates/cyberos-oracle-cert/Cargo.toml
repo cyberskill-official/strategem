@@ -1,0 +1,8 @@
+[package]
+name = "cyberos-oracle-cert"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "W4 external-oracle certification harness helpers (load/skip; no fabricated dumps)"
+
+[dependencies]

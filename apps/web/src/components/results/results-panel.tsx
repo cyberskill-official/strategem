@@ -15,7 +15,9 @@ import {
 import { NextStepCard } from "./next-step-card";
 import { PatternList, type PatternItem } from "./pattern-list";
 import { displayPatternName } from "../../lib/domain/glossary";
+import { systemElement } from "../../lib/domain/element";
 import { composeStorySummary, rankPatterns } from "../../lib/domain/readings";
+import { FollowUpChat } from "../domain/follow-up-chat";
 
 export type QueryResponseView = {
   query_id: string;
@@ -131,7 +133,11 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
   );
 
   return (
-    <div data-testid="results-panel" className="cs-results-stack">
+    <div
+      data-testid="results-panel"
+      className="cs-results-stack"
+      data-cs-element={systemElement(he)}
+    >
       {isDemo ? (
         <div className="cs-banner cs-banner--ochre">{t("results.demoBanner")}</div>
       ) : null}
@@ -292,6 +298,11 @@ export function ResultsPanel({ response }: { response: QueryResponseView }) {
             ) : (
               <p data-testid="no-interpretation">{t("results.noInterpretation")}</p>
             )}
+            {response.query_id && !isDemo ? (
+              <div style={{ marginTop: 20 }}>
+                <FollowUpChat queryId={response.query_id} />
+              </div>
+            ) : null}
           </section>
         </>
       ) : null}
