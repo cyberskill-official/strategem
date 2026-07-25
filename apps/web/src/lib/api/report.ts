@@ -4,6 +4,7 @@
  */
 
 import { apiBase } from "./client";
+import { authHeaders } from "../auth/session";
 
 export type Citation = {
   source: string;
@@ -57,7 +58,7 @@ export async function getReport(reportId: string): Promise<StructuredReport> {
       `${base}/api/v1/reports/${encodeURIComponent(reportId)}`,
       {
         method: "GET",
-        headers: { Accept: "application/json" },
+        headers: { Accept: "application/json", ...authHeaders() },
         cache: "no-store",
       },
     );
@@ -76,7 +77,7 @@ export async function downloadReportPdf(reportId: string): Promise<Blob> {
     `${base}/api/v1/reports/${encodeURIComponent(reportId)}/pdf`,
     {
       method: "GET",
-      headers: { Accept: "application/pdf" },
+      headers: { Accept: "application/pdf", ...authHeaders() },
       cache: "no-store",
     },
   );

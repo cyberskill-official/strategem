@@ -1,26 +1,71 @@
 /**
- * App token layer on top of @cyberskill/design (imported in app/layout.tsx).
- * The DS package owns every --cs-* token (colors, type, space, radius, shadows,
- * themes, Ngũ Hành elements). This file only adds:
- *   1. App extensions the DS does not ship (border-strong, control heights).
- *   2. Legacy --color-* / --space-* aliases used by older components — all
- *      resolving to DS tokens so the DS always wins. No literal brand hex here.
+ * CyberSkill Design System anchors (immutable) + app aliases.
+ * Source doctrine: cyberskill-official/design-system DESIGN.md / @cyberskill/tokens
+ *
+ * Drift note (wave-3 Medium): this file is the local source of truth for Strategem.
+ * When cyberskill-official tokens change, diff brand anchors (--cs-color-brand-*)
+ * and semantic colors here before shipping UI — do not auto-sync without review.
  */
 :root {
-  /* —— App extensions (not in @cyberskill/design tokens) —— */
+  color-scheme: light;
+
+  /* —— Brand anchors (immutable) —— */
+  --cs-color-brand-umber: #45210e;
+  --cs-color-brand-ochre: #f4ba17;
+
+  /* —— Surfaces (warm paper, not pure gray AI default) —— */
+  --cs-color-surface-page: #fffdf8;
+  --cs-color-surface-panel: #ffffff;
+  --cs-color-surface-raised: #fbf4e9;
+  --cs-color-text-primary: #45210e;
+  --cs-color-text-inverse: #ffffff;
+  --cs-color-text-muted: #6e5a4c;
+  --cs-color-text-accent: #6e3b0e;
+  --cs-color-border-default: #e7d9c6;
   --cs-color-border-strong: #bfa58f;
+
+  /* —— Semantic (never ochre for success/danger) —— */
+  --cs-color-semantic-success: #166534;
+  --cs-color-semantic-danger: #b42318;
+  --cs-color-semantic-warning: #92400e;
+  --cs-color-semantic-info: #1d4ed8;
+
+  /* —— Space / radius / type —— */
+  --cs-space-1: 4px;
+  --cs-space-2: 8px;
+  --cs-space-3: 12px;
+  --cs-space-4: 16px;
+  --cs-space-5: 20px;
+  --cs-space-6: 24px;
+  --cs-space-8: 32px;
+  --cs-space-10: 40px;
+  --cs-radius-sm: 4px;
+  --cs-radius-md: 8px;
+  --cs-radius-lg: 12px;
+  --cs-radius-full: 999px;
+  --cs-font-family-ui: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --cs-font-family-display: "Be Vietnam Pro", ui-sans-serif, system-ui, sans-serif;
+  --cs-font-lineHeight-body: 1.65;
+  --cs-font-lineHeight-heading: 1.35;
+  --cs-font-size-sm: 0.875rem;
+  --cs-font-size-md: 1rem;
+  --cs-font-size-lg: 1.125rem;
+  --cs-font-size-xl: 1.5rem;
+  --cs-font-size-2xl: 1.875rem;
+  --cs-shadow-sm: 0 1px 2px rgb(69 33 14 / 0.06);
+  --cs-shadow-md: 0 4px 16px rgb(69 33 14 / 0.08);
   --cs-control-height-md: 44px;
   --cs-control-height-sm: 36px;
 
-  /* Button aliases → DS component tokens */
-  --cs-button-primary-bg: var(--cs-component-button-primary-bg, var(--cs-color-brand-umber));
-  --cs-button-primary-fg: var(--cs-component-button-primary-fg, var(--cs-color-text-inverse));
+  /* —— Buttons (primary = umber, accent highlight = ochre) —— */
+  --cs-button-primary-bg: var(--cs-color-brand-umber);
+  --cs-button-primary-fg: var(--cs-color-text-inverse);
   --cs-button-accent-bg: var(--cs-color-brand-ochre);
   --cs-button-accent-fg: var(--cs-color-brand-umber);
 
-  /* —— Legacy aliases (--color-* / --space-* used across components) —— */
+  /* —— App aliases (legacy --color-* / --space-* used across components) —— */
   --color-ochre: var(--cs-color-brand-ochre);
-  --color-ochre-focus: var(--cs-color-accent-ochre, var(--cs-color-brand-ochre));
+  --color-ochre-focus: var(--cs-color-brand-ochre);
   --color-brand-accent: var(--cs-color-brand-ochre);
   --color-umber: var(--cs-color-brand-umber);
   --color-success: var(--cs-color-semantic-success);
@@ -55,7 +100,17 @@
   --control-height-md: var(--cs-control-height-md);
 }
 
-/* Dark values for app extensions only — DS owns the rest of the dark theme. */
 [data-theme="dark"] {
-  --cs-color-border-strong: #5f4a37;
+  color-scheme: dark;
+  --cs-color-surface-page: #1a1410;
+  --cs-color-surface-panel: #241c16;
+  --cs-color-surface-raised: #2e241c;
+  --cs-color-text-primary: #fbf4e9;
+  --cs-color-text-muted: #c4b0a0;
+  --cs-color-border-default: #3d3026;
+  --color-bg: var(--cs-color-surface-page);
+  --color-fg: var(--cs-color-text-primary);
+  --color-muted: var(--cs-color-text-muted);
+  --color-border: var(--cs-color-border-default);
+  --color-surface: var(--cs-color-surface-panel);
 }
