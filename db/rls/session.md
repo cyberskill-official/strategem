@@ -47,7 +47,7 @@ Table owner still has `FORCE ROW LEVEL SECURITY`, so superuser-less owners canno
 
 | Table | Policy model |
 |---|---|
-| `users`, `queries`, `charts`, `reports`, `audit_logs` | Owner (`user_id` / `id` match) + admin bypass |
+| `users`, `queries`, `charts`, `reports`, `audit_logs`, `app_query_store` | Owner (`user_id` / `id` match) + admin bypass |
 | `knowledge_patterns` | `SELECT` world-readable; write only via `app_admin` + `app.current_role = 'admin'` |
 
 ## Anti-patterns (forbidden)

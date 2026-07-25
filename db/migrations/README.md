@@ -15,8 +15,10 @@ Forward-only SQL migrations for the Tam Thuc Strategem data tier. No ORM owns th
 | `0007_audit_logs.sql` | Sensitive-access audit trail |
 | `0008_indexes_gin.sql` | GIN on JSONB + btree helpers |
 | `0009_rls_policies.sql` | Fail-closed RLS + `app_user` / `app_admin` roles |
-| `0010_app_query_store.sql` | Full cast JSON payload store (GET-by-id) |
-| `0011_anon_user.sql` | Well-known anonymous user for public cast → domain tables |
+| `0010_app_query_store.sql` | Product query/chart/report payload store |
+| `0012_app_query_store_rls.sql` | RLS on `app_query_store` (TT-008); after `0011_anon_user` on main |
+| `0013_auth_users_columns.sql` | AUTH columns on `users` (TT-024) |
+| `0014_refresh_token_revocations.sql` | Durable refresh jti denylist (TT-024) |
 
 ## Apply path (human / CI)
 
@@ -25,7 +27,7 @@ Against an empty database (Postgres 16+ recommended):
 ```bash
 export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/strategem
 
-# One-shot apply (preferred helper) — ledgered / idempotent
+# One-shot apply (preferred helper)
 just db-migrate
 
 # Or raw psql
@@ -34,13 +36,15 @@ for f in db/migrations/*.sql; do
 done
 ```
 
-Python helper (lexicographic order, ledgered via `_strategem_schema_migrations`):
+Python helper (same order, used by tests):
 
 ```bash
 uv run python -m db_schema.migrate
 ```
 
-Local compose runs this automatically via the `migrate` service before the API starts.
+Migrations use a ledger table `public._strategem_schema_migrations` (same as
+`deploy/vps/migrate.sh`). Re-running `db_schema.migrate` skips already-applied
+files; each new file is applied in its own transaction.
 
 ## RLS session contract
 

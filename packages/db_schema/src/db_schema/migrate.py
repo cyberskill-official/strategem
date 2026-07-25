@@ -1,4 +1,8 @@
-"""Apply db/migrations/*.sql in lexicographic order (forward-only, ledgered)."""
+"""Apply db/migrations/*.sql in lexicographic order with a schema ledger.
+
+Aligns with deploy/vps/migrate.sh (`public._strategem_schema_migrations`):
+skip already-applied files; one transaction per file (SQL + ledger insert).
+"""
 
 from __future__ import annotations
 
@@ -6,6 +10,7 @@ import logging
 import os
 import sys
 from pathlib import Path
+from typing import Any
 
 import psycopg
 
@@ -13,7 +18,7 @@ from db_schema import list_migrations
 
 log = logging.getLogger("db_schema.migrate")
 
-_LEDGER = """
+_LEDGER_DDL = """
 CREATE TABLE IF NOT EXISTS public._strategem_schema_migrations (
   filename text PRIMARY KEY,
   applied_at timestamptz NOT NULL DEFAULT now()
@@ -21,32 +26,31 @@ CREATE TABLE IF NOT EXISTS public._strategem_schema_migrations (
 """
 
 
-def apply_migrations(
-    dsn: str,
-    *,
-    migrations: list[Path] | None = None,
-    use_ledger: bool = True,
-) -> int:
-    """Apply each migration file in order. Returns count newly applied."""
+def ensure_ledger(conn: psycopg.Connection[Any]) -> None:
+    conn.execute(_LEDGER_DDL)
+
+
+def apply_migrations(dsn: str, *, migrations: list[Path] | None = None) -> int:
+    """Apply pending migration files in order. Returns count newly applied."""
     files = migrations if migrations is not None else list_migrations()
     log.info("migrate.start", extra={"count": len(files), "dsn_host": _redact_dsn(dsn)})
     applied = 0
-    with psycopg.connect(dsn, autocommit=True) as conn:
-        if use_ledger:
-            conn.execute(_LEDGER)
+    with psycopg.connect(dsn) as conn:
+        ensure_ledger(conn)
+        conn.commit()
         for path in files:
-            if use_ledger:
-                row = conn.execute(
-                    "SELECT 1 AS ok FROM public._strategem_schema_migrations WHERE filename = %s",
-                    (path.name,),
-                ).fetchone()
-                if row:
-                    log.info("migrate.skip", extra={"file": path.name})
-                    continue
+            row = conn.execute(
+                "SELECT 1 FROM public._strategem_schema_migrations WHERE filename = %s",
+                (path.name,),
+            ).fetchone()
+            if row is not None:
+                log.info("migrate.skip", extra={"file": path.name})
+                continue
             sql = path.read_text(encoding="utf-8")
             log.info("migrate.apply", extra={"file": path.name})
-            conn.execute(sql)
-            if use_ledger:
+            with conn.transaction():
+                # Multi-statement scripts: same path as prior migrator (libpq simple query).
+                conn.execute(sql)
                 conn.execute(
                     "INSERT INTO public._strategem_schema_migrations (filename) VALUES (%s)",
                     (path.name,),

@@ -68,17 +68,35 @@ def test_apply_migrations_uses_explicit_file_list(tmp_path: Path) -> None:
     mock_cm = MagicMock()
     mock_cm.__enter__.return_value = mock_conn
     mock_cm.__exit__.return_value = False
-    # No prior ledger row → apply
-    mock_conn.execute.return_value.fetchone.return_value = None
+    # transaction() context manager
+    tx_cm = MagicMock()
+    tx_cm.__enter__.return_value = None
+    tx_cm.__exit__.return_value = False
+    mock_conn.transaction.return_value = tx_cm
+    # First SELECT for ledger miss → None; then apply SQL + insert
+    mock_conn.execute.side_effect = [
+        MagicMock(),  # ensure_ledger CREATE TABLE
+        None,  # SELECT 1 FROM ledger → treated via fetchone below
+        MagicMock(),  # apply SQL
+        MagicMock(),  # INSERT ledger
+    ]
+    # fetchone on second execute (ledger check)
+    ledger_cur = MagicMock()
+    ledger_cur.fetchone.return_value = None
+    mock_conn.execute.side_effect = [
+        MagicMock(),  # ensure_ledger
+        ledger_cur,  # SELECT ledger
+        MagicMock(),  # apply sql
+        MagicMock(),  # INSERT
+    ]
     with patch.object(psycopg, "connect", return_value=mock_cm) as connect:
         n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])
     assert n == 1
     connect.assert_called_once()
-    # ledger create + skip-check + apply SQL + ledger insert
-    assert mock_conn.execute.call_count >= 3
+    assert mock_conn.transaction.called
 
 
-def test_apply_migrations_skips_when_ledgered(tmp_path: Path) -> None:
+def test_apply_migrations_skips_ledgered_file(tmp_path: Path) -> None:
     import psycopg
 
     sql = tmp_path / "0001_noop.sql"
@@ -87,7 +105,13 @@ def test_apply_migrations_skips_when_ledgered(tmp_path: Path) -> None:
     mock_cm = MagicMock()
     mock_cm.__enter__.return_value = mock_conn
     mock_cm.__exit__.return_value = False
-    mock_conn.execute.return_value.fetchone.return_value = {"ok": 1}
+    ledger_cur = MagicMock()
+    ledger_cur.fetchone.return_value = (1,)
+    mock_conn.execute.side_effect = [
+        MagicMock(),  # ensure_ledger
+        ledger_cur,  # already applied
+    ]
     with patch.object(psycopg, "connect", return_value=mock_cm):
         n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])
     assert n == 0
+    mock_conn.transaction.assert_not_called()

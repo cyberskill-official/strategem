@@ -110,6 +110,16 @@ def _seed_as_super(super_dsn: str) -> None:
             ON CONFLICT (pattern_key) DO NOTHING
             """
         )
+        conn.execute("DELETE FROM app_query_store")
+        conn.execute(
+            """
+            INSERT INTO app_query_store (id, user_id, payload, systems, question_type)
+            VALUES
+              ('51111111-1111-4111-8111-111111111111', %s, '{"x":1}'::jsonb, ARRAY['qimen'], 'career'),
+              ('52222222-2222-4222-8222-222222222222', %s, '{"x":2}'::jsonb, ARRAY['qimen'], 'career')
+            """,
+            (str(USER_A), str(USER_B)),
+        )
 
 
 @pytest.fixture(scope="module")
@@ -151,7 +161,7 @@ def test_schema_objects_exist(migrated_db: str) -> None:
         assert "deleted_at" in by_name
 
         # RLS forced on user-scoped tables
-        for t in ("users", "queries", "charts", "reports", "audit_logs"):
+        for t in ("users", "queries", "charts", "reports", "audit_logs", "app_query_store"):
             r = conn.execute(
                 "SELECT relrowsecurity, relforcerowsecurity FROM pg_class "
                 "WHERE relname = %s AND relnamespace = 'public'::regnamespace",
@@ -174,7 +184,7 @@ def test_fail_closed_unset_guc(app_dsns: tuple[str, str, str]) -> None:
     _, app_dsn, _ = app_dsns
     with psycopg.connect(app_dsn) as conn:
         # No SET LOCAL — must see zero user-scoped rows
-        for table in ("charts", "queries", "reports"):
+        for table in ("charts", "queries", "reports", "app_query_store"):
             n = conn.execute(f"SELECT count(*) FROM {table}").fetchone()
             assert n is not None and n[0] == 0, f"{table} fail-open: saw {n}"
 
@@ -192,6 +202,9 @@ def test_isolation_user_a_cannot_see_b(app_dsns: tuple[str, str, str]) -> None:
 
         reports = conn.execute("SELECT user_id FROM reports").fetchall()
         assert len(reports) == 1 and reports[0][0] == USER_A
+
+        store = conn.execute("SELECT user_id FROM app_query_store").fetchall()
+        assert len(store) == 1 and store[0][0] == str(USER_A)
 
         # Update B's chart must affect 0 rows
         cur = conn.execute(
