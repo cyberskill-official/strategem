@@ -3,20 +3,49 @@
 `LocalEngineClient` produces la so envelopes with ban shapes the web chart
 consumes. It prefers an optional Rust cast CLI when `CAST_CLI` is set; otherwise
 uses a deterministic local cast (same plate structure as cyberos-qimen envelope).
+
+TT-022: cast-cli failures are logged + metered; production with
+READY_REQUIRE_CAST_CLI fail-closes instead of silent local fallback.
 """
 
 from __future__ import annotations
 
 import hashlib
 import json
+import logging
 import os
 import subprocess
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Any, Protocol
+from uuid import uuid4
+
+from tamthuc_api.observability.logging import structured_log
+
+log = logging.getLogger("tamthuc_api.clients.engine")
+
+_ENGINE_CODE = {
+    "qimen": "qmdg",
+    "liuren": "ln",
+    "taiyi": "tat",
+    "ky_mon": "qmdg",
+    "luc_nham": "ln",
+    "thai_at": "tat",
+}
 
 
 class EngineClient(Protocol):
     def cast(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]: ...
+
+
+class CastCliRequiredError(RuntimeError):
+    """Raised when cast-cli is required but failed or missing (fail-closed)."""
+
+    code = "CAST_CLI_REQUIRED"
+
+    def __init__(self, message: str = "cast-cli required") -> None:
+        self.message = message
+        super().__init__(message)
 
 
 _STEMS = ["戊", "己", "庚", "辛", "壬", "癸", "丁", "丙", "乙"]
@@ -55,6 +84,44 @@ def _seed_int(payload: dict[str, Any]) -> int:
     return int(hashlib.sha256(raw).hexdigest()[:8], 16)
 
 
+def _engine_code(system: str) -> str:
+    return _ENGINE_CODE.get(system, system if system in {"qmdg", "ln", "tat", "core"} else "core")
+
+
+def _require_cast_cli_strict() -> bool:
+    """Fail closed when READY_REQUIRE_CAST_CLI and prod-like (or always when flag set)."""
+    flag = os.environ.get("READY_REQUIRE_CAST_CLI", "").strip().lower() in {
+        "1",
+        "true",
+        "yes",
+    }
+    if not flag:
+        return False
+    app_env = (os.environ.get("APP_ENV") or os.environ.get("ENV") or "").lower()
+    # Flag alone is enough in staging/prod compose; also honour explicit prod envs.
+    if app_env in {"production", "prod", "staging"}:
+        return True
+    # READY_REQUIRE_CAST_CLI=1 without ENV still fail-closes cast path (readiness already 503).
+    return flag
+
+
+def _stamp_provenance(
+    envelope: dict[str, Any],
+    *,
+    system: str,
+    engine_source: str,
+    engine_version: str | None = None,
+) -> dict[str, Any]:
+    prov = dict(envelope.get("provenance") or {})
+    prov["engine"] = _engine_code(system)
+    if engine_version:
+        prov["engine_version"] = engine_version
+    prov.setdefault("cast_at", datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"))
+    prov["engine_source"] = engine_source
+    envelope["provenance"] = prov
+    return envelope
+
+
 class StubEngineClient:
     """Minimal stub (tests that only check call sequence)."""
 
@@ -65,7 +132,7 @@ class StubEngineClient:
             "co_lich_phap",
             {"stamped": True, "source": "stub", "tz": lp.get("tz", "+07:00")},
         )
-        return {
+        out: dict[str, Any] = {
             "envelope_version": 1,
             "he": he,
             "lich_phap": lp,
@@ -73,8 +140,13 @@ class StubEngineClient:
             "cach_cuc": [],
             "co_truong_phai": lp.get("co_truong_phai") or {"stamped": "default", "source": "stub"},
             "dau_vao": {},
-            "provenance": {"engine": system, "engine_version": "0.1.0"},
+            "provenance": {
+                "engine": _engine_code(system),
+                "engine_version": "0.1.0",
+                "cast_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
+            },
         }
+        return _stamp_provenance(out, system=system, engine_source="stub")
 
 
 def probe_cast_cli(cast_cli: str | None = None) -> dict[str, Any]:
@@ -97,16 +169,40 @@ def probe_cast_cli(cast_cli: str | None = None) -> dict[str, Any]:
 class LocalEngineClient:
     """Deterministic local cast with chart-ready ban; optional CAST_CLI."""
 
-    def __init__(self, cast_cli: str | None = None) -> None:
+    def __init__(
+        self,
+        cast_cli: str | None = None,
+        *,
+        metrics: Any | None = None,
+    ) -> None:
         self.cast_cli = cast_cli or os.environ.get("CAST_CLI")
+        self.metrics = metrics
+        self.last_engine_source: str = "local_fallback"
 
     def cast(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
         if self.cast_cli:
             try:
-                return self._cast_via_cli(system, lich_phap)
-            except (OSError, subprocess.SubprocessError, json.JSONDecodeError, KeyError):
-                pass
-        return self._cast_local(system, lich_phap)
+                out = self._cast_via_cli(system, lich_phap)
+                self.last_engine_source = "cast_cli"
+                return _stamp_provenance(out, system=system, engine_source="cast_cli")
+            except (OSError, subprocess.SubprocessError, json.JSONDecodeError, KeyError) as exc:
+                reason = type(exc).__name__
+                log.warning(
+                    structured_log(
+                        "cast_cli.fallback",
+                        request_id=str(uuid4()),
+                        system=system,
+                        reason=reason,
+                        cast_cli=str(self.cast_cli),
+                    )
+                )
+                if self.metrics is not None:
+                    self.metrics.record_cast_fallback(system=system, reason=reason)
+                if _require_cast_cli_strict():
+                    raise CastCliRequiredError(f"cast-cli required but failed: {reason}") from exc
+        out = self._cast_local(system, lich_phap)
+        self.last_engine_source = "local_fallback"
+        return out
 
     def _cast_via_cli(self, system: str, lich_phap: dict[str, Any]) -> dict[str, Any]:
         assert self.cast_cli is not None
@@ -342,7 +438,7 @@ class LocalEngineClient:
         lich_out = dict(lich_phap)
         lich_out["co_lich_phap"] = co_lich
 
-        return {
+        out = {
             "envelope_version": 1,
             "he": he,
             "dau_vao": dau_vao,
@@ -351,13 +447,20 @@ class LocalEngineClient:
             "cach_cuc": cach_cuc,
             "co_truong_phai": co_truong,
             "provenance": {
-                "engine": system,
+                "engine": _engine_code(system),
                 "engine_version": "local-0.1.0",
+                "cast_at": datetime.now(UTC).strftime("%Y-%m-%dT%H:%M:%SZ"),
                 "cache_key": hashlib.sha256(
                     json.dumps({"s": system, "l": lich_out}, sort_keys=True, default=str).encode()
-                ).hexdigest()[:16],
+                ).hexdigest(),
             },
         }
+        return _stamp_provenance(
+            out,
+            system=system,
+            engine_source="local_fallback",
+            engine_version="local-0.1.0",
+        )
 
 
 def resolve_cast_cli() -> str | None:
@@ -381,7 +484,7 @@ def resolve_cast_cli() -> str | None:
     return None
 
 
-def default_engine() -> EngineClient:
+def default_engine(*, metrics: Any | None = None) -> EngineClient:
     """Prefer CAST_CLI (or discovered cast-cli binary), else local deterministic engine."""
     cli = resolve_cast_cli()
-    return LocalEngineClient(cli)
+    return LocalEngineClient(cli, metrics=metrics)

@@ -17,7 +17,9 @@ class CalculateRequest(BaseModel):
     systems: list[str] | None = None
     persona_level: str = "beginner"
     co_truong_phai: dict[str, object] | None = None
-    tier: str = "free"
+    # Deprecated client field — ignored for entitlement (TT-002). Kept optional for
+    # backward-compatible request bodies; tier is derived from verified JWT only.
+    tier: str | None = None
 
 
 class CalculateResponse(BaseModel):

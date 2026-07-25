@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pytest
 from tamthuc_api.observability.analytics import track
 from tamthuc_api.observability.logging import redact, structured_log
 from tamthuc_api.observability.metrics import MetricsRegistry, p95, render_prometheus
@@ -11,11 +12,26 @@ def test_prometheus_families() -> None:
     reg.record_chart_gen(0.2, request_id="r1")
     reg.record_chart_gen(6.0, request_id="r1")
     reg.record_error()
+    reg.record_request(method="GET", path="/healthz", status=200)
     text = render_prometheus(reg)
     assert "chart_gen" in text
     assert 'family="business"' in text or "family=" in text
-    assert "expert_validation_pass_ratio" in text
     assert "http_errors_total" in text
+    assert "http_requests_total" in text
+    # TT-017: do not emit a fake perfect quality score when unset
+    assert "expert_validation_pass_ratio" not in text or "1.0" not in [
+        line.split()[-1]
+        for line in text.splitlines()
+        if line.startswith("expert_validation_pass_ratio")
+    ]
+    # HELP/TYPE may still mention the gauge; sample line only when env set
+    assert not any(line.startswith("expert_validation_pass_ratio{") for line in text.splitlines())
+
+
+def test_expert_ratio_from_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.setenv("EXPERT_VALIDATION_PASS_RATIO", "0.87")
+    text = render_prometheus(MetricsRegistry())
+    assert 'expert_validation_pass_ratio{family="quality"} 0.87' in text
 
 
 def test_alert_thresholds_synthetic() -> None:
