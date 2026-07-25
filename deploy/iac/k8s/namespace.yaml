@@ -1,6 +1,8 @@
+# EXPERIMENTAL — Kubernetes scaffold only. Prefer VPS compose for production API.
 apiVersion: v1
 kind: Namespace
 metadata:
   name: strategem
   labels:
     app.kubernetes.io/part-of: strategem
+    strategem.io/scaffold: experimental

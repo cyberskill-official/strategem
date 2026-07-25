@@ -1,8 +1,13 @@
+# EXPERIMENTAL — Kubernetes scaffold only (TASK-PLAT-010).
+# Not a production deployment. Prefer VPS compose (`deploy/vps/`) until operators
+# deliberately adopt K8s. Do not treat these manifests as complete HA/prod config.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tamthuc-api
   namespace: strategem
+  labels:
+    strategem.io/scaffold: experimental
 spec:
   replicas: 2
   selector:
