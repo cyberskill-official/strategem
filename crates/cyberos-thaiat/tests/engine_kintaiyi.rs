@@ -1,4 +1,5 @@
 use cyberos_thaiat::{cast_thai_at, Cap, CastInput, DemToan, Epoch, TatFlags};
+use laso_envelope::LaSo;
 
 fn input(flags: TatFlags) -> CastInput {
     CastInput {
@@ -71,4 +72,15 @@ fn cap_matrix() {
         let r = cast_thai_at(&input(f));
         assert_eq!(r.envelope["he"], "thai_at");
     }
+}
+
+#[test]
+fn envelope_deserializes_as_laso_and_key_64() {
+    let r = cast_thai_at(&input(TatFlags::default()));
+    let la: LaSo = serde_json::from_value(r.envelope).expect("envelope must be valid LaSo");
+    assert_eq!(la.provenance.engine, "tat");
+    assert!(la.provenance.cast_at.timestamp() > 0);
+    let key = la.provenance.cache_key.unwrap();
+    assert_eq!(key.len(), 64, "cache_key must be 64 hex chars (SHA-256)");
+    assert!(key.chars().all(|c| c.is_ascii_hexdigit()));
 }

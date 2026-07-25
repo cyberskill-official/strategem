@@ -6,8 +6,13 @@ use crate::cach_cuc::{detect_cach_cuc, CachCucHit};
 use crate::dinh_cuc::{dinh_cuc, DinhCuc};
 use crate::sao_mon_than::sao_mon_than;
 use crate::truc_phu_su::truc_phu_truc_su;
+use chrono::Utc;
+use laso_envelope::{
+    attach_cache_key, CachCuc, DauVao, He, LaSo, Polarity as EnvPolarity, Provenance,
+    ENVELOPE_VERSION,
+};
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::Value;
 use std::collections::BTreeMap;
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -29,19 +34,6 @@ pub struct CastResult {
     pub cach_cuc: Vec<CachCucHit>,
     pub envelope: Value,
     pub cache_key: String,
-}
-
-fn cache_key(dau_vao: &Value, flags: &BTreeMap<String, String>) -> String {
-    use std::collections::hash_map::DefaultHasher;
-    use std::hash::{Hash, Hasher};
-    let mut h = DefaultHasher::new();
-    "ky_mon".hash(&mut h);
-    dau_vao.to_string().hash(&mut h);
-    for (k, v) in flags {
-        k.hash(&mut h);
-        v.hash(&mut h);
-    }
-    format!("{:016x}", h.finish())
 }
 
 fn flag_map(f: &QiMenFlags) -> BTreeMap<String, String> {
@@ -97,63 +89,83 @@ pub fn cast_qimen(input: &CastInput) -> Result<CastResult, String> {
         tps,
     };
     let flags = flag_map(f);
-    let dau_vao = json!({
-        "datetime": input.datetime,
-        "tz": input.tz,
-        "kinh_do": input.kinh_do,
-    });
-    let key = cache_key(&dau_vao, &flags);
-    let envelope = json!({
-        "envelope_version": 1,
-        "he": "ky_mon",
-        "dau_vao": dau_vao,
-        "lich_phap": {
+
+    let dau_vao = DauVao {
+        datetime: input.datetime.clone(),
+        tz: input.tz.clone(),
+        kinh_do: input.kinh_do,
+        loai_cau_hoi: None,
+    };
+
+    let lich_phap = serde_json::json!({
+        "term_index": input.term_index,
+        "so_cuc": ban.dinh_cuc.so_cuc,
+        "duong_don": ban.dinh_cuc.duong_don,
+        "nguyen": ban.dinh_cuc.nguyen,
+        "co_lich_phap": {
+            "tz": input.tz,
+            "longitude": input.kinh_do,
             "term_index": input.term_index,
+            "branch_index": input.branch_index,
+            "hour_can": input.hour_can,
+            "hour_chi": input.hour_chi,
+            "hour_stem_palace": input.hour_stem_palace,
+            "use_true_solar_time": f.chan_thai_duong_thoi,
+            "stamped": true,
+        },
+    });
+
+    let ban_value = serde_json::json!({
+        "dinh_cuc": {
             "so_cuc": ban.dinh_cuc.so_cuc,
             "duong_don": ban.dinh_cuc.duong_don,
             "nguyen": ban.dinh_cuc.nguyen,
-            // COV-002: full calendar flag stamp (never silent)
-            "co_lich_phap": {
-                "tz": input.tz,
-                "longitude": input.kinh_do,
-                "term_index": input.term_index,
-                "branch_index": input.branch_index,
-                "hour_can": input.hour_can,
-                "hour_chi": input.hour_chi,
-                "hour_stem_palace": input.hour_stem_palace,
-                "use_true_solar_time": f.chan_thai_duong_thoi,
-                "stamped": true,
-            },
         },
-        "ban": {
-            "dinh_cuc": {
-                "so_cuc": ban.dinh_cuc.so_cuc,
-                "duong_don": ban.dinh_cuc.duong_don,
-                "nguyen": ban.dinh_cuc.nguyen,
-            },
-            "dia_ban": ban.dia_ban.cung.iter().map(|s| s.glyph()).collect::<Vec<_>>(),
-            "thien_ban": ban.thien_ban.iter().map(|s| s.glyph()).collect::<Vec<_>>(),
-            "truc_phu": ban.truc_phu,
-            "truc_su": ban.truc_su,
-            "cuu_tinh": ban.cuu_tinh.iter().map(|c| format!("{c:?}")).collect::<Vec<_>>(),
-            "bat_mon": ban.bat_mon.iter().map(|m| m.map(|x| format!("{x:?}"))).collect::<Vec<_>>(),
-            "bat_than": ban.bat_than.iter().map(|m| m.map(|x| format!("{x:?}"))).collect::<Vec<_>>(),
-        },
-        "cach_cuc": hits.iter().map(|h| json!({
-            "id": h.id,
-            "name": h.name,
-            "cung": h.cung,
-            "polarity": h.polarity,
-            "score": h.score,
-            "citations": h.citations,
-        })).collect::<Vec<_>>(),
-        "co_truong_phai": flags,
-        "provenance": {
-            "engine": "qimen",
-            "engine_version": "0.1.0",
-            "cache_key": key,
-        }
+        "dia_ban": ban.dia_ban.cung.iter().map(|s| s.glyph()).collect::<Vec<_>>(),
+        "thien_ban": ban.thien_ban.iter().map(|s| s.glyph()).collect::<Vec<_>>(),
+        "truc_phu": ban.truc_phu,
+        "truc_su": ban.truc_su,
+        "cuu_tinh": ban.cuu_tinh.iter().map(|c| format!("{c:?}")).collect::<Vec<_>>(),
+        "bat_mon": ban.bat_mon.iter().map(|m| m.map(|x| format!("{x:?}"))).collect::<Vec<_>>(),
+        "bat_than": ban.bat_than.iter().map(|m| m.map(|x| format!("{x:?}"))).collect::<Vec<_>>(),
     });
+
+    let cach_cuc_typed: Vec<CachCuc> = hits
+        .iter()
+        .map(|h| CachCuc {
+            id: h.id.clone(),
+            name: h.name.clone(),
+            cung: h.cung,
+            polarity: match h.polarity {
+                crate::cach_cuc::Polarity::Cat => EnvPolarity::Cat,
+                crate::cach_cuc::Polarity::Hung => EnvPolarity::Hung,
+                crate::cach_cuc::Polarity::Trung => EnvPolarity::Trung,
+            },
+            score: h.score,
+            citations: h.citations.clone(),
+        })
+        .collect();
+
+    let mut la = LaSo {
+        envelope_version: ENVELOPE_VERSION,
+        he: He::KyMon,
+        dau_vao,
+        lich_phap,
+        ban: ban_value,
+        cach_cuc: cach_cuc_typed,
+        co_truong_phai: flags,
+        provenance: Provenance {
+            engine: "qmdg".into(),
+            engine_version: "0.1.0".into(),
+            cast_at: Utc::now(),
+            cache_key: None,
+            engine_source: None,
+        },
+    };
+    attach_cache_key(&mut la);
+    let key = la.provenance.cache_key.clone().unwrap();
+    let envelope = serde_json::to_value(&la).expect("LaSo always serializes");
+
     Ok(CastResult {
         ban,
         cach_cuc: hits,

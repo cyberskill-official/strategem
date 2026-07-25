@@ -1,6 +1,6 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://cyber skill.example/tamthuc/laso-envelope.schema.json",
+  "$id": "https://cyberskill.example/tamthuc/laso-envelope.schema.json",
   "title": "Tam Thuc La So Envelope",
   "description": "Versioned JSON envelope for all Tam Thuc engine outputs. Every engine (he) emits exactly this shape. Interpretation layers read but never write ban/cach_cuc/lich_phap/co_truong_phai. See strategy 4.3.",
   "type": "object",
@@ -114,7 +114,12 @@
         "engine": { "type": "string", "enum": ["qmdg", "ln", "tat", "core"] },
         "engine_version": { "type": "string" },
         "cast_at": { "type": "string", "format": "date-time" },
-        "cache_key": { "type": "string" }
+        "cache_key": { "type": "string" },
+        "engine_source": {
+          "type": "string",
+          "enum": ["cast_cli", "local_fallback", "stub"],
+          "description": "TT-022: which cast path produced this envelope."
+        }
       }
     }
   }

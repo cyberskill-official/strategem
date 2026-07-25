@@ -79,3 +79,25 @@ fn cache_keys_identical_for_identical_inputs() {
     let la2 = load_fixture("ky_mon.json");
     assert_eq!(cache_key(&la1), cache_key(&la2));
 }
+
+#[test]
+fn cache_key_is_64_hex_chars() {
+    for name in ["ky_mon.json", "luc_nham.json", "thai_at.json"] {
+        let la = load_fixture(name);
+        let k = cache_key(&la);
+        assert_eq!(k.len(), 64, "{name}: cache_key must be 64 hex chars");
+        assert!(
+            k.chars().all(|c| c.is_ascii_hexdigit()),
+            "{name}: cache_key must be hex"
+        );
+    }
+}
+
+#[test]
+fn all_fixtures_deserialize_as_laso() {
+    for name in ["ky_mon.json", "luc_nham.json", "thai_at.json"] {
+        let la = load_fixture(name);
+        require_supported_version(&la).unwrap();
+        assert_eq!(la.envelope_version, ENVELOPE_VERSION);
+    }
+}

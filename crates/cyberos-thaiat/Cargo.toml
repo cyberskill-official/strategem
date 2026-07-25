@@ -8,7 +8,9 @@ description = "Thai At Than So — tich nien (TASK-TAT-001)"
 [dependencies]
 serde = { workspace = true }
 serde_json = { workspace = true }
+chrono = { workspace = true }
 thiserror = { workspace = true }
+laso-envelope = { workspace = true }
 
 [dev-dependencies]
-cyberos-oracle-cert = { path = "../cyberos-oracle-cert" }
+serde_json = { workspace = true }
