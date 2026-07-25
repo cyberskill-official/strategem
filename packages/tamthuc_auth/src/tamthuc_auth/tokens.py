@@ -144,7 +144,7 @@ def verify_refresh(
     token: str,
     *,
     settings: AuthSettings | None = None,
-    store: RevocationStore | None = None,
+    store: Any | None = None,
 ) -> RefreshClaims:
     s = settings or get_settings()
     rev = store or get_revocation_store()
@@ -173,9 +173,7 @@ def verify_refresh(
     )
 
 
-def revoke_refresh(
-    jti: str, *, store: RevocationStore | None = None, exp: float | None = None
-) -> None:
+def revoke_refresh(jti: str, *, store: Any | None = None, exp: float | None = None) -> None:
     (store or get_revocation_store()).revoke(jti, exp=exp)
 
 
@@ -194,9 +192,7 @@ def issue_token_pair(
 class TokenService:
     """Thin facade used by routes."""
 
-    def __init__(
-        self, settings: AuthSettings | None = None, store: RevocationStore | None = None
-    ) -> None:
+    def __init__(self, settings: AuthSettings | None = None, store: Any | None = None) -> None:
         self.settings = settings or get_settings()
         self.store = store or get_revocation_store()
 
