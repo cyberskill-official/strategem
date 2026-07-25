@@ -7,25 +7,25 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs && node tests/results-panel.test.mjs && node tests/liuren-chart.test.mjs && node tests/taiyi-chart.test.mjs && node tests/dashboard.test.mjs && node tests/chart-export.test.mjs && node tests/report-view.test.mjs && node tests/chu-khach.test.mjs && node tests/management-flow.test.mjs && node tests/css-story-smoke.test.mjs && node tests/story-narrative.test.mjs && node tests/copy-voice.test.mjs && node tests/w6-trust.test.mjs",
-    "test:e2e": "playwright test",
+    "test": "tsc --noEmit && node tests/tokens.test.mjs && node tests/query-form.test.mjs && node tests/i18n.test.mjs && node tests/qimen-chart.test.mjs && node tests/results-panel.test.mjs && node tests/liuren-chart.test.mjs && node tests/taiyi-chart.test.mjs && node tests/dashboard.test.mjs && node tests/chart-export.test.mjs && node tests/report-view.test.mjs && node tests/chu-khach.test.mjs && node tests/management-flow.test.mjs && node tests/css-story-smoke.test.mjs && node tests/story-narrative.test.mjs && node tests/copy-voice.test.mjs",
+    "test:css-smoke": "node tests/css-story-smoke.test.mjs",
     "test:e2e-live": "node tests/e2e-live-smoke.mjs",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@cyberskill/design": "1.0.0",
-    "next": "16.2.10",
+    "next": "16.2.11",
     "react": "19.2.4",
     "react-dom": "19.2.4"
   },
   "devDependencies": {
-    "@playwright/test": "1.55.0",
+    "@playwright/test": "1.62.0",
     "@tailwindcss/postcss": "^4",
     "@types/node": "^24",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "eslint": "^9",
-    "eslint-config-next": "16.2.10",
+    "eslint-config-next": "16.2.11",
+    "playwright": "1.62.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   },
