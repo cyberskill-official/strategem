@@ -5,12 +5,20 @@ on:
   schedule:
     - cron: "0 7 * * 1"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: dependency-scan-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   trivy-fs:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
-      - uses: aquasecurity/trivy-action@0.35.0
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1  # 0.35.0
         with:
           scan-type: fs
           severity: HIGH,CRITICAL

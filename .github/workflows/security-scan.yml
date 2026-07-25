@@ -12,14 +12,19 @@ permissions:
   contents: read
   security-events: write
 
+concurrency:
+  group: security-scan-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   trivy-fs:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
       # Pin to post-incident safe release (Aqua 2026-03 advisory: use v0.35.0+)
       - name: Trivy filesystem scan
-        uses: aquasecurity/trivy-action@0.35.0
+        uses: aquasecurity/trivy-action@57a97c7e7821a5776cebc9bb87c984fa69cba8f1  # 0.35.0
         with:
           scan-type: fs
           scan-ref: .
@@ -32,8 +37,9 @@ jobs:
   # The paid gitleaks-action@v2 needs a commercial license secret.
   gitleaks:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
         with:
           fetch-depth: 0
       - name: Install gitleaks
@@ -41,10 +47,14 @@ jobs:
           GITLEAKS_VERSION: 8.24.2
         run: |
           set -euo pipefail
-          curl -sSfL \
-            "https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}/gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz" \
-            | tar -xz gitleaks
+          ASSET="gitleaks_${GITLEAKS_VERSION}_linux_x64.tar.gz"
+          BASE_URL="https://github.com/gitleaks/gitleaks/releases/download/v${GITLEAKS_VERSION}"
+          curl -sSfL -o "${ASSET}" "${BASE_URL}/${ASSET}"
+          curl -sSfL -o checksums.txt "${BASE_URL}/gitleaks_${GITLEAKS_VERSION}_checksums.txt"
+          sha256sum --check --ignore-missing checksums.txt
+          tar -xzf "${ASSET}" gitleaks
           sudo mv gitleaks /usr/local/bin/
+          rm -f "${ASSET}" checksums.txt
           gitleaks version
       - name: Secret scan (gitleaks detect)
         run: gitleaks detect --source . --verbose --redact --exit-code 1

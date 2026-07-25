@@ -5,25 +5,86 @@ on:
     branches: [main]
   push:
     branches: [main]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: product-journeys-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   e2e:
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    env:
+      CI: "true"
+      WEB_BASE: http://127.0.0.1:3000
+      API_BASE: http://127.0.0.1:8000
+      ENV: test
+      HOST: 127.0.0.1
+      PORT: "8000"
+      INTERPRET_MODE: template
+      LLM_BACKEND: stub
     steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: pnpm/action-setup@0ebf47130e4866e96fce0953f49152a61190b271  # v6
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020  # v7
         with:
           node-version: "24.18.0"
+          cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
+      - name: Install uv
+        uses: astral-sh/setup-uv@caf0cab7a618c569241d31dcd442f54681755d39  # v3
+        with:
+          version: "0.11.32"
+      - name: Install Python deps
+        run: |
+          uv python pin 3.12
+          uv sync --all-packages
       - name: Install web deps
+        run: pnpm --filter web install --ignore-scripts
+      - name: Install Playwright browsers
         working-directory: apps/web
-        run: npm ci || npm install
-      - name: Install Playwright
-        working-directory: apps/web
-        run: npx playwright install --with-deps chromium
-      - name: Soft e2e (skips if no servers)
-        working-directory: apps/web
-        run: npx playwright test --config=playwright.config.ts || true
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Build web
+        run: pnpm --filter web build
         env:
-          CI: "true"
-          WEB_BASE: http://127.0.0.1:3000
-          API_BASE: http://127.0.0.1:8000
+          NEXT_PUBLIC_API_BASE: http://127.0.0.1:8000
+      - name: Start API
+        run: |
+          uv run python -m tamthuc_api > /tmp/tamthuc-api.log 2>&1 &
+          echo $! > /tmp/tamthuc-api.pid
+          for i in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:8000/healthz >/dev/null; then
+              echo "API ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "API failed to become ready" >&2
+          cat /tmp/tamthuc-api.log >&2 || true
+          exit 1
+      - name: Start web
+        working-directory: apps/web
+        run: |
+          pnpm exec next start -H 127.0.0.1 -p 3000 > /tmp/tamthuc-web.log 2>&1 &
+          echo $! > /tmp/tamthuc-web.pid
+          for i in $(seq 1 60); do
+            if curl -sf http://127.0.0.1:3000 >/dev/null; then
+              echo "Web ready"
+              exit 0
+            fi
+            sleep 1
+          done
+          echo "Web failed to become ready" >&2
+          cat /tmp/tamthuc-web.log >&2 || true
+          exit 1
+      - name: Playwright product journeys
+        working-directory: apps/web
+        run: pnpm exec playwright test --config=playwright.config.ts
+      - name: Stop servers
+        if: always()
+        run: |
+          kill "$(cat /tmp/tamthuc-api.pid)" 2>/dev/null || true
+          kill "$(cat /tmp/tamthuc-web.pid)" 2>/dev/null || true

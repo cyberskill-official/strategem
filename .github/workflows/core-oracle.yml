@@ -8,11 +8,19 @@ on:
       - "crates/cyberos-lichphap/**"
       - ".github/workflows/core-oracle.yml"
 
+permissions:
+  contents: read
+
+concurrency:
+  group: core-oracle-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   oracle:
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     steps:
-      - uses: actions/checkout@v7
-      - uses: dtolnay/rust-toolchain@stable
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - uses: dtolnay/rust-toolchain@4cda84d5c5c54efe2404f9d843567869ab1699d4  # stable
       - name: Run oracle harness
         run: cargo test -p cyberos-lichphap --test oracle_harness
