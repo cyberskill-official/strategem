@@ -1,12 +1,12 @@
 //! LiuRen engine assembly — TASK-LN-006.
 
 use crate::ban::{BanLucNham, ThienDiaBan};
-use crate::khoathe::recognize_khoa_the;
+use crate::khoathe::recognize_khoa_the_full;
 use crate::tamtruyen::lap_tam_truyen;
 use crate::thiendiaban::{dia_ban, quay_thien_ban};
 use crate::thientuong::{lap_thien_tuong, QuyNhanVariant};
 use crate::tukhoa::lap_tu_khoa;
-use cyberos_lichphap::{Can, Chi};
+use cyberos_lichphap::{tuan_khong, Can, Chi};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::collections::BTreeMap;
@@ -58,8 +58,12 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
     let tam_truyen = lap_tam_truyen(&tu_khoa, &thien, state, input.can_ngay);
     let thien_tuong = lap_thien_tuong(input.can_ngay, input.gio_chiem, input.quy_nhan_variant);
 
-    // COV-005: emit recognized khoa_the names (not Debug strings)
-    let khoa_hits = recognize_khoa_the(&tam_truyen);
+    // Không vong = tuần không from day pillar (TASK-CORE-004), not a hardcoded pair.
+    let (kv1, kv2) = tuan_khong(input.can_ngay, input.chi_ngay);
+    let khong_vong = [kv1, kv2];
+
+    // COV-005: emit recognized khoa_the names (not Debug strings); L2 uses generals.
+    let khoa_hits = recognize_khoa_the_full(&tam_truyen, Some(&tu_khoa), Some(&thien_tuong));
     let khoa_the: Vec<String> = khoa_hits.iter().map(|h| h.name.clone()).collect();
     let ban = BanLucNham {
         thien_dia_ban: thien_dia,
@@ -67,7 +71,7 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         tam_truyen,
         thien_tuong,
         khoa_the: khoa_the.clone(),
-        khong_vong: [Chi::Tuat, Chi::Hoi], // filled by CORE in full stack
+        khong_vong,
     };
 
     let mut flags = BTreeMap::new();
@@ -135,6 +139,10 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
             },
             "thien_tuong": ban.thien_tuong.generals.iter().map(|g| format!("{g:?}")).collect::<Vec<_>>(),
             "khoa_the": khoa_the,
+            "khong_vong": [
+                ban.khong_vong[0].glyph(),
+                ban.khong_vong[1].glyph(),
+            ],
         },
         "cach_cuc": khoa_hits.iter().map(|h| json!({
             "id": h.id,

@@ -9,3 +9,6 @@ description = "QiMen Dun Jia — dinh cuc (TASK-QMDG-001)"
 serde = { workspace = true }
 serde_json = { workspace = true }
 thiserror = { workspace = true }
+
+[dev-dependencies]
+cyberos-oracle-cert = { path = "../cyberos-oracle-cert" }

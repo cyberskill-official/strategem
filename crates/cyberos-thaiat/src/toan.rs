@@ -1,4 +1,4 @@
-//! Toan counting — TASK-TAT-003.
+//! Toan counting — TASK-TAT-003 / W3 classical palace numbers.
 
 use crate::anthaiat::ThaiAtSeat;
 use crate::thaplucthan::{is_chinh_cung, LoaiThan, THAP_LUC_THAN};
@@ -25,18 +25,19 @@ pub struct ToanResult {
     pub label: TruongDoan,
 }
 
-/// Palace number contribution for a chinh cung ring mark (simplified mapping).
+/// Classical Luoshu palace number for a chính cung ring mark (Claude-04 s3).
+/// 坎1 坤2 震3 巽4 中5 乾6 兌7 艮8 離9.
 fn palace_number(ring: u8) -> u32 {
     match ring {
-        0 => 8,  // 子 坎
-        2 => 3,  // 艮
-        4 => 4,  // 卯 震
-        6 => 9,  // 巽
-        8 => 2,  // 午 離 (TAT layout)
-        10 => 7, // 坤
-        12 => 6, // 酉 兌
-        14 => 1, // 乾
-        _ => 1,
+        0 => 1,  // 子 坎
+        2 => 8,  // 艮
+        4 => 3,  // 卯 震
+        6 => 4,  // 巽
+        8 => 9,  // 午 離
+        10 => 2, // 坤
+        12 => 7, // 酉 兌
+        14 => 6, // 乾
+        _ => 1,  // gian thần should not call this; caller adds 1
     }
 }
 
@@ -48,6 +49,10 @@ pub fn mark_before(ring: u8) -> u8 {
     }
 }
 
+/// Count toán from `start_ring` around the 16-god ring.
+/// Chính cung contribute their Luoshu number; gian thần contribute 1.
+/// Stop at the mark immediately before Thái Ất (`TruocThaiAt`) or on Thái Ất
+/// (`SauThaiAt`) per `dem_toan` school flag.
 pub fn compute_toan(start_ring: u8, seat: &ThaiAtSeat, dem: DemToan) -> ToanResult {
     let stop = match dem {
         DemToan::TruocThaiAt => mark_before(seat.thai_at_ring),
@@ -66,6 +71,7 @@ pub fn compute_toan(start_ring: u8, seat: &ThaiAtSeat, dem: DemToan) -> ToanResu
         }
         mark = (mark + 1) % 16;
     }
+    // Claude-04: ≥11 trường, ≤9 đoản (10 treated as đoản here).
     let label = if total >= 11 {
         TruongDoan::Truong
     } else {
@@ -106,4 +112,17 @@ pub fn count_chinh() -> usize {
         .iter()
         .filter(|t| t.loai == LoaiThan::ChinhCung)
         .count()
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn luoshu_palace_pins() {
+        assert_eq!(palace_number(0), 1); // 坎
+        assert_eq!(palace_number(8), 9); // 離
+        assert_eq!(palace_number(14), 6); // 乾
+        assert_eq!(palace_number(2), 8); // 艮
+    }
 }

@@ -1,0 +1,23 @@
+# kind: sample
+# source: Claude-04 §4.1 Văn Xương placement (Kim Kinh Thuc Kinh tradition); §5.1 nien ke worked example
+# scope: harness proof only — NOT a kintaiyi dump; full certification needs oracle/kintaiyi/full/
+# algorithm: reduce nhap_cuc by 18; duong starts ring 11 (Than/Vu duc) double-count Can(14)+Khon(10);
+#            am starts ring 3 (Dan/Lu than) double-count Gen/Can(2)+Ton(6). Expected rings are hand-counted.
+# ring marks (16, from Ty): 0=Ty 1=Suu 2=Can(艮) 3=Dan 4=Mao 5=Thin 6=Ton(巽) 7=Ty2 8=Ngo
+#            9=Mui 10=Khon(坤) 11=Than 12=Dau 13=Tuat 14=Can2(乾) 15=Hoi
+nhap_cuc,duong_don,expected_ring,cite_note
+1,1,11,Claude-04 s4.1: cuc=1 duong -> first step from Vu duc (ring 11)
+1,0,3,Claude-04 s4.1: cuc=1 am -> first step from Lu than (ring 3)
+2,1,12,Claude-04 s4.1: cuc=2 duong -> second step (ring 12)
+4,1,14,Claude-04 s4.1: duong double-counts 乾; steps 4 and 5 both land ring 14
+5,1,14,Claude-04 s4.1: duong double-counts 乾; steps 4 and 5 both land ring 14
+17,1,10,Claude-04 s4.1: duong double-counts 坤; steps 17 and 18 both land ring 10
+18,1,10,Claude-04 s4.1: cuc=18 duong lands on double-counted Khon (ring 10)
+19,1,11,Claude-04 s4.1: cuc=19 == cuc=1 after reduce-by-18
+33,1,8,Claude-04 s5.1: 2004 nien ke tich nien 10155921 -> cuc 33 duong; 33-18=15 -> 15th step = Ngo/Dai uy (ring 8)
+72,1,10,Claude-04 s4.1: reduce 72 by 18 -> full count 18 -> ring 10 (duong Khon)
+4,0,6,Claude-04 s4.1: am double-counts 巽; steps 4 and 5 both land ring 6
+5,0,6,Claude-04 s4.1: am double-counts 巽; steps 4 and 5 both land ring 6
+17,0,2,Claude-04 s4.1: am double-counts 艮; steps 17 and 18 both land ring 2
+18,0,2,Claude-04 s4.1: cuc=18 am lands on double-counted Gen (ring 2)
+36,0,2,Claude-04 s4.1: reduce 36 by 18 -> full count 18 -> ring 2 (am Gen)

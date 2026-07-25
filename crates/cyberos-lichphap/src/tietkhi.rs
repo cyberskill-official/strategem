@@ -1,4 +1,4 @@
-//! 24 solar terms (tiết khí). TASK-CORE-001.
+//! 24 solar terms (tiết khí). TASK-CORE-001 / W3.
 
 use crate::delta_t::{tt_jd_to_utc_jd, utc_jd_to_tt_jd};
 use crate::solar::{ang_diff, julian_day_utc, kinh_do_mat_troi};
@@ -63,16 +63,36 @@ pub fn term_def(index: u8) -> TietKhi {
     }
 }
 
+/// Meeus AA ch.27 approximate JD (TT) for March equinox of `year` (Y).
+fn meeus_march_equinox_tt(year: i32) -> f64 {
+    let y = (year as f64 - 2000.0) / 1000.0;
+    2_451_623.809_84 + 365_242.374_04 * y + 0.051_69 * y * y
+        - 0.004_11 * y * y * y
+        - 0.000_57 * y * y * y * y
+}
+
+/// Rough UTC JD guess for term `index` in solar year of `year` (Lap-Xuan origin).
+fn rough_term_guess_utc(year: i32, index: u8) -> f64 {
+    // Seed from March equinox (Xuân Phân = index 3 @ 0°), then step ~15.218 days.
+    let march_tt = meeus_march_equinox_tt(year);
+    let march_utc = tt_jd_to_utc_jd(march_tt);
+    let offset_terms = index as i32 - 3;
+    march_utc + (offset_terms as f64) * (365.242_19 / 24.0)
+}
+
 /// Newton inverse: find UTC JD when solar longitude equals `target` near `guess_jd_utc`.
 pub fn solve_term_instant(target_lon: f64, guess_jd_utc: f64) -> f64 {
     let mut jd = guess_jd_utc;
-    for _ in 0..20 {
+    for _ in 0..24 {
         let lon = kinh_do_mat_troi(jd);
         let err = ang_diff(lon, target_lon); // lon - target
-                                             // dlon/djd ≈ 360/365.25 ≈ 0.9856 deg/day
-        let step = -err / 0.985_647_4;
+                                             // Numerical derivative for robustness near extrema.
+        let h = 1e-4;
+        let dlon = ang_diff(kinh_do_mat_troi(jd + h), lon) / h;
+        let denom = if dlon.abs() < 1e-6 { 0.985_647_4 } else { dlon };
+        let step = -err / denom;
         jd += step;
-        if step.abs() < 1e-8 {
+        if step.abs() < 1e-9 {
             break;
         }
     }
@@ -84,9 +104,15 @@ pub fn tiet_khi_year(year: i32) -> [f64; 24] {
     let mut out = [0.0; 24];
     for i in 0u8..24 {
         let target = target_longitude(i);
-        // Rough guess: Lập xuân ~ Feb 4
-        let base = julian_day_utc(year, 2, 4.0) + (i as f64) * (365.2422 / 24.0);
-        out[i as usize] = solve_term_instant(target, base);
+        let base = rough_term_guess_utc(year, i);
+        // Fallback seed if Meeus polynomial is far (very early/late years).
+        let fallback = julian_day_utc(year, 2, 4.0) + (i as f64) * (365.2422 / 24.0);
+        let guess = if (base - fallback).abs() < 40.0 {
+            base
+        } else {
+            fallback
+        };
+        out[i as usize] = solve_term_instant(target, guess);
     }
     out
 }

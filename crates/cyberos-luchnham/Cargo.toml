@@ -10,3 +10,6 @@ cyberos-lichphap = { path = "../cyberos-lichphap" }
 serde = { workspace = true }
 serde_json = { workspace = true }
 thiserror = { workspace = true }
+
+[dev-dependencies]
+cyberos-oracle-cert = { path = "../cyberos-oracle-cert" }

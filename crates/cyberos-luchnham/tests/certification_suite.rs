@@ -1,5 +1,8 @@
-//! COV-001 — LiuRen oracle certification suite (≥30 golden cases).
-//! Fixtures: `tests/fixtures/liuren_cert_v1.csv` (engine golden via cast-cli).
+//! Self-oracle regression suite (COV-001 goldens) — NOT kinliuren certification.
+//!
+//! Fixtures: `tests/fixtures/liuren_cert_v1.csv` with
+//! `oracle_source=engine_golden_v1+cast_cli`. External kinliuren dumps live under
+//! `oracle/kinliuren/` and are gated by `external_oracle_cert.rs` (W4).
 
 use cyberos_lichphap::{Can, Chi};
 use cyberos_luchnham::{cast_luc_nham, CastInput, QuyNhanVariant};
@@ -11,7 +14,7 @@ fn fixture_path() -> PathBuf {
 }
 
 #[test]
-fn liuren_cert_v1_min_30_and_cache_keys_match() {
+fn liuren_self_oracle_regression_min_30_and_cache_keys_match() {
     let text = fs::read_to_string(fixture_path()).expect("liuren_cert_v1.csv");
     let mut rows = 0usize;
     for line in text.lines().skip(1).filter(|l| !l.trim().is_empty()) {
@@ -46,6 +49,6 @@ fn liuren_cert_v1_min_30_and_cache_keys_match() {
     }
     assert!(
         rows >= 30,
-        "COV-001 requires ≥30 LiuRen golden cases, got {rows}"
+        "self-oracle regression requires ≥30 LiuRen golden cases, got {rows}"
     );
 }
