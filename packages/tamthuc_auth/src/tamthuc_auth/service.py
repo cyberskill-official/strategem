@@ -54,7 +54,7 @@ class AuthService:
         settings: AuthSettings | None = None,
         tokens: TokenService | None = None,
         social: IdTokenVerifier | None = None,
-        revocation: RevocationStore | None = None,
+        revocation: RevocationStore | Any | None = None,
     ) -> None:
         self.store = store or InMemoryUserStore()
         self.settings = settings or get_settings()

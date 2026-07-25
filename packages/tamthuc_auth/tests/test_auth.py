@@ -297,15 +297,58 @@ def test_config_master_key_and_env(monkeypatch: pytest.MonkeyPatch) -> None:
     )
 
     reset_settings_cache()
-    s = AuthSettings(master_key_b64=base64.urlsafe_b64encode(b"z" * 32).decode())
+    s = AuthSettings(
+        jwt_secret="explicit-test-jwt-secret-at-least-32b!!",
+        master_key_b64=base64.urlsafe_b64encode(b"z" * 32).decode(),
+    )
     assert len(s.master_key()) == 32
     with pytest.raises(ValueError):
-        AuthSettings(master_key_b64=base64.urlsafe_b64encode(b"short").decode()).master_key()
-    monkeypatch.setenv("TAMTHUC_AUTH_JWT_SECRET", "from-env")
+        AuthSettings(
+            jwt_secret="explicit-test-jwt-secret-at-least-32b!!",
+            master_key_b64=base64.urlsafe_b64encode(b"short").decode(),
+        ).master_key()
+    monkeypatch.setenv("ENV", "test")
+    monkeypatch.setenv("TAMTHUC_AUTH_JWT_SECRET", "from-env-secret-at-least-32-bytes!!")
+    monkeypatch.setenv(
+        "TAMTHUC_AUTH_MASTER_KEY_B64",
+        base64.urlsafe_b64encode(b"e" * 32).decode(),
+    )
     reset_settings_cache()
-    assert get_settings().jwt_secret  # loads
+    assert get_settings().jwt_secret == "from-env-secret-at-least-32-bytes!!"
     reset_settings_cache()
     assert len(master_key_from_env()) == 32
+
+
+def test_config_refuses_defaults_outside_dev(monkeypatch: pytest.MonkeyPatch) -> None:
+    import base64
+
+    from tamthuc_auth.config import AuthSettings, reset_settings_cache
+
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.delenv("APP_ENV", raising=False)
+    monkeypatch.delenv("TAMTHUC_AUTH_JWT_SECRET", raising=False)
+    monkeypatch.delenv("TAMTHUC_AUTH_MASTER_KEY_B64", raising=False)
+    reset_settings_cache()
+    with pytest.raises(ValueError, match="required"):
+        AuthSettings()
+
+    with pytest.raises(ValueError, match="refusing known development"):
+        AuthSettings(
+            jwt_secret="dev-only-change-me-jwt-secret-min-32-bytes!!",
+            master_key_b64=base64.urlsafe_b64encode(b"0" * 32).decode(),
+        )
+
+
+def test_config_allows_dev_placeholders_in_development(monkeypatch: pytest.MonkeyPatch) -> None:
+    from tamthuc_auth.config import AuthSettings, reset_settings_cache
+
+    monkeypatch.setenv("ENV", "development")
+    monkeypatch.delenv("TAMTHUC_AUTH_JWT_SECRET", raising=False)
+    monkeypatch.delenv("TAMTHUC_AUTH_MASTER_KEY_B64", raising=False)
+    reset_settings_cache()
+    s = AuthSettings()
+    assert len(s.jwt_secret) >= 32
+    assert len(s.master_key()) == 32
 
 
 def test_deps_and_http_errors(client: TestClient, svc: AuthService) -> None:
