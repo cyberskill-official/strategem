@@ -32,9 +32,17 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
             resp: Response = await call_next(request)
             return resp
 
-        principal_id = request.headers.get("x-principal-id", "anon")
-        tier = request.headers.get("x-tier", "free")
+        # TT-002: never trust x-principal-id / x-tier for entitlement or quota identity.
+        from tamthuc_api.authz import resolve_principal
+
+        resolved = resolve_principal(request)
         source_ip = request.client.host if request.client else "0.0.0.0"
+        if resolved is not None:
+            principal_id, tier = resolved
+        else:
+            # Anonymous free-cast routes: IP-keyed quota, free tier only
+            principal_id = f"ip:{source_ip}"
+            tier = "free"
 
         decision = self.limiter.check_and_count(principal_id, tier)
         if not decision.allowed:

@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from collections import defaultdict
 from dataclasses import dataclass, field
 
@@ -10,6 +11,7 @@ from dataclasses import dataclass, field
 class MetricsRegistry:
     counters: dict[str, float] = field(default_factory=lambda: defaultdict(float))
     histograms: dict[str, list[float]] = field(default_factory=lambda: defaultdict(list))
+    gauges: dict[str, float] = field(default_factory=dict)
     request_id: str | None = None
 
     def inc(self, name: str, labels: dict[str, str] | None = None, value: float = 1.0) -> None:
@@ -18,6 +20,9 @@ class MetricsRegistry:
 
     def observe(self, name: str, value: float, labels: dict[str, str] | None = None) -> None:
         self.histograms[_key(name, labels)].append(value)
+
+    def set_gauge(self, name: str, value: float, labels: dict[str, str] | None = None) -> None:
+        self.gauges[_key(name, labels)] = value
 
     def record_chart_gen(self, seconds: float, *, request_id: str | None = None) -> None:
         self.request_id = request_id or self.request_id
@@ -39,12 +44,42 @@ class MetricsRegistry:
         if not ok:
             self.inc("cast_errors_total", labels)
 
+    def record_cast_fallback(self, *, system: str, reason: str) -> None:
+        """TT-022: cast-cli failed; fell back to local deterministic engine."""
+        self.inc(
+            "cast_cli_fallback_total",
+            {"system": system, "reason": reason, "family": "ops"},
+        )
+
     def record_ready_failure(self, reason: str = "cast_cli_missing") -> None:
         """COV-021: alert signal when /ready fails under READY_REQUIRE_CAST_CLI."""
         self.inc("ready_failures_total", {"reason": reason, "family": "ops"})
 
+    def record_request(self, *, method: str, path: str, status: int) -> None:
+        """TT-017: total HTTP requests (denominator for ErrorRateHigh)."""
+        self.inc(
+            "http_requests_total",
+            {
+                "method": method,
+                "path": _normalize_path(path),
+                "status": str(status),
+                "family": "technical",
+            },
+        )
+
     def record_error(self) -> None:
         self.inc("http_errors_total", {"family": "technical"})
+
+
+def _normalize_path(path: str) -> str:
+    # Collapse UUIDs so cardinality stays bounded.
+    parts = []
+    for p in path.split("/"):
+        if len(p) == 36 and p.count("-") == 4:
+            parts.append(":id")
+        else:
+            parts.append(p)
+    return "/".join(parts) or "/"
 
 
 def _key(name: str, labels: dict[str, str] | None) -> str:
@@ -52,6 +87,23 @@ def _key(name: str, labels: dict[str, str] | None) -> str:
         return name
     parts = ",".join(f'{k}="{v}"' for k, v in sorted(labels.items()))
     return f"{name}{{{parts}}}"
+
+
+def expert_validation_pass_ratio() -> float | None:
+    """Optional quality gauge from env; omit when unset (no fake 1.0).
+
+    Set EXPERT_VALIDATION_PASS_RATIO=0.0..1.0 when a real eval loop writes it.
+    """
+    raw = os.environ.get("EXPERT_VALIDATION_PASS_RATIO", "").strip()
+    if not raw:
+        return None
+    try:
+        v = float(raw)
+    except ValueError:
+        return None
+    if v < 0.0 or v > 1.0:
+        return None
+    return v
 
 
 def render_prometheus(reg: MetricsRegistry) -> str:
@@ -66,11 +118,15 @@ def render_prometheus(reg: MetricsRegistry) -> str:
         "# TYPE cast_total counter",
         "# HELP cast_errors_total Cast failures",
         "# TYPE cast_errors_total counter",
+        "# HELP cast_cli_fallback_total Cast-cli failures that fell back to local",
+        "# TYPE cast_cli_fallback_total counter",
         "# HELP ready_failures_total /ready failures (CAST_CLI gate)",
         "# TYPE ready_failures_total counter",
+        "# HELP http_requests_total HTTP requests",
+        "# TYPE http_requests_total counter",
         "# HELP http_errors_total HTTP errors",
         "# TYPE http_errors_total counter",
-        "# HELP expert_validation_pass_ratio Quality gate",
+        "# HELP expert_validation_pass_ratio Quality gate (optional)",
         "# TYPE expert_validation_pass_ratio gauge",
     ]
     for k, v in sorted(reg.counters.items()):
@@ -86,7 +142,11 @@ def render_prometheus(reg: MetricsRegistry) -> str:
             labels = "{" + k.split("{", 1)[1]
         lines.append(f"{base}_p95{labels} {p95}")
         lines.append(f"{base}_count{labels} {len(s)}")
-    lines.append('expert_validation_pass_ratio{family="quality"} 1.0')
+    for k, v in sorted(reg.gauges.items()):
+        lines.append(f"{k} {v}")
+    ratio = expert_validation_pass_ratio()
+    if ratio is not None:
+        lines.append(f'expert_validation_pass_ratio{{family="quality"}} {ratio}')
     return "\n".join(lines) + "\n"
 
 
