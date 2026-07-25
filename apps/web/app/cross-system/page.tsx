@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
+import { authHeaders } from "../../src/lib/auth/session";
 
 type SystemRead = {
   he: string;
@@ -36,14 +37,13 @@ export default function CrossSystemPage() {
     try {
       const res = await fetch(`${apiBase()}/api/v1/cross-system/validate`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({
           datetime: new Date(datetime).toISOString(),
           tz: "+07:00",
           longitude: 106.7,
           systems: ["qimen", "liuren", "taiyi"],
           loai_cau_hoi: "trach_thoi",
-          tier: "premium",
         }),
       });
       const body = await res.json();

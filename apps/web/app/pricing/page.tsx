@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
+import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
 
 /**
  * COV-026: free cast open; single Stripe rail for premium; advisory stays waitlist.
@@ -55,11 +56,14 @@ export default function PricingPage() {
     setLoading(true);
     setCheckoutMsg(null);
     try {
+      if (!getAccessToken()) {
+        setCheckoutMsg(t("pricing.checkoutError"));
+        return;
+      }
       const res = await fetch(`${apiBase()}/api/v1/payments/checkout`, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({
-          user_id: "local-user",
           success_url: typeof window !== "undefined" ? `${window.location.origin}/pricing?paid=1` : "/pricing",
           cancel_url: typeof window !== "undefined" ? `${window.location.origin}/pricing?cancelled=1` : "/pricing",
         }),

@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
+import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
 
 type WindowRow = {
   start: string;
@@ -53,11 +54,15 @@ export default function TimingPage() {
     setError(null);
     setResult(null);
     try {
+      if (!getAccessToken()) {
+        setError(t("timing.error"));
+        return;
+      }
       const base = apiBase();
       const url = `${base}/api/v1/timing/optimize`;
       const res = await fetch(url, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json", ...authHeaders() },
         body: JSON.stringify({
           start: new Date(start).toISOString(),
           end: new Date(end).toISOString(),

@@ -1,5 +1,5 @@
 packages:
-  - 'apps/web'
+  - "apps/*"
 
 # pnpm supply-chain policy settings.
 # minimumReleaseAge=0 disables the "package too recently published" check.
@@ -7,6 +7,8 @@ packages:
 # timestamps close to the runner's clock (very common in early development).
 # See also: https://pnpm.io/settings#minimumreleaseage
 minimumReleaseAge: 0
-# You can also list exceptions here instead of fully disabling:
-# minimumReleaseAgeExclude:
-#   - "some-pkg@1.2.3"
+
+# Force patched transitive deps called out by Trivy (TT-007).
+overrides:
+  postcss: ">=8.5.18"
+  sharp: ">=0.35.3"
