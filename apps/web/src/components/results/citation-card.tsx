@@ -35,19 +35,19 @@ export function CitationCard({
   const classical = han && /[\u4e00-\u9fff]/.test(han) ? han : undefined;
 
   return (
-    <article data-testid="citation-card" id={citationId ? `cite-${citationId}` : undefined} className="cs-card cs-citation">
-      {source ? <div className="cs-citation__source">{source}</div> : null}
+    <article data-testid="citation-card" id={citationId ? `cite-${citationId}` : undefined} className="cs-card cs-citation-card">
+      {source ? <div className="cs-citation-card__source">{source}</div> : null}
       {vernacular ? (
         <p data-testid="cite-bach">
           <strong>{t("chart.citationVernacular")}:</strong> {vernacular}
         </p>
       ) : null}
       {classical ? (
-        <p data-testid="cite-han" className="cs-citation__han">
+        <p data-testid="cite-han" className="cs-citation-card__han">
           <strong>{t("chart.citationHan")}:</strong> {classical}
         </p>
       ) : han && !classical && !vernacular ? (
-        <p data-testid="cite-han" className="cs-citation__han">
+        <p data-testid="cite-han" className="cs-citation-card__han">
           <strong>{t("chart.citationHan")}:</strong> {displayPatternName(han, locale)}
         </p>
       ) : null}

@@ -113,16 +113,30 @@ export default function PatternsPage() {
         {rows.map((r, i) => {
           const vernacular = displayPatternName(String(r.name_han || r.name || ""), locale);
           const han = r.name_han || r.name || "";
+          const polarity = (r.polarity || "").toLowerCase();
           return (
             <li key={r.id ?? i} className="cs-card" data-testid="pattern-row" style={{ marginBottom: "0.75rem" }}>
-              <strong>
-                {vernacular}
-                {vernacular !== han && /[\u4e00-\u9fff]/.test(han) ? (
-                  <span className="cs-muted cs-pattern-classical"> {han}</span>
+              <div style={{ display: "flex", flexWrap: "wrap", gap: 8, alignItems: "center" }}>
+                <strong>
+                  {vernacular}
+                  {vernacular !== han && /[\u4e00-\u9fff]/.test(han) ? (
+                    <span className="cs-muted cs-pattern-classical"> {han}</span>
+                  ) : null}
+                </strong>
+                <span className="cs-badge cs-badge--trung">{r.system || r.he}</span>
+                {polarity ? (
+                  <span
+                    className={`cs-badge ${
+                      polarity === "hung"
+                        ? "cs-badge--hung"
+                        : polarity === "cat"
+                          ? "cs-badge--cat"
+                          : "cs-badge--trung"
+                    }`}
+                  >
+                    {r.polarity}
+                  </span>
                 ) : null}
-              </strong>
-              <div className="cs-muted" style={{ fontSize: "0.9rem" }}>
-                {r.system || r.he} · {r.polarity || "—"}
               </div>
               {r.meaning_modern ? (
                 <p style={{ margin: "0.35rem 0 0" }}>{r.meaning_modern}</p>

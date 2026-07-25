@@ -55,6 +55,20 @@ assert.match(interp, /HumanReviewGate/);
 assert.match(interp, /PersonaToggle/);
 assert.match(interp, /requires_human_review/);
 
+assert.match(panel, /FollowUpChat|follow-up-chat/);
+assert.match(
+  readFileSync(join(root, "src/components/domain/follow-up-chat.tsx"), "utf8"),
+  /cs-prompt|PromptInput/,
+);
+assert.match(
+  readFileSync(join(root, "src/components/domain/prompt-input.tsx"), "utf8"),
+  /cs-prompt/,
+);
+assert.match(
+  readFileSync(join(root, "src/components/domain/chat-message.tsx"), "utf8"),
+  /cs-chat-msg/,
+);
+
 assert.match(patterns, /polarity-badge/);
 assert.match(patterns, /aria-label=\{`\$\{t\("polarity\.label"\)\}|polarity\.(cat|hung|trung)/);
 assert.match(patterns, /polarity\.cat|polarity\.hung|icon/);

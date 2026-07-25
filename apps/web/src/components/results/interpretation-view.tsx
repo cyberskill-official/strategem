@@ -8,6 +8,7 @@ import {
 } from "../../lib/domain/readings";
 import { useLocale } from "../i18n/locale-provider";
 import { AIDisclosureBadge } from "../domain/ai-disclosure-badge";
+import { ConfidenceMeter } from "../domain/confidence-meter";
 import { HumanReviewGate } from "../domain/human-review-gate";
 import { CitationCard } from "./citation-card";
 import { PersonaToggle, type Persona } from "./persona-toggle";
@@ -100,6 +101,12 @@ export function InterpretationView({
         )}
       </div>
 
+      {typeof interpretation.confidence === "number" && (
+        <div style={{ maxWidth: 280, marginBottom: 12 }}>
+          <ConfidenceMeter value={interpretation.confidence} />
+        </div>
+      )}
+
       {needsReview && (
         <div data-testid="human-review-slot" style={{ marginBottom: 12 }}>
           <HumanReviewGate riskLabel={t("review.pending")} />
@@ -118,7 +125,10 @@ export function InterpretationView({
         </ul>
       )}
 
-      <div data-testid="citation-cards" style={{ marginTop: 16 }}>
+      <div data-testid="citation-cards" className="cs-citations" style={{ marginTop: 16 }}>
+        {(interpretation.citations ?? []).length ? (
+          <div className="cs-citations__label">{t("disclosure.citations")}</div>
+        ) : null}
         {(interpretation.citations ?? []).map((c, i) => (
           <CitationCard
             key={c.citation_id ?? i}

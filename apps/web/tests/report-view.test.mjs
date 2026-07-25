@@ -35,6 +35,7 @@ assert.match(reportView, /deterministic-region|ChartSummarySection/);
 assert.match(reportView, /InterpretationSection/);
 assert.match(reportView, /region-boundary/);
 assert.match(reportView, /PdfDownloadButton/);
+assert.match(reportView, /FollowUpChat/);
 assert.doesNotMatch(reportView, /report\.\w+\s*=/);
 
 assert.match(chartSummary, /deterministic-region/);

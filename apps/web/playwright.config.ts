@@ -10,7 +10,7 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   use: {
-    baseURL: process.env.WEB_BASE || "http://127.0.0.1:3000",
+    baseURL: process.env.WEB_BASE || "http://127.0.0.1:13000",
     trace: "on-first-retry",
   },
   projects: [

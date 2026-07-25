@@ -67,49 +67,56 @@ export default function ResultsPage() {
       setError(null);
       try {
         const res = await getQuery(queryId);
-        if (!cancelled) {
-          const first = Object.values(res.charts ?? {})[0] as
-            | { he?: string; ban?: { place?: string } }
-            | undefined;
-          const he = first?.he ?? "ky_mon";
-          const isDemo = queryId.startsWith("demo-");
-          setResponse(
-            toView(res, {
-              engine_mode: isDemo ? "demo" : "cast_cli",
-              place: meta.place || "Hà Nội",
-              cast_at: meta.cast_at,
-            }),
-          );
-          setMeta((m) => ({
-            ...m,
-            he,
-            cast_at: m.cast_at || new Date().toISOString(),
-          }));
-          try {
-            const { getHistory } = await import("../../../src/lib/api/history");
-            const hist = await getHistory();
-            const hit = hist.items.find((i) => i.query_id === queryId);
-            if (hit) {
-              setReportId(hit.report_id);
-              setMeta((prev) => ({
-                he: hit.he,
-                question_type: hit.question_type,
-                cast_at: hit.created_at,
-                place: prev.place || "Hà Nội",
-              }));
-              setResponse((prev) =>
-                prev
-                  ? {
-                      ...prev,
-                      cast_at: hit.created_at,
-                      place: prev.place || "Hà Nội",
-                    }
-                  : prev,
-              );
-            }
-          } catch {
-            /* ignore */
+        if (cancelled) return;
+        const first = Object.values(res.charts ?? {})[0] as
+          | { he?: string; ban?: { place?: string } }
+          | undefined;
+        const he = first?.he ?? "ky_mon";
+        const isDemo = queryId.startsWith("demo-");
+        const rid =
+          typeof (res as { report_id?: string }).report_id === "string"
+            ? (res as { report_id: string }).report_id
+            : undefined;
+        if (rid) setReportId(rid);
+        setResponse(
+          toView(res, {
+            engine_mode: isDemo ? "demo" : "cast_cli",
+            place: meta.place || "Hà Nội",
+            cast_at: meta.cast_at,
+          }),
+        );
+        setMeta((m) => ({
+          ...m,
+          he,
+          cast_at: m.cast_at || new Date().toISOString(),
+        }));
+        setLoading(false);
+        // History enrichment is optional and must not block the results paint.
+        try {
+          const { getHistory } = await import("../../../src/lib/api/history");
+          const hist = await getHistory();
+          if (cancelled) return;
+          const hit = hist.items.find((i) => i.query_id === queryId);
+          if (hit) {
+            setReportId(hit.report_id);
+            setMeta((prev) => ({
+              he: hit.he,
+              question_type: hit.question_type,
+              cast_at: hit.created_at,
+              place: prev.place || "Hà Nội",
+            }));
+            setResponse((prev) =>
+              prev
+                ? {
+                    ...prev,
+                    cast_at: hit.created_at,
+                    place: prev.place || "Hà Nội",
+                  }
+                : prev,
+            );
           }
+        } catch {
+          /* ignore */
         }
       } catch (e) {
         if (!cancelled) {
@@ -119,9 +126,8 @@ export default function ResultsPage() {
             else if (e.code === "TIMEOUT") setError(t("error.timeout"));
             else setError(e.message || t("results.error"));
           } else setError(t("results.error"));
+          setLoading(false);
         }
-      } finally {
-        if (!cancelled) setLoading(false);
       }
     }
     void load();
@@ -169,6 +175,15 @@ export default function ResultsPage() {
             <Link
               href={`/report/${encodeURIComponent(reportId)}`}
               className="cs-link-btn cs-link-btn--secondary"
+              data-testid="open-report"
+            >
+              {t("results.openReport")}
+            </Link>
+          ) : queryId && !queryId.startsWith("demo-") ? (
+            <Link
+              href={`/report/${encodeURIComponent(queryId)}`}
+              className="cs-link-btn cs-link-btn--secondary"
+              data-testid="open-report"
             >
               {t("results.openReport")}
             </Link>
