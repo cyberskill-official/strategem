@@ -7,7 +7,7 @@ use crate::thiendiaban::{dia_ban, quay_thien_ban};
 use crate::thientuong::{lap_thien_tuong, QuyNhanVariant};
 use crate::tukhoa::lap_tu_khoa;
 use chrono::Utc;
-use cyberos_lichphap::{Can, Chi};
+use cyberos_lichphap::{tuan_khong, Can, Chi};
 use laso_envelope::{
     attach_cache_key, CachCuc, DauVao, He, LaSo, Polarity, Provenance, ENVELOPE_VERSION,
 };
@@ -51,13 +51,15 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
 
     let khoa_hits = recognize_khoa_the(&tam_truyen);
     let khoa_the: Vec<String> = khoa_hits.iter().map(|h| h.name.clone()).collect();
+    let (kv1, kv2) = tuan_khong(input.can_ngay, input.chi_ngay);
+    let khong_vong = [kv1, kv2];
     let ban = BanLucNham {
         thien_dia_ban: thien_dia,
         tu_khoa,
         tam_truyen,
         thien_tuong,
         khoa_the: khoa_the.clone(),
-        khong_vong: [Chi::Tuat, Chi::Hoi],
+        khong_vong,
     };
 
     let mut flags = BTreeMap::new();
@@ -119,6 +121,10 @@ pub fn cast_luc_nham(input: &CastInput) -> CastResult {
         },
         "thien_tuong": ban.thien_tuong.generals.iter().map(|g| format!("{g:?}")).collect::<Vec<_>>(),
         "khoa_the": khoa_the,
+        "khong_vong": [
+            ban.khong_vong[0].glyph(),
+            ban.khong_vong[1].glyph(),
+        ],
     });
 
     // Map khoa hits to envelope CachCuc (drop `layer` — not in envelope schema)
