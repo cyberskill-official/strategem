@@ -7,7 +7,7 @@ import { apiBase } from "../../src/lib/api/client";
 import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
 
 /**
- * COV-026: free cast open; single Stripe rail for premium; advisory stays waitlist.
+ * COV-026: free cast open; single PayOS rail for premium; advisory stays waitlist.
  */
 const TIERS = [
   {
@@ -50,11 +50,13 @@ export default function PricingPage() {
   const [note, setNote] = useState("");
   const [ok, setOk] = useState(false);
   const [checkoutMsg, setCheckoutMsg] = useState<string | null>(null);
+  const [qrCode, setQrCode] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
   async function startCheckout() {
     setLoading(true);
     setCheckoutMsg(null);
+    setQrCode(null);
     try {
       if (!getAccessToken()) {
         setCheckoutMsg(t("pricing.checkoutError"));
@@ -74,12 +76,22 @@ export default function PricingPage() {
         return;
       }
       const url = body.checkout_url as string;
-      setCheckoutMsg(
-        body.mode === "mock_contract"
-          ? t("pricing.checkoutMock")
-          : t("pricing.checkoutRedirect"),
-      );
-      if (url && body.mode === "live" && typeof window !== "undefined") {
+      if (typeof body.qr_code === "string" && body.qr_code) {
+        setQrCode(body.qr_code);
+      }
+      if (body.mode === "mock_contract") {
+        setCheckoutMsg(t("pricing.checkoutMock"));
+        const mock = await fetch(`${apiBase()}/api/v1/payments/mock-complete`, {
+          method: "POST",
+          headers: { ...authHeaders() },
+        });
+        if (mock.ok) {
+          setCheckoutMsg(t("pricing.checkoutMockDone"));
+        }
+        return;
+      }
+      setCheckoutMsg(t("pricing.checkoutRedirect"));
+      if (url && typeof window !== "undefined") {
         window.location.href = url;
       }
     } catch {
@@ -144,6 +156,14 @@ export default function PricingPage() {
       {checkoutMsg ? (
         <p className="cs-card" data-testid="checkout-msg">
           {checkoutMsg}
+        </p>
+      ) : null}
+
+      {qrCode ? (
+        <p className="cs-card" data-testid="payos-qr">
+          {t("pricing.payosQrHint")}
+          <br />
+          <code style={{ wordBreak: "break-all", fontSize: "0.85em" }}>{qrCode}</code>
         </p>
       ) : null}
 

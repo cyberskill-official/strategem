@@ -123,6 +123,8 @@ class PersistenceService:
         row = self.queries.get(query_id)
         if row is None:
             return None
+        if user_id is not None and row.get("user_id") != user_id:
+            return None
         result = row.get("result")
         if isinstance(result, dict):
             return result
@@ -163,10 +165,23 @@ class PersistenceService:
         )
 
     def get_report(self, report_id: str, *, user_id: str | None = None) -> dict[str, Any] | None:
+        """Lookup by report id or cast query id while preserving owner scoping."""
         if self.pg is not None:
             return self.pg.get_report(report_id, user_id=user_id)
         row = self.reports.get_by_id(report_id)
         if row is None:
+            row = self.reports.get_by_query_id(report_id)
+        if row is not None and user_id is not None and row.get("user_id") != user_id:
+            return None
+        if row is None:
+            result = self.get_query_result(report_id, user_id=user_id)
+            if isinstance(result, dict):
+                embedded = result.get("report")
+                if isinstance(embedded, dict):
+                    out = dict(embedded)
+                    out.setdefault("report_id", result.get("report_id") or out.get("report_id"))
+                    out.setdefault("query_id", result.get("query_id") or report_id)
+                    return out
             return None
         data = row.get("report_data")
         if isinstance(data, dict):

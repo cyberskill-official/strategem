@@ -13,6 +13,7 @@ from tamthuc_api.audit import AuditLog
 from tamthuc_api.authz import RequireAuthMiddleware
 from tamthuc_api.clients.engine import LocalEngineClient, default_engine, probe_cast_cli
 from tamthuc_api.errors import STATUS_BY_CODE, error_envelope
+from tamthuc_api.llm_probe import probe_llm
 from tamthuc_api.observability.metrics import MetricsRegistry, render_prometheus
 from tamthuc_api.orchestrator import Orchestrator
 from tamthuc_api.persistence import PersistenceService
@@ -21,6 +22,7 @@ from tamthuc_api.routes import (
     calendar,
     edu,
     knowledge,
+    operator,
     payments,
     queries,
     reports,
@@ -141,6 +143,7 @@ def create_app(
     mount_versioned(app, edu.router)
     mount_versioned(app, knowledge.router)
     mount_versioned(app, payments.router)
+    mount_versioned(app, operator.router)
     mount_versioned(app, reports.router)
     mount_versioned(app, timing.router)
     mount_versioned(app, queries.router)
@@ -172,12 +175,21 @@ def create_app(
 
     @app.get("/ready")
     def ready() -> JSONResponse:
-        """Readiness — diagnostics for CAST_CLI / engine mode.
+        """Readiness — diagnostics for CAST_CLI / LLM / engine mode.
 
         Set READY_REQUIRE_CAST_CLI=1 to return 503 when cast-cli is missing.
+        Set READY_REQUIRE_LLM=1 to return 503 when the LLM backend is unreachable
+        (local Docker+LM Studio gate). When unset, LLM outage is degraded-ok.
         """
         checks = probe_cast_cli()
+        llm_checks = probe_llm()
+        checks = {**checks, **llm_checks}
         require_cli = os.environ.get("READY_REQUIRE_CAST_CLI", "").strip() in {
+            "1",
+            "true",
+            "yes",
+        }
+        require_llm = os.environ.get("READY_REQUIRE_LLM", "").strip() in {
             "1",
             "true",
             "yes",
@@ -186,9 +198,16 @@ def create_app(
         if require_cli and not checks["cast_cli_present"]:
             ok = False
             metrics.record_ready_failure("cast_cli_missing")
+        if require_llm and not llm_checks.get("llm_reachable"):
+            ok = False
+            metrics.record_ready_failure("llm_unreachable")
         body = {
             "status": "ok" if ok else "not_ready",
             "checks": checks,
+            "degraded": {
+                "llm": not bool(llm_checks.get("llm_reachable")),
+                "cast_cli": not bool(checks.get("cast_cli_present")),
+            },
         }
         return JSONResponse(status_code=200 if ok else 503, content=body)
 

@@ -272,7 +272,7 @@ class LocalRagClient:
             interp = _template_interpretation(envelope, patterns)
         else:
             try:
-                llm = llm_from_env()
+                llm = self._resolve_llm()
                 interp = rag_interpret(envelope, chunks, llm=llm)
                 # ensure ≥1 citation with triple-layer when corpus present
                 if chunks and not interp.citations:
@@ -291,9 +291,43 @@ class LocalRagClient:
                         }
                     )
             except Exception:
+                # Explicit degraded path when LM Studio / BYOK backend is down.
+                self.last_mode = "rule_based_degraded"
                 interp = rule_based_interpretation(envelope, patterns=patterns)
+                if interp.ai_disclosure is not None:
+                    interp = interp.model_copy(
+                        update={
+                            "ai_disclosure": interp.ai_disclosure.model_copy(
+                                update={
+                                    "degraded": True,
+                                    "fallback": True,
+                                    "limits": (
+                                        "LLM backend unreachable — rule-based educational "
+                                        "fallback (not live model output)."
+                                    ),
+                                }
+                            )
+                        }
+                    )
 
         return self._maybe_gate(envelope, interp)
+
+    def _resolve_llm(self) -> Any:
+        """Operator BYOK settings → env → stub (never log secrets)."""
+        try:
+            from tamthuc_api.operator_llm import get_active_config
+
+            cfg = get_active_config(include_secret=True)
+        except Exception:
+            cfg = None
+        if cfg is not None and cfg.provider_base_url and cfg.model_id:
+            return llm_from_env(
+                backend=cfg.backend,
+                base_url=cfg.provider_base_url,
+                model=cfg.model_id,
+                api_key=cfg.api_key or "",
+            )
+        return llm_from_env()
 
     def _maybe_gate(self, envelope: dict[str, Any], interp: Interpretation) -> dict[str, Any]:
         qtype = None
