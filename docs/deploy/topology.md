@@ -28,6 +28,8 @@ Aligned with CyberOS multi-surface deploy (`docs/deploy/*`, `deploy/vps/*`) and 
 
 ## Related
 
+- VN launch checklist (PayOS + BYOK + CORS) → `docs/deploy/vn-launch-checklist.md`
+- Local Docker + LM Studio → `docs/deploy/local-docker-lmstudio.md`
 - TASK-PLAT-012 Supabase migrate path → `docs/deploy/supabase.md`
 - TASK-PLAT-013 VPS API → `docs/deploy/vps-api.md`
 - TASK-PLAT-014 Vercel web → `docs/deploy/vercel-web.md`

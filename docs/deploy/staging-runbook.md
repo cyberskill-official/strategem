@@ -47,7 +47,7 @@ Use env / secret manager only. Checklist: `docs/deploy/SHIP_CHECKLIST.md`.
 | `POSTGRES_PASSWORD` / `DATABASE_URL` | Supabase or VPS |
 | `TAMTHUC_AUTH_JWT_SECRET` | API |
 | `TAMTHUC_AUTH_MASTER_KEY_B64` | API birth encryption |
-| Stripe (or single rail) keys | API + webhook when COV-026 enabled |
+| PayOS keys (`PAYOS_CLIENT_ID` / `PAYOS_API_KEY` / `PAYOS_CHECKSUM_KEY`) | API + webhook when COV-026 enabled (Stripe retired) |
 
 ## 6. Related
 

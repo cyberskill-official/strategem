@@ -41,7 +41,7 @@ _PUBLIC_API_SUFFIXES: frozenset[str] = frozenset(
         "/edu/library",
         "/edu/onboarding",
         "/edu/practice/grade",
-        # Payments: provider is marketing; webhook uses Stripe signature
+        # Payments: provider is marketing; webhook uses PayOS checksum signature
         "/payments/provider",
         "/payments/webhook",
     }

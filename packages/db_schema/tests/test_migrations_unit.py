@@ -26,9 +26,12 @@ def test_ordered_migration_files() -> None:
         "0008_indexes_gin.sql",
         "0009_rls_policies.sql",
         "0010_app_query_store.sql",
+        "0011_anon_user.sql",
         "0012_app_query_store_rls.sql",
         "0013_auth_users_columns.sql",
         "0014_refresh_token_revocations.sql",
+        "0015_payment_fulfillments.sql",
+        "0016_operator_llm_settings.sql",
     ]
     # Lexicographic order is apply order
     assert names == sorted(names)

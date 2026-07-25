@@ -18,9 +18,27 @@ const beVietnamPro = Be_Vietnam_Pro({
 });
 
 export const metadata: Metadata = {
-  title: "Tam Thức Strategem",
+  // VI-first defaults; client locale updates documentElement.lang via LocaleProvider.
+  title: {
+    default: "Tam Thức Strategem",
+    template: "%s · Tam Thức Strategem",
+  },
   description:
-    "Hỗ trợ quyết định chiến lược · Kỳ Môn · Lục Nhâm · Thái Ất — Qi Men · Liu Ren · Tai Yi",
+    "Giáo dục di sản và hỗ trợ quyết định · Kỳ Môn · Lục Nhâm · Thái Ất — heritage education & decision support",
+  openGraph: {
+    title: "Tam Thức Strategem",
+    description:
+      "Giáo dục di sản và hỗ trợ quyết định — không phải bói toán. Heritage education & decision support.",
+    locale: "vi_VN",
+    alternateLocale: ["en_US", "zh_CN"],
+  },
+  alternates: {
+    languages: {
+      vi: "/",
+      en: "/",
+      zh: "/",
+    },
+  },
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

@@ -5,7 +5,7 @@ from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 from tamthuc_api.clients.rag import StubRagClient
 from tamthuc_api.clients.rule import StubRuleClient
-from tamthuc_api.orchestrator import Orchestrator
+from tamthuc_api.orchestrator import NINE_STEPS, Orchestrator
 
 
 def test_qimen_flow_sequence_and_passthrough() -> None:
@@ -22,8 +22,7 @@ def test_qimen_flow_sequence_and_passthrough() -> None:
     assert body["ai_disclosure"]["is_ai_generated"] is True
     assert "qimen" in body["charts"]
     assert body["charts"]["qimen"]["envelope_version"] == 1
-    # sequence core -> engine -> rule -> rag
-    assert orch.call_log[:4] == ["core", "engine", "rule", "rag"]
+    assert orch.call_log == list(NINE_STEPS)
     # same envelope to rule and rag
     assert rule.last_envelope is not None
     assert rag.last_envelope == rule.last_envelope

@@ -226,11 +226,21 @@ def _parse_structured(content: str) -> dict[str, Any]:
     }
 
 
-def llm_from_env() -> LlmClient:
-    """Factory: LLM_BACKEND=openai_compatible|stub|off (default stub)."""
-    backend = (os.environ.get("LLM_BACKEND") or "stub").strip().lower()
-    if backend in {"openai_compatible", "openai", "lmstudio", "local"}:
-        return OpenAICompatibleLlm()
-    if backend in {"off", "none", "disabled"}:
+def llm_from_env(
+    *,
+    backend: str | None = None,
+    base_url: str | None = None,
+    model: str | None = None,
+    api_key: str | None = None,
+) -> LlmClient:
+    """Factory: LLM_BACKEND=openai_compatible|stub|off (default stub).
+
+    Callers (e.g. API operator BYOK) may override backend/base_url/model/api_key.
+    Resolution order at the API layer: operator settings → env → stub.
+    """
+    chosen = (backend or os.environ.get("LLM_BACKEND") or "stub").strip().lower()
+    if chosen in {"openai_compatible", "openai", "lmstudio", "local"}:
+        return OpenAICompatibleLlm(base_url=base_url, model=model, api_key=api_key)
+    if chosen in {"off", "none", "disabled"}:
         return StubLlm()
     return StubLlm()

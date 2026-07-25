@@ -20,6 +20,22 @@ def test_local_compose_builds_not_ghcr() -> None:
     # COV-009/027: web must reach API on compose DNS, not host-published URL
     assert "API_URL" in text
     assert "http://api:8000" in text
+    # Phase 4: auto-migrate before API; no unused redis false confidence
+    assert "migrate:" in text
+    assert "db_schema.migrate" in text
+    assert "service_completed_successfully" in text
+    assert "redis:" not in text
+    assert "PAYMENTS_MODE" in text
+    assert "READY_REQUIRE_LLM" in text
+
+
+def test_local_up_script_exists() -> None:
+    script = ROOT / "scripts/local-up.sh"
+    assert script.is_file()
+    body = script.read_text()
+    assert "docker compose" in body
+    assert "/healthz" in body
+    assert "/ready" in body
 
 
 def test_api_dockerfile_runs_cast_cli_and_api() -> None:

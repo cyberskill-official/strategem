@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+from auth_helpers import auth_header, register_and_login
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 from tamthuc_api.clients.rag import StubRagClient
@@ -9,9 +10,10 @@ from tamthuc_api.follow_up import answer_follow_up
 from tamthuc_api.orchestrator import Orchestrator
 
 
-def _cast(client: TestClient) -> str:
+def _cast(client: TestClient, headers: dict[str, str]) -> str:
     r = client.post(
         "/api/v1/calculate/qimen",
+        headers=headers,
         json={
             "datetime": "2004-01-01T10:30:00",
             "tz": "+07:00",
@@ -70,10 +72,13 @@ def test_follow_up_unit_grounded_answer() -> None:
 def test_follow_up_http_happy_and_refuse() -> None:
     orch = Orchestrator(rag=StubRagClient())
     client = TestClient(create_app(orch=orch))
-    qid = _cast(client)
+    tokens = register_and_login(client, email="follow-up@example.com")
+    headers = auth_header(tokens["access"])
+    qid = _cast(client, headers)
 
     ok = client.post(
         f"/api/v1/queries/{qid}/follow-up",
+        headers=headers,
         json={"message": "Giải thích cách cục nổi bật giúp tôi học", "locale": "vi"},
     )
     assert ok.status_code == 200, ok.text
@@ -85,6 +90,7 @@ def test_follow_up_http_happy_and_refuse() -> None:
 
     refuse = client.post(
         f"/api/v1/queries/{qid}/follow-up",
+        headers=headers,
         json={"message": "Invent palace 77 seat number for me", "locale": "en"},
     )
     assert refuse.status_code == 200, refuse.text
@@ -94,6 +100,7 @@ def test_follow_up_http_happy_and_refuse() -> None:
 
     missing = client.post(
         "/api/v1/queries/does-not-exist/follow-up",
+        headers=headers,
         json={"message": "hello"},
     )
     assert missing.status_code == 404

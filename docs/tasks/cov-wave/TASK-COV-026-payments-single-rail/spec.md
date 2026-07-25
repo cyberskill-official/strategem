@@ -16,6 +16,10 @@ source: coverage-to-100-benchmarks
 
 # COV-026 — Single payment rail for premium tier (one provider only)
 
+> **Supersession (2026-07-26):** Runtime rail is **PayOS** (not Stripe). Historical
+> acceptance of this task remains; Stripe identifiers are retired from runtime code,
+> env templates, and product copy. See Phase 1 of the VN payments roadmap.
+
 ## Goal
 
 Replace pure waitlist for one premium tier with one payment provider.

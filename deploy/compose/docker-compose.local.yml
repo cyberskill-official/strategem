@@ -1,9 +1,11 @@
 # COV-027: local full-stack from source (not GHCR staging images).
 # Docs: docs/deploy/local-docker-lmstudio.md
 #
+#   just local-up
+#   # or:
 #   docker compose -f deploy/compose/docker-compose.local.yml up --build -d
 #
-# LMStudio runs on the host (default :1234). API reaches it via host.docker.internal.
+# LM Studio runs on the host (default :1234). API reaches it via host.docker.internal.
 
 name: strategem-local
 
@@ -22,10 +24,17 @@ services:
       timeout: 5s
       retries: 12
 
-  redis:
-    image: redis:7-alpine
-    ports:
-      - "${LOCAL_REDIS_PORT:-6379}:6379"
+  migrate:
+    build:
+      context: ../..
+      dockerfile: deploy/docker/api.Dockerfile
+    environment:
+      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
+    command: ["python", "-m", "db_schema.migrate"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
 
   api:
     build:
@@ -39,20 +48,35 @@ services:
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
       CAST_CLI: /src/cast-cli
       READY_REQUIRE_CAST_CLI: "1"
+      READY_REQUIRE_LLM: ${READY_REQUIRE_LLM:-0}
       ENV: development
       TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:-dev-only-change-me-jwt-secret-min-32-bytes!!}
       TAMTHUC_AUTH_MASTER_KEY_B64: ${TAMTHUC_AUTH_MASTER_KEY_B64:-MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDA=}
       PAYMENTS_MODE: ${PAYMENTS_MODE:-mock}
+      PAYMENT_PROVIDER: payos
+      PAYOS_CLIENT_ID: ${PAYOS_CLIENT_ID:-}
+      PAYOS_API_KEY: ${PAYOS_API_KEY:-}
+      PAYOS_CHECKSUM_KEY: ${PAYOS_CHECKSUM_KEY:-}
+      PAYOS_PREMIUM_AMOUNT_VND: ${PAYOS_PREMIUM_AMOUNT_VND:-79000}
       LLM_BACKEND: ${LLM_BACKEND:-openai_compatible}
       LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:1234/v1}
       LLM_MODEL: ${LLM_MODEL:-local-model}
       LLM_API_KEY: ${LLM_API_KEY:-}
       LLM_TIMEOUT_S: ${LLM_TIMEOUT_S:-60}
+      INTERPRET_MODE: ${INTERPRET_MODE:-rag}
     extra_hosts:
       - "host.docker.internal:host-gateway"
     depends_on:
       postgres:
         condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')\""]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
 
   web:
     build:
@@ -71,4 +95,5 @@ services:
       # Client-side absolute API (browser on host)
       NEXT_PUBLIC_API_BASE: ${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:8000}
     depends_on:
-      - api
+      api:
+        condition: service_healthy

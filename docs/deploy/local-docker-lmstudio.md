@@ -1,74 +1,87 @@
-# Local full stack: Docker + LMStudio
+# Local full stack: Docker + LM Studio
 
-Enterprise local path for Strategem (**COV-027**, **COV-028**). No cloud keys required for cast + optional local interpretation.
+Enterprise local path for Strategem (**COV-027**, **COV-028**, Phase 4). No cloud keys required for cast + optional local interpretation.
 
 ## Prerequisites
 
 | Tool | Role |
 |------|------|
-| Docker Desktop / Engine + Compose v2 | Postgres, Redis, API, web |
-| [LMStudio](https://lmstudio.ai/) (host) | OpenAI-compatible local model at `:1234` |
+| Docker Desktop / Engine + Compose v2 | Postgres, migrate, API, web |
+| [LM Studio](https://lmstudio.ai/) (host) | OpenAI-compatible local model at `:1234` |
 | Optional: host `cast-cli` + `uv` | Dev without Docker |
 
-## 1. LMStudio (host)
-
-1. Install LMStudio and load any instruct model (GGUF) that follows JSON instructions.
-2. Start **Local Server** (OpenAI-compatible). Default base URL: `http://127.0.0.1:1234/v1`.
-3. Note the model id shown in the server UI → set `LLM_MODEL`.
-
-```bash
-# Probe
-curl -sS http://127.0.0.1:1234/v1/models | head
-```
-
-## 2. Docker Compose (build from source)
+## One command
 
 ```bash
 # From repo root — free ports if host already uses 8000/3000
 export LOCAL_API_PORT=18000 LOCAL_WEB_PORT=13000 LOCAL_PG_PORT=15432
-# Browser (host) hits published API port:
 export NEXT_PUBLIC_API_BASE=http://127.0.0.1:18000
-# Web container server-side proxy (login/signup route handlers + rewrites):
 export API_URL=http://api:8000
-export LLM_BACKEND=openai_compatible
-export LLM_BASE_URL=http://host.docker.internal:1234/v1
-export LLM_MODEL=your-model-id
+export LLM_MODEL=your-exact-lm-studio-model-id
 
-docker compose -f deploy/compose/docker-compose.local.yml up --build -d
-
-curl -sS "http://127.0.0.1:${LOCAL_API_PORT:-8000}/healthz"
-curl -sS "http://127.0.0.1:${LOCAL_API_PORT:-8000}/ready"
+just local-up
+# prints health matrix: postgres, api /healthz+/ready, web, LM Studio probe
 ```
 
-API image builds `cast-cli` and runs `python -m tamthuc_api` with `CAST_CLI=/src/cast-cli` and `READY_REQUIRE_CAST_CLI=1`.
+Tear down: `just local-down`.
 
-### Dual-run check
+## What `local-up` does
 
-Stop stack, bring up again, re-check health + cast (see below). Two consecutive boots are the enterprise gate.
+1. `docker compose -f deploy/compose/docker-compose.local.yml up --build -d`
+2. **migrate** one-shot runs `python -m db_schema.migrate` before API starts
+3. API waits on migrate success; web waits on API healthcheck
+4. Prints readiness matrix (including optional host LM Studio)
 
-## 3. Cast path
+## LM Studio (host)
+
+1. Install LM Studio and load an instruct model that follows JSON instructions.
+2. Start **Local Server** (OpenAI-compatible). Default: `http://127.0.0.1:1234/v1`.
+3. Copy the **exact model id** from the UI → `LLM_MODEL` (do not leave `local-model` unless that is the real id).
 
 ```bash
-# Prefer API once COV product routes are live; host CLI also works:
-export CAST_CLI="$PWD/target/release/cast-cli"
-"$CAST_CLI" --help   # or documented subcommand for KM/LN/TA
+curl -sS http://127.0.0.1:1234/v1/models | head
 ```
 
-Representative systems: **KM** (kỳ môn / qimen), **LN** (lục nhâm / liuren), **TA** (thái ất / taiyi).
+Compose reaches the host via `host.docker.internal` (`LLM_BASE_URL` default).
 
-## 4. LLM env (API)
+### Readiness vs degraded UX
 
-| Variable | Default | Meaning |
-|----------|---------|---------|
-| `LLM_BACKEND` | `stub` (CI) / `openai_compatible` (local compose) | `stub` \| `openai_compatible` \| `lmstudio` \| `off` |
-| `LLM_BASE_URL` | `http://127.0.0.1:1234/v1` | LMStudio base (append `/chat/completions`) |
-| `LLM_MODEL` | `local-model` | Model id in LMStudio |
-| `LLM_API_KEY` | empty | Optional bearer |
-| `LLM_TIMEOUT_S` | `60` | Request timeout |
+| Flag | Behaviour |
+|------|-----------|
+| (default) | `/ready` stays OK when LM Studio is down; interpretation returns **explicit degraded** disclosure (`degraded: true`, rule-based/template fallback) — not silent fake RAG success |
+| `READY_REQUIRE_LLM=1` | `/ready` returns **503** when the LLM backend is unreachable (strict local gate) |
 
-When LMStudio is down, interpretation uses the **template / degraded** path (`tamthuc_rag` fallback) with an honest non-LLM disclosure — never fake live RAG claims.
+## Compose services
 
-### Host-only API (no Docker)
+| Service | Role |
+|---------|------|
+| `postgres` | App DB (healthchecked) |
+| `migrate` | Ledgered migrations; `service_completed_successfully` |
+| `api` | FastAPI + cast-cli; `ENV=development`; `PAYMENTS_MODE=mock` |
+| `web` | Next.js; `API_URL=http://api:8000` |
+
+Redis is **not** in the local compose (avoids unused-service false confidence). Rate limits use the in-process limiter locally.
+
+## Payments (mock)
+
+Local default `PAYMENTS_MODE=mock` — no PayOS credentials required. Pricing UI can complete mock checkout; webhook fail-closed still applies when `PAYOS_CHECKSUM_KEY` is set without mock mode.
+
+## Auth secrets (local)
+
+Compose sets development JWT + master key placeholders. Override for Postgres-backed auth stores as needed. Never reuse these values outside `ENV=development`.
+
+## Dual-run check
+
+Stop stack, bring up again, re-check health + cast. Two consecutive boots are the enterprise gate.
+
+## Cast path
+
+```bash
+curl -sS "http://127.0.0.1:${LOCAL_API_PORT:-8000}/ready"
+# Cast via API; provenance.engine_source should be cast_cli when CLI present
+```
+
+## Host-only API (no Docker)
 
 ```bash
 export CAST_CLI="$PWD/target/release/cast-cli"
@@ -78,49 +91,16 @@ export LLM_MODEL=your-model-id
 uv run python -m tamthuc_api
 ```
 
-## 5. Postgres persistence (W2 default / COV-010)
-
-Local compose **defaults** to Postgres:
-
-1. `postgres` healthcheck
-2. `migrate` service runs `python -m db_schema.migrate` (ledgered; idempotent)
-3. `api` starts with `DATABASE_URL` pointing at compose Postgres
-
-Casts write both:
-
-- **RLS domain tables** (`users` / `queries` / `charts` / `reports` / `audit_logs`) — PLAT-003
-- **`app_query_store`** — full orchestrator JSON for `GET /queries/{id}` after restart
-
-Anonymous casts map to the well-known user in `0011_anon_user.sql`. Authenticated casts upsert the JWT subject into `users` and set `app.current_user_id` per transaction (`db/rls/session.md`).
-
-Manual migrate (host API against compose Postgres):
-
-```bash
-export DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:${LOCAL_PG_PORT:-5432}/strategem
-uv run --package db_schema python -m db_schema.migrate
-```
-
-Without `DATABASE_URL`, the API uses in-memory persistence (**unit tests**). With `APP_ENV=production` and no `DATABASE_URL`, the API **fails closed** unless `ALLOW_MEMORY_PERSISTENCE=1`.
-
-### Auth boundary (W2)
-
-| Path | Auth |
-|------|------|
-| `POST /calculate/{qimen\|liuren\|taiyi}` | Public (anonymous cast OK; JWT optional) |
-| `GET /queries/{id}`, `GET /reports/{id}` | Public by id (cast journey) |
-| `GET /queries` (history) | **JWT required**, scoped to caller |
-| `POST /calculate/all` | **JWT + premium** (`calculate_all`) |
-| `POST /payments/checkout`, `GET /payments/tier/{id}` | **JWT required** |
-
-## 6. Staging vs local
+## Staging vs local
 
 | File | Purpose |
 |------|---------|
 | `deploy/compose/docker-compose.local.yml` | **Build from source** — developer / enterprise local |
 | `deploy/compose/docker-compose.staging.yml` | Pulls **GHCR** images — staging bootstrap |
 
-## 6. Tear down
+## Tear down
 
 ```bash
-docker compose -f deploy/compose/docker-compose.local.yml down -v
+just local-down
+# or: docker compose -f deploy/compose/docker-compose.local.yml down -v
 ```

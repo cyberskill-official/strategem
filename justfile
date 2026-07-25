@@ -88,3 +88,15 @@ all: rust-gate py-gate web-gate
 # Developer convenience
 install: py-sync web-install
     @echo "deps installed for py + web (pnpm for frontend; rust uses cargo)"
+
+# ---------------- Local Docker + LM Studio (Phase 4) ----------------
+# Brings up postgres → migrate → api → web and prints a health matrix.
+# Host LM Studio at :1234 is optional; interpretation degrades explicitly when down.
+local-up:
+    bash scripts/local-up.sh
+
+local-down:
+    docker compose -f deploy/compose/docker-compose.local.yml down -v
+
+local-logs:
+    docker compose -f deploy/compose/docker-compose.local.yml logs -f --tail=200

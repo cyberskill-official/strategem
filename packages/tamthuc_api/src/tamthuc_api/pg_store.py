@@ -171,21 +171,14 @@ class PgQueryStore:
                 set_rls_guc(conn, user_id)
             row = conn.execute(
                 """
-                SELECT payload FROM app_query_store
+                SELECT id, report_id, payload FROM app_query_store
                 WHERE report_id = %s
+                   OR id::text = %s
+                   OR payload->>'report_id' = %s
                 ORDER BY created_at DESC LIMIT 1
                 """,
-                (report_id,),
+                (report_id, report_id, report_id),
             ).fetchone()
-            if not row:
-                row = conn.execute(
-                    """
-                    SELECT payload FROM app_query_store
-                    WHERE payload->>'report_id' = %s
-                    ORDER BY created_at DESC LIMIT 1
-                    """,
-                    (report_id,),
-                ).fetchone()
         if not row:
             return None
         payload = cast(Any, row)["payload"]
@@ -196,7 +189,7 @@ class PgQueryStore:
         report = payload.get("report")
         if isinstance(report, dict):
             out = dict(report)
-            out.setdefault("report_id", report_id)
-            out.setdefault("query_id", payload.get("query_id"))
+            out.setdefault("report_id", payload.get("report_id") or row.get("report_id"))
+            out.setdefault("query_id", payload.get("query_id") or str(row["id"]))
             return out
         return None

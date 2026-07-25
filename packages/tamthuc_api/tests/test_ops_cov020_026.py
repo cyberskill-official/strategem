@@ -66,22 +66,21 @@ def test_graph_neighbors_stored_only() -> None:
 
 
 def test_payment_single_rail_checkout_and_webhook(monkeypatch) -> None:  # type: ignore[no-untyped-def]
-    import hashlib
-    import hmac
     import json
-    import time
 
     from auth_helpers import auth_header, register_and_login
+    from tamthuc_api.payos_webhook import create_signature_from_object
 
-    secret = "whsec_cov026"
-    monkeypatch.setenv("STRIPE_WEBHOOK_SECRET", secret)
+    secret = "checksum_cov026"
+    monkeypatch.setenv("PAYMENTS_MODE", "mock")
+    monkeypatch.setenv("PAYOS_CHECKSUM_KEY", secret)
     client = TestClient(create_app())
     tokens = register_and_login(client, email="cov026@example.com")
     me = client.get("/auth/me", headers=auth_header(tokens["access"]))
     uid = me.json()["user_id"]
 
     prov = client.get("/api/v1/payments/provider").json()
-    assert prov["provider"] == "stripe"
+    assert prov["provider"] == "payos"
     assert prov["single_rail"] is True
     assert prov["free_cast_remains"] is True
 
@@ -92,25 +91,41 @@ def test_payment_single_rail_checkout_and_webhook(monkeypatch) -> None:  # type:
     )
     assert co.status_code == 200, co.text
     session = co.json()["checkout_session"]
-    assert session["object"] == "checkout.session"
-    sid = session["id"]
+    assert session.get("paymentLinkId")
+    sid = session["paymentLinkId"]
+    order = co.json()["order_code"]
 
+    data = {
+        "orderCode": order,
+        "amount": 79000,
+        "description": "Tam Thuc Premium",
+        "accountNumber": "",
+        "reference": "REF_COV026",
+        "transactionDateTime": "2026-07-26 01:00:00",
+        "currency": "VND",
+        "paymentLinkId": sid,
+        "code": "00",
+        "desc": "Thành công",
+        "counterAccountBankId": "",
+        "counterAccountBankName": "",
+        "counterAccountName": "",
+        "counterAccountNumber": "",
+        "virtualAccountName": "",
+        "virtualAccountNumber": "",
+    }
     payload = json.dumps(
         {
-            "id": "evt_cov026",
-            "type": "checkout.session.completed",
-            "data": {"object": {"id": sid, "client_reference_id": uid}},
+            "code": "00",
+            "desc": "success",
+            "success": True,
+            "data": data,
+            "signature": create_signature_from_object(data, secret),
         }
     ).encode()
-    ts = int(time.time())
-    sig = (
-        f"t={ts},v1="
-        + hmac.new(secret.encode(), f"{ts}.".encode() + payload, hashlib.sha256).hexdigest()
-    )
     wh = client.post(
         "/api/v1/payments/webhook",
         content=payload,
-        headers={"Content-Type": "application/json", "stripe-signature": sig},
+        headers={"Content-Type": "application/json"},
     )
     assert wh.status_code == 200, wh.text
     assert wh.json()["tier"] == "premium"
