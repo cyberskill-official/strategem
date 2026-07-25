@@ -1,9 +1,11 @@
 # Coverage benchmark: `docs/Grok` vs current system
 
-**Date:** 2026-07-13 (baseline) · **Re-score:** 2026-07-14 after COV-001..028 HITL `done`  
+**Date:** 2026-07-13 (baseline) · **Historical re-score:** 2026-07-14 · **Current re-score:** 2026-07-25 live audit
 **Sources:** `docs/Grok/` (51 PDFs + mockups + BACKLOG/AGENTS/README) reconciled with `docs/strategy/tam-thuc-unified-plan-2026-07-08.md`  
 **Code HEAD:** post WEB-021/022 + **cov-wave COV-001..028**  
-**Method:** Map Grok BACKLOG epics + PRD MVP scope + UI screens + API to inventory + live-verify. Formal ≥100% per `docs/tasks/cov-wave/README.md` Definition of 100% + operator HITL.
+**Method:** Map Grok BACKLOG epics + PRD MVP scope + UI screens + API to inventory and live behavior. Task acceptance is historical evidence, not proof that the current default runtime path still meets an acceptance criterion.
+
+> **2026-07-25 supersession:** The 2026-07-14 formal ≥100% score is withdrawn. The current system is **Partial** against Grok’s MVP: the engine and UI skeletons are broad, but engine fidelity remains partial, RAG is stub-by-default, report retrieval/PDF are broken, persistence/auth are not the complete default path, and the “oracle” suite is self-derived. Historical 2026-07-14 scoring remains below for provenance only; this notice, §1, and §14 are authoritative.
 
 Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (built differently by design / Claude source).
 
@@ -13,21 +15,21 @@ Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (buil
 
 | Area | Grok intent | Coverage | Score |
 |------|-------------|----------|-------|
-| Deterministic engines (KM/LN/TA + calendar) | Core P0–P2 | **Full** — live dual smoke + flag stamps | **100%** |
-| La-so envelope + cast API | Backend P0 | **Full** — E2E cast + stamp + Postgres path | **100%** (COV-002/010/027) |
-| Rule / pattern layer | P0 patterns | **Full** — tables + browse library | **100%** (COV-004/019) |
-| RAG + real LLM interpretation | P0 | **Full** — INTERPRET_MODE + OpenAI-compat LMStudio + degrade | **100%** (COV-011/028) |
-| Frontend screens (8 major) | MVP + mockups | **Full** — timing, scenario, auth, edu routes | **100%** (COV-007–009, 013–016) |
-| Interactive charts | 9-palace + LN/TA | **Full** — viz + palace sidebar | **100%** (COV-017) |
-| Auth / RBAC / social | P0 | **Full** — login/signup product surface + JWT mount | **100%** (COV-009) |
-| Timing Optimizer / Scenario compare | MVP strategic tools | **Full** — non-501 API + pages | **100%** (COV-007/008) |
-| Learning hub | simulator + glossary + quiz | **Full** — curriculum/practice/library/help | **100%** (COV-013–016) |
-| Ops deploy / monitoring / support | P1 | **Full** — local Docker, staging wiring, `/metrics` | **100%** (COV-020/021/027) |
-| i18n VI/EN/ZH | required | **Full** — VI-first + EN/ZH keys | **100%** |
-| Ethics / disclaimer / anti-destiny | mandatory | **Full** — VOICE + PDF legal polish | **100%** (COV-023) |
+| Deterministic engines (KM/LN/TA + calendar) | Core P0–P2 | Pipelines and charts run; classical rules and external accuracy are incomplete | **Partial** |
+| La-so envelope + cast API | Backend P0 | Envelope/cast path exists; default persistence/report retrieval is not reliable | **Partial** |
+| Rule / pattern layer | P0 patterns | Tables and browse UI exist; live system filtering is broken | **Partial** |
+| RAG + real LLM interpretation | P0 | OpenAI-compatible client exists, but default LLM/embedder are stubs and retrieval uses pattern metadata | **Stub–Partial** |
+| Frontend screens (8 major) | MVP + mockups | Broad route coverage exists; several screens are thin and report journey dead-ends | **Partial** |
+| Interactive charts | 9-palace + LN/TA | Visualizations exist over partial-fidelity engines | **Partial–Full UI / Partial system** |
+| Auth / RBAC / social | P0 | Product surfaces and middleware exist; protected-route enforcement is incomplete | **Partial** |
+| Timing Optimizer / Scenario compare | MVP strategic tools | APIs/pages exist; full product acceptance was not re-proven in this audit | **Partial–Full** |
+| Learning hub | simulator + glossary + quiz | Routes and content exist; depth remains below the full product map | **Partial** |
+| Ops deploy / monitoring / support | P1 | Local wiring and metrics exist; production readiness is not established | **Partial** |
+| i18n VI/EN/ZH | required | VI-first surface exists; full locale completeness was not demonstrated | **Partial** |
+| Ethics / disclaimer / anti-destiny | mandatory | Product copy/disclosure exists; PDF output itself is not a valid rendered PDF | **Partial** |
 | Design system | Navy/Teal Grok mockups | **Diverged** → CyberSkill umber/ochre | **N/A (intentional)** — not scored as gap |
 
-**Overall (weighted to Grok MVP PRD): ≥100%** after COV HITL 2026-07-14.
+**Overall against Grok MVP PRD (2026-07-25): Partial.** No defensible percentage is assigned until the default runtime path passes real cast → interpretation → persisted report → valid PDF acceptance checks.
 
 The Grok set is **product breadth**. Current monorepo follows the **unified plan**: Claude engines + CyberSkill DS + Grok-shaped API/product modules — not a pixel-clone of Grok navy mockups (**Diverged** DS does not reduce MVP capability scores).
 
@@ -207,9 +209,9 @@ The Grok set is **product breadth**. Current monorepo follows the **unified plan
 | 19, 13 | Legal / budget | **Full** product legal disclaimer path |
 | 11, 16, 43 | Pitch / competitive / partners | Strategy docs (non-product) — **waived** |
 
-**Weighted overall vs Grok breadth: ≥100%** (COV pack human-accepted 2026-07-14).  
-**Vs Grok P0 engine+cast+basic FE: ≥100%.**  
-**Vs Grok full MVP including Timing Optimizer + Auth product: ≥100%.**
+**Current weighted result vs Grok breadth: Partial (2026-07-25 live audit).**
+**Vs Grok P0 engine+cast+basic FE: Partial–Full surface, Partial fidelity.**
+**Vs Grok full MVP including Timing Optimizer + Auth product: Partial.**
 
 ---
 
@@ -250,17 +252,17 @@ This is **not under-implementation of Grok UI** alone — it is **reconciled dir
 
 ---
 
-**Bottom line (2026-07-14):** Against **Grok’s product map + MVP checklist**, coverage is **≥100%** after COV-001..028 HITL acceptance. DS remains **Diverged** (CyberSkill) by unified-plan decision and is not counted as a capability gap. Production cloud secrets remain operator ops (non-goal of local enterprise path).
+**Bottom line (2026-07-25):** Against **Grok’s product map + MVP checklist**, coverage is **Partial**. The product has substantial breadth, but its default interpretation, persistence, report/PDF, engine-fidelity, and independent-oracle paths do not support a complete-MVP claim. DS remains intentionally **Diverged** (CyberSkill).
 
 ---
 
-## 12. Path to 100% (task pack) — COMPLETED
+## 12. Historical path-to-100% task pack
 
-See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
+The COV task pack recorded COV-001..028 as accepted on 2026-07-14. The 2026-07-25 audit shows that those lifecycle labels do not establish current end-to-end conformance.
 
 ---
 
-## 13. Formal re-score after HITL (2026-07-14) — ≥100%
+## 13. Superseded formal re-score after HITL (2026-07-14)
 
 **Operator HITL:** session decision “HITL accept all 28 COV” → all task specs `done`.
 
@@ -273,4 +275,20 @@ See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done
 | Metrics | `GET /metrics` Prometheus 200 |
 | Definition | `docs/tasks/cov-wave/README.md` § Definition of 100% |
 
-**Historical note:** Sections 2–7 narrative rows may still show pre-wave wording in places; **§1 executive scores and this §13 supersede** for formal coverage claims.
+This section preserves the basis of the historical claim. It is superseded by the 2026-07-25 notice, §1, and §14 and must not be used as the current coverage score.
+
+---
+
+## 14. Formal re-score after live audit (2026-07-25) — Partial
+
+| MVP proof area | Current finding | Score |
+|----------------|-----------------|-------|
+| Three-system calculation | All three pipelines execute, but known simplifications and missing external certification remain | **Partial** |
+| Real AI interpretation | OpenAI-compatible path is opt-in; default is `StubLlm` plus hash embedding/pattern-derived chunks | **Stub–Partial** |
+| Persisted report journey | Audited `GET /reports/{query_id}` and PDF endpoints return 404 | **Broken** |
+| PDF export | Output is HTML prefixed with `%PDF-1.4`, not a valid rendered PDF | **Broken** |
+| Rule/knowledge behavior | Pattern inventory exists; `system=` filtering is ignored on the live endpoint | **Partial / defective** |
+| Product breadth | Many routes and components exist, but breadth does not prove complete default-path behavior | **Partial** |
+| Oracle/testing | Product-scale goldens are generated from current engines; independent kin* equivalence is unproven | **Unproven** |
+
+**Current formal result: Partial, not ≥100%.** A future numeric score requires independently reproducible acceptance evidence on the default product path.

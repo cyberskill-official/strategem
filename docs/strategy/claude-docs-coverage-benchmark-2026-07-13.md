@@ -1,9 +1,11 @@
 # Coverage benchmark: `docs/Claude` vs current system
 
-**Date:** 2026-07-13 (baseline) · **Re-score:** 2026-07-14 after COV-001..028 HITL `done`  
+**Date:** 2026-07-13 (baseline) · **Historical re-score:** 2026-07-14 · **Current re-score:** 2026-07-25 live audit
 **Sources:** `docs/Claude/` (7 Markdown volumes + PDFs + muc luc) + unified plan `docs/strategy/tam-thuc-unified-plan-2026-07-08.md` §2.1, §4–7  
 **Code:** monorepo engines/API/web post WEB-021/022 + **cov-wave COV-001..028**  
-**Method:** Map Claude tập 1–7 requirements to crates/packages/web inventory + live-verify evidence. Formal ≥100% claim gated by `docs/tasks/cov-wave/README.md` Definition of 100% + operator HITL on COV pack.
+**Method:** Map Claude tập 1–7 requirements to crates/packages/web inventory and live behavior. Task acceptance is historical evidence, not proof that current runtime behavior still meets an acceptance criterion.
+
+> **2026-07-25 supersession:** The 2026-07-14 formal ≥100% score is withdrawn. The current system is **Partial** against Claude: all three engine pipelines exist but classical fidelity is incomplete; the default RAG path uses a stub LLM/hash embedder; report retrieval and PDF output are broken; and the product-scale “oracle” goldens were generated from the current engines rather than independent kin* sources. Sections describing the 2026-07-14 claim remain as history only; this notice, §1, and §14 are the current score.
 
 Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (unified-plan decision).
 
@@ -11,23 +13,23 @@ Legend: **Full** · **Partial** · **Stub** · **Missing** · **Diverged** (unif
 
 ## 1. Executive summary
 
-Claude is the **technical and classical authority** (algorithms, calendar core, JSON envelope, CyberSkill DS, ethics). Against that bar **after COV HITL (2026-07-14)**:
+Claude is the **technical and classical authority** (algorithms, calendar core, JSON envelope, CyberSkill DS, ethics). Against that bar in the **2026-07-25 live audit**:
 
 | Cluster | Score | One-line + evidence |
 |---------|-------|---------------------|
-| Spine principle (engine ‖ AI via la so JSON) | **Full (100%)** | Orchestrator + envelope; INTERPRET_MODE + LMStudio client (COV-011/028) |
-| Shared calendar CORE (tập 5) | **Full (100%)** | lichphap + school flags stamp (COV-002/003); lunar/bazi input (COV-018) |
-| Kỳ Môn engine (tập 3) | **Full (100%)** | Live cast + maoshan/zhong_gong_ky flags + cach_cuc tables (COV-002–004, 027) |
-| Lục Nhâm engine (tập 2) | **Full (100%)** | Plates + 9-school branch suite + khoa_the (COV-005); smoke ban keys |
-| Thái Ất engine (tập 4) | **Full (100%)** | Ban + chu_khach victory / patterns product surface (COV-006) |
-| Rule / cách cục detection | **Full (100%)** | Pattern-as-data + browse UI (COV-004, 019) |
-| Knowledge graph (tập 6) | **Full (100%)** | Neighbors API + explorer (COV-022); seed-neighbor honesty retained in product |
-| RAG + classical triple store | **Full (100%)** | Production INTERPRET_MODE path + library UI + OpenAI-compat local LLM (COV-011/015/028) |
-| Product three flows (tập 7) | **Full (100%)** | Cast/results + curriculum/practice/library/help + auth/manage (COV-009, 013–016) |
-| CyberSkill DS v1.3 (tập 7) | **Full (100%)** | Umber/ochre, Be Vietnam Pro, disclosure + review (unchanged spine) |
-| Oracle-exact acceptance (kin*) | **Full (100%)** | COV-001 oracle certification suite **human-accepted done** (suite+goldens; operator HITL) |
+| Spine principle (engine ‖ AI via la so JSON) | **Partial** | Envelope and orchestration exist, but the live default interpretation is not genuine classical RAG |
+| Shared calendar CORE (tập 5) | **Partial** | Meeus low-precision implementation exists; the required jieqi <1-minute external audit is not proven |
+| Kỳ Môn engine (tập 3) | **Partial** | Pipeline and chart exist; `dinh_cuc` explicitly uses a simplified structural table and stub method differences |
+| Lục Nhâm engine (tập 2) | **Partial** | Pipeline exists; thiep-hai depth is incomplete and `khong_vong` is hard-coded pending CORE |
+| Thái Ất engine (tập 4) | **Partial** | Pipeline and product surface exist; full toán/classical fidelity is not externally certified |
+| Rule / cách cục detection | **Partial** | Pattern data and browse UI exist; the live system filter is ignored |
+| Knowledge graph (tập 6) | **Partial** | APIs and seeded structures exist; production retrieval depth is not demonstrated |
+| RAG + classical triple store | **Stub–Partial** | `INTERPRET_MODE=rag` can still use `StubLlm` and `HashEmbedder`; pattern names are converted into retrieval chunks |
+| Product three flows (tập 7) | **Partial** | Broad route coverage exists, but cast → report → PDF dead-ends on the audited path |
+| CyberSkill DS v1.3 (tập 7) | **Partial** | Local tokens/components approximate the system; published `@cyberskill/design` is not adopted |
+| Oracle-exact acceptance (kin*) | **Unproven** | Product-scale goldens identify `engine_golden_v1+cast_cli`; they are regression fixtures, not independent kin* certification |
 
-**Overall vs Claude substance: ≥100%** (Definition of 100% + COV MUST pack `done` 2026-07-14).  
+**Overall vs Claude substance (2026-07-25): Partial.** No defensible percentage is assigned until the stated external oracle, jieqi, real-RAG, persistence, and report/PDF acceptance checks pass.
 
 Claude’s own roadmap (tập 6) preferred **Lục Nhâm first** after CORE; the **unified plan chose Kỳ Môn flagship** (DEC-4). That remains **Diverged by decision**, not under-build — does not reduce coverage scores.
 
@@ -245,13 +247,13 @@ Claude’s own roadmap (tập 6) preferred **Lục Nhâm first** after CORE; the
 
 | Dimension | vs Claude | vs Grok |
 |-----------|-----------|---------|
-| Overall | **≥100%** (HITL 2026-07-14) | **≥100%** (HITL 2026-07-14) |
-| Engines / calendar | Full (COV-001–006, 027) | Full |
+| Overall | **Partial** (live audit 2026-07-25) | **Partial** (live audit 2026-07-25) |
+| Engines / calendar | Partial; external fidelity unproven | Partial; external fidelity unproven |
 | Timing Optimizer | Trạch thời use-case covered | Full (COV-007) |
 | Auth product | Full (COV-009) | Full (COV-009) |
 | Design system | **Full** (Claude owns DS) | Diverged from Grok navy (intentional) |
 | Story-first UX | Beyond Claude density | Beyond Grok mockups |
-| Oracle certification | Full via COV-001 HITL | Suite present |
+| Oracle certification | Unproven; self-derived regression goldens | Suite present, external oracle unproven |
 
 ---
 
@@ -266,17 +268,17 @@ Claude’s own roadmap (tập 6) preferred **Lục Nhâm first** after CORE; the
 
 ## 11. Bottom line
 
-Against **`docs/Claude`**, after COV-001..028 HITL acceptance (2026-07-14), the system meets the **Definition of 100%** coverage bar: spine, CORE, three engines, flags/stamps, cách cục, RAG+local AI path, education surfaces, and oracle certification suite are **Full** with evidence. DEC-4 KM-first remains intentional divergence from Claude’s LN-first roadmap and does not reduce scores.
+Against **`docs/Claude`**, the 2026-07-25 live audit rates the system **Partial**. The architectural spine and broad product surface are real, but the classical engines, external oracle evidence, RAG default, persistence, and report/PDF path do not meet Claude’s stated acceptance bar. DEC-4 KM-first remains an intentional roadmap divergence.
 
 ---
 
-## 12. Path to 100% (task pack) — COMPLETED
+## 12. Historical path-to-100% task pack
 
-See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done`** (HITL 2026-07-14).
+The COV task pack recorded COV-001..028 as accepted on 2026-07-14. The 2026-07-25 audit shows that those lifecycle labels do not establish current end-to-end conformance.
 
 ---
 
-## 13. Formal re-score after HITL (2026-07-14) — ≥100%
+## 13. Superseded formal re-score after HITL (2026-07-14)
 
 **Operator HITL:** session decision “HITL accept all 28 COV” → all task specs `done`.
 
@@ -290,4 +292,19 @@ See **`docs/tasks/cov-wave/README.md`** — COV-001..**028** all **`status: done
 | Local Docker enterprise | COV-027 | compose.local; dual smoke `:18000` |
 | Coverage/ops polish | COV-020–026 | metrics, staging, payments rail, PDF, playwright config |
 
-**Historical narrative rows** in §2–5 may still use baseline wording; **§1 executive scores and this §13 supersede** them for formal claims.
+This section preserves the basis of the historical claim. It is superseded by the 2026-07-25 notice, §1, and §14 and must not be used as the current coverage score.
+
+---
+
+## 14. Formal re-score after live audit (2026-07-25) — Partial
+
+| Required proof area | Current finding | Score |
+|---------------------|-----------------|-------|
+| Engine classical fidelity | Pipelines run, but QiMen định cục is simplified, LiuRen has hard-coded/incomplete rules, and TaiYi depth is not externally certified | **Partial** |
+| Calendar accuracy | Meeus low-precision implementation; no current <1-minute external audit | **Partial / unproven** |
+| Independent oracle | Product-scale fixtures come from `engine_golden_v1+cast_cli`; external kin* evidence is incomplete | **Unproven** |
+| Retrieval-grounded interpretation | Stub LLM and hash embedder are defaults; pattern metadata substitutes for a real classical corpus | **Stub–Partial** |
+| Report and PDF | Audited report GET/PDF journey returns 404; exporter prepends PDF magic bytes to HTML | **Broken** |
+| Product/UI breadth | Many routes and components exist; default end-to-end trust path is incomplete | **Partial** |
+
+**Current formal result: Partial, not ≥100%.** A future numeric score requires independently reproducible acceptance evidence rather than task labels or self-derived goldens.

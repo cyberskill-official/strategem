@@ -1,10 +1,10 @@
 # Tam Thuc Strategem - implementation order and status index
 
-Single source of truth for task status and eligibility. Task id = task id; the spec is the task in the module folders in this directory. Rationale is the strategy report `../strategy/tam-thuc-unified-plan-2026-07-08.md`.
+Sequencing index and human-readable mirror. The canonical lifecycle status source is `backlog.yaml`; if this file differs, `backlog.yaml` wins. Task id = task id; the spec is the task in the module folders in this directory. Rationale is the strategy report `../strategy/tam-thuc-unified-plan-2026-07-08.md`.
 
-Status: `draft` (task body not yet authored) | `ready_to_implement` | `blocked` (unmet deps) | `implementing` | `in_review` | `done` | `superseded`. Only a human sets `done`. Eligibility: task is `ready_to_implement`, status not `done`, every `depends_on` is `done`. Pick order: phase, then dependency spine, then id.
+Status: `ready_to_implement` | `implementing` | `in_review` | `done` | `superseded`. Dependency eligibility is computed from `depends_on`; it is not encoded as a separate `blocked` lifecycle state. Only recorded human acceptance sets `done`. Pick order: phase, then dependency spine, then id.
 
-At this snapshot (2026-07-08) nothing is `done`, so the only immediately eligible task is the root PLAT-001; everything else is `blocked` until its deps clear. All 87 task bodies are authored.
+Truth-up snapshot (2026-07-25): only PLAT-001 and PLAT-002 retain `done`, because they are the only original-plan tasks with acceptance evidence in `LEDGER.md`. The other 85 original-plan tasks are `ready_to_implement`: code may exist, but the live audit found material gaps and no per-task evidence sufficient to preserve `done`. Dependency eligibility remains computed separately. All 87 task bodies are authored.
 
 Legend: Pri = MoSCoW; h = engineering-hours; body = whether the task spec is written; all 87 are yes at this snapshot.
 
@@ -14,39 +14,39 @@ Legend: Pri = MoSCoW; h = engineering-hours; body = whether the task spec is wri
 |---|---|---|--:|---|---|---|
 | PLAT-001 | Monorepo + hybrid workspace + CI skeleton | MUST | 12 | - | yes | done |
 | PLAT-002 | La so JSON envelope contract | MUST | 10 | PLAT-001 | yes | done |
-| PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | done |
-| PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | done |
-| CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | done |
-| CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | done |
-| CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | done |
-| CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | done |
-| CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | done |
-| CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | done |
-| CORE-007 | Ganzhi primitives + relations | MUST | 8 | PLAT-001 | yes | done |
-| RULE-001 | Pattern-as-data schema + knowledge_patterns | MUST | 8 | PLAT-003 | yes | done |
-| RULE-002 | Condition DSL + evaluator + scoring | MUST | 12 | RULE-001 | yes | done |
-| RULE-003 | Pattern loader + per-system filter + match API | MUST | 6 | RULE-002 | yes | done |
-| QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | done |
-| QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | done |
-| QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | done |
-| QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | done |
-| QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | done |
-| QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | done |
-| KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | done |
-| KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | done |
-| RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | done |
-| RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | done |
-| RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | done |
-| AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | done |
-| AUTH-002 | RBAC tiers + rate-limit tiers | MUST | 8 | AUTH-001 | yes | done |
-| API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | done |
-| API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | done |
-| API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | done |
-| WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | done |
-| WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | done |
-| WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | done |
-| CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | done |
-| LEGAL-001 | Disclaimer + AI-disclosure + positioning copy | MUST | 6 | WEB-001 | yes | done |
+| PLAT-003 | DB schema + migrations + RLS + indexes | MUST | 12 | PLAT-001 | yes | ready_to_implement |
+| PLAT-004 | CI/CD pipeline (scan, staging->prod gate) | MUST | 10 | PLAT-001 | yes | ready_to_implement |
+| CORE-001 | Solar longitude + 24 tiet khi (Meeus, delta-T) | MUST | 20 | PLAT-001 | yes | ready_to_implement |
+| CORE-002 | True solar time (EoT + longitude) | MUST | 12 | CORE-001 | yes | ready_to_implement |
+| CORE-003 | Four pillars (Ngu Ho/Ngu Thu don, zi-hour) | MUST | 16 | CORE-001, CORE-002 | yes | ready_to_implement |
+| CORE-004 | Derived states (tuan khong, vuong-suy, truong sinh) | MUST | 10 | CORE-003 | yes | ready_to_implement |
+| CORE-005 | Calendar module API + JSON + flags + stamp | MUST | 10 | CORE-002, CORE-003, CORE-004 | yes | ready_to_implement |
+| CORE-006 | Oracle cross-check harness (sxwnl, tyme4py) | MUST | 14 | CORE-005 | yes | ready_to_implement |
+| CORE-007 | Ganzhi primitives + relations | MUST | 8 | PLAT-001 | yes | ready_to_implement |
+| RULE-001 | Pattern-as-data schema + knowledge_patterns | MUST | 8 | PLAT-003 | yes | ready_to_implement |
+| RULE-002 | Condition DSL + evaluator + scoring | MUST | 12 | RULE-001 | yes | ready_to_implement |
+| RULE-003 | Pattern loader + per-system filter + match API | MUST | 6 | RULE-002 | yes | ready_to_implement |
+| QMDG-001 | Dinh cuc (jieqi x nguyen table, 3-method flag) | MUST | 18 | CORE-005 | yes | ready_to_implement |
+| QMDG-002 | Bo dia ban (luc nghi tam ky) | MUST | 8 | QMDG-001 | yes | ready_to_implement |
+| QMDG-003 | Truc phu/su + thien ban rotation (chuyen/phi) | MUST | 14 | QMDG-002 | yes | ready_to_implement |
+| QMDG-004 | Cuu tinh/bat mon/bat than (am/duong ban) | MUST | 12 | QMDG-003 | yes | ready_to_implement |
+| QMDG-005 | Cach cuc detection | MUST | 16 | QMDG-004, RULE-003 | yes | ready_to_implement |
+| QMDG-006 | Engine assembly + envelope + kinqimen oracle gate | MUST | 12 | QMDG-005, CORE-006 | yes | ready_to_implement |
+| KB-001 | Knowledge-graph schema + storage | SHOULD | 12 | PLAT-001 | yes | ready_to_implement |
+| KB-002 | Pattern seeding (150-200, 3 systems, cited) | MUST | 16 | RULE-001, KB-001 | yes | ready_to_implement |
+| RAG-001 | Classical-text ingest + embedding + vector store | MUST | 14 | KB-003, PLAT-001 | yes | ready_to_implement |
+| RAG-002 | Hybrid retriever (vector arm P0; graph via KB-005) | MUST | 12 | RAG-001 | yes | ready_to_implement |
+| RAG-003 | Prompt + LLM + structured output + anti-hallucination | MUST | 16 | RAG-002 | yes | ready_to_implement |
+| AUTH-001 | Auth (JWT+refresh, social) + birth-data AES-256 | MUST | 14 | PLAT-001 | yes | ready_to_implement |
+| AUTH-002 | RBAC tiers + rate-limit tiers | MUST | 8 | AUTH-001 | yes | ready_to_implement |
+| API-001 | Query orchestration + endpoint contracts | MUST | 14 | AUTH-001, CORE-005 | yes | ready_to_implement |
+| API-003 | Rate limiting + abuse detection | MUST | 8 | API-001, AUTH-002 | yes | ready_to_implement |
+| API-004 | Query/chart/report persistence + audit | MUST | 8 | API-001, PLAT-003 | yes | ready_to_implement |
+| WEB-001 | App shell + Design System v1.3.0 + components | MUST | 18 | PLAT-001 | yes | ready_to_implement |
+| WEB-002 | Query input screen | MUST | 12 | WEB-001, API-001 | yes | ready_to_implement |
+| WEB-003 | Results screen (chart + patterns + cited AI) | MUST | 14 | WEB-002, CHART-001, RAG-003 | yes | ready_to_implement |
+| CHART-001 | Interactive 9-palace QiMen chart | MUST | 16 | WEB-001, QMDG-006 | yes | ready_to_implement |
+| LEGAL-001 | Disclaimer + AI-disclosure + positioning copy | MUST | 6 | WEB-001 | yes | ready_to_implement |
 
 P0 note: RAG-001 depends on KB-003 (classical-text store, P1). To keep the P0 interpretation path live, either author KB-003 early (recommended - pull it into P0 wave 3) or run RAG-001 against a small seeded corpus from KB-002. Tracked in tasks/phase-0.md.
 
@@ -56,68 +56,68 @@ P0 exit gate (the end-to-end demo): a signed-in user casts a QiMen chart for a d
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | done |
-| LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | done |
-| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | done |
-| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | done |
-| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | done |
-| LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | done |
-| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | done |
-| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | done |
-| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | done |
-| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | done |
-| REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | done |
-| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | done |
-| STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | done |
-| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | done |
-| STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | done |
-| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | done |
-| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | done |
-| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | done |
-| WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | done |
-| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | done |
-| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | done |
-| API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | done |
-| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | done |
-| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | done |
-| PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | done |
-| PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | done |
-| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | done |
-| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | done |
-| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | done |
+| LN-001 | Thien dia ban + nguyet tuong | MUST | 12 | CORE-005 | yes | ready_to_implement |
+| LN-002 | Tu khoa | MUST | 10 | LN-001 | yes | ready_to_implement |
+| LN-003 | Chin tong mon + tam truyen | MUST | 16 | LN-002 | yes | ready_to_implement |
+| LN-004 | Muoi hai thien tuong | MUST | 10 | LN-002 | yes | ready_to_implement |
+| LN-005 | Khoa the + luc than + dung than | SHOULD | 10 | LN-003, LN-004 | yes | ready_to_implement |
+| LN-006 | Engine assembly + kinliuren oracle gate | MUST | 12 | LN-003, LN-004, CORE-006 | yes | ready_to_implement |
+| QMDG-007 | Dung than by question type | SHOULD | 6 | QMDG-006 | yes | ready_to_implement |
+| KB-003 | Classical-text three-layer store + chunking | MUST | 12 | PLAT-001 | yes | ready_to_implement |
+| RAG-004 | HumanReviewGate pipeline | MUST | 12 | RAG-003 | yes | ready_to_implement |
+| RAG-007 | LLM fallback + circuit breaker + degradation | MUST | 8 | RAG-003 | yes | ready_to_implement |
+| REPORT-001 | Structured report assembly | MUST | 10 | RAG-003 | yes | ready_to_implement |
+| REPORT-002 | PDF export (templated, bilingual) | SHOULD | 10 | REPORT-001 | yes | ready_to_implement |
+| STRAT-001 | Timing Optimizer | MUST | 16 | QMDG-006, RULE-003 | yes | ready_to_implement |
+| STRAT-002 | Scenario Comparison | SHOULD | 10 | STRAT-001 | yes | ready_to_implement |
+| STRAT-003 | Chu-khach decision framework | SHOULD | 8 | RAG-003 | yes | ready_to_implement |
+| CHART-002 | LiuRen chart view | MUST | 12 | CHART-001, LN-006 | yes | ready_to_implement |
+| CHART-004 | Chart export + accessibility | SHOULD | 8 | CHART-001 | yes | ready_to_implement |
+| WEB-004 | Dashboard | SHOULD | 8 | WEB-001 | yes | ready_to_implement |
+| WEB-005 | Report view screen | SHOULD | 8 | WEB-003, REPORT-001 | yes | ready_to_implement |
+| WEB-006 | i18n (VN + EN) | MUST | 10 | WEB-001 | yes | ready_to_implement |
+| AUTH-003 | Email verification + password reset | SHOULD | 6 | AUTH-001 | yes | ready_to_implement |
+| API-002 | API versioning + deprecation policy | SHOULD | 6 | API-001 | yes | ready_to_implement |
+| PLAT-005 | Observability (Prometheus/Grafana, Sentry) | MUST | 10 | PLAT-004 | yes | ready_to_implement |
+| PLAT-006 | Redis caching (chart cache 24h) | SHOULD | 8 | PLAT-003 | yes | ready_to_implement |
+| PLAT-007 | Security hardening (STRIDE, TLS, secrets) | MUST | 12 | PLAT-004, AUTH-002 | yes | ready_to_implement |
+| PLAT-008 | Resilience (circuit breaker, backoff, degradation) | MUST | 8 | PLAT-005 | yes | ready_to_implement |
+| LEGAL-002 | PDPD/GDPR compliance pack | MUST | 12 | AUTH-001 | yes | ready_to_implement |
+| LEGAL-003 | Ethical-AI + cultural-sensitivity guardrails | MUST | 8 | RAG-003 | yes | ready_to_implement |
+| LEGAL-004 | VN legal review checklist + counsel gate | MUST | 4 | LEGAL-001 | yes | ready_to_implement |
 
 ## Phase P2 - third engine and depth (~180h)
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | done |
-| TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | done |
-| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | done |
-| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | done |
-| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | done |
-| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | done |
-| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | done |
-| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | done |
-| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | done |
-| RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | done |
-| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | done |
-| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | done |
-| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | done |
-| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | done |
-| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | done |
-| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | yes | done |
-| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | yes | done |
-| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | yes | done |
+| TAT-001 | Tich nien + ky nguyen | MUST | 12 | CORE-005 | yes | ready_to_implement |
+| TAT-002 | An Thai At + 16 than | MUST | 12 | TAT-001 | yes | ready_to_implement |
+| TAT-003 | Bat tuong + cac toan | MUST | 14 | TAT-002 | yes | ready_to_implement |
+| TAT-004 | Bon phep (nien/nguyet/nhat/thoi ke) | SHOULD | 8 | TAT-002 | yes | ready_to_implement |
+| TAT-005 | Cach cuc + chu-khach thang bai | SHOULD | 10 | TAT-003 | yes | ready_to_implement |
+| TAT-006 | Engine assembly + kintaiyi oracle gate | MUST | 12 | TAT-003, CORE-006 | yes | ready_to_implement |
+| KB-004 | KB curation workflow + expert review | SHOULD | 10 | KB-002 | yes | ready_to_implement |
+| KB-005 | Knowledge-graph hybrid-retrieval query API | SHOULD | 12 | KB-001, KB-003 | yes | ready_to_implement |
+| RAG-005 | Term-sense expansion | SHOULD | 10 | RAG-002 | yes | ready_to_implement |
+| RAG-006 | Interpretation eval loop + CI gate | MUST | 12 | RAG-003, KB-002 | yes | ready_to_implement |
+| RULE-004 | Cross-system pattern support | COULD | 8 | RULE-002 | yes | ready_to_implement |
+| CHART-003 | TaiYi chart view | SHOULD | 12 | CHART-001, TAT-006 | yes | ready_to_implement |
+| WEB-007 | Management flow (history, config, share) | SHOULD | 12 | WEB-003 | yes | ready_to_implement |
+| STRAT-004 | Cross-system validate | SHOULD | 10 | QMDG-006, LN-006 | yes | ready_to_implement |
+| REPORT-003 | Sample report templates per question type | COULD | 6 | REPORT-001 | yes | ready_to_implement |
+| AUTH-004 | DSAR self-service (export + erasure) | SHOULD | 8 | AUTH-001, LEGAL-002 | yes | ready_to_implement |
+| PLAT-009 | Backup + DR (PITR, RPO 1h/RTO 4h, drill) | SHOULD | 8 | PLAT-003 | yes | ready_to_implement |
+| PLAT-010 | Infra as code (Terraform + K8s) | SHOULD | 10 | PLAT-004 | yes | ready_to_implement |
 
 ## Phase P3 - training platform and hardening (~130h)
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| EDU-001 | Four-level curriculum + progression criteria | SHOULD | 12 | WEB-001 | yes | done |
-| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | yes | done |
-| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | yes | done |
-| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | yes | done |
-| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | yes | done |
+| EDU-001 | Four-level curriculum + progression criteria | SHOULD | 12 | WEB-001 | yes | ready_to_implement |
+| EDU-002 | Auto-graded chart practice (engine as grader) | SHOULD | 16 | QMDG-006, LN-006 | yes | ready_to_implement |
+| EDU-003 | Bilingual classical library | SHOULD | 10 | KB-003 | yes | ready_to_implement |
+| EDU-004 | Onboarding + help center | COULD | 8 | WEB-001 | yes | ready_to_implement |
+| WEB-008 | Chinese i18n + RTL-ready | COULD | 10 | WEB-006 | yes | ready_to_implement |
 
 ## Rollup
 
@@ -141,7 +141,7 @@ The tables above are the status index. The sections below add the wave structure
 
 Goal: the end-to-end demo. A signed-in user casts a QiMen chart for a datetime and question, and sees the interactive 9-palace chart, the detected cach cuc, and a cited AI interpretation with the AIDisclosure badge. 35 tasks, roughly 430 hours. All 35 task bodies are authored.
 
-Status lives in `backlog.yaml`; this file is sequencing only. The task is the spec.
+Status lives in `backlog.yaml`; this file is a sequencing mirror only. The task is the spec.
 
 ## Tracks (run in parallel once PLAT-001 is done)
 
@@ -228,12 +228,14 @@ Auto-graded practice works against the live engine for at least QiMen and LiuRen
 Post-MVP directions from the sources (Grok 20 roadmap, Claude volume 07): mobile app, deeper macro analysis via TaiYi, expert marketplace and master-collaboration framework (Grok 43), and the partnership model. File these as new tasks when they become concrete; do not pre-spec them here.
 
 
-## Phase P3 - production topology (Vercel + Supabase + VPS)
+## Production-topology addendum (Vercel + Supabase + VPS)
+
+These five later task specs are not entries in the canonical 87-task `backlog.yaml`; therefore this file does not assign them a lifecycle status. They must be added to the canonical backlog and audited before they can claim `done`.
 
 | id | title | pri | h | depends_on | body | status |
 |---|---|---|--:|---|---|---|
-| PLAT-011 | Deploy topology SoT (Vercel web, Supabase DB, VPS API) | MUST | 6 | PLAT-004 | yes | done |
-| PLAT-012 | Supabase Postgres migrate wiring | MUST | 8 | PLAT-003, PLAT-011 | yes | done |
-| PLAT-013 | VPS API compose + Caddy + deploy.sh | MUST | 10 | PLAT-011, PLAT-012 | yes | done |
-| PLAT-014 | Vercel web project + env contract | MUST | 6 | PLAT-011 | yes | done |
-| PLAT-015 | CD split GHCR/VPS + Vercel Git | MUST | 8 | PLAT-013, PLAT-014 | yes | done |
+| PLAT-011 | Deploy topology SoT (Vercel web, Supabase DB, VPS API) | MUST | 6 | PLAT-004 | yes | not_in_backlog |
+| PLAT-012 | Supabase Postgres migrate wiring | MUST | 8 | PLAT-003, PLAT-011 | yes | not_in_backlog |
+| PLAT-013 | VPS API compose + Caddy + deploy.sh | MUST | 10 | PLAT-011, PLAT-012 | yes | not_in_backlog |
+| PLAT-014 | Vercel web project + env contract | MUST | 6 | PLAT-011 | yes | not_in_backlog |
+| PLAT-015 | CD split GHCR/VPS + Vercel Git | MUST | 8 | PLAT-013, PLAT-014 | yes | not_in_backlog |
