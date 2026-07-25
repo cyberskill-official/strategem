@@ -3,6 +3,12 @@
 //! Fixtures: `tests/fixtures/qimen_cert_v1.csv` with
 //! `oracle_source=engine_golden_v1+cast_cli`. External kinqimen dumps live under
 //! `oracle/kinqimen/` and are gated by `external_oracle_cert.rs` (W4).
+//!
+//! `cache_key` is laso-envelope SHA-256 over `(he, dau_vao, co_truong_phai, lich_phap)`.
+//! Because `lich_phap` stamps engine outputs (`so_cuc` / `duong_don` / `nguyen`), keys
+//! invalidate when dinh-cuc results change for the same wall-clock inputs. Regenerate
+//! with `cargo run -p cyberos-qimen --example regen_cert_keys` after intentional
+//! envelope or dingju changes — never weaken the hash to match stale goldens.
 
 use cyberos_qimen::{
     cast_qimen, DingjuMethod, PanMethod, QiMenFlags, QimenCastInput, YinYangPan, ZhongGongKy,
