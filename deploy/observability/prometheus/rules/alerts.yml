@@ -9,23 +9,27 @@ groups:
           summary: Chart generation p95 > 5s
           runbook: https://docs.tamthuc.local/runbooks/chart-gen-p95
       - alert: ErrorRateHigh
-        expr: rate(http_errors_total[5m]) / rate(http_requests_total[5m]) > 0.01
+        expr: |
+          sum(rate(http_errors_total[5m]))
+          /
+          clamp_min(sum(rate(http_requests_total[5m])), 1e-9)
+          > 0.01
         for: 5m
         labels: { severity: critical }
         annotations:
           summary: Error rate > 1%
           runbook: https://docs.tamthuc.local/runbooks/error-rate
-      - alert: LLMDowntime
-        expr: up{job="llm-probe"} == 0
+      - alert: CastCliFallbackHigh
+        expr: sum(rate(cast_cli_fallback_total[5m])) > 0.1
+        for: 5m
+        labels: { severity: warning }
+        annotations:
+          summary: cast-cli falling back to local engine
+          runbook: https://docs.tamthuc.local/runbooks/cast-cli
+      - alert: ReadyCastCliMissing
+        expr: sum(rate(ready_failures_total{reason="cast_cli_missing"}[5m])) > 0
         for: 2m
         labels: { severity: critical }
         annotations:
-          summary: LLM probe down
-          runbook: https://docs.tamthuc.local/runbooks/llm
-      - alert: DBConnectionIssues
-        expr: db_pool_wait_seconds > 1
-        for: 2m
-        labels: { severity: warning }
-        annotations:
-          summary: DB pool saturation
-          runbook: https://docs.tamthuc.local/runbooks/db-pool
+          summary: /ready failing — CAST_CLI missing
+          runbook: https://docs.tamthuc.local/runbooks/cast-cli

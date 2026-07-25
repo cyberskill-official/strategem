@@ -1,8 +1,11 @@
+# EXPERIMENTAL — Kubernetes scaffold only. See api-deployment.yaml header.
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: tamthuc-web
   namespace: strategem
+  labels:
+    strategem.io/scaffold: experimental
 spec:
   replicas: 2
   selector:

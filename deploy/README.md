@@ -15,9 +15,10 @@ Full diagram: `docs/deploy/topology.md`.
 
 | Path | Role |
 |---|---|
-| `docker/*.Dockerfile` | engine / api / web multi-stage images |
+| `docker/*.Dockerfile` | engine / api / web multi-stage images (`engine.Dockerfile` is an **EXPERIMENTAL** smoke placeholder) |
 | `compose/docker-compose.staging.yml` | local/staging bootstrap (Postgres, Redis, api, web) |
 | `vps/` | production API compose, Caddy, migrate + deploy scripts |
+| `iac/k8s/`, `iac/terraform/` | **EXPERIMENTAL scaffolds only** — not production K8s/TF |
 | `environments/*.md` | staging + production contracts |
 | `.github/workflows/cd.yml` | legacy multi-image CD (Docker web optional) |
 | `.github/workflows/deploy-vps.yml` | **API** → GHCR → VPS (TASK-PLAT-015) |

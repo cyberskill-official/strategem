@@ -1,4 +1,6 @@
 # TASK-PLAT-004: Rust engine service (deterministic branch)
+# EXPERIMENTAL / PLACEHOLDER — ships the `smoke` binary as `/app/engine` until a
+# dedicated engine HTTP service crate lands. Not a production engine API image.
 FROM rust:1.85-bookworm AS build
 WORKDIR /src
 COPY Cargo.toml Cargo.lock rust-toolchain.toml ./
@@ -8,6 +10,7 @@ RUN cargo build --release -p smoke --bins \
   && test -x /src/target/release/smoke
 
 FROM debian:bookworm-slim AS runtime
+LABEL org.opencontainers.image.description="EXPERIMENTAL placeholder engine image (smoke binary)"
 RUN apt-get update \
   && apt-get upgrade -y --no-install-recommends \
   && apt-get install -y --no-install-recommends ca-certificates \

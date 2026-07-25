@@ -1,0 +1,47 @@
+# Root build context ignore (TT-014)
+# Used when Dockerfiles build with context = repository root.
+
+.git
+.github
+.cyberos
+.agents
+.claude
+.cursor
+.windsurf
+.venv
+.mypy_cache
+.pytest_cache
+.ruff_cache
+.coverage
+.tox
+**/.DS_Store
+
+# Language / package artifacts
+node_modules
+**/node_modules
+target
+**/target
+dist
+**/dist
+build
+**/__pycache__
+**/*.pyc
+**/.next
+**/.turbo
+apps/web/test-results
+apps/web/playwright-report
+
+# Local / secrets / docs noise
+.env
+.env.*
+!**/.env.example
+**/*.pem
+**/*.key
+docs/tasks/.workflow
+agent-transcripts
+*.log
+
+# Test / coverage dumps
+htmlcov
+coverage
+.nyc_output
