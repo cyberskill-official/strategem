@@ -14,5 +14,6 @@ cyberos-qimen = { path = "../cyberos-qimen" }
 cyberos-luchnham = { path = "../cyberos-luchnham" }
 cyberos-thaiat = { path = "../cyberos-thaiat" }
 cyberos-lichphap = { path = "../cyberos-lichphap" }
+laso-envelope = { workspace = true }
 serde = { workspace = true }
 serde_json = { workspace = true }

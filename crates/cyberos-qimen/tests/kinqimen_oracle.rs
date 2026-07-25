@@ -1,6 +1,7 @@
 use cyberos_qimen::{
     cast_qimen, DingjuMethod, PanMethod, QiMenFlags, QimenCastInput, YinYangPan, ZhongGongKy,
 };
+use laso_envelope::LaSo;
 
 fn default_input(flags: QiMenFlags) -> QimenCastInput {
     QimenCastInput {
@@ -80,4 +81,15 @@ fn pan_method_diverges() {
         ra.envelope["ban"]["thien_ban"],
         rb.envelope["ban"]["thien_ban"]
     );
+}
+
+#[test]
+fn envelope_deserializes_as_laso_and_key_64() {
+    let r = cast_qimen(&default_input(QiMenFlags::default())).unwrap();
+    let la: LaSo = serde_json::from_value(r.envelope).expect("envelope must be valid LaSo");
+    assert_eq!(la.provenance.engine, "qmdg");
+    assert!(la.provenance.cast_at.timestamp() > 0);
+    let key = la.provenance.cache_key.unwrap();
+    assert_eq!(key.len(), 64, "cache_key must be 64 hex chars (SHA-256)");
+    assert!(key.chars().all(|c| c.is_ascii_hexdigit()));
 }

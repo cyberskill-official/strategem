@@ -51,6 +51,7 @@ class Provenance(BaseModel):
     engine_version: str
     cast_at: datetime
     cache_key: str | None = None
+    engine_source: Literal["cast_cli", "local_fallback", "stub"] | None = None
 
 
 class LaSo(BaseModel):

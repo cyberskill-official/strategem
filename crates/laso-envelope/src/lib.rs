@@ -71,6 +71,9 @@ pub struct Provenance {
     pub cast_at: DateTime<Utc>,
     #[serde(skip_serializing_if = "Option::is_none")]
     pub cache_key: Option<String>,
+    /// TT-022: which cast path produced this envelope (API / local fallback).
+    #[serde(skip_serializing_if = "Option::is_none")]
+    pub engine_source: Option<String>,
 }
 
 /// The root envelope. Matches docs/contracts/laso-envelope.schema.json exactly.
@@ -203,6 +206,7 @@ mod tests {
                 engine_version: "0.1.0".into(),
                 cast_at: Utc::now(),
                 cache_key: None,
+                engine_source: None,
             },
         }
     }
