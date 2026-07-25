@@ -1,13 +1,4 @@
-"""Query/chart/report persistence — TASK-API-004 + COV-010/W2 Postgres default.
-
-``PersistenceService.from_env()`` selects:
-  - ``postgres`` when ``DATABASE_URL`` is set (compose / local enterprise default)
-  - ``memory`` for unit tests / explicit break-glass
-  - fail-closed in production without ``DATABASE_URL``
-
-Postgres path writes RLS domain tables (queries/charts/reports/audit_logs) plus
-``app_query_store`` for the full orchestrator JSON payload.
-"""
+"""Query/chart/report persistence — TASK-API-004 + COV-010 Postgres default."""
 
 from __future__ import annotations
 
@@ -124,9 +115,11 @@ class PersistenceService:
             self.queries.save_result(query_id, stored)
         return PersistResult(query_id=query_id, chart_ids=chart_ids, report_id=report_id)
 
-    def get_query_result(self, query_id: str) -> dict[str, Any] | None:
+    def get_query_result(
+        self, query_id: str, *, user_id: str | None = None
+    ) -> dict[str, Any] | None:
         if self.pg is not None:
-            return self.pg.get(query_id)
+            return self.pg.get(query_id, user_id=user_id)
         row = self.queries.get(query_id)
         if row is None:
             return None
@@ -169,23 +162,11 @@ class PersistenceService:
             limit=limit,
         )
 
-    def get_report(self, report_id: str) -> dict[str, Any] | None:
-        """Lookup by report_id or cast query_id (dashboard may pass either)."""
+    def get_report(self, report_id: str, *, user_id: str | None = None) -> dict[str, Any] | None:
         if self.pg is not None:
-            return self.pg.get_report(report_id)
+            return self.pg.get_report(report_id, user_id=user_id)
         row = self.reports.get_by_id(report_id)
         if row is None:
-            row = self.reports.get_by_query_id(report_id)
-        if row is None:
-            # last resort: query result payload embeds the report
-            result = self.get_query_result(report_id)
-            if isinstance(result, dict):
-                embedded = result.get("report")
-                if isinstance(embedded, dict):
-                    out = dict(embedded)
-                    out.setdefault("report_id", result.get("report_id") or out.get("report_id"))
-                    out.setdefault("query_id", result.get("query_id") or report_id)
-                    return out
             return None
         data = row.get("report_data")
         if isinstance(data, dict):

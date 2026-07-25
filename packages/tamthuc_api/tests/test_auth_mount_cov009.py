@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 import pytest
+from auth_helpers import auth_header, register_and_login
 from fastapi.testclient import TestClient
 
 
 @pytest.fixture
 def client(monkeypatch: pytest.MonkeyPatch) -> TestClient:
     monkeypatch.delenv("DATABASE_URL", raising=False)
-    monkeypatch.delenv("APP_ENV", raising=False)
-    # force auth settings for tests
+    monkeypatch.setenv("ENV", "test")
     monkeypatch.setenv(
         "TAMTHUC_AUTH_JWT_SECRET",
         "test-jwt-secret-at-least-32-bytes-long!!",
@@ -59,19 +59,10 @@ def test_free_cast_without_auth(client: TestClient) -> None:
 
 
 def test_timing_gated_for_free_authenticated(client: TestClient) -> None:
-    client.post(
-        "/auth/register",
-        json={"email": "freeuser@example.com", "password": "password123"},
-    )
-    login = client.post(
-        "/auth/login",
-        json={"email": "freeuser@example.com", "password": "password123"},
-    )
-    assert login.status_code == 200
-    token = login.json()["access"]
+    tokens = register_and_login(client, email="freeuser@example.com", tier="free")
     r = client.post(
         "/api/v1/timing/optimize",
-        headers={"Authorization": f"Bearer {token}"},
+        headers=auth_header(tokens["access"]),
         json={
             "start": "2004-01-01T08:00:00",
             "end": "2004-01-01T14:00:00",
@@ -82,8 +73,7 @@ def test_timing_gated_for_free_authenticated(client: TestClient) -> None:
     assert r.json().get("error", {}).get("code") == "FORBIDDEN_TIER"
 
 
-def test_timing_open_anonymous(client: TestClient) -> None:
-    # anonymous / no bearer still allowed for product smoke (local enterprise)
+def test_timing_requires_auth(client: TestClient) -> None:
     r = client.post(
         "/api/v1/timing/optimize",
         json={
@@ -92,4 +82,4 @@ def test_timing_open_anonymous(client: TestClient) -> None:
             "top_n": 2,
         },
     )
-    assert r.status_code == 200, r.text
+    assert r.status_code == 401

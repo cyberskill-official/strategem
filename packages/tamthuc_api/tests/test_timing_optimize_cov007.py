@@ -2,14 +2,17 @@
 
 from __future__ import annotations
 
+from auth_helpers import auth_header, register_and_login
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 
 
 def test_timing_optimize_returns_windows() -> None:
     client = TestClient(create_app())
+    tokens = register_and_login(client, email="timing-ok@example.com", tier="premium")
     r = client.post(
         "/api/v1/timing/optimize",
+        headers=auth_header(tokens["access"]),
         json={
             "start": "2004-01-01T08:00:00",
             "end": "2004-01-01T18:00:00",
@@ -37,8 +40,10 @@ def test_timing_optimize_returns_windows() -> None:
 
 def test_timing_optimize_rejects_inverted_range() -> None:
     client = TestClient(create_app())
+    tokens = register_and_login(client, email="timing-bad@example.com", tier="premium")
     r = client.post(
         "/api/v1/timing/optimize",
+        headers=auth_header(tokens["access"]),
         json={
             "start": "2004-01-02T00:00:00",
             "end": "2004-01-01T00:00:00",
