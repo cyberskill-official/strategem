@@ -104,9 +104,11 @@ dependencies = [
 name = "cyberos-lichphap"
 version = "0.1.0"
 dependencies = [
+ "cyberos-oracle-cert",
  "serde",
  "serde_json",
  "thiserror",
+ "vsop87",
 ]
 
 [[package]]
@@ -115,6 +117,7 @@ version = "0.1.0"
 dependencies = [
  "chrono",
  "cyberos-lichphap",
+ "cyberos-oracle-cert",
  "laso-envelope",
  "serde",
  "serde_json",
@@ -122,10 +125,15 @@ dependencies = [
 ]
 
 [[package]]
+name = "cyberos-oracle-cert"
+version = "0.1.0"
+
+[[package]]
 name = "cyberos-qimen"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "cyberos-oracle-cert",
  "laso-envelope",
  "serde",
  "serde_json",
@@ -146,6 +154,7 @@ name = "cyberos-thaiat"
 version = "0.1.0"
 dependencies = [
  "chrono",
+ "cyberos-oracle-cert",
  "laso-envelope",
  "serde",
  "serde_json",
@@ -435,6 +444,12 @@ name = "version_check"
 version = "0.9.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "0b928f33d975fc6ad9f86c8f283853ad26bdd5b10b7f1542aa2fa15e2289105a"
+
+[[package]]
+name = "vsop87"
+version = "3.0.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "37cde47f1fc639613a2a48a6a8685db063693c55ea6b09260b78f95c9e775575"
 
 [[package]]
 name = "wasm-bindgen"
