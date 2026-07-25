@@ -78,20 +78,39 @@ export LLM_MODEL=your-model-id
 uv run python -m tamthuc_api
 ```
 
-## 5. Postgres persistence (COV-010)
+## 5. Postgres persistence (W2 default / COV-010)
 
-Local compose sets `DATABASE_URL` on the API service. Apply migrations (including `0010_app_query_store.sql`) once per empty database:
+Local compose **defaults** to Postgres:
+
+1. `postgres` healthcheck
+2. `migrate` service runs `python -m db_schema.migrate` (ledgered; idempotent)
+3. `api` starts with `DATABASE_URL` pointing at compose Postgres
+
+Casts write both:
+
+- **RLS domain tables** (`users` / `queries` / `charts` / `reports` / `audit_logs`) — PLAT-003
+- **`app_query_store`** — full orchestrator JSON for `GET /queries/{id}` after restart
+
+Anonymous casts map to the well-known user in `0011_anon_user.sql`. Authenticated casts upsert the JWT subject into `users` and set `app.current_user_id` per transaction (`db/rls/session.md`).
+
+Manual migrate (host API against compose Postgres):
 
 ```bash
 export DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:${LOCAL_PG_PORT:-5432}/strategem
-# from repo root
-PYTHONPATH=packages/db_schema/src python -m db_schema.migrate
-# or: uv run --package db_schema python -m db_schema.migrate
+uv run --package db_schema python -m db_schema.migrate
 ```
 
-Without `DATABASE_URL`, the API uses in-memory persistence (dev/test). With `APP_ENV=production` and no `DATABASE_URL`, the API **fails closed** unless `ALLOW_MEMORY_PERSISTENCE=1`.
+Without `DATABASE_URL`, the API uses in-memory persistence (**unit tests**). With `APP_ENV=production` and no `DATABASE_URL`, the API **fails closed** unless `ALLOW_MEMORY_PERSISTENCE=1`.
 
-Cast → `GET /api/v1/queries/{query_id}` must return the same payload after API process restart when Postgres is configured.
+### Auth boundary (W2)
+
+| Path | Auth |
+|------|------|
+| `POST /calculate/{qimen\|liuren\|taiyi}` | Public (anonymous cast OK; JWT optional) |
+| `GET /queries/{id}`, `GET /reports/{id}` | Public by id (cast journey) |
+| `GET /queries` (history) | **JWT required**, scoped to caller |
+| `POST /calculate/all` | **JWT + premium** (`calculate_all`) |
+| `POST /payments/checkout`, `GET /payments/tier/{id}` | **JWT required** |
 
 ## 6. Staging vs local
 

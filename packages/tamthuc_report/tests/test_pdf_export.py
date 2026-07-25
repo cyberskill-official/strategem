@@ -48,12 +48,26 @@ def test_export_has_pdf_header_and_sections() -> None:
     r = _report()
     pdf = export_pdf(r)
     assert pdf.startswith(b"%PDF")
+    # Real PDF structure (ReportLab), not a magic-byte + HTML stub
+    assert b"%%EOF" in pdf
+    assert b"/Type /Catalog" in pdf or b"/Type/Catalog" in pdf
+    assert b"/Type /Pages" in pdf or b"/Type/Pages" in pdf
+    assert b"xref" in pdf or b"/XRef" in pdf or b"startxref" in pdf
     html = render_html(r)
     assert 'data-panel="engine"' in html
     assert 'data-panel="ai"' in html
     assert "AIDisclosure" in html
     assert "青龍返首" in html
     assert "stub" in html
+
+
+def test_export_accepts_dict_payload() -> None:
+    """API persistence returns JSON dicts — exporter must coerce."""
+    r = _report()
+    pdf = export_pdf(r.model_dump(mode="json"))
+    assert pdf.startswith(b"%PDF-")
+    assert b"%%EOF" in pdf
+    assert b"Tam" in pdf or b"CyberSkill" in pdf or b"report" in pdf.lower()
 
 
 def test_readonly() -> None:

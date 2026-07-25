@@ -55,3 +55,32 @@ def test_report_rls() -> None:
     assert res.report_id
     assert svc.reports.get(res.report_id, "owner") is not None
     assert svc.reports.get(res.report_id, "other") is None
+
+
+def test_get_report_by_query_id() -> None:
+    svc = PersistenceService()
+    report = {
+        "report_id": "rep-abc",
+        "query_id": "will-be-overwritten",
+        "chart_summary": {"he": "ky_mon", "dau_vao": {}, "lich_phap_summary": "x"},
+        "detected_patterns": [],
+        "interpretation": {"beginner": "b", "expert": "e", "recommendations": []},
+        "citations": [{"source": "s", "locator": "l"}],
+        "confidence": 0.5,
+        "ai_disclosure": {"model": "m", "limits": "l", "review_status": "not_required"},
+        "created_at": "2004-01-01T00:00:00Z",
+    }
+    res = svc.persist_query_result(
+        "u",
+        {},
+        {"qimen": {"envelope_version": 1}},
+        [],
+        report=report,
+        full_result={"report": report, "report_id": "rep-abc"},
+    )
+    by_rid = svc.get_report(res.report_id or "")
+    assert by_rid is not None
+    by_qid = svc.get_report(res.query_id)
+    assert by_qid is not None
+    assert by_qid.get("report_id") == res.report_id
+    assert by_qid.get("query_id") == res.query_id

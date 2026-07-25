@@ -3,7 +3,11 @@ name = "tamthuc-report"
 version = "0.1.0"
 description = "Structured report assembly (TASK-REPORT-001)"
 requires-python = ">=3.12"
-dependencies = ["pydantic>=2.7"]
+dependencies = [
+    "pydantic>=2.7",
+    "reportlab>=4.2",
+    "types-reportlab>=4.5.1.20260724",
+]
 
 [build-system]
 requires = ["hatchling"]

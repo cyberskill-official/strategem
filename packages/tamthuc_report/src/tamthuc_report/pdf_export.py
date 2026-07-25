@@ -1,8 +1,15 @@
-"""PDF export — TASK-REPORT-002. Pure HTML renderer (PDF bytes via UTF-8 HTML wrapper)."""
+"""PDF export — TASK-REPORT-002. ReportLab renderer (real PDF structure)."""
 
 from __future__ import annotations
 
-from typing import Literal
+from io import BytesIO
+from typing import Any, Literal
+
+from reportlab.lib.colors import HexColor
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.styles import ParagraphStyle, getSampleStyleSheet
+from reportlab.lib.units import mm
+from reportlab.platypus import Paragraph, SimpleDocTemplate, Spacer
 
 from tamthuc_report.models import StructuredReport
 
@@ -18,10 +25,12 @@ FULL_LEGAL_DISCLAIMER_EN = (
     "Final decisions remain with the reader."
 )
 
+_UMBER = HexColor("#45210E")
+_OCHRE = HexColor("#F4BA17")
+
 
 def _vernacular_pattern_name(name: str) -> str:
     """Prefer human-facing names; keep classical as secondary when mixed."""
-    # lightweight map for common classical forms (product surface)
     table = {
         "青龍返首": "Thanh Long Phản Thủ",
         "飛鳥跌穴": "Phi Điểu Điệt Huyệt",
@@ -33,8 +42,17 @@ def _vernacular_pattern_name(name: str) -> str:
     return table.get(name, name)
 
 
-def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi") -> str:
-    """Read-only layout of StructuredReport. Never mutates report fields."""
+def _coerce_report(report: StructuredReport | dict[str, Any]) -> StructuredReport:
+    if isinstance(report, StructuredReport):
+        return report
+    return StructuredReport.model_validate(report)
+
+
+def render_html(
+    report: StructuredReport | dict[str, Any], lang: Literal["vi", "en", "bi"] = "bi"
+) -> str:
+    """Read-only HTML layout of StructuredReport (preview / print CSS)."""
+    report = _coerce_report(report)
     patterns_rows = "".join(
         (
             f"<tr><td><span class='vernacular'>{_vernacular_pattern_name(p.name)}</span>"
@@ -130,16 +148,147 @@ def render_html(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi"
 """
 
 
-def export_pdf(report: StructuredReport, lang: Literal["vi", "en", "bi"] = "bi") -> bytes:
-    """
-    Produce printable document bytes.
+def _esc(text: str) -> str:
+    return (
+        text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;").replace('"', "&quot;")
+    )
 
-    Uses a deterministic HTML representation with PDF magic-compatible header
-    when a full PDF engine is not available — content is still the report layout.
-    """
-    html = render_html(report, lang=lang)
-    # Minimal PDF-like packaging for tests without weasyprint dependency:
-    # real PDF engines can wrap this HTML; bytes are deterministic for fixed report.
-    body = html.encode("utf-8")
-    header = b"%PDF-1.4\n% CyberSkill report export (HTML body follows)\n"
-    return header + body
+
+def export_pdf(
+    report: StructuredReport | dict[str, Any],
+    lang: Literal["vi", "en", "bi"] = "bi",
+) -> bytes:
+    """Produce a real PDF (ReportLab) with report sections + legal disclaimer."""
+    report = _coerce_report(report)
+    buf = BytesIO()
+    doc = SimpleDocTemplate(
+        buf,
+        pagesize=A4,
+        leftMargin=18 * mm,
+        rightMargin=18 * mm,
+        topMargin=16 * mm,
+        bottomMargin=16 * mm,
+        title=f"Tam Thuc Report {report.report_id}",
+        author="CyberSkill",
+    )
+    styles = getSampleStyleSheet()
+    brand = ParagraphStyle(
+        "Brand",
+        parent=styles["Heading1"],
+        textColor=_OCHRE,
+        backColor=_UMBER,
+        fontSize=14,
+        spaceAfter=10,
+        leading=18,
+    )
+    h2 = ParagraphStyle(
+        "Section",
+        parent=styles["Heading2"],
+        textColor=_UMBER,
+        fontSize=11,
+        spaceBefore=10,
+        spaceAfter=4,
+    )
+    body = ParagraphStyle(
+        "Body",
+        parent=styles["BodyText"],
+        textColor=_UMBER,
+        fontSize=9,
+        leading=12,
+        spaceAfter=4,
+    )
+    disclaimer_style = ParagraphStyle(
+        "Disclaimer",
+        parent=body,
+        backColor=HexColor("#FBF6EE"),
+        borderPadding=6,
+        spaceAfter=8,
+    )
+
+    story: list[Any] = [
+        Paragraph("CyberSkill · Tam Thức Report", brand),
+        Paragraph(
+            _esc(
+                f"report_id={report.report_id} · query_id={report.query_id} · "
+                f"{report.created_at.isoformat()}"
+            ),
+            body,
+        ),
+        Paragraph("Legal disclaimer", h2),
+    ]
+    if lang == "bi":
+        story.append(Paragraph(_esc(FULL_LEGAL_DISCLAIMER_VI), disclaimer_style))
+        story.append(Paragraph(_esc(FULL_LEGAL_DISCLAIMER_EN), disclaimer_style))
+    elif lang == "en":
+        story.append(Paragraph(_esc(FULL_LEGAL_DISCLAIMER_EN), disclaimer_style))
+    else:
+        story.append(Paragraph(_esc(FULL_LEGAL_DISCLAIMER_VI), disclaimer_style))
+
+    story.append(Paragraph("Chart summary — deterministic", h2))
+    story.append(
+        Paragraph(
+            _esc(f"he={report.chart_summary.he} · {report.chart_summary.lich_phap_summary}"),
+            body,
+        )
+    )
+
+    story.append(Paragraph("Patterns (vernacular first)", h2))
+    if report.detected_patterns:
+        for p in report.detected_patterns:
+            vern = _vernacular_pattern_name(p.name)
+            label = vern if vern == p.name else f"{vern} ({p.name})"
+            story.append(
+                Paragraph(
+                    _esc(f"• {label} · polarity={p.polarity} · cung={p.cung or '—'}"),
+                    body,
+                )
+            )
+    else:
+        story.append(Paragraph("No patterns listed.", body))
+
+    story.append(Paragraph("AI interpretation", h2))
+    story.append(Paragraph(_esc(report.interpretation.beginner or "—"), body))
+    story.append(Paragraph(_esc(report.interpretation.expert or "—"), body))
+
+    story.append(Paragraph("Recommendations", h2))
+    for r in report.interpretation.recommendations:
+        text = r if isinstance(r, str) else str(r)
+        story.append(Paragraph(_esc(f"• {text}"), body))
+
+    disc = report.ai_disclosure
+    story.append(Paragraph("AIDisclosure", h2))
+    story.append(
+        Paragraph(
+            _esc(
+                f"model={disc.model} · limits={disc.limits} · "
+                f"review_status={disc.review_status} · is_ai_generated=true"
+            ),
+            body,
+        )
+    )
+
+    story.append(Paragraph("Citations", h2))
+    for i, c in enumerate(report.citations, start=1):
+        story.append(
+            Paragraph(
+                _esc(
+                    f"{i}. {c.source} [{c.locator}] "
+                    f"漢:{c.han or '—'} · BT:{c.bach_thoai or '—'} · D:{c.dich or '—'}"
+                ),
+                body,
+            )
+        )
+
+    story.append(Spacer(1, 8))
+    story.append(
+        Paragraph(
+            _esc("Educational decision support only — not fortune-telling."),
+            body,
+        )
+    )
+
+    doc.build(story)
+    pdf = buf.getvalue()
+    if not pdf.startswith(b"%PDF"):
+        raise RuntimeError("reportlab produced non-PDF output")
+    return pdf

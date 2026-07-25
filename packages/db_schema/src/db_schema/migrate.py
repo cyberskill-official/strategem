@@ -1,4 +1,4 @@
-"""Apply db/migrations/*.sql in lexicographic order (forward-only)."""
+"""Apply db/migrations/*.sql in lexicographic order (forward-only, ledgered)."""
 
 from __future__ import annotations
 
@@ -13,17 +13,44 @@ from db_schema import list_migrations
 
 log = logging.getLogger("db_schema.migrate")
 
+_LEDGER = """
+CREATE TABLE IF NOT EXISTS public._strategem_schema_migrations (
+  filename text PRIMARY KEY,
+  applied_at timestamptz NOT NULL DEFAULT now()
+);
+"""
 
-def apply_migrations(dsn: str, *, migrations: list[Path] | None = None) -> int:
-    """Apply each migration file in order. Returns count applied."""
+
+def apply_migrations(
+    dsn: str,
+    *,
+    migrations: list[Path] | None = None,
+    use_ledger: bool = True,
+) -> int:
+    """Apply each migration file in order. Returns count newly applied."""
     files = migrations if migrations is not None else list_migrations()
     log.info("migrate.start", extra={"count": len(files), "dsn_host": _redact_dsn(dsn)})
     applied = 0
     with psycopg.connect(dsn, autocommit=True) as conn:
+        if use_ledger:
+            conn.execute(_LEDGER)
         for path in files:
+            if use_ledger:
+                row = conn.execute(
+                    "SELECT 1 AS ok FROM public._strategem_schema_migrations WHERE filename = %s",
+                    (path.name,),
+                ).fetchone()
+                if row:
+                    log.info("migrate.skip", extra={"file": path.name})
+                    continue
             sql = path.read_text(encoding="utf-8")
             log.info("migrate.apply", extra={"file": path.name})
             conn.execute(sql)
+            if use_ledger:
+                conn.execute(
+                    "INSERT INTO public._strategem_schema_migrations (filename) VALUES (%s)",
+                    (path.name,),
+                )
             applied += 1
     log.info("migrate.complete", extra={"applied": applied})
     return applied

@@ -60,14 +60,63 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert report["query_id"] == qid
     assert "chart_summary" in report
 
-    hist = client.get("/api/v1/queries")
-    assert hist.status_code == 200
-    items = hist.json()["items"]
-    assert any(i["query_id"] == qid for i in items)
+    # Live bug (2026-07-25): GET /reports/{query_id} must also resolve
+    by_qid = client.get(f"/api/v1/reports/{qid}")
+    assert by_qid.status_code == 200, by_qid.text
+    assert by_qid.json()["report_id"] == rid
+    assert by_qid.json()["query_id"] == qid
+
+    # W2: manage history requires JWT (anonymous list is 401)
+    hist_anon = client.get("/api/v1/queries")
+    assert hist_anon.status_code == 401
 
     pdf = client.get(f"/api/v1/reports/{rid}/pdf")
     assert pdf.status_code == 200
     assert "pdf" in pdf.headers.get("content-type", "")
+    assert pdf.content.startswith(b"%PDF")
+    assert b"%%EOF" in pdf.content
+
+    pdf_by_qid = client.get(f"/api/v1/reports/{qid}/pdf")
+    assert pdf_by_qid.status_code == 200
+    assert pdf_by_qid.content.startswith(b"%PDF")
+    assert b"%%EOF" in pdf_by_qid.content
+
+
+def test_history_requires_jwt_and_scopes(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv(
+        "TAMTHUC_AUTH_JWT_SECRET",
+        "test-jwt-secret-at-least-32-bytes-long!!",
+    )
+    from tamthuc_auth.config import reset_settings_cache
+
+    reset_settings_cache()
+    client = TestClient(create_app())
+    client.post(
+        "/auth/register",
+        json={"email": "hist@example.com", "password": "password123"},
+    )
+    login = client.post(
+        "/auth/login",
+        json={"email": "hist@example.com", "password": "password123"},
+    )
+    token = login.json()["access"]
+    cast = client.post(
+        "/api/v1/calculate/qimen",
+        headers={"Authorization": f"Bearer {token}"},
+        json={
+            "datetime": "2004-01-01T10:30:00",
+            "tz": "+07:00",
+            "longitude": 106.7,
+            "question_type": "trach_thoi",
+        },
+    )
+    assert cast.status_code == 200, cast.text
+    qid = cast.json()["query_id"]
+    hist = client.get("/api/v1/queries", headers={"Authorization": f"Bearer {token}"})
+    assert hist.status_code == 200, hist.text
+    items = hist.json()["items"]
+    assert any(i["query_id"] == qid for i in items)
 
 
 def test_query_not_found() -> None:

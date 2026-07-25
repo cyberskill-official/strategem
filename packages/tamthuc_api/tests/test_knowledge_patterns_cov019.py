@@ -28,3 +28,25 @@ def test_filter_by_he_and_search() -> None:
     # no prophecy keywords in modern gloss
     blob = " ".join(str(p.get("meaning_modern") or "") for p in rows).lower()
     assert "guaranteed fate" not in blob
+
+
+def test_filter_by_system_query_param() -> None:
+    """TASK-API-001: GET /knowledge/patterns?system= must filter (not return all)."""
+    client = TestClient(create_app())
+    all_r = client.get("/api/v1/knowledge/patterns?limit=500")
+    assert all_r.status_code == 200
+    all_total = all_r.json()["total"]
+    r = client.get("/api/v1/knowledge/patterns?system=qimen&limit=500")
+    assert r.status_code == 200
+    body = r.json()
+    rows = body["patterns"]
+    assert body["total"] < all_total
+    assert rows
+    assert all(str(p.get("system")) == "qimen" for p in rows)
+    # liuren filter must not include qimen
+    lr = client.get("/api/v1/knowledge/patterns?system=liuren&limit=500")
+    assert lr.status_code == 200
+    lr_rows = lr.json()["patterns"]
+    assert lr_rows
+    assert all(str(p.get("system")) == "liuren" for p in lr_rows)
+    assert lr.json()["total"] < all_total

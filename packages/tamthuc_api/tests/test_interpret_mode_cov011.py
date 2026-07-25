@@ -47,10 +47,12 @@ def test_rag_mode_requires_citation_layers(monkeypatch: pytest.MonkeyPatch) -> N
     client = LocalRagClient()
     patterns = [
         {
-            "id": "p1",
-            "name": "青龍返首",
+            "id": "qimen_thanh_long_hoi_dau",
+            "name": "Thanh Long Hồi Đầu",
+            "name_han": "青龍返首",
             "polarity": "cat",
             "citations": ["yba_1"],
+            "system": "qimen",
         }
     ]
     out = client.interpret({"he": "ky_mon", "cach_cuc": patterns}, patterns)
@@ -63,6 +65,11 @@ def test_rag_mode_requires_citation_layers(monkeypatch: pytest.MonkeyPatch) -> N
     else:
         # withheld under review still carries disclosure
         assert out.get("ai_disclosure") or out.get("human_review_gate")
+    beginner = (out.get("beginner") or out.get("summary") or "").lower()
+    # Grounded stub must not emit the old generic one-liner alone
+    assert "cautious educational reading of the chart patterns" not in beginner
+    if beginner and "refuse" not in beginner and out.get("human_review_gate") != "pending":
+        assert "retrieved" in beginner or "classical" in beginner or "educational" in beginner
 
 
 def test_refuse_when_no_sources_rag(monkeypatch: pytest.MonkeyPatch) -> None:

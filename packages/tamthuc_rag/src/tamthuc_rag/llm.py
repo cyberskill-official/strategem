@@ -14,25 +14,85 @@ class LlmClient(Protocol):
     def complete(self, prompt: str) -> dict[str, Any]: ...
 
 
-class StubLlm:
-    """Deterministic stub for CI — no network."""
+def _parse_retrieved_sources(prompt: str) -> list[tuple[str, str]]:
+    """Extract (citation_id, layer_text) pairs from the retrieval section of the prompt."""
+    sources: list[tuple[str, str]] = []
+    in_section = False
+    for line in prompt.splitlines():
+        if line.strip().startswith("## Retrieved"):
+            in_section = True
+            continue
+        if in_section and line.startswith("## "):
+            break
+        if not in_section:
+            continue
+        if line.startswith("- ") and ":" in line:
+            body = line[2:]
+            cid, rest = body.split(":", 1)
+            sources.append((cid.strip(), rest.strip()))
+    return sources
 
-    model = "stub-llm"
+
+def _he_from_prompt(prompt: str) -> str:
+    m = re.search(r"['\"]he['\"]\s*:\s*['\"]([^'\"]+)['\"]", prompt)
+    return m.group(1) if m else "classical chart"
+
+
+class StubLlm:
+    """Deterministic CI stub — grounded prose from retrieved classical chunks."""
+
+    model = "stub-llm-grounded"
 
     def complete(self, prompt: str) -> dict[str, Any]:
-        # Extract first citation id if present
-        cites: list[str] = []
-        for line in prompt.splitlines():
-            if line.startswith("- ") and ":" in line:
-                cites.append(line[2:].split(":", 1)[0].strip())
+        sources = _parse_retrieved_sources(prompt)
+        cites = [c for c, _ in sources]
+        he = _he_from_prompt(prompt)
+
+        if not sources:
+            return {
+                "beginner": (
+                    f"Educational reading for {he}: no classical units were retrieved. "
+                    "No free-memory claims are offered."
+                ),
+                "expert": "Empty retrieval set; refuse uncited interpretation.",
+                "recommendations": [],
+            }
+
+        # Build substantive, citation-grounded readings from chunk text (not generic filler).
+        excerpts: list[str] = []
+        for cid, text in sources[:5]:
+            cleaned = text.strip("[]'\" ")
+            if cleaned:
+                excerpts.append(f"{cid}: {cleaned}")
+
+        joined = "; ".join(excerpts[:3])
+        beginner = (
+            f"Educational reading for {he}. Retrieved classical guidance includes: {joined}. "
+            "Treat this as cultural decision-support — you decide how it applies to your situation."
+        )
+        expert = (
+            f"Technical notes for {he} grounded in {len(sources)} retrieved unit(s). "
+            f"Primary sources: {', '.join(cites[:4])}. "
+            f"Layer cues — {joined}. "
+            "Cross-check polarity and timing against the stamped engine chart; "
+            "do not treat this as prophecy or a guaranteed outcome."
+        )
+        first_cite = cites[:2] or []
         return {
-            "beginner": "A cautious educational reading of the chart patterns.",
-            "expert": "Technical notes grounded in the retrieved classical units.",
+            "beginner": beginner,
+            "expert": expert,
             "recommendations": [
                 {
-                    "text": "Reflect on timing using the cited classical guidance.",
-                    "citations": cites[:1] or [],
-                }
+                    "text": (
+                        "Weigh the cited classical units against your real-world constraints "
+                        f"({', '.join(first_cite) or 'local corpus'})."
+                    ),
+                    "citations": first_cite,
+                },
+                {
+                    "text": "Prefer engine-stamped patterns plus cited glosses over free memory.",
+                    "citations": cites[1:3] or first_cite,
+                },
             ],
         }
 
@@ -80,6 +140,7 @@ class OpenAICompatibleLlm:
                         "You interpret classical chart patterns for education only. "
                         "Respond with a single JSON object keys: beginner (str), expert (str), "
                         "recommendations (array of {text, citations: string[]}). "
+                        "Ground every claim in the retrieved sources. "
                         "No medical/legal/financial verdicts. No destiny claims."
                     ),
                 },

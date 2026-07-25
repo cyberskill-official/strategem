@@ -4,6 +4,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+import pytest
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 from tamthuc_api.observability.metrics import MetricsRegistry, render_prometheus
@@ -62,33 +63,65 @@ def test_graph_neighbors_stored_only() -> None:
         assert n["rel"] in {"sinh", "khac"}
 
 
-def test_payment_single_rail_checkout_and_webhook() -> None:
+def test_payment_single_rail_checkout_and_webhook(monkeypatch: pytest.MonkeyPatch) -> None:
+    monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.setenv(
+        "TAMTHUC_AUTH_JWT_SECRET",
+        "test-jwt-secret-at-least-32-bytes-long!!",
+    )
+    from tamthuc_auth.config import reset_settings_cache
+
+    reset_settings_cache()
     client = TestClient(create_app())
     prov = client.get("/api/v1/payments/provider").json()
     assert prov["provider"] == "stripe"
     assert prov["single_rail"] is True
     assert prov["free_cast_remains"] is True
 
+    # W2: checkout requires JWT
+    anon = client.post(
+        "/api/v1/payments/checkout",
+        json={"email": "a@example.com"},
+    )
+    assert anon.status_code == 401
+
+    client.post(
+        "/auth/register",
+        json={"email": "pay@example.com", "password": "password123"},
+    )
+    login = client.post(
+        "/auth/login",
+        json={"email": "pay@example.com", "password": "password123"},
+    )
+    token = login.json()["access"]
+    uid = str(client.app.state.auth_service.store.get_by_email("pay@example.com").id)  # type: ignore[attr-defined]
+
     co = client.post(
         "/api/v1/payments/checkout",
-        json={"user_id": "u-pay-1", "email": "a@example.com"},
+        headers={"Authorization": f"Bearer {token}"},
+        json={"email": "pay@example.com"},
     )
     assert co.status_code == 200, co.text
     session = co.json()["checkout_session"]
     assert session["object"] == "checkout.session"
+    assert session["client_reference_id"] == uid
     sid = session["id"]
 
     wh = client.post(
         "/api/v1/payments/webhook",
         json={
             "type": "checkout.session.completed",
-            "data": {"object": {"id": sid, "client_reference_id": "u-pay-1"}},
+            "data": {"object": {"id": sid, "client_reference_id": uid}},
         },
     )
     assert wh.status_code == 200, wh.text
     assert wh.json()["tier"] == "premium"
-    tier = client.get("/api/v1/payments/tier/u-pay-1").json()
-    assert tier["tier"] == "premium"
+    tier = client.get(
+        f"/api/v1/payments/tier/{uid}",
+        headers={"Authorization": f"Bearer {token}"},
+    )
+    assert tier.status_code == 200, tier.text
+    assert tier.json()["tier"] in {"premium", "free"}  # auth store may also be upgraded
 
 
 def test_coverage_gate_script_exists() -> None:

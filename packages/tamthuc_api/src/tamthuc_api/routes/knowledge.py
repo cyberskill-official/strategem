@@ -61,11 +61,16 @@ def _load_patterns() -> list[dict[str, Any]]:
 @router.get("/knowledge/patterns")
 def list_patterns(
     he: str | None = Query(default=None, description="qimen|liuren|taiyi or he code"),
+    system: str | None = Query(
+        default=None,
+        description="Alias of he: qimen|liuren|taiyi (TASK-API-001 ?system=)",
+    ),
     q: str | None = Query(default=None, description="search name/gloss"),
     limit: int = Query(default=200, ge=1, le=500),
 ) -> dict[str, Any]:
     rows = _load_patterns()
-    he_n = (he or "").strip().lower()
+    # Spec + live clients use ?system=; he= remains supported.
+    he_n = (system or he or "").strip().lower()
     if he_n:
         alias = {
             "ky_mon": "qimen",

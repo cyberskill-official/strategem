@@ -30,7 +30,7 @@ def get_report(report_id: str, request: Request) -> dict[str, Any] | JSONRespons
 @router.get("/reports/{report_id}/pdf")
 @router.get("/reports/{report_id}/download")
 def download_report_pdf(report_id: str, request: Request) -> Response:
-    """Minimal PDF stub — real REPORT-002 rendering may replace body later."""
+    """PDF download — report_id may be report UUID or cast query_id."""
     persistence = getattr(request.app.state, "persistence", None)
     if persistence is None:
         return JSONResponse(
@@ -43,33 +43,25 @@ def download_report_pdf(report_id: str, request: Request) -> Response:
             status_code=404,
             content=error_envelope("NOT_FOUND", f"report {report_id} not found"),
         )
-    # Prefer real PDF exporter when available
     try:
         from tamthuc_report import pdf_export
 
         export_fn = getattr(pdf_export, "export_pdf", None)
         if callable(export_fn):
             pdf_bytes = export_fn(data)
-            return Response(
-                content=pdf_bytes,
-                media_type="application/pdf",
-                headers={"Content-Disposition": f'attachment; filename="report-{report_id}.pdf"'},
-            )
+            if isinstance(pdf_bytes, (bytes, bytearray)) and pdf_bytes.startswith(b"%PDF"):
+                return Response(
+                    content=bytes(pdf_bytes),
+                    media_type="application/pdf",
+                    headers={
+                        "Content-Disposition": f'attachment; filename="report-{report_id}.pdf"'
+                    },
+                )
     except Exception:
         pass
-    # Minimal valid-ish PDF bytes for download path testing
-    body = (
-        b"%PDF-1.1\n"
-        b"1 0 obj<<>>endobj\n"
-        b"2 0 obj<< /Length 44 >>stream\n"
-        b"BT /F1 12 Tf 100 700 Td (Tam Thuc Report) Tj ET\n"
-        b"endstream\nendobj\n"
-        b"trailer<<>>\n%%EOF\n"
-    )
-    return Response(
-        content=body,
-        media_type="application/pdf",
-        headers={"Content-Disposition": f'attachment; filename="report-{report_id}.pdf"'},
+    return JSONResponse(
+        status_code=500,
+        content=error_envelope("INTERNAL", "pdf export failed"),
     )
 
 

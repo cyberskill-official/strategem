@@ -15,6 +15,8 @@ Forward-only SQL migrations for the Tam Thuc Strategem data tier. No ORM owns th
 | `0007_audit_logs.sql` | Sensitive-access audit trail |
 | `0008_indexes_gin.sql` | GIN on JSONB + btree helpers |
 | `0009_rls_policies.sql` | Fail-closed RLS + `app_user` / `app_admin` roles |
+| `0010_app_query_store.sql` | Full cast JSON payload store (GET-by-id) |
+| `0011_anon_user.sql` | Well-known anonymous user for public cast → domain tables |
 
 ## Apply path (human / CI)
 
@@ -23,7 +25,7 @@ Against an empty database (Postgres 16+ recommended):
 ```bash
 export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/strategem
 
-# One-shot apply (preferred helper)
+# One-shot apply (preferred helper) — ledgered / idempotent
 just db-migrate
 
 # Or raw psql
@@ -32,13 +34,13 @@ for f in db/migrations/*.sql; do
 done
 ```
 
-Python helper (same order, used by tests):
+Python helper (lexicographic order, ledgered via `_strategem_schema_migrations`):
 
 ```bash
 uv run python -m db_schema.migrate
 ```
 
-Migrations are **not** re-runnable as a second pass on a populated DB (tables would already exist). They are re-runnable **in sequence on a fresh DB**. There is no down-migration: forward-only by design.
+Local compose runs this automatically via the `migrate` service before the API starts.
 
 ## RLS session contract
 
