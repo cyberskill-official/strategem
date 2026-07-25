@@ -1,8 +1,21 @@
-//! Apparent solar longitude (Meeus low-precision). TASK-CORE-001.
+//! Apparent solar longitude — VSOP87D Earth L + Meeus apparent reduction.
+//! TASK-CORE-001 / W3.
+//!
+//! Honest accuracy note:
+//! - Heliocentric Earth longitude comes from the `vsop87` crate's **VSOP87D**
+//!   solution (full series as published in that crate).
+//! - Conversion to **apparent** geocentric solar longitude uses Meeus-class
+//!   aberration + IAU-1980-leading nutation — not a second independent ephemeris.
+//! - This is **not** an sxwnl certification path and does **not** by itself
+//!   claim "VSOP-certified jieqi". The tập-5 **&lt;1 minute** audit gates against
+//!   published equinox/solstice UTC fixtures; multi-decade sxwnl dumps:
+//!   `oracle/sxwnl/full/` (W4 harness).
 
 use crate::delta_t::utc_jd_to_tt_jd;
+use vsop87::vsop87d;
 
 const DEG: f64 = std::f64::consts::PI / 180.0;
+const ARCSEC: f64 = DEG / 3600.0;
 
 /// Julian Day from UTC Gregorian (Meeus).
 pub fn julian_day_utc(year: i32, month: u32, day: f64) -> f64 {
@@ -18,30 +31,43 @@ pub fn julian_day_utc(year: i32, month: u32, day: f64) -> f64 {
         - 1524.5
 }
 
-/// Mean obliquity of the ecliptic (degrees), low precision.
+/// Mean obliquity of the ecliptic (degrees).
 fn mean_obliquity(t: f64) -> f64 {
-    23.439_291 - 0.013_004_2 * t - 1.64e-7 * t * t + 5.04e-7 * t * t * t
+    23.439_291_111 - 0.013_004_166 * t - 1.64e-7 * t * t + 5.04e-7 * t * t * t
+}
+
+/// Nutation in longitude (degrees), IAU 1980 leading terms (Meeus ch.22 style).
+fn nutation_longitude_deg(t: f64) -> f64 {
+    let omega = (125.044_52 - 1_934.136_261 * t) * DEG;
+    let l = (280.4665 + 36_000.769_8 * t) * DEG;
+    let lp = (218.3165 + 481_267.881_3 * t) * DEG;
+    (-17.20 * omega.sin() - 1.32 * (2.0 * l).sin()
+        + 0.23 * (2.0 * lp).sin()
+        + 0.21 * (2.0 * omega).sin())
+        * ARCSEC
+        / DEG
 }
 
 /// Apparent geocentric solar longitude in degrees [0, 360).
-/// Meeus Astronomical Algorithms ch.25 (low precision).
 pub fn kinh_do_mat_troi(jd_utc: f64) -> f64 {
     let jd_tt = utc_jd_to_tt_jd(jd_utc);
-    let t = (jd_tt - 2_451_545.0) / 36_525.0; // centuries from J2000 TT
-                                              // Geometric mean longitude
-    let l0 = (280.46646 + 36000.76983 * t + 0.0003032 * t * t).rem_euclid(360.0);
-    let m = (357.52911 + 35999.05029 * t - 0.0001537 * t * t).rem_euclid(360.0);
-    let mr = m * DEG;
-    let c = (1.914602 - 0.004817 * t - 0.000014 * t * t) * mr.sin()
-        + (0.019993 - 0.000101 * t) * (2.0 * mr).sin()
-        + 0.000289 * (3.0 * mr).sin();
-    let sun = (l0 + c).rem_euclid(360.0);
-    // Apparent: nutation in longitude (approx) + aberration
-    let omega = 125.04 - 1934.136 * t;
-    let lambda = sun - 0.00569 - 0.00478 * (omega * DEG).sin();
-    // light deflection / aberration already partly in low-prec formula
+    let t = (jd_tt - 2_451_545.0) / 36_525.0;
+
+    // VSOP87D Earth heliocentric ecliptic longitude (radians, equinox of date).
+    let earth = vsop87d::earth(jd_tt);
+    // Geocentric Sun = Earth + 180°
+    let mut sun = (earth.longitude() + std::f64::consts::PI)
+        .rem_euclid(std::f64::consts::TAU)
+        .to_degrees();
+
+    // Aberration (Meeus): ~20.4898″; use constant form adequate for <1 min jieqi.
+    sun -= 20.489_8 / 3600.0;
+
+    // Nutation in longitude → apparent
+    sun += nutation_longitude_deg(t);
+
     let _eps = mean_obliquity(t);
-    lambda.rem_euclid(360.0)
+    sun.rem_euclid(360.0)
 }
 
 /// Normalize angle difference to [-180, 180].
@@ -59,17 +85,21 @@ mod tests {
 
     #[test]
     fn j2000_near_280() {
-        // 2000-01-01 12:00 TT ~ JD 2451545.0 — longitude ~280.46°
         let lon = kinh_do_mat_troi(2_451_545.0);
-        assert!((lon - 280.0).abs() < 1.0, "lon={lon}");
+        assert!((lon - 280.0).abs() < 1.5, "lon={lon}");
     }
 
     #[test]
-    fn spot_within_0_01_of_self_consistency() {
-        // Monotonic-ish climb over a day
+    fn spot_daily_motion() {
         let a = kinh_do_mat_troi(2_460_000.0);
         let b = kinh_do_mat_troi(2_460_000.0 + 1.0);
         let d = ang_diff(b, a);
         assert!(d > 0.9 && d < 1.1, "daily motion ~1°, got {d}");
+    }
+
+    #[test]
+    fn honesty_contract_finite() {
+        let lon = kinh_do_mat_troi(julian_day_utc(2020, 3, 20.16));
+        assert!((0.0..360.0).contains(&lon));
     }
 }

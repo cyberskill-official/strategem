@@ -1,6 +1,9 @@
 //! TASK-CORE-001 oracle-style tests. Fixture holds self-consistent reference
-//! instants (generated from the same theory at high precision) — sxwnl external
-//! cross-check is TASK-CORE-006; here we enforce <60s stability and 0.01° longitude.
+//! instants (generated from the same theory at high precision).
+//!
+//! Independent <1-minute gate vs published equinox/solstice UTC is
+//! `tietkhi_audit_ac.rs` (tập-5 AC). External sxwnl cross-check remains
+//! TASK-CORE-006 / W4 — do not treat these self-fixtures as VSOP certification.
 
 use cyberos_lichphap::{
     ang_diff, julian_day_utc, kinh_do_mat_troi, solve_term_instant, term_def, tiet_khi_hien_hanh,

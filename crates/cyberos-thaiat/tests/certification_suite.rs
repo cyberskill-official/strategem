@@ -1,5 +1,8 @@
-//! COV-001 — TaiYi oracle certification suite (≥20 golden cases).
-//! Fixtures: `tests/fixtures/taiyi_cert_v1.csv` (engine golden via cast-cli).
+//! Self-oracle regression suite (COV-001 goldens) — NOT kintaiyi certification.
+//!
+//! Fixtures: `tests/fixtures/taiyi_cert_v1.csv` with
+//! `oracle_source=engine_golden_v1+cast_cli`. External kintaiyi dumps live under
+//! `oracle/kintaiyi/` and are gated by `external_oracle_cert.rs` (W4).
 
 use cyberos_thaiat::{cast_thai_at, Cap, CastInput, DemToan, Epoch, TatFlags};
 use std::fs;
@@ -10,7 +13,7 @@ fn fixture_path() -> PathBuf {
 }
 
 #[test]
-fn taiyi_cert_v1_min_20_and_cache_keys_match() {
+fn taiyi_self_oracle_regression_min_20_and_cache_keys_match() {
     let text = fs::read_to_string(fixture_path()).expect("taiyi_cert_v1.csv");
     let mut rows = 0usize;
     for line in text.lines().skip(1).filter(|l| !l.trim().is_empty()) {
@@ -52,6 +55,6 @@ fn taiyi_cert_v1_min_20_and_cache_keys_match() {
     }
     assert!(
         rows >= 20,
-        "COV-001 requires ≥20 TaiYi golden cases, got {rows}"
+        "self-oracle regression requires ≥20 TaiYi golden cases, got {rows}"
     );
 }

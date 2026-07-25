@@ -10,7 +10,12 @@
 
 ## Oracle honesty
 
-`oracle_source=engine_golden_v1+cast_cli` — deterministic regression goldens from current engines + cast-cli. External kin* libraries remain partial module fixtures; this task is the product-scale certification gate for dual-benchmark 100%.
+`oracle_source=engine_golden_v1+cast_cli` — deterministic **self-oracle regression**
+goldens from current engines + cast-cli. They are not independent kin* certification.
+
+W4 added `oracle/` + `external_oracle_cert` tests: committed `sample/` rows prove the
+harness; `full/` dumps gate at 100% when present and **SKIP** when absent. Full
+external certification remains pending real kinqimen/kinliuren/kintaiyi/sxwnl dumps.
 
 ## Status
 
