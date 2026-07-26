@@ -16,7 +16,7 @@ The highest-impact gaps observed on the live/default path are:
 - `INTERPRET_MODE=rag` can still run with `StubLlm`, `HashEmbedder`, and chunks derived from pattern metadata rather than a genuine classical corpus.
 - The audited report journey returns 404 for `GET /reports/{query_id}` and its PDF endpoint.
 - The PDF exporter returns HTML with a `%PDF-1.4` prefix rather than a valid rendered PDF.
-- `GET /api/v1/knowledge/patterns?system=X` ignores the requested system filter.
+- ~~`GET /api/v1/knowledge/patterns?system=X` ignores the requested system filter.~~ **Remediated 2026-07-27 (TASK-API-005):** live probe + unit/smoke/OpenAPI contract lock; filter honors `system=` (canonical) and `he=` (alias); unknown → empty 200.
 - Product-scale oracle goldens are generated from the current engines and `cast_cli`, so they are regression fixtures rather than independent kin* certification.
 
 ## Status reconciliation
@@ -78,9 +78,9 @@ return header + body
 
 Magic bytes do not make the following HTML a valid PDF document. The PDF acceptance claim is therefore broken even where an endpoint returns bytes.
 
-### Rule and knowledge endpoint — Partial with defect
+### Rule and knowledge endpoint — Partial with defect (filter remediated)
 
-The pattern catalog and browse surface exist, but the live request `GET /api/v1/knowledge/patterns?system=X` returned the full 175-pattern set regardless of `system`. Per-system filtering is therefore not working on the audited path.
+The pattern catalog and browse surface exist. On 2026-07-25 the live request `GET /api/v1/knowledge/patterns?system=X` returned the full 175-pattern set regardless of `system`. **Remediated 2026-07-27 under TASK-API-005:** prod re-probe shows filtered totals (175 → 105 `qimen` / 40 `liuren` / 30 `taiyi`); handler + unit tests + hardened smoke + OpenAPI document the contract. Remaining knowledge/RAG depth gaps are out of scope for that task.
 
 ### Product and design — Partial
 
@@ -108,7 +108,7 @@ No replacement percentage is asserted. A numerical score would imply precision n
 W0 changes documentation and status only. Product fixes are intentionally deferred:
 
 - report identifier persistence and real PDF rendering;
-- pattern endpoint filtering;
+- ~~pattern endpoint filtering~~ — **remediated 2026-07-27 (TASK-API-005)** (contract lock: smoke/OpenAPI/UI/`system=` + `he=` alias);
 - genuine default RAG over a classical corpus;
 - complete nine-step orchestration, auth enforcement, and Postgres default path;
 - deeper engine/calendar fidelity and independent external oracle certification;

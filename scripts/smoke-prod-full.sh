@@ -223,21 +223,32 @@ fi
 echo
 echo "== knowledge + edu =="
 http_json GET "$API_BASE/api/v1/knowledge/patterns?limit=2"
+UNFILTERED_TOTAL=0
 if [[ "$HTTP_CODE" == "200" ]]; then
-  TOTAL="$(json_get "$BODY" "d.get('total') or 0")"
-  if [[ "$TOTAL" -ge 1 ]]; then
-    pass "patterns total=$TOTAL"
+  UNFILTERED_TOTAL="$(json_get "$BODY" "d.get('total') or 0")"
+  if [[ "$UNFILTERED_TOTAL" -ge 1 ]]; then
+    pass "patterns total=$UNFILTERED_TOTAL"
   else
-    fail "patterns total=$TOTAL"
+    fail "patterns total=$UNFILTERED_TOTAL"
   fi
 else
   fail "patterns HTTP=$HTTP_CODE"
 fi
 
-http_json GET "$API_BASE/api/v1/knowledge/patterns?system=qimen&limit=1"
+# TASK-API-005: hard-fail if ?system=qimen is ignored or returns mixed systems
+http_json GET "$API_BASE/api/v1/knowledge/patterns?system=qimen&limit=500"
 if [[ "$HTTP_CODE" == "200" ]]; then
-  SYS="$(json_get "$BODY" "(d.get('patterns') or [{}])[0].get('system') if d.get('patterns') else ''")"
-  pass "patterns filter system=${SYS:-unknown}"
+  FILT_TOTAL="$(json_get "$BODY" "d.get('total') or 0")"
+  BAD_SYS="$(json_get "$BODY" "sum(1 for p in (d.get('patterns') or []) if str(p.get('system') or '') != 'qimen')")"
+  ROW_N="$(json_get "$BODY" "len(d.get('patterns') or [])")"
+  if [[ "$FILT_TOTAL" -ge 1 ]] \
+    && [[ "$BAD_SYS" == "0" ]] \
+    && [[ "$ROW_N" -ge 1 ]] \
+    && { [[ "$UNFILTERED_TOTAL" -le 1 ]] || [[ "$FILT_TOTAL" -lt "$UNFILTERED_TOTAL" ]]; }; then
+    pass "patterns filter system=qimen total=$FILT_TOTAL (of $UNFILTERED_TOTAL) rows=$ROW_N"
+  else
+    fail "patterns?system=qimen filter broken total=$FILT_TOTAL unfiltered=$UNFILTERED_TOTAL bad_system_rows=$BAD_SYS rows=$ROW_N"
+  fi
 else
   fail "patterns?system=qimen HTTP=$HTTP_CODE"
 fi

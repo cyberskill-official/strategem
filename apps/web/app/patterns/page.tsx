@@ -30,7 +30,8 @@ export default function PatternsPage() {
     setError(null);
     try {
       const params = new URLSearchParams();
-      if (he) params.set("he", he);
+      // TASK-API-005: prefer canonical system= (he= remains accepted server-side)
+      if (he) params.set("system", he);
       if (q.trim()) params.set("q", q.trim());
       params.set("limit", "200");
       const res = await fetch(`${apiBase()}/api/v1/knowledge/patterns?${params}`);

@@ -60,16 +60,19 @@ def _load_patterns() -> list[dict[str, Any]]:
 
 @router.get("/knowledge/patterns")
 def list_patterns(
-    he: str | None = Query(default=None, description="qimen|liuren|taiyi or he code"),
+    he: str | None = Query(
+        default=None,
+        description="Alias of system: qimen|liuren|taiyi or Vietnamese he codes (ky_mon|luc_nham|thai_at)",
+    ),
     system: str | None = Query(
         default=None,
-        description="Alias of he: qimen|liuren|taiyi (TASK-API-001 ?system=)",
+        description="Canonical classical system filter: qimen|liuren|taiyi (TASK-API-001 / TASK-API-005)",
     ),
     q: str | None = Query(default=None, description="search name/gloss"),
     limit: int = Query(default=200, ge=1, le=500),
 ) -> dict[str, Any]:
     rows = _load_patterns()
-    # Spec + live clients use ?system=; he= remains supported.
+    # Canonical filter is ?system=; he= remains a supported alias (TASK-API-005).
     he_n = (system or he or "").strip().lower()
     if he_n:
         alias = {
