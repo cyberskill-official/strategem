@@ -10,8 +10,9 @@ The FastAPI gateway that fronts the whole platform: it authenticates and authori
 | API-002 | SHOULD | P1 | 6 | API versioning + deprecation policy (URL v1, header) |
 | API-003 | MUST | P0 | 8 | [Rate limiting + abuse detection (per tier)](TASK-API-003-rate-limiting/spec.md) |
 | API-004 | MUST | P0 | 8 | [Query/chart/report persistence + audit rows](TASK-API-004-persistence-audit/spec.md) |
+| API-005 | SHOULD | P1 | 4 | [Patterns `?system=` filter contract lock](TASK-API-005-patterns-system-filter/spec.md) |
 
-Three P0 tasks are authored (API-001 the orchestrator + contracts, API-003 rate limiting + abuse, API-004 persistence + audit). Also authored: API-002 (URL-`v1` plus header API versioning and the deprecation policy, P1).
+Three P0 tasks are authored (API-001 the orchestrator + contracts, API-003 rate limiting + abuse, API-004 persistence + audit). Also authored: API-002 (URL-`v1` plus header API versioning and the deprecation policy, P1) and API-005 (patterns `?system=` filter contract lock / live-audit truth-up, P1 improvement).
 
 ## Internal spine
 

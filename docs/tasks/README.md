@@ -162,6 +162,7 @@ Status column is a snapshot; the live status source of truth is `backlog.yaml` i
 | API-002 | SHOULD | P1 | 6 | API-001 | API versioning + deprecation policy (URL v1, header) |
 | API-003 | MUST | P0 | 8 | API-001, AUTH-002 | Rate limiting + abuse detection (per tier) |
 | API-004 | MUST | P0 | 8 | API-001, PLAT-003 | Query/chart/report persistence + audit rows |
+| API-005 | SHOULD | P1 | 4 | API-001 | Patterns `?system=` filter contract lock (live-audit truth-up) |
 
 ### CHART - interactive chart components
 
