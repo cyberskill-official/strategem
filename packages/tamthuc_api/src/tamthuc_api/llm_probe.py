@@ -30,7 +30,11 @@ def probe_llm() -> dict[str, Any]:
 
     url = f"{base}/models"
     api_key = (os.environ.get("LLM_API_KEY") or "").strip()
-    headers = {"Accept": "application/json"}
+    headers = {
+        "Accept": "application/json",
+        # Cloudflare edge (error 1010) blocks Python-urllib's default UA.
+        "User-Agent": "StrategemAPI/1.0 (+https://strategem.cyberskill.world)",
+    }
     if api_key:
         headers["Authorization"] = f"Bearer {api_key}"
     req = urllib.request.Request(url, headers=headers, method="GET")

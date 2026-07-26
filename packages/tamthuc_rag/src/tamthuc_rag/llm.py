@@ -152,6 +152,8 @@ class OpenAICompatibleLlm:
         headers = {
             "Content-Type": "application/json",
             "Accept": "application/json",
+            # Cloudflare edge (error 1010) blocks Python-urllib's default UA.
+            "User-Agent": "StrategemAPI/1.0 (+https://strategem.cyberskill.world)",
         }
         if self.api_key:
             headers["Authorization"] = f"Bearer {self.api_key}"
