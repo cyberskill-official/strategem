@@ -58,10 +58,13 @@ services:
       PAYOS_API_KEY: ${PAYOS_API_KEY:-}
       PAYOS_CHECKSUM_KEY: ${PAYOS_CHECKSUM_KEY:-}
       PAYOS_PREMIUM_AMOUNT_VND: ${PAYOS_PREMIUM_AMOUNT_VND:-79000}
-      LLM_BACKEND: ${LLM_BACKEND:-openai_compatible}
-      LLM_BASE_URL: ${LLM_BASE_URL:-http://host.docker.internal:1234/v1}
-      LLM_MODEL: ${LLM_MODEL:-local-model}
-      LLM_API_KEY: ${LLM_API_KEY:-}
+      # Browser origins for host-published web (default + remapped ports).
+      CORS_ORIGINS: ${CORS_ORIGINS:-http://127.0.0.1:3000,http://localhost:3000,http://127.0.0.1:13000,http://localhost:13000}
+      # Prefer LOCAL_LLM_* so host prod LLM_* secrets do not leak into local compose.
+      LLM_BACKEND: ${LOCAL_LLM_BACKEND:-${LLM_BACKEND:-openai_compatible}}
+      LLM_BASE_URL: ${LOCAL_LLM_BASE_URL:-http://host.docker.internal:1234/v1}
+      LLM_MODEL: ${LOCAL_LLM_MODEL:-local-model}
+      LLM_API_KEY: ${LOCAL_LLM_API_KEY:-}
       LLM_TIMEOUT_S: ${LLM_TIMEOUT_S:-60}
       INTERPRET_MODE: ${INTERPRET_MODE:-rag}
     extra_hosts:

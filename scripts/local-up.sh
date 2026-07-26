@@ -8,7 +8,6 @@ COMPOSE_FILE="${COMPOSE_FILE:-deploy/compose/docker-compose.local.yml}"
 API_PORT="${LOCAL_API_PORT:-8000}"
 WEB_PORT="${LOCAL_WEB_PORT:-3000}"
 PG_PORT="${LOCAL_PG_PORT:-5432}"
-LLM_BASE="${LLM_BASE_URL:-http://127.0.0.1:1234/v1}"
 
 cd "$ROOT"
 
@@ -18,9 +17,14 @@ export LOCAL_PG_PORT="$PG_PORT"
 export NEXT_PUBLIC_API_BASE="${NEXT_PUBLIC_API_BASE:-http://127.0.0.1:${API_PORT}}"
 export API_URL="${API_URL:-http://api:8000}"
 export PAYMENTS_MODE="${PAYMENTS_MODE:-mock}"
-export LLM_BACKEND="${LLM_BACKEND:-openai_compatible}"
-export LLM_BASE_URL="${LLM_BASE_URL:-http://host.docker.internal:1234/v1}"
-export LLM_MODEL="${LLM_MODEL:-local-model}"
+export CORS_ORIGINS="${CORS_ORIGINS:-http://127.0.0.1:${WEB_PORT},http://localhost:${WEB_PORT},http://127.0.0.1:3000,http://localhost:3000}"
+# Do not inherit host/prod LLM_* into compose; use LOCAL_LLM_* to override.
+export LOCAL_LLM_BACKEND="${LOCAL_LLM_BACKEND:-openai_compatible}"
+export LOCAL_LLM_BASE_URL="${LOCAL_LLM_BASE_URL:-http://host.docker.internal:1234/v1}"
+export LOCAL_LLM_MODEL="${LOCAL_LLM_MODEL:-local-model}"
+export LOCAL_LLM_API_KEY="${LOCAL_LLM_API_KEY:-}"
+# Host-side probe uses loopback (not host.docker.internal).
+LLM_BASE="${LOCAL_LLM_PROBE_URL:-http://127.0.0.1:1234/v1}"
 
 echo "==> Starting compose stack (build if needed)"
 docker compose -f "$COMPOSE_FILE" up --build -d

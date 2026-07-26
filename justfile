@@ -111,3 +111,7 @@ local-down:
 
 local-logs:
     docker compose -f deploy/compose/docker-compose.local.yml logs -f --tail=200
+
+# Full journey against production (or override API_BASE / WEB_BASE).
+smoke-prod:
+    bash scripts/smoke-prod-full.sh

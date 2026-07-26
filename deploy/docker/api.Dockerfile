@@ -8,8 +8,9 @@ RUN cargo build --release -p cast-cli --bins \
   && test -x /src/target/release/cast-cli
 
 # Stage 2 — Python deps (editable install paths point at /src/packages/.../src)
+# Install uv via pip (avoids ghcr.io COPY --from pulls that hang on some hosts).
 FROM python:3.12-slim-bookworm AS py-build
-COPY --from=ghcr.io/astral-sh/uv:latest /uv /usr/local/bin/uv
+RUN pip install --no-cache-dir uv
 WORKDIR /src
 COPY pyproject.toml uv.lock ./
 COPY packages ./packages
