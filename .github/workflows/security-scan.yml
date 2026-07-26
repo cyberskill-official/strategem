@@ -57,4 +57,4 @@ jobs:
           rm -f "${ASSET}" checksums.txt
           gitleaks version
       - name: Secret scan (gitleaks detect)
-        run: gitleaks detect --source . --verbose --redact --exit-code 1
+        run: gitleaks detect --source . --config .gitleaks.toml --verbose --redact --exit-code 1
