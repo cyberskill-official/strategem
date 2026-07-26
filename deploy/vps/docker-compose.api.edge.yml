@@ -20,6 +20,10 @@ services:
       CORS_ORIGINS: ${CORS_ORIGINS}
     expose:
       - "8000"
+    # Host-synced corpus/patterns until the published image includes COPY data
+    # (and as a hot-update path without full image rebuild).
+    volumes:
+      - ../../data:/src/data:ro
     networks:
       cyberos:
         aliases:
