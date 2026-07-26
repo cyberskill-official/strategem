@@ -1,0 +1,14 @@
+# Gitleaks config for Tam Thuc Strategem.
+# Extends default rules; allowlist covers known test fixtures (including
+# historical commits that still contain the old hex PayOS unit-test key).
+
+title = "strategem"
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "Unit-test PayOS signature fixtures (not live credentials)"
+paths = [
+  '''packages/tamthuc_api/tests/test_payos_signature_unit\.py''',
+]
