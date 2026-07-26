@@ -18,25 +18,37 @@ def onboarding_path() -> list[OnboardingStep]:
         OnboardingStep(
             id="welcome",
             title="Welcome",
-            body="Tam Thuc Strategem is decision support, not fortune-telling.",
+            body=(
+                "Tam Thuc Strategem sits with you while you think — heritage education "
+                "and a kind place to lean, never fortune-telling."
+            ),
             cta="Continue",
         ),
         OnboardingStep(
             id="cast",
-            title="Cast a chart",
-            body="Enter a datetime and question; the engine produces a deterministic la so.",
-            cta="Try cast",
+            title="Draw a picture",
+            body=(
+                "Bring a datetime and an honest question. The engine draws a "
+                "reproducible classical picture you can look at slowly."
+            ),
+            cta="Try once",
         ),
         OnboardingStep(
             id="read",
-            title="Read with citations",
-            body="AI interpretation always shows disclosure and classical citations.",
+            title="Read with sources",
+            body=(
+                "Suggestions always show AI disclosure and classical citations — "
+                "a place to lean, not a destiny claim."
+            ),
             cta="See results",
         ),
         OnboardingStep(
             id="decide",
             title="You decide",
-            body="Use chu-khach framing; the tool never issues a verdict.",
+            body=(
+                "Use host–guest framing to think clearly. The tool never issues a "
+                "verdict — kindness and judgment stay with you."
+            ),
             cta="Done",
         ),
     ]
@@ -44,15 +56,22 @@ def onboarding_path() -> list[OnboardingStep]:
 
 def help_topics() -> list[dict[str, str]]:
     return [
-        {"id": "disclaimer", "title": "Disclaimer", "body": "Educational / decision support only."},
+        {
+            "id": "disclaimer",
+            "title": "Disclaimer",
+            "body": (
+                "Heritage education and decision support only — not fortune-telling, "
+                "not medical, legal, or financial advice."
+            ),
+        },
         {
             "id": "schools",
             "title": "School flags",
-            "body": "Configure co_truong_phai under Manage → Settings.",
+            "body": "Choose school methods under Manage → Settings. No school is labeled right or wrong.",
         },
         {
             "id": "export",
             "title": "Export",
-            "body": "PDF via report export; PNG/SVG via chart export.",
+            "body": "PDF via the reading export; PNG/SVG via chart export.",
         },
     ]

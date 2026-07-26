@@ -24,11 +24,11 @@ export const metadata: Metadata = {
     template: "%s · Tam Thức Strategem",
   },
   description:
-    "Giáo dục di sản và hỗ trợ quyết định · Kỳ Môn · Lục Nhâm · Thái Ất — heritage education & decision support",
+    "Chậm lại. Nhìn rõ. Rồi bước nhẹ. — Giáo dục di sản và chỗ dựa để suy nghĩ · Kỳ Môn · Lục Nhâm · Thái Ất",
   openGraph: {
     title: "Tam Thức Strategem",
     description:
-      "Giáo dục di sản và hỗ trợ quyết định — không phải bói toán. Heritage education & decision support.",
+      "Ngồi lại một nhịp cùng bức hình thời–thế — không phải bói toán. Heritage education & a kind place to think.",
     locale: "vi_VN",
     alternateLocale: ["en_US", "zh_CN"],
   },
