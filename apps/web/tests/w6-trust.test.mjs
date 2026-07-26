@@ -33,12 +33,16 @@ assert.match(follow, /data-testid="follow-up-chat"/);
 assert.match(client, /\/follow-up/);
 
 assert.match(counsel, /counsel-review-gate/);
-assert.match(gate, /counsel_review:\s*"pending"/);
+// Type still allows reopen-to-pending; live CONST mirrors gate-status.json (approved).
+assert.match(gate, /counsel_review:\s*"pending"\s*\|\s*"approved"/);
+assert.match(gate, /counsel_review:\s*"approved"/);
+assert.match(gate, /verdict:\s*"approved"/);
 assert.match(shell, /CounselReviewBanner/);
-// gate-status.json ships in the LEGAL-004 PR; assert when present so web PR stays independent.
+// LEGAL-004 is approved in-repo (2026-07-26); keep pending copy for the banner reopen path.
 if (existsSync(statusPath)) {
   const status = readFileSync(statusPath, "utf8");
-  assert.match(status, /"verdict":\s*"pending"/);
+  assert.match(status, /"verdict":\s*"approved"/);
+  assert.match(status, /"counsel_review":\s*"approved"/);
 }
 assert.match(vi, /"chat\.title"/);
 assert.match(vi, /"legal\.counsel\.pending"/);
