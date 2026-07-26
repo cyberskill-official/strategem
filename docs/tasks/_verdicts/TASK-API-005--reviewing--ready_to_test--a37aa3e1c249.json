@@ -1,0 +1,11 @@
+{
+  "schema": "cyberos.verdict@1",
+  "actor": "Stephen Cheng",
+  "timestamp": "2026-07-26T23:57:08Z",
+  "task_id": "TASK-API-005",
+  "from": "reviewing",
+  "to": "ready_to_test",
+  "evidence_path": "docs/tasks/api/TASK-API-005-patterns-system-filter/hitl-review-acceptance.md",
+  "evidence_sha256": "a37aa3e1c249b14b3b1db35f2f52cd8642c6fe3c38bda5e39f84f4ae5dc61df0",
+  "artifact_sha256": "1382b6f367818f70d6fc918c4f05c3f0abeed024af13465b0aa7e2c1a8580b20"
+}
