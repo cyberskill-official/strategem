@@ -1,0 +1,8 @@
+name = "strategem-llm-proxy"
+main = "src/index.js"
+compatibility_date = "2026-07-01"
+account_id = "f056c11bfc45c7f512b5163a53b88d54"
+workers_dev = true
+
+[ai]
+binding = "AI"

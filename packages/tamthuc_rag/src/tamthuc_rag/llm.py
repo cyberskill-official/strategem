@@ -169,7 +169,19 @@ class OpenAICompatibleLlm:
 
         payload = json.loads(raw)
         content = _extract_message_content(payload)
-        return _parse_structured(content)
+        try:
+            return _parse_structured(content)
+        except (json.JSONDecodeError, RuntimeError):
+            # Local / Workers AI models often return prose or near-JSON; keep
+            # the educational path live instead of forcing rule-based fallback.
+            text = content.strip() or "Educational reading from local model."
+            return {
+                "beginner": text,
+                "expert": text,
+                "recommendations": [
+                    {"text": "Review cited classical units carefully.", "citations": []}
+                ],
+            }
 
 
 def _extract_message_content(payload: dict[str, Any]) -> str:
