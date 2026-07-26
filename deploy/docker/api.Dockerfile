@@ -26,6 +26,8 @@ COPY --from=py-build /src/.venv /src/.venv
 COPY packages ./packages
 COPY docs ./docs
 COPY db ./db
+# Pattern seeds + classical corpus units (KB/RAG product surfaces)
+COPY data ./data
 COPY --from=rust-build /src/target/release/cast-cli /src/cast-cli
 ENV PATH="/src/.venv/bin:$PATH"
 ENV CAST_CLI=/src/cast-cli
