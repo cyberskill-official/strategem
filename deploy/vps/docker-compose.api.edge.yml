@@ -1,0 +1,43 @@
+# Strategem API behind the shared CyberOS Caddy edge (ports 80/443 already taken).
+# Usage on VPS:
+#   docker compose --env-file .env -f docker-compose.api.edge.yml up -d
+#
+# Requires an external network `cyberos-p0_cyberos` (CyberOS P0 stack) and a
+# Caddy route that reverse_proxies to service alias `strategem-api:8000`.
+services:
+  api:
+    image: ${API_IMAGE:-ghcr.io/cyberskill-official/strategem-api:main}
+    container_name: strategem-api
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      HOST: "0.0.0.0"
+      PORT: "8000"
+      DATABASE_URL: ${DATABASE_URL}
+      CAST_CLI: ${CAST_CLI:-/src/cast-cli}
+      APP_ENV: ${APP_ENV:-production}
+      CORS_ORIGINS: ${CORS_ORIGINS}
+    expose:
+      - "8000"
+    networks:
+      cyberos:
+        aliases:
+          - strategem-api
+    healthcheck:
+      test:
+        [
+          "CMD",
+          "python",
+          "-c",
+          "import urllib.request; urllib.request.urlopen('http://127.0.0.1:8000/healthz')",
+        ]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+
+networks:
+  cyberos:
+    external: true
+    name: cyberos-p0_cyberos
