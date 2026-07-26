@@ -2,8 +2,10 @@
 
 from __future__ import annotations
 
-from typing import Any
+from typing import Any, cast
+from uuid import UUID
 
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 
 
@@ -21,14 +23,13 @@ def register_and_login(
     )
     login = client.post("/auth/login", json={"email": email, "password": password})
     assert login.status_code == 200, login.text
-    body = login.json()
+    body = cast(dict[str, Any], login.json())
     if tier is not None:
-        svc = client.app.state.auth_service
+        app = cast(FastAPI, client.app)
+        svc = app.state.auth_service
         assert svc is not None
         me = client.get("/auth/me", headers={"Authorization": f"Bearer {body['access']}"})
         assert me.status_code == 200, me.text
-        from uuid import UUID
-
         uid = UUID(str(me.json()["user_id"]))
         user = svc.store.get_by_id(uid)
         assert user is not None
@@ -38,7 +39,7 @@ def register_and_login(
         # Re-login so any claim-based paths see the new tier
         login = client.post("/auth/login", json={"email": email, "password": password})
         assert login.status_code == 200, login.text
-        body = login.json()
+        body = cast(dict[str, Any], login.json())
     return body
 
 

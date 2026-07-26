@@ -2,7 +2,11 @@
 
 from __future__ import annotations
 
+from typing import cast
+from uuid import UUID
+
 from auth_helpers import auth_header, register_and_login
+from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from tamthuc_api.app import create_app
 from tamthuc_api.operator_llm import reset_memory_for_tests
@@ -27,10 +31,11 @@ def test_operator_llm_admin_roundtrip_masks_key(monkeypatch) -> None:  # type: i
     tokens = register_and_login(client, email="admin-op@example.com")
 
     # Elevate to admin via auth store
-    svc = client.app.state.auth_service
+    app = cast(FastAPI, client.app)
+    svc = app.state.auth_service
     me = client.get("/auth/me", headers=auth_header(tokens["access"]))
     uid = me.json()["user_id"]
-    user = svc.store.get_by_id(__import__("uuid").UUID(uid))
+    user = svc.store.get_by_id(UUID(uid))
     user.tier = "admin"
     svc.store.update(user)
 
