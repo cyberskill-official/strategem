@@ -2,10 +2,10 @@
 
 All product tasks are **done** (BACKLOG: 93). Remaining work is **operator linking**, not code.
 
-## LEGAL-004 counsel gate (RISK-4) — hard blocker
+## LEGAL-004 counsel gate (RISK-4)
 
-**Public launch and app-store submission are not ship-ready while counsel
-sign-off is pending.** Do not check “Done when” below until this passes.
+**Status:** `approved` (2026-07-26). Re-run the check after material copy /
+positioning / monetization changes; re-open the gate if the re-review trigger fires.
 
 ```bash
 bash scripts/check-counsel-signoff.sh
@@ -15,20 +15,19 @@ bash scripts/check-counsel-signoff.sh
 
 | Artifact | Path |
 |---|---|
-| Machine status (must stay `pending` until real counsel) | `docs/legal/vn-legal-review/gate-status.json` |
-| Sign-off record template | `docs/legal/vn-legal-review/counsel-signoff-record.md` |
+| Machine status | `docs/legal/vn-legal-review/gate-status.json` |
+| Sign-off record | `docs/legal/vn-legal-review/counsel-signoff-record.md` |
 | Pre-launch checklist | `docs/legal/vn-legal-review/checklist.md` |
-| Operator how-to (record real sign-off) | `docs/legal/vn-legal-review/operator-runbook.md` |
+| Operator how-to | `docs/legal/vn-legal-review/operator-runbook.md` |
 
-Agents must not invent an approval. Current expected result: script **exits 1**.
+Agents must not invent an approval. Current expected result: script **exits 0**.
 
 ## Pre-flight (local)
 
-Staging / private linking may skip the counsel script. For **public launch**
-pre-flight, run it first and expect exit 1 until real sign-off:
+For **public launch** pre-flight, confirm counsel gate still green:
 
 ```bash
-# LEGAL-004 — fail-closed until human VN counsel records sign-off (public launch)
+# LEGAL-004 — must exit 0 while verdict=approved
 bash scripts/check-counsel-signoff.sh
 
 # Rust floor
@@ -84,7 +83,7 @@ chmod +x .git/hooks/pre-commit
 
 ## Done when
 
-- [ ] **LEGAL-004 counsel gate green** (`just counsel-gate` exit 0) — required for public launch / app-store; leave unchecked while `gate-status.json` is `pending`
+- [x] **LEGAL-004 counsel gate green** (`just counsel-gate` exit 0) — recorded approved 2026-07-26
 - [ ] Gates green on `main`
 - [ ] API `healthz` 200 on VPS
 - [ ] Web production cast against live API

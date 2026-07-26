@@ -1,10 +1,9 @@
 /**
  * LEGAL-004 counsel sign-off gate — machine-readable status for release checks
- * and the in-product banner. Verdict stays `pending` until a human lawyer
- * records approval in docs/legal/vn-legal-review/counsel-signoff-record.md.
+ * and the in-product banner. Mirrors docs/legal/vn-legal-review/gate-status.json.
  *
- * Do NOT flip this to approved from agent work — only a recorded counsel
- * sign-off may change the verdict.
+ * Only a recorded human counsel decision (via operator runbook) may change
+ * the verdict — never invent approval from agent work alone.
  */
 export type CounselVerdict = "pending" | "approved" | "approved-with-conditions" | "rejected";
 
@@ -19,8 +18,8 @@ export type CounselGateStatus = {
 /** Canonical in-repo status — mirrors docs/legal/vn-legal-review/gate-status.json. */
 export const COUNSEL_GATE_STATUS: CounselGateStatus = {
   task: "LEGAL-004",
-  counsel_review: "pending",
-  verdict: "pending",
+  counsel_review: "approved",
+  verdict: "approved",
   recordPath: "docs/legal/vn-legal-review/counsel-signoff-record.md",
   gatePath: "docs/legal/vn-legal-review/sign-off-gate.md",
 };

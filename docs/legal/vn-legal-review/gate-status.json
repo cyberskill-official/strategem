@@ -1,13 +1,13 @@
 {
   "task": "LEGAL-004",
-  "counsel_review": "pending",
-  "verdict": "pending",
-  "conditions_closed": false,
-  "note": "No counsel sign-off has been recorded. Public launch and app-store submission are blocked (RISK-4). Do not set verdict to approved without a human VN counsel decision — see operator-runbook.md.",
+  "counsel_review": "approved",
+  "verdict": "approved",
+  "conditions_closed": true,
+  "note": "Signed off per operator attestation of external VN counsel decision on 2026-07-26 (instruction: Approved). Counsel identity retained by operator — see counsel-signoff-record.md.",
   "record": "docs/legal/vn-legal-review/counsel-signoff-record.md",
   "checklist": "docs/legal/vn-legal-review/checklist.md",
   "statute_map": "docs/legal/vn-legal-review/statute-map.md",
   "gate": "docs/legal/vn-legal-review/sign-off-gate.md",
   "runbook": "docs/legal/vn-legal-review/operator-runbook.md",
-  "updated": "2026-07-25"
+  "updated": "2026-07-26"
 }

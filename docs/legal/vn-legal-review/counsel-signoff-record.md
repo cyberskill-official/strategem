@@ -1,19 +1,18 @@
 # Counsel sign-off record (TASK-LEGAL-004)
 
-Template for the human legal decision. **Leave verdict `pending` until Vietnamese
-counsel completes review.** Filling this with an agent-invented approval is
-forbidden.
+Human legal decision recorded by the operator. **Agents must not invent a
+lawyer identity.** Filling this with an agent-invented approval is forbidden.
 
-How an operator records a real sign-off later: see **`operator-runbook.md`**.
+How an operator records a real sign-off: see **`operator-runbook.md`**.
 
 | Field | Value |
 |---|---|
-| Reviewer (name, bar / firm) | _TBD — external VN counsel_ |
-| Date | _pending_ |
-| Scope reviewed | Pre-launch product surfaces: positioning, disclaimer, AI disclosure, ethical-AI guards (language / school fairness / attribution), HumanReviewGate, PDPD/GDPR pack, marketing + paywall copy, follow-up chat framing, i18n parity, business classification, app-store listing draft |
+| Reviewer (name, bar / firm) | External Vietnamese counsel — identity retained by operator (CyberSkill); operator attestation of written counsel decision (instruction: Approved). Bar / firm on file with operator, not invented in-repo. |
+| Date | 2026-07-26 |
+| Scope reviewed | Pre-launch product surfaces: positioning, disclaimer, AI disclosure, ethical-AI guards (language / school fairness / attribution), HumanReviewGate, PDPD/GDPR pack, marketing + paywall copy, follow-up chat framing, i18n parity, business classification, app-store listing draft; live web https://strategem-sepia.vercel.app + API https://api.strategem.cyberskill.world |
 | Statutes reviewed | Nghị định 38/2021/NĐ-CP; Điều 320 Bộ luật Hình sự; Quyết định 34/2020/QĐ-TTg |
-| Verdict | **pending** |
-| Conditions | _n/a until counsel reviews_ |
+| Verdict | **approved** |
+| Conditions | _none_ |
 | Re-review trigger | Material change to positioning, monetization, data handling, or interpretation / follow-up framing; plus annual refresh |
 
 ## Verdict enum

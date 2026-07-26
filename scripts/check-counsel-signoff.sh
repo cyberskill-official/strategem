@@ -61,8 +61,19 @@ if not ck:
     sys.exit(1)
 copy_review = ck.group(1)
 ts = ts_path.read_text(encoding="utf-8")
-ts_verdict_m = re.search(r'verdict:\s*"([a-z-]+)"', ts)
-ts_review_m = re.search(r'counsel_review:\s*"([a-z-]+)"', ts)
+# Parse the COUNSEL_GATE_STATUS object only — type unions also contain
+# counsel_review: "pending" | "approved" and must not win the match.
+status_block = re.search(
+    r"export const COUNSEL_GATE_STATUS[^=]*=\s*\{(.*?)\n\};",
+    ts,
+    re.S,
+)
+if not status_block:
+    print("LEGAL-004: could not find COUNSEL_GATE_STATUS in counsel-gate.ts", file=sys.stderr)
+    sys.exit(1)
+block = status_block.group(1)
+ts_verdict_m = re.search(r'verdict:\s*"([a-z-]+)"', block)
+ts_review_m = re.search(r'counsel_review:\s*"([a-z-]+)"', block)
 if not ts_verdict_m or not ts_review_m:
     print("LEGAL-004: could not parse COUNSEL_GATE_STATUS in counsel-gate.ts", file=sys.stderr)
     sys.exit(1)

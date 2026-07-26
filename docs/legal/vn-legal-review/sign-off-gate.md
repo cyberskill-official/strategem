@@ -32,5 +32,5 @@ flips to pass): **`operator-runbook.md`**. Agents must not perform the sign-off.
 
 ## Status today
 
-`counsel_review: pending` — **no counsel sign-off has been recorded.** Agents must
-not mark this gate green.
+`counsel_review: approved` — recorded 2026-07-26 (see `counsel-signoff-record.md`
+and `gate-status.json`). Re-open on material-change / annual refresh triggers.
