@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from typing import Any
 
 from auth_helpers import auth_header, register_and_login
 from fastapi.testclient import TestClient
@@ -10,7 +11,7 @@ from tamthuc_api.app import create_app
 from tamthuc_api.payos_webhook import create_signature_from_object
 
 
-def _webhook_body(data: dict, checksum_key: str, *, code: str = "00") -> bytes:
+def _webhook_body(data: dict[str, Any], checksum_key: str, *, code: str = "00") -> bytes:
     signature = create_signature_from_object(data, checksum_key)
     return json.dumps(
         {

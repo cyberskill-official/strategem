@@ -12,7 +12,8 @@ from tamthuc_api.payos_webhook import (
 
 
 def test_create_signature_from_object_stable() -> None:
-    key = "1a54716c8f0efb2744fb28b6e38b25da7f67a925d98bc1c18bd8faaecadd7675"
+    # Deterministic fixture only — not a real PayOS checksum key.
+    key = "test-payos-checksum-fixture-not-a-secret"
     data = {
         "orderCode": 123,
         "amount": 3000,

@@ -2,14 +2,40 @@
 
 All product tasks are **done** (BACKLOG: 93). Remaining work is **operator linking**, not code.
 
-## Pre-flight (local)
+## LEGAL-004 counsel gate (RISK-4) — hard blocker
+
+**Public launch and app-store submission are not ship-ready while counsel
+sign-off is pending.** Do not check “Done when” below until this passes.
 
 ```bash
+bash scripts/check-counsel-signoff.sh
+# or: just counsel-gate
+# or: just ship-ready   # includes counsel-gate + machine gates
+```
+
+| Artifact | Path |
+|---|---|
+| Machine status (must stay `pending` until real counsel) | `docs/legal/vn-legal-review/gate-status.json` |
+| Sign-off record template | `docs/legal/vn-legal-review/counsel-signoff-record.md` |
+| Pre-launch checklist | `docs/legal/vn-legal-review/checklist.md` |
+| Operator how-to (record real sign-off) | `docs/legal/vn-legal-review/operator-runbook.md` |
+
+Agents must not invent an approval. Current expected result: script **exits 1**.
+
+## Pre-flight (local)
+
+Staging / private linking may skip the counsel script. For **public launch**
+pre-flight, run it first and expect exit 1 until real sign-off:
+
+```bash
+# LEGAL-004 — fail-closed until human VN counsel records sign-off (public launch)
+bash scripts/check-counsel-signoff.sh
+
 # Rust floor
 bash .cyberos/cuo/gates/run-gates.sh
 
 # Web
-cd apps/web && npm test
+cd apps/web && pnpm --filter web test
 
 # API unit
 .venv/bin/python -m pytest packages/tamthuc_api/tests -q
@@ -58,10 +84,14 @@ chmod +x .git/hooks/pre-commit
 
 ## Done when
 
+- [ ] **LEGAL-004 counsel gate green** (`just counsel-gate` exit 0) — required for public launch / app-store; leave unchecked while `gate-status.json` is `pending`
 - [ ] Gates green on `main`
 - [ ] API `healthz` 200 on VPS
 - [ ] Web production cast against live API
 - [ ] Migrations applied; RLS fail-closed still holds
+
+Staging / private ops linking may proceed without counsel approval. **Public
+marketing launch and store submission may not.**
 
 ## Staging (COV-020)
 

@@ -86,6 +86,41 @@ jobs:
         run: bash scripts/check-status-sync.sh
         shell: bash
 
+  # LEGAL-004: keep artifacts consistent. Do not require approved (that is a
+  # human counsel decision). Fail CI if someone fakes approval without lockstep
+  # markers, or if the fail-closed script is missing.
+  counsel-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1  # v7
+      - name: Validate LEGAL-004 gate artifacts
+        run: |
+          set -euo pipefail
+          STATUS=docs/legal/vn-legal-review/gate-status.json
+          test -f "$STATUS"
+          test -f docs/legal/vn-legal-review/counsel-signoff-record.md
+          test -f docs/legal/vn-legal-review/operator-runbook.md
+          test -x scripts/check-counsel-signoff.sh || chmod +x scripts/check-counsel-signoff.sh
+          verdict="$(python3 -c "import json; print(json.load(open('$STATUS'))['verdict'])")"
+          set +e
+          bash scripts/check-counsel-signoff.sh
+          code=$?
+          set -e
+          if [[ "$verdict" == "pending" || "$verdict" == "rejected" ]]; then
+            if [[ "$code" -eq 0 ]]; then
+              echo "LEGAL-004: script must fail-close while verdict=$verdict" >&2
+              exit 1
+            fi
+            echo "LEGAL-004: fail-closed OK (verdict=$verdict) — public launch blocked"
+          else
+            if [[ "$code" -ne 0 ]]; then
+              echo "LEGAL-004: verdict=$verdict but check-counsel-signoff.sh failed" >&2
+              exit 1
+            fi
+            echo "LEGAL-004: counsel gate open (verdict=$verdict)"
+          fi
+        shell: bash
+
   web:
     runs-on: ubuntu-latest
     timeout-minutes: 30
