@@ -83,3 +83,10 @@ oracle/*/full/*.json
 .agents/skills/task-author
 .agents/skills/task-audit
 # <<< cyberos <<<
+
+# Local operator secrets (never commit)
+.local/
+.vercel
+
+# supabase CLI local temp
+supabase/.temp/
