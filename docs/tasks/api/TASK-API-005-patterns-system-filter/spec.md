@@ -3,7 +3,7 @@ id: TASK-API-005
 title: "Knowledge patterns ?system= filter contract lock - honor system filter, harden smoke/OpenAPI, close live-truth-audit finding"
 module: API
 priority: SHOULD
-status: testing
+status: done
 class: improvement
 phase: P1
 slice: 1

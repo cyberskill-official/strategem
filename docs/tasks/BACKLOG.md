@@ -1,7 +1,7 @@
 # backlog
 
-## done: 93 tasks + **COV-001..028** + **API-READY** + **WEB-009..022** (HITL final 2026-07-14)
-## testing (HITL final): **TASK-API-005** patterns `?system=` filter contract lock — coverage/TRACE-004/smoke green 2026-07-27; await `ACCEPT TASK-API-005`
+## done: 93 tasks + **COV-001..028** + **API-READY** + **WEB-009..022** + **API-005** (HITL final 2026-07-27)
+## testing (HITL final): _(none)_
 ## ready_to_test (HITL): _(none)_
 ## ready_to_review (HITL): _(none)_
 ## ready_to_implement: _(none)_
@@ -13,4 +13,4 @@
 ## voice: `docs/copy/VOICE.md`
 
 ## machine-index
-- [testing] TASK-API-005-patterns-system-filter - Knowledge patterns ?system= filter contract lock (improvement)
+- [done] TASK-API-005-patterns-system-filter - Knowledge patterns ?system= filter contract lock (improvement)

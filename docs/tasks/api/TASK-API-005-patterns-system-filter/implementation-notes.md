@@ -1,6 +1,6 @@
 # TASK-API-005 — implementation notes
 
-`testing` — claimed 2026-07-27. Coverage-gate + TRACE-004 + prod smoke recorded. **Halt for final human acceptance** (`testing` → `done`). Agent will not set `done`.
+`done` — final human acceptance recorded 2026-07-27 (`ACCEPT TASK-API-005`).
 
 ## What landed (2026-07-27)
 
@@ -23,7 +23,7 @@ API_BASE=https://api.strategem.cyberskill.world bash scripts/smoke-prod-full.sh
 
 - Coverage gate artefact: `coverage-gate.md` (outcome PASS; TRACE-004 closed)
 - awh / caf: N/A (no module goldenset / CAF seal)
-- Transition receipt: `docs/tasks/_state/receipts/TASK-API-005--ready_to_test--testing--05cb0bad7efc.json`
+- Transition receipt (ready_to_test → testing): `docs/tasks/_state/receipts/TASK-API-005--ready_to_test--testing--05cb0bad7efc.json`
 
 ## HITL
 
@@ -31,5 +31,7 @@ API_BASE=https://api.strategem.cyberskill.world bash scripts/smoke-prod-full.sh
   - Evidence: `hitl-review-acceptance.md`
   - Packet: `code-review.md`
   - Verdict artifact + transition receipts under `docs/tasks/_verdicts/` and `docs/tasks/_state/receipts/`
-- Final `done` only after human acceptance (`testing` → `done`).
-  - Operator phrase: **`ACCEPT TASK-API-005`** (or equivalent final-accept utterance)
+- Final acceptance: **ACCEPT TASK-API-005** 2026-07-27 → `done`
+  - Evidence: `hitl-final-acceptance.md`
+  - Verdict: `docs/tasks/_verdicts/TASK-API-005--testing--done--8a5589965925.json`
+  - Receipt: `docs/tasks/_state/receipts/TASK-API-005--testing--done--4d233854896c.json`
