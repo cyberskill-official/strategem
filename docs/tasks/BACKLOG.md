@@ -1,7 +1,8 @@
 # backlog
 
 ## done: 93 tasks + **COV-001..028** + **API-READY** + **WEB-009..022** (HITL final 2026-07-14)
-## ready_to_test (HITL): **TASK-API-005** patterns `?system=` filter contract lock (improvement; live-audit truth-up) — review accepted 2026-07-27
+## testing (HITL final): **TASK-API-005** patterns `?system=` filter contract lock — coverage/TRACE-004/smoke green 2026-07-27; await `ACCEPT TASK-API-005`
+## ready_to_test (HITL): _(none)_
 ## ready_to_review (HITL): _(none)_
 ## ready_to_implement: _(none)_
 ## next ops: link Vercel + Supabase + VPS secrets (`docs/deploy/SHIP_CHECKLIST.md`) — staging secrets only (COV-020 wiring shipped)
@@ -12,4 +13,4 @@
 ## voice: `docs/copy/VOICE.md`
 
 ## machine-index
-- [ready_to_test] TASK-API-005-patterns-system-filter - Knowledge patterns ?system= filter contract lock (improvement)
+- [testing] TASK-API-005-patterns-system-filter - Knowledge patterns ?system= filter contract lock (improvement)
