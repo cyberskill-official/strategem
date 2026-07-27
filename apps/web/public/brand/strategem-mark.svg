@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Tam Thức Strategem">
+  <!-- Soft nine-palace frame: reflection / compass, not prophecy -->
+  <rect width="64" height="64" rx="10" fill="#FDFBF6"/>
+  <rect x="4" y="4" width="56" height="56" rx="8" fill="none" stroke="#45210E" stroke-width="2"/>
+  <!-- grid -->
+  <path d="M4 24h56M4 40h56M24 4v56M40 4v56" fill="none" stroke="#45210E" stroke-width="1.5" opacity="0.85"/>
+  <!-- center cell: ochre open frame -->
+  <rect x="28" y="28" width="8" height="8" rx="1.2" fill="none" stroke="#F4BA17" stroke-width="2.25"/>
+  <path d="M32 26v-2.5M32 40.5V38M26 32h-2.5M40.5 32H38" stroke="#F4BA17" stroke-width="2" stroke-linecap="round"/>
+</svg>

@@ -55,6 +55,15 @@ body {
   box-shadow: 0 0 0 1px rgb(69 33 14 / 0.16), 0 6px 18px rgb(244 186 23 / 0.5);
 }
 
+/* Cream-filled mark stays readable on dark chrome; soft ochre rim instead of umber. */
+[data-theme="dark"] .cs-brand__mark {
+  box-shadow: 0 0 0 1px rgb(244 186 23 / 0.28), 0 4px 14px rgb(0 0 0 / 0.45);
+}
+
+[data-theme="dark"] .cs-brand:hover .cs-brand__mark {
+  box-shadow: 0 0 0 1px rgb(244 186 23 / 0.4), 0 6px 18px rgb(0 0 0 / 0.55);
+}
+
 /* —— Page rhythm (override globals .cs-page gap) —— */
 .cs-page {
   gap: var(--cs-section-gap);

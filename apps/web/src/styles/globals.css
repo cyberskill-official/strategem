@@ -177,14 +177,10 @@ body,
   width: 28px;
   height: 28px;
   border-radius: var(--cs-radius-sm);
-  background: linear-gradient(
-    135deg,
-    var(--cs-color-brand-umber) 0%,
-    var(--cs-color-brand-umber) 55%,
-    var(--cs-color-brand-ochre) 55%,
-    var(--cs-color-brand-ochre) 100%
-  );
   flex-shrink: 0;
+  display: block;
+  object-fit: contain;
+  background: transparent;
 }
 
 .cs-brand__text {

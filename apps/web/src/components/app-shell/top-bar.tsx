@@ -161,7 +161,15 @@ export function TopBar() {
     <header className="cs-topbar">
       <div className="cs-topbar__inner">
         <Link href="/" className="cs-brand" data-testid="app-brand">
-          <span className="cs-brand__mark" aria-hidden />
+          {/* eslint-disable-next-line @next/next/no-img-element -- static brand SVG from /public */}
+          <img
+            className="cs-brand__mark"
+            src="/brand/strategem-mark.svg"
+            width={28}
+            height={28}
+            alt=""
+            aria-hidden
+          />
           <span className="cs-brand__text">
             <span className="cs-brand__name">{t("app.name")}</span>
             <span className="cs-brand__tagline cs-muted">{t("app.slogan")}</span>

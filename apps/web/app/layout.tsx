@@ -25,12 +25,17 @@ export const metadata: Metadata = {
   },
   description:
     "Chậm lại. Nhìn rõ. Rồi bước nhẹ. — Giáo dục di sản và chỗ dựa để suy nghĩ · Kỳ Môn · Lục Nhâm · Thái Ất",
+  icons: {
+    icon: [{ url: "/brand/strategem-mark.svg", type: "image/svg+xml" }],
+    apple: [{ url: "/brand/strategem-mark.png" }],
+  },
   openGraph: {
     title: "Tam Thức Strategem",
     description:
       "Ngồi lại một nhịp cùng bức hình thời–thế — không phải bói toán. Heritage education & a kind place to think.",
     locale: "vi_VN",
     alternateLocale: ["en_US", "zh_CN"],
+    images: [{ url: "/brand/strategem-mark-full.png", width: 1024, height: 1024, alt: "Tam Thức Strategem" }],
   },
   alternates: {
     languages: {
