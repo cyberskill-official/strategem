@@ -83,14 +83,16 @@ chmod +x .git/hooks/pre-commit
 
 ## Done when
 
-- [x] **LEGAL-004 counsel gate green** (`just counsel-gate` exit 0) — recorded approved 2026-07-26
-- [ ] Gates green on `main`
-- [ ] API `healthz` 200 on VPS
-- [ ] Web production cast against live API
-- [ ] Migrations applied; RLS fail-closed still holds
+- [x] **LEGAL-004 counsel gate green** (`just counsel-gate` exit 0) — recorded approved 2026-07-26; re-checked 2026-07-28 (`verdict=approved`, exit 0)
+- [x] Gates green on `main` — SHA `63029d1` (2026-07-28): [CI](https://github.com/cyberskill-official/strategem/actions/runs/30289903496) success, [product-journeys](https://github.com/cyberskill-official/strategem/actions/runs/30289903464) success, [Security scan](https://github.com/cyberskill-official/strategem/actions/runs/30289903722) success
+- [x] API `healthz` 200 on VPS — `curl -fsS https://api.strategem.cyberskill.world/healthz` → `{"status":"ok"}` HTTP 200 (2026-07-28); `/ready` also 200 with cast-cli + llm ok
+- [ ] Web production cast against live API — homepage `https://strategem-sepia.vercel.app/` returns 200; full cast→results→pin journey **not** re-attested this pass
+- [ ] Migrations applied; RLS fail-closed still holds — local `.local/migrate.log` shows a failed resolve of the Supabase host (not a VPS ledger dump); **do not treat as applied** without operator DB attestation
 
 Staging / private ops linking may proceed without counsel approval. **Public
 marketing launch and store submission may not.**
+
+**Hold (unchanged this pass):** PayOS live credentials, durable CF API token rotation, VPS password rotation, counsel firm-name polish.
 
 ## Staging (COV-020)
 
