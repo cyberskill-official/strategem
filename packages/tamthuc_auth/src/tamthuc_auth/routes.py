@@ -6,7 +6,9 @@ import logging
 from typing import Annotated, Any
 
 from fastapi import APIRouter, Depends, HTTPException
+from fastapi.responses import JSONResponse
 
+from tamthuc_auth.config import is_local_or_test_env
 from tamthuc_auth.deps import get_auth_service, get_current_user
 from tamthuc_auth.errors import AuthError, ConflictError
 from tamthuc_auth.models import (
@@ -28,6 +30,13 @@ router = APIRouter(prefix="/auth", tags=["auth"])
 
 def _http_error(exc: AuthError) -> HTTPException:
     return HTTPException(status_code=exc.http_status, detail=exc.to_envelope())
+
+
+def _social_login_disabled() -> JSONResponse:
+    return JSONResponse(
+        status_code=404,
+        content={"error": {"code": "NOT_FOUND", "message": "social login disabled"}},
+    )
 
 
 @router.post("/register", response_model=RegisterResponse)
@@ -56,22 +65,26 @@ def login(
         raise _http_error(e) from e
 
 
-@router.post("/login/google", response_model=TokenPair)
+@router.post("/login/google", response_model=None)
 def login_google(
     body: SocialLoginRequest,
     svc: Annotated[AuthService, Depends(get_auth_service)],
-) -> TokenPair:
+) -> TokenPair | JSONResponse:
+    if not is_local_or_test_env():
+        return _social_login_disabled()
     try:
         return svc.login_social("google", body.id_token)
     except AuthError as e:
         raise _http_error(e) from e
 
 
-@router.post("/login/apple", response_model=TokenPair)
+@router.post("/login/apple", response_model=None)
 def login_apple(
     body: SocialLoginRequest,
     svc: Annotated[AuthService, Depends(get_auth_service)],
-) -> TokenPair:
+) -> TokenPair | JSONResponse:
+    if not is_local_or_test_env():
+        return _social_login_disabled()
     try:
         return svc.login_social("apple", body.id_token)
     except AuthError as e:

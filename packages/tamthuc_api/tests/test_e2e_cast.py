@@ -29,6 +29,7 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert r.status_code == 200, r.text
     body = r.json()
     assert body["query_id"]
+    assert body.get("persistence") == "owned"
     assert "qimen" in body["charts"]
     chart = body["charts"]["qimen"]
     assert chart["he"] == "ky_mon"
@@ -121,3 +122,37 @@ def test_ready_with_executable_cast_cli(tmp_path: Path, monkeypatch: pytest.Monk
     assert body["checks"]["cast_cli_configured"] is True
     assert body["checks"]["cast_cli_present"] is True
     assert body["checks"]["engine_mode"] == "cast_cli"
+    assert "cast_cli_path" not in body["checks"]
+
+
+def test_anonymous_cast_is_ephemeral() -> None:
+    app = create_app()
+    client = TestClient(app)
+    r = client.post(
+        "/api/v1/calculate/qimen",
+        json={
+            "datetime": "2004-01-01T10:30:00",
+            "tz": "+07:00",
+            "longitude": 106.7,
+            "question": "timing",
+            "question_type": "trach_thoi",
+        },
+    )
+    assert r.status_code == 200, r.text
+    body = r.json()
+    qid = body["query_id"]
+    assert qid
+    assert body.get("persistence") == "ephemeral"
+    assert app.state.persistence.get_query_result(qid) is None
+
+    unauth = client.get(f"/api/v1/queries/{qid}")
+    assert unauth.status_code == 401
+
+    tokens = register_and_login(client, email="e2e-ephemeral@example.com")
+    headers = auth_header(tokens["access"])
+    other = client.get(f"/api/v1/queries/{qid}", headers=headers)
+    assert other.status_code == 404
+
+    hist = client.get("/api/v1/queries", headers=headers)
+    assert hist.status_code == 200
+    assert all(i["query_id"] != qid for i in hist.json()["items"])

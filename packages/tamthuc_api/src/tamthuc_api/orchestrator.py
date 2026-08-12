@@ -43,6 +43,11 @@ NINE_STEPS: tuple[str, ...] = (
 )
 
 
+def _is_ephemeral_owner(user_id: object) -> bool:
+    uid = str(user_id or "").strip().lower()
+    return uid in {"", "anon"}
+
+
 @dataclass
 class Orchestrator:
     core: CoreClient = field(default_factory=LocalCoreClient)
@@ -76,9 +81,12 @@ class Orchestrator:
         result: dict[str, Any],
     ) -> dict[str, Any]:
         query_id = str(result.get("query_id") or uuid4())
-        if self.persistence is not None:
+        result["query_id"] = query_id
+        ephemeral = _is_ephemeral_owner(body.get("user_id"))
+        result["persistence"] = "ephemeral" if ephemeral else "owned"
+        if not ephemeral and self.persistence is not None:
             pr = self.persistence.persist_query_result(
-                body.get("user_id", "anon"),
+                str(body.get("user_id")),
                 body,
                 charts,
                 patterns,
@@ -96,12 +104,13 @@ class Orchestrator:
                     self.persistence.save_result(query_id, result)
         if self.audit is not None:
             self.audit.audit(
-                body.get("user_id"),
+                None if ephemeral else body.get("user_id"),
                 AuditAction.chart_cast,
                 {
                     "system": system_label,
                     "query_id": query_id,
                     "report_id": result.get("report_id"),
+                    "persistence": result["persistence"],
                 },
             )
         return result

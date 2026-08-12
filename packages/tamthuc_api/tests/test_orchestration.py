@@ -62,7 +62,13 @@ def test_calculate_all_premium() -> None:
         json={"datetime": "2004-01-01T10:30:00"},
     )
     assert r.status_code == 200
-    assert set(r.json()["charts"]) == {"qimen", "liuren", "taiyi"}
+    body = r.json()
+    assert set(body["charts"]) == {"qimen", "liuren", "taiyi"}
+    assert body.get("persistence") == "owned"
+    qid = body["query_id"]
+    got = client.get(f"/api/v1/queries/{qid}", headers=auth_header(tokens["access"]))
+    assert got.status_code == 200, got.text
+    assert got.json()["query_id"] == qid
 
 
 def test_calculate_all_requires_auth() -> None:

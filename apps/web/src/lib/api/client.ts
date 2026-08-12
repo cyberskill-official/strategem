@@ -83,7 +83,12 @@ export async function cast(
   const headers: Record<string, string> = {
     "Content-Type": "application/json",
   };
-  if (opts?.token) headers.Authorization = `Bearer ${opts.token}`;
+  if (opts?.token) {
+    headers.Authorization = `Bearer ${opts.token}`;
+  } else {
+    const t = getAccessToken();
+    if (t) headers.Authorization = `Bearer ${t}`;
+  }
   const res = await fetchWithTimeout(fetchFn, `${base}/api/v1/calculate/${system}`, {
     method: "POST",
     headers,
@@ -200,7 +205,7 @@ export async function getQuery(
     if (res.ok) {
       return (await res.json()) as QueryResponse;
     }
-    if (res.status !== 404) throw await parseError(res);
+    if (res.status !== 404 && res.status !== 401) throw await parseError(res);
   } catch (e) {
     if (e instanceof ApiClientError && e.code !== "NETWORK" && e.code !== "TIMEOUT") {
       throw e;

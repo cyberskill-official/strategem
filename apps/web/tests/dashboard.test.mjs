@@ -14,5 +14,7 @@ assert.match(quick, /height: 44/);
 assert.match(quick, /cast\.button|t\(["']cast\.button["']\)/);
 assert.match(dash, /flow-entry-cards|FlowEntryCards/);
 assert.match(dash, /recent-charts|RecentCharts/);
+assert.doesNotMatch(dash, /setSource\("demo"\)/);
+assert.doesNotMatch(dash, /dashboard\.demoHint/);
 
 console.log("dashboard tests ok");

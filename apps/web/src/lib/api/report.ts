@@ -1,6 +1,7 @@
 /**
  * Report API client — TASK-WEB-005 (reads TASK-REPORT-001 StructuredReport).
  * Read-only: never mutates the report object.
+ * Unlabeled demo substitution is forbidden; only explicit demo-* ids use fixtures.
  */
 
 import { apiBase } from "./client";
@@ -53,21 +54,18 @@ export async function getReport(reportId: string): Promise<StructuredReport> {
     return { ...mockReport(), report_id: reportId };
   }
   const base = apiBase();
-  try {
-    const res = await fetch(
-      `${base}/api/v1/reports/${encodeURIComponent(reportId)}`,
-      {
-        method: "GET",
-        headers: { Accept: "application/json", ...authHeaders() },
-        cache: "no-store",
-      },
-    );
-    if (res.ok) return (await res.json()) as StructuredReport;
-  } catch {
-    /* fall through */
+  const res = await fetch(
+    `${base}/api/v1/reports/${encodeURIComponent(reportId)}`,
+    {
+      method: "GET",
+      headers: { Accept: "application/json", ...authHeaders() },
+      cache: "no-store",
+    },
+  );
+  if (!res.ok) {
+    throw new Error(`getReport failed: ${res.status}`);
   }
-  const { mockReport } = await import("../mock/fixtures");
-  return { ...mockReport(), report_id: reportId };
+  return (await res.json()) as StructuredReport;
 }
 
 /** Trigger TASK-REPORT-002 export; client does not re-render the PDF. */

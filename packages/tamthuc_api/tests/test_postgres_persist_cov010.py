@@ -130,6 +130,7 @@ def test_api_calculate_get_query_with_postgres(monkeypatch: pytest.MonkeyPatch) 
     tokens = register_and_login(client, email="pgpersist@example.com")
     r = client.post(
         "/api/v1/calculate/qimen",
+        headers=auth_header(tokens["access"]),
         json={
             "datetime": "2004-01-01T10:30:00",
             "tz": "+07:00",

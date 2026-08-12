@@ -1,5 +1,6 @@
 /**
  * Saved-chart history + share — TASK-WEB-007 (reads TASK-API-004, read-only).
+ * Empty or failed fetches stay honest: never substitute unlabeled demo rows.
  */
 
 import { apiBase } from "./client";
@@ -13,10 +14,12 @@ export type ChartRef = {
   report_id?: string;
 };
 
+export type HistorySource = "live" | "empty" | "unauthorized" | "unavailable";
+
 export async function getHistory(filter?: {
   he?: string;
   question_type?: string;
-}): Promise<{ items: ChartRef[]; source: "live" | "demo" }> {
+}): Promise<{ items: ChartRef[]; source: HistorySource }> {
   const base = apiBase();
   const q = new URLSearchParams();
   if (filter?.he) q.set("he", filter.he);
@@ -27,20 +30,14 @@ export async function getHistory(filter?: {
       headers: { Accept: "application/json", ...authHeaders() },
       cache: "no-store",
     });
-    if (res.ok) {
-      const body = (await res.json()) as { items?: ChartRef[] };
-      const items = body.items ?? [];
-      if (items.length) return { items, source: "live" };
-    }
+    if (res.status === 401) return { items: [], source: "unauthorized" };
+    if (!res.ok) return { items: [], source: "unavailable" };
+    const body = (await res.json()) as { items?: ChartRef[] };
+    const items = body.items ?? [];
+    return { items, source: items.length ? "live" : "empty" };
   } catch {
-    /* fall through to demo */
+    return { items: [], source: "unavailable" };
   }
-  const { mockHistory } = await import("../mock/fixtures");
-  let items = mockHistory();
-  if (filter?.he) items = items.filter((i) => i.he === filter.he);
-  if (filter?.question_type)
-    items = items.filter((i) => i.question_type === filter.question_type);
-  return { items, source: "demo" };
 }
 
 export async function shareChart(queryId: string): Promise<{ url: string }> {
