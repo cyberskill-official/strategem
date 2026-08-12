@@ -19,6 +19,7 @@ from uuid import uuid4
 from fastapi import APIRouter, Request
 from fastapi.responses import JSONResponse
 from pydantic import BaseModel, ConfigDict
+from tamthuc_auth.config import is_local_or_test_env
 
 from tamthuc_api.errors import error_envelope
 from tamthuc_api.payos_webhook import (
@@ -78,12 +79,29 @@ def _premium_amount_vnd() -> int:
     return max(2000, amount)  # payOS minimum floor for QR
 
 
-def _is_mock_mode() -> bool:
-    mode = _payments_mode()
-    if mode == "mock":
-        return True
+def _payos_configured() -> bool:
     client_id, api_key, checksum = _payos_credentials()
-    return not (client_id and api_key and checksum)
+    return bool(client_id and api_key and checksum)
+
+
+def _payments_routes_enabled() -> bool:
+    """PayOS + mock rails are local/test only until the commercial gate (SEC-001)."""
+    return is_local_or_test_env()
+
+
+def _is_mock_mode() -> bool:
+    """Mock checkout/fulfillment only when explicitly requested in local/test.
+
+    Missing PayOS credentials must not fail open into mock mode.
+    """
+    return _payments_mode() == "mock" and is_local_or_test_env()
+
+
+def _payments_disabled_response() -> JSONResponse:
+    return JSONResponse(
+        status_code=404,
+        content=error_envelope("NOT_FOUND", "payments disabled"),
+    )
 
 
 def _event_key(body: dict[str, Any], data_obj: dict[str, Any]) -> str:
@@ -233,6 +251,26 @@ def _create_payos_payment_link(
 
 @router.get("/payments/provider")
 def payment_provider() -> dict[str, Any]:
+    if not _payments_routes_enabled():
+        return {
+            "provider": PAYMENT_PROVIDER,
+            "single_rail": True,
+            "tier": "premium",
+            "free_cast_remains": True,
+            "methods_copy": ["MoMo", "ZaloPay", "chuyen_khoan", "QR"],
+            "copy": "Educational decision support — not fortune-telling.",
+            "enabled": False,
+            "mode": "disabled",
+        }
+    if _is_mock_mode():
+        mode = "mock"
+        enabled = True
+    elif _payos_configured():
+        mode = "live"
+        enabled = True
+    else:
+        mode = "disabled"
+        enabled = False
     return {
         "provider": PAYMENT_PROVIDER,
         "single_rail": True,
@@ -240,13 +278,16 @@ def payment_provider() -> dict[str, Any]:
         "free_cast_remains": True,
         "methods_copy": ["MoMo", "ZaloPay", "chuyen_khoan", "QR"],
         "copy": "Educational decision support — not fortune-telling.",
-        "mode": "mock" if _is_mock_mode() else "live",
+        "enabled": enabled,
+        "mode": mode,
     }
 
 
 @router.post("/payments/checkout", response_model=None)
 def create_checkout(body: CheckoutBody, request: Request) -> dict[str, Any] | JSONResponse:
     """Create a PayOS payment link (or local mock session)."""
+    if not _payments_routes_enabled():
+        return _payments_disabled_response()
     user = getattr(request.state, "current_user", None)
     user_id = str(user.id) if user is not None else body.user_id
     if user is None:
@@ -290,6 +331,15 @@ def create_checkout(body: CheckoutBody, request: Request) -> dict[str, Any] | JS
             "note": "Free cast stays open without payment. PAYMENTS_MODE=mock.",
         }
 
+    if not _payos_configured():
+        return JSONResponse(
+            status_code=503,
+            content=error_envelope(
+                "PAYMENTS_MISCONFIGURED",
+                "PayOS credentials required (PAYMENTS_MODE=mock is local/test only)",
+            ),
+        )
+
     try:
         data = _create_payos_payment_link(
             order_code=order_code,
@@ -330,6 +380,8 @@ async def payment_webhook(request: Request) -> dict[str, Any] | JSONResponse:
     Fail-closed when PAYOS_CHECKSUM_KEY is unset unless PAYMENTS_MODE=mock.
     Never grants tier from an unverified payload.
     """
+    if not _payments_routes_enabled():
+        return _payments_disabled_response()
     raw = await request.body()
     secret = _checksum_key()
     mode = _payments_mode()
@@ -431,7 +483,7 @@ async def payment_webhook(request: Request) -> dict[str, Any] | JSONResponse:
 @router.post("/payments/mock-complete", response_model=None)
 def mock_complete_checkout(request: Request) -> dict[str, Any] | JSONResponse:
     """Local-only: complete the latest mock checkout for the authenticated user."""
-    if _payments_mode() != "mock" and not _is_mock_mode():
+    if not _is_mock_mode():
         return JSONResponse(
             status_code=404,
             content=error_envelope("NOT_FOUND", "mock-complete only available in mock mode"),

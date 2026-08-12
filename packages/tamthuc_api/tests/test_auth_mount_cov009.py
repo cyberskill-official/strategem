@@ -55,7 +55,9 @@ def test_free_cast_without_auth(client: TestClient) -> None:
         },
     )
     assert r.status_code == 200, r.text
-    assert r.json().get("charts", {}).get("qimen")
+    body = r.json()
+    assert body.get("charts", {}).get("qimen")
+    assert body.get("persistence") == "ephemeral"
 
 
 def test_timing_gated_for_free_authenticated(client: TestClient) -> None:

@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { useEffect, useState, useSyncExternalStore } from "react";
-import { getHistory, type ChartRef } from "../../lib/api/history";
+import { getHistory, type ChartRef, type HistorySource } from "../../lib/api/history";
 import { loadSavedCharts, type SavedChart } from "../../lib/pins/saved-charts";
 import { useLocale } from "../i18n/locale-provider";
 import { FlowEntryCards } from "./flow-entry-cards";
@@ -32,7 +32,7 @@ export function Dashboard() {
   const { t } = useLocale();
   const saved = useSavedCharts();
   const [recent, setRecent] = useState<ChartRef[]>([]);
-  const [source, setSource] = useState<"live" | "demo" | "loading">("loading");
+  const [source, setSource] = useState<HistorySource | "loading">("loading");
 
   useEffect(() => {
     let cancelled = false;
@@ -45,7 +45,7 @@ export function Dashboard() {
       } catch {
         if (!cancelled) {
           setRecent([]);
-          setSource("demo");
+          setSource("unavailable");
         }
       }
     })();
@@ -75,9 +75,13 @@ export function Dashboard() {
         <span className="cs-muted">
           {source === "live"
             ? t("dashboard.liveFromApi")
-            : source === "demo"
-              ? t("dashboard.demoHint")
-              : "…"}
+            : source === "unauthorized"
+              ? t("dashboard.signInForHistory")
+              : source === "unavailable"
+                ? t("dashboard.historyUnavailable")
+                : source === "empty"
+                  ? t("history.empty")
+                  : "…"}
         </span>
       </div>
 

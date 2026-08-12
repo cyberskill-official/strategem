@@ -22,6 +22,7 @@ def _calculate_system(system: str, body: CalculateRequest, request: Request) -> 
     t0 = time.perf_counter()
     ok = True
     payload = body.model_dump()
+    payload.pop("user_id", None)
     user = getattr(request.state, "current_user", None)
     if user is not None:
         payload["user_id"] = str(user.id)
@@ -83,5 +84,7 @@ def calculate_all(body: CalculateRequest, request: Request) -> dict[str, Any] | 
             status_code=403,
             content=error_envelope("FORBIDDEN_TIER", "calculate_all requires premium+"),
         )
-    result: dict[str, Any] = _orch(request).calculate_all(body.model_dump())
+    result: dict[str, Any] = _orch(request).calculate_all(
+        {**body.model_dump(), "user_id": str(user.id)}
+    )
     return result

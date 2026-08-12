@@ -351,6 +351,34 @@ def test_config_allows_dev_placeholders_in_development(monkeypatch: pytest.Monke
     assert len(s.master_key()) == 32
 
 
+def test_is_local_or_test_env(monkeypatch: pytest.MonkeyPatch) -> None:
+    from tamthuc_auth.config import is_local_or_test_env
+
+    monkeypatch.delenv("ENV", raising=False)
+    monkeypatch.delenv("APP_ENV", raising=False)
+    assert is_local_or_test_env() is True
+    monkeypatch.setenv("ENV", "test")
+    assert is_local_or_test_env() is True
+    monkeypatch.setenv("ENV", "production")
+    assert is_local_or_test_env() is False
+    monkeypatch.setenv("ENV", "staging")
+    assert is_local_or_test_env() is False
+
+
+def test_http_social_disabled_outside_local(
+    client: TestClient, svc: AuthService, monkeypatch: pytest.MonkeyPatch
+) -> None:
+    monkeypatch.setenv("ENV", "production")
+    monkeypatch.delenv("APP_ENV", raising=False)
+    gtok = mint_test_id_token(provider="google", email="prod@example.com", settings=svc.settings)
+    gl = client.post("/auth/login/google", json={"id_token": gtok})
+    assert gl.status_code == 404
+    assert gl.json()["error"]["code"] == "NOT_FOUND"
+    atok = mint_test_id_token(provider="apple", email="prod-a@example.com", settings=svc.settings)
+    al = client.post("/auth/login/apple", json={"id_token": atok})
+    assert al.status_code == 404
+
+
 def test_deps_and_http_errors(client: TestClient, svc: AuthService) -> None:
     # no bearer
     r = client.get("/auth/me")

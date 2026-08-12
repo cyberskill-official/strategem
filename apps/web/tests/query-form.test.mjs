@@ -43,6 +43,14 @@ assert.match(clientSrc, /\/api\/v1\/calculate\//);
 assert.match(clientSrc, /ApiClientError/);
 assert.match(clientSrc, /getQuery|\/api\/v1\/queries\//);
 assert.match(clientSrc, /sessionStorage/);
+const castFn = clientSrc.slice(
+  clientSrc.indexOf("export async function cast"),
+  clientSrc.indexOf("export async function followUp"),
+);
+assert.match(castFn, /getAccessToken/);
+assert.match(castFn, /Authorization/);
+const getQueryFn = clientSrc.slice(clientSrc.indexOf("export async function getQuery"));
+assert.match(getQueryFn, /401/);
 
 const castPage = readFileSync(join(root, "app/cast/page.tsx"), "utf8");
 assert.match(castPage, /router\.push|\/results\//);

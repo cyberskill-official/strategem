@@ -15,6 +15,7 @@ def test_ready_includes_llm_checks_without_failing(monkeypatch) -> None:  # type
     assert r.status_code == 200
     body = r.json()
     assert "llm_backend" in body["checks"]
+    assert "llm_base_url" not in body["checks"]
     assert "degraded" in body
 
 

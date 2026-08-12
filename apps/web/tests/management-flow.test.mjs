@@ -41,6 +41,7 @@ assert.match(histApi, /shareChart/);
 assert.match(histApi, /ChartRef/);
 assert.match(histApi, /\/api\/v1\/queries/);
 assert.doesNotMatch(histApi, /demoHistory/);
+assert.doesNotMatch(histApi, /mockHistory/);
 
 assert.match(share, /share-dialog/);
 assert.match(exp, /export-pdf/);
@@ -49,6 +50,7 @@ assert.match(exp, /export-svg/);
 
 assert.match(histPage, /HistoryList|getHistory/);
 assert.doesNotMatch(histPage, /demoHistory/);
+assert.doesNotMatch(histPage, /history-demo-banner/);
 assert.match(setPage, /SchoolFlagsForm/);
 
 assert.match(school, /loadSchoolConfig|SCHOOL_FLAGS_STORAGE_KEY/);

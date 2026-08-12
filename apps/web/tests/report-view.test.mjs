@@ -60,6 +60,12 @@ assert.match(api, /getReport/);
 assert.match(api, /downloadReportPdf/);
 assert.match(api, /StructuredReport/);
 assert.doesNotMatch(api, /demoReport/);
+const getReportFn = api.slice(
+  api.indexOf("export async function getReport"),
+  api.indexOf("export async function downloadReportPdf"),
+);
+assert.match(getReportFn, /startsWith\("demo-"\)/);
+assert.doesNotMatch(getReportFn, /catch \{[\s\S]*mockReport/);
 
 assert.match(page, /ReportView|getReport/);
 assert.match(page, /reportId|getReport/);

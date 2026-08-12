@@ -69,6 +69,7 @@ export type ChartEnvelope = {
 export type QueryResponse = {
   query_id: string;
   report_id?: string;
+  persistence?: "ephemeral" | "owned";
   charts: Record<string, ChartEnvelope>;
   patterns: PatternItem[];
   interpretation?: InterpretationPayload | null;

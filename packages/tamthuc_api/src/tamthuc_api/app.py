@@ -8,6 +8,7 @@ from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, PlainTextResponse
 from starlette.middleware.base import BaseHTTPMiddleware
+from tamthuc_auth.config import is_local_or_test_env
 
 from tamthuc_api.audit import AuditLog
 from tamthuc_api.authz import RequireAuthMiddleware
@@ -201,9 +202,15 @@ def create_app(
         if require_llm and not llm_checks.get("llm_reachable"):
             ok = False
             metrics.record_ready_failure("llm_unreachable")
+        public_checks = {
+            k: v
+            for k, v in checks.items()
+            if k not in {"llm_base_url", "llm_models_sample", "cast_cli_path"}
+        }
+        public_checks["payments_enabled"] = is_local_or_test_env()
         body = {
             "status": "ok" if ok else "not_ready",
-            "checks": checks,
+            "checks": public_checks,
             "degraded": {
                 "llm": not bool(llm_checks.get("llm_reachable")),
                 "cast_cli": not bool(checks.get("cast_cli_present")),

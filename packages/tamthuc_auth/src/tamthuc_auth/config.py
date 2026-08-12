@@ -23,6 +23,16 @@ def is_dev_or_test_env() -> bool:
     return env in {"development", "dev", "test"}
 
 
+def is_local_or_test_env() -> bool:
+    """True for empty ENV (local convenience), development, and test.
+
+    Staging and production must set APP_ENV/ENV explicitly. Used to keep
+    test-only social login and payment mock rails off public surfaces (SEC-001).
+    """
+    env = (os.environ.get("ENV") or os.environ.get("APP_ENV") or "").strip().lower()
+    return env in {"", "development", "dev", "test"}
+
+
 class AuthSettings(BaseSettings):
     model_config = SettingsConfigDict(env_prefix="TAMTHUC_AUTH_", extra="ignore")
 

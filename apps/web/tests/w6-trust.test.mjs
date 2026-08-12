@@ -53,6 +53,11 @@ assert.match(css, /min-height:\s*44px/);
 assert.match(css, /cs-theme-toggle/);
 assert.match(css, /focus-visible/);
 
+const nextConfig = readFileSync(join(root, "next.config.ts"), "utf8");
+assert.match(nextConfig, /X-Content-Type-Options/);
+assert.match(nextConfig, /Content-Security-Policy-Report-Only/);
+assert.match(nextConfig, /X-Frame-Options/);
+
 // APCA body: DS primary umber on page cream is Lc≈99; assert token anchors remain.
 const dsColors = readFileSync(
   join(root, "node_modules/@cyberskill/design/tokens/colors.css"),

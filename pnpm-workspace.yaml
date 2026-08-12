@@ -11,7 +11,8 @@ allowBuilds:
 # See also: https://pnpm.io/settings#minimumreleaseage
 minimumReleaseAge: 0
 
-# Force patched transitive deps called out by Trivy (TT-007).
+# Force patched transitive deps called out by Trivy (TT-007 / SEC-001).
 overrides:
   postcss: ">=8.5.18"
   sharp: ">=0.35.3"
+  nanoid: "3.3.17"
