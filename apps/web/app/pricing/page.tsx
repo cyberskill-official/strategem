@@ -5,6 +5,11 @@ import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
 import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
+import {
+  IconCompass,
+  IconHandshake,
+  IconSearch,
+} from "../../src/components/visual/story-icons";
 
 /**
  * COV-026: free cast open; single PayOS rail for premium; advisory stays waitlist.
@@ -19,7 +24,7 @@ const TIERS = [
     href: "/cast",
     featured: true,
     mode: "free" as const,
-    emoji: "🗺️",
+    Icon: IconCompass,
   },
   {
     id: "premium",
@@ -30,7 +35,7 @@ const TIERS = [
     href: "#checkout",
     featured: false,
     mode: "checkout" as const,
-    emoji: "🔍",
+    Icon: IconSearch,
   },
   {
     id: "advisory",
@@ -41,7 +46,7 @@ const TIERS = [
     href: "#waitlist",
     featured: false,
     mode: "waitlist" as const,
-    emoji: "🤝",
+    Icon: IconHandshake,
   },
 ] as const;
 
@@ -120,8 +125,8 @@ export default function PricingPage() {
             className={`cs-visual-card${tier.featured ? " is-active" : ""}`}
             data-tier={tier.id}
           >
-            <span className="cs-visual-card__emoji" aria-hidden>
-              {tier.emoji}
+            <span className="cs-visual-card__icon" aria-hidden>
+              <tier.Icon className="cs-icon" />
             </span>
             <h2>{t(tier.name)}</h2>
             <p className="cs-price">{t(tier.price)}</p>

@@ -28,6 +28,21 @@ function useSavedCharts(): SavedChart[] {
   return useSyncExternalStore(subscribePins, loadSavedCharts, () => []);
 }
 
+function historyStatusKey(source: HistorySource | "loading"): string | null {
+  switch (source) {
+    case "live":
+      return "dashboard.liveFromApi";
+    case "unauthorized":
+      return "dashboard.signInForHistory";
+    case "unavailable":
+      return "dashboard.historyUnavailable";
+    case "empty":
+      return "history.empty";
+    default:
+      return null;
+  }
+}
+
 export function Dashboard() {
   const { t } = useLocale();
   const saved = useSavedCharts();
@@ -54,38 +69,27 @@ export function Dashboard() {
     };
   }, []);
 
+  const statusKey = historyStatusKey(source);
+
   return (
     <div data-testid="dashboard" className="cs-page cs-reveal">
-      <header>
+      <header className="cs-cast-intro">
         <p className="cs-kicker">{t("app.tagline")}</p>
         <h1>{t("dashboard.title")}</h1>
-        <p className="cs-muted" style={{ maxWidth: "52ch" }}>
-          {t("dashboard.lead")}
-        </p>
+        <p className="cs-lead-short">{t("dashboard.lead")}</p>
       </header>
       <p data-testid="disclaimer" className="visually-hidden">
         {t("disclaimer.short")}
       </p>
 
-      <div
-        className="cs-card"
-        style={{ display: "flex", flexWrap: "wrap", gap: 16, alignItems: "center" }}
-      >
+      <div className="cs-card cs-dashboard-toolbar">
         <QuickCast />
-        <span className="cs-muted">
-          {source === "live"
-            ? t("dashboard.liveFromApi")
-            : source === "unauthorized"
-              ? t("dashboard.signInForHistory")
-              : source === "unavailable"
-                ? t("dashboard.historyUnavailable")
-                : source === "empty"
-                  ? t("history.empty")
-                  : "…"}
-        </span>
+        <p className="cs-muted cs-dashboard-status" aria-live="polite">
+          {statusKey ? t(statusKey) : "…"}
+        </p>
       </div>
 
-      <div className="cs-card">
+      <section className="cs-card">
         <RecentCharts
           charts={recent.map((c) => ({
             query_id: c.query_id,
@@ -95,9 +99,9 @@ export function Dashboard() {
           }))}
           title={t("dashboard.recent")}
         />
-      </div>
+      </section>
 
-      <div className="cs-card" data-testid="saved-charts-section">
+      <section className="cs-card" data-testid="saved-charts-section">
         <RecentCharts
           charts={saved.map((c) => ({
             query_id: c.query_id,
@@ -108,15 +112,15 @@ export function Dashboard() {
           title={t("dashboard.saved")}
           emptyHint={t("dashboard.savedEmpty")}
         />
-      </div>
+      </section>
 
       <FlowEntryCards />
 
-      <p className="cs-muted">
+      <nav className="cs-muted cs-dashboard-links" aria-label={t("dashboard.title")}>
         <Link href="/cast">{t("dashboard.fullForm")}</Link>
-        {" · "}
+        <span aria-hidden>·</span>
         <Link href="/learn">{t("nav.learn")}</Link>
-      </p>
+      </nav>
     </div>
   );
 }

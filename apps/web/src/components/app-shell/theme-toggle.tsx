@@ -2,6 +2,7 @@
 
 import { useSyncExternalStore } from "react";
 import { useLocale } from "../i18n/locale-provider";
+import { IconMoon, IconSun } from "../visual/story-icons";
 
 type Theme = "light" | "dark";
 
@@ -41,7 +42,11 @@ export function ThemeToggle() {
       title={theme === "dark" ? t("theme.light") : t("theme.dark")}
       data-testid="theme-toggle"
     >
-      <span aria-hidden>{theme === "dark" ? "☀" : "☾"}</span>
+      {theme === "dark" ? (
+        <IconSun className="cs-icon cs-icon--sm" />
+      ) : (
+        <IconMoon className="cs-icon cs-icon--sm" />
+      )}
     </button>
   );
 }

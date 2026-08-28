@@ -281,3 +281,155 @@ export function IconBook({ className }: IconProps) {
     </Svg>
   );
 }
+
+/** Cycle / loop — pain: repeating patterns without a clear step. */
+export function IconCycle({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon"}>
+      <circle
+        cx="32"
+        cy="32"
+        r="22"
+        fill="none"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2.5"
+        strokeDasharray="48 20"
+        strokeLinecap="round"
+      />
+      <path
+        d="M44 14 L52 22 L42 24"
+        fill="none"
+        stroke="var(--cs-color-brand-ochre)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  );
+}
+
+/** Leaf / growth — pain: timing & seasons. */
+export function IconLeaf({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon"}>
+      <path
+        d="M18 46 C18 28 28 14 46 12 C48 30 40 44 22 48 Z"
+        fill="var(--cs-color-surface-raised)"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+      />
+      <path
+        d="M22 46 C30 36 38 28 46 18"
+        fill="none"
+        stroke="var(--cs-color-brand-ochre)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </Svg>
+  );
+}
+
+/** Mirror / reflection — pain: unclear self-view. */
+export function IconMirror({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon"}>
+      <rect
+        x="14"
+        y="10"
+        width="36"
+        height="44"
+        rx="8"
+        fill="var(--cs-color-surface-raised)"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+      />
+      <ellipse cx="32" cy="30" rx="10" ry="12" fill="var(--cs-color-brand-ochre)" opacity="0.55" />
+      <path
+        d="M20 48 H44"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+    </Svg>
+  );
+}
+
+/** Magnifier — pricing insight tier. */
+export function IconSearch({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon"}>
+      <circle
+        cx="28"
+        cy="28"
+        r="14"
+        fill="var(--cs-color-surface-raised)"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2.5"
+      />
+      <path
+        d="M38 38 L50 50"
+        fill="none"
+        stroke="var(--cs-color-brand-ochre)"
+        strokeWidth="3"
+        strokeLinecap="round"
+      />
+    </Svg>
+  );
+}
+
+/** Handshake / advisory — pricing advisory tier. */
+export function IconHandshake({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon"}>
+      <path
+        d="M10 34 L22 22 L30 28 L38 20 L54 34"
+        fill="none"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M22 40 L30 32 L38 40"
+        fill="none"
+        stroke="var(--cs-color-brand-ochre)"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <circle cx="22" cy="22" r="3" fill="var(--cs-color-brand-umber)" />
+      <circle cx="38" cy="20" r="3" fill="var(--cs-color-brand-umber)" />
+    </Svg>
+  );
+}
+
+export function IconSun({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon cs-icon--sm"}>
+      <circle cx="32" cy="32" r="10" fill="var(--cs-color-brand-ochre)" />
+      <g stroke="var(--cs-color-brand-umber)" strokeWidth="2.5" strokeLinecap="round">
+        <path d="M32 8 V14" />
+        <path d="M32 50 V56" />
+        <path d="M8 32 H14" />
+        <path d="M50 32 H56" />
+        <path d="M14 14 L18 18" />
+        <path d="M46 46 L50 50" />
+        <path d="M50 14 L46 18" />
+        <path d="M18 46 L14 50" />
+      </g>
+    </Svg>
+  );
+}
+
+export function IconMoon({ className }: IconProps) {
+  return (
+    <Svg className={className ?? "cs-icon cs-icon--sm"}>
+      <path
+        d="M38 12 A18 18 0 1 0 52 40 A14 14 0 1 1 38 12 Z"
+        fill="var(--cs-color-brand-ochre)"
+        stroke="var(--cs-color-brand-umber)"
+        strokeWidth="2"
+      />
+    </Svg>
+  );
+}

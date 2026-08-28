@@ -6,8 +6,11 @@ import { useLocale } from "../src/components/i18n/locale-provider";
 import {
   HeroScene,
   IconCompass,
+  IconCycle,
   IconDialogue,
+  IconLeaf,
   IconMap,
+  IconMirror,
   IconQuestion,
   IconSeasons,
   IconStep,
@@ -20,9 +23,9 @@ const STEPS = [
 ] as const;
 
 const PAINS = [
-  { title: "home.pain1.title", body: "home.pain1.body", emoji: "🔄" },
-  { title: "home.pain2.title", body: "home.pain2.body", emoji: "🌿" },
-  { title: "home.pain3.title", body: "home.pain3.body", emoji: "🪞" },
+  { title: "home.pain1.title", body: "home.pain1.body", Icon: IconCycle },
+  { title: "home.pain2.title", body: "home.pain2.body", Icon: IconLeaf },
+  { title: "home.pain3.title", body: "home.pain3.body", Icon: IconMirror },
 ] as const;
 
 const SYSTEMS = [
@@ -63,26 +66,28 @@ export default function HomePage() {
 
   return (
     <div className="cs-page cs-reveal">
-      <section className="cs-hero-stage cs-hero-stage--story">
-        <p className="cs-kicker">{t("home.kicker")}</p>
-        <h1 className="cs-hero__title vn-text">{t("home.heroTitle")}</h1>
-        <p className="cs-hero__body vn-text">{t("home.heroBody")}</p>
+      <section className="cs-hero-stage cs-hero-stage--story cs-hero-stage--bleed">
+        <div className="cs-hero-stage__copy">
+          <p className="cs-kicker">{t("home.kicker")}</p>
+          <h1 className="cs-hero__title vn-text">{t("home.heroTitle")}</h1>
+          <p className="cs-hero__body vn-text">{t("home.heroBody")}</p>
+          <div className="cs-hero__actions cs-hero__actions--primary">
+            <Link
+              href="/cast"
+              className="cs-link-btn cs-link-btn--primary cs-link-btn--lg cs-link-btn--pulse"
+              data-testid="home-cta-cast"
+            >
+              {t("home.ctaCast")}
+            </Link>
+          </div>
+          <div className="cs-hero__soft-links">
+            <Link href="/learn">{t("home.ctaLearn")}</Link>
+            <span aria-hidden>·</span>
+            <Link href="/pricing">{t("home.ctaPricing")}</Link>
+          </div>
+        </div>
         <div className="cs-hero-scene" aria-hidden>
           <HeroScene />
-        </div>
-        <div className="cs-hero__actions cs-hero__actions--primary">
-          <Link
-            href="/cast"
-            className="cs-link-btn cs-link-btn--primary cs-link-btn--lg cs-link-btn--pulse"
-            data-testid="home-cta-cast"
-          >
-            {t("home.ctaCast")}
-          </Link>
-        </div>
-        <div className="cs-hero__soft-links">
-          <Link href="/learn">{t("home.ctaLearn")}</Link>
-          <span aria-hidden>·</span>
-          <Link href="/pricing">{t("home.ctaPricing")}</Link>
         </div>
       </section>
 
@@ -107,8 +112,8 @@ export default function HomePage() {
         <div className="cs-grid-3">
           {PAINS.map((p) => (
             <Link key={p.title} href="/cast" className="cs-visual-card">
-              <span className="cs-visual-card__emoji" aria-hidden>
-                {p.emoji}
+              <span className="cs-visual-card__icon" aria-hidden>
+                <p.Icon className="cs-icon" />
               </span>
               <h3>{t(p.title)}</h3>
               <p>{t(p.body)}</p>

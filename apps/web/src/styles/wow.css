@@ -136,6 +136,39 @@ svg.cs-icon--lg {
   min-width: 0;
 }
 
+/* Landing hero: one composition — copy + scene, less “card stack”. */
+.cs-hero-stage--bleed {
+  border: none;
+  box-shadow: none;
+  background:
+    radial-gradient(ellipse 80% 70% at 90% 20%, rgb(244 186 23 / 0.18), transparent 55%),
+    linear-gradient(165deg, var(--cs-color-surface-panel) 0%, var(--cs-color-surface-raised) 100%);
+  padding: clamp(1.75rem, 5vw, 3.25rem) clamp(1.25rem, 4vw, 2.5rem);
+  gap: var(--cs-space-5);
+}
+
+.cs-hero-stage__copy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-space-4);
+  max-width: 36rem;
+  min-width: 0;
+}
+
+@media (min-width: 900px) {
+  .cs-hero-stage--bleed.cs-hero-stage--story {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    align-items: center;
+    column-gap: var(--cs-space-6);
+  }
+
+  .cs-hero-stage--bleed .cs-hero-scene {
+    margin: 0;
+    max-width: none;
+  }
+}
+
 .cs-hero-stage::after {
   content: "";
   position: absolute;
@@ -704,7 +737,8 @@ a.cs-visual-card:hover {
   flex: 1;
 }
 
-.cs-visual-card__emoji {
+.cs-visual-card__emoji,
+.cs-visual-card__icon {
   width: var(--cs-icon-md);
   height: var(--cs-icon-md);
   display: grid;
@@ -715,6 +749,14 @@ a.cs-visual-card:hover {
   background: var(--cs-color-surface-raised);
   border: 1px solid var(--cs-color-border-default);
   flex-shrink: 0;
+}
+
+.cs-visual-card__icon .cs-icon,
+.cs-visual-card__icon svg.cs-icon {
+  width: 28px !important;
+  height: 28px !important;
+  max-width: 28px;
+  max-height: 28px;
 }
 
 .cs-visual-card__tag {
@@ -1185,9 +1227,129 @@ a.cs-visual-card:hover {
   .cs-link-btn--pulse,
   .cs-skeleton__bar,
   .cs-reveal,
-  .cs-stagger > * {
+  .cs-stagger > *,
+  .cs-hero-stage::after {
     animation: none !important;
   }
+
+  .cs-brand:hover .cs-brand__mark,
+  .cs-link-btn:hover,
+  .cs-visual-card:hover,
+  .cs-visual-card.is-active,
+  .cs-story-step:hover,
+  .cs-system-tile:hover,
+  .cs-pattern-row:hover,
+  [data-testid="qimen-nine-palace"] button[role="gridcell"]:hover {
+    transform: none !important;
+  }
+
+  .cs-brand__mark,
+  .cs-link-btn,
+  .cs-visual-card,
+  .cs-story-step,
+  .cs-system-tile,
+  .cs-pattern-row {
+    transition: none !important;
+  }
+}
+
+/* Auth + form layout (skill: visible labels, inline errors, loading feedback) */
+.cs-form-stack {
+  display: grid;
+  gap: var(--cs-space-4);
+}
+
+.cs-form-stack label {
+  display: grid;
+  gap: var(--cs-space-1);
+}
+
+.cs-auth-card {
+  max-width: 26rem;
+  width: 100%;
+}
+
+.cs-form-error {
+  margin: 0;
+  padding: 10px 12px;
+  border-radius: var(--cs-radius-md);
+  border: 1px solid color-mix(in srgb, var(--cs-color-semantic-danger) 45%, transparent);
+  background: color-mix(in srgb, var(--cs-color-semantic-danger) 10%, var(--cs-color-surface-panel));
+  color: var(--cs-color-semantic-danger);
+  font-size: var(--cs-font-size-sm);
+  line-height: 1.5;
+}
+
+.cs-auth-footer,
+.cs-auth-note {
+  max-width: 26rem;
+}
+
+.cs-auth-note {
+  font-size: 0.85rem;
+}
+
+.cs-dashboard-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--cs-space-4);
+  align-items: center;
+}
+
+.cs-dashboard-status {
+  margin: 0;
+}
+
+.cs-dashboard-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.cs-flow-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--cs-space-2);
+  padding: var(--cs-space-5);
+  background: var(--cs-color-surface-panel);
+  border: 1px solid var(--cs-color-border-default);
+  border-radius: var(--cs-radius-lg);
+  box-shadow: var(--cs-shadow-sm);
+  text-decoration: none;
+  color: inherit;
+  min-height: 100%;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.cs-flow-card:hover {
+  border-color: var(--cs-color-brand-ochre);
+  box-shadow: 0 0 0 2px rgb(244 186 23 / 0.25), var(--cs-shadow-sm);
+  transform: translateY(-1px);
+  color: inherit;
+  text-decoration: none;
+}
+
+.cs-flow-card__title {
+  font-weight: 650;
+  color: var(--cs-color-brand-umber);
+  font-size: 1.02rem;
+}
+
+[data-theme="dark"] .cs-flow-card__title {
+  color: var(--cs-color-text-primary);
+}
+
+.cs-history-filters {
+  display: flex;
+  gap: var(--cs-space-3);
+  margin-bottom: var(--cs-space-4);
+  flex-wrap: wrap;
+}
+
+.cs-history-filters label {
+  min-width: min(100%, 12rem);
 }
 
 .cs-story-chips {
@@ -1231,6 +1393,12 @@ a.cs-visual-card:hover {
   background:
     linear-gradient(145deg, rgb(244 186 23 / 0.05) 0%, transparent 40%),
     linear-gradient(180deg, var(--cs-color-surface-panel), var(--cs-color-surface-raised));
+}
+
+[data-theme="dark"] .cs-hero-stage--bleed {
+  background:
+    radial-gradient(ellipse 80% 70% at 90% 20%, rgb(244 186 23 / 0.1), transparent 55%),
+    linear-gradient(165deg, var(--cs-color-surface-panel) 0%, var(--cs-color-surface-raised) 100%);
 }
 
 [data-theme="dark"] .cs-hero-stage--story .cs-hero__title,

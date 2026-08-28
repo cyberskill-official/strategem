@@ -2,13 +2,15 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useId, useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { setAccessToken, setSessionUser } from "../../src/lib/auth/session";
 
 export default function LoginPage() {
   const { t } = useLocale();
   const router = useRouter();
+  const formId = useId();
+  const errorId = `${formId}-error`;
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
@@ -46,21 +48,35 @@ export default function LoginPage() {
         <h1>{t("auth.loginTitle")}</h1>
         <p className="cs-lead-short">{t("auth.loginSubtitle")}</p>
       </header>
-      <form className="cs-card" onSubmit={onSubmit} data-testid="login-form">
-        <label style={{ display: "block" }}>
-          <span className="cs-muted">{t("auth.email")}</span>
+      <form
+        className="cs-card cs-auth-card cs-form-stack"
+        onSubmit={onSubmit}
+        data-testid="login-form"
+        aria-busy={loading}
+      >
+        {error ? (
+          <p role="alert" id={errorId} data-testid="login-error" className="cs-form-error">
+            {error}
+          </p>
+        ) : null}
+        <label htmlFor={`${formId}-email`}>
+          <span>{t("auth.email")}</span>
           <input
+            id={`${formId}-email`}
             type="email"
             required
             value={email}
             onChange={(ev) => setEmail(ev.target.value)}
             data-testid="login-email"
             autoComplete="email"
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? errorId : undefined}
           />
         </label>
-        <label style={{ display: "block", marginTop: "0.75rem" }}>
-          <span className="cs-muted">{t("auth.password")}</span>
+        <label htmlFor={`${formId}-password`}>
+          <span>{t("auth.password")}</span>
           <input
+            id={`${formId}-password`}
             type="password"
             required
             minLength={8}
@@ -68,32 +84,27 @@ export default function LoginPage() {
             onChange={(ev) => setPassword(ev.target.value)}
             data-testid="login-password"
             autoComplete="current-password"
+            aria-invalid={error ? true : undefined}
+            aria-describedby={error ? errorId : undefined}
           />
         </label>
-        {error ? (
-          <p role="alert" data-testid="login-error" className="cs-muted" style={{ color: "var(--cs-danger, #a33)" }}>
-            {error}
-          </p>
-        ) : null}
         <button
           type="submit"
           className="cs-link-btn cs-link-btn--primary"
           disabled={loading}
           data-testid="login-submit"
-          style={{ marginTop: "1rem" }}
+          aria-busy={loading}
         >
           {loading ? t("auth.loading") : t("auth.loginSubmit")}
         </button>
       </form>
-      <p className="cs-muted" style={{ marginTop: "1rem" }}>
+      <p className="cs-muted cs-auth-footer">
         {t("auth.noAccount")}{" "}
         <Link href="/signup" data-testid="login-to-signup">
           {t("auth.signupLink")}
         </Link>
       </p>
-      <p className="cs-muted" style={{ fontSize: "0.85rem" }}>
-        {t("auth.freeCastNote")}
-      </p>
+      <p className="cs-muted cs-auth-note">{t("auth.freeCastNote")}</p>
     </div>
   );
 }
