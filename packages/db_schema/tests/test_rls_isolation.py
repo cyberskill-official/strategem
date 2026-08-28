@@ -18,17 +18,28 @@ USER_B = uuid.UUID("bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb")
 
 
 def _ensure_app_roles(super_dsn: str) -> tuple[str, str]:
-    """Create non-superuser LOGIN roles that inherit app_user / app_admin (subject to RLS)."""
+    """Return DSNs for migration LOGIN roles (0017 creates strategem_app).
+
+    Also ensures strategem_admin for admin-bypass proofs (test-only LOGIN).
+    """
     with psycopg.connect(super_dsn, autocommit=True) as conn:
+        # 0017 creates strategem_app; assert attributes (D-DB-001).
+        row = conn.execute(
+            """
+            SELECT rolsuper, rolbypassrls, rolcreatedb, rolcanlogin
+            FROM pg_roles WHERE rolname = 'strategem_app'
+            """
+        ).fetchone()
+        assert row is not None, "migration 0017 must create strategem_app"
+        assert row[0] is False and row[1] is False and row[2] is False and row[3] is True
+
         conn.execute(
             """
             DO $$
             BEGIN
-              IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'strategem_app') THEN
-                CREATE ROLE strategem_app LOGIN PASSWORD 'strategem_app' NOSUPERUSER NOBYPASSRLS;
-              END IF;
               IF NOT EXISTS (SELECT 1 FROM pg_roles WHERE rolname = 'strategem_admin') THEN
-                CREATE ROLE strategem_admin LOGIN PASSWORD 'strategem_admin' NOSUPERUSER NOBYPASSRLS;
+                CREATE ROLE strategem_admin LOGIN PASSWORD 'strategem_admin'
+                  NOSUPERUSER NOBYPASSRLS NOCREATEDB;
               END IF;
             END $$;
             """
@@ -36,8 +47,6 @@ def _ensure_app_roles(super_dsn: str) -> tuple[str, str]:
         conn.execute("GRANT app_user TO strategem_app")
         conn.execute("GRANT app_admin TO strategem_admin")
         conn.execute("GRANT USAGE ON SCHEMA public TO strategem_app, strategem_admin")
-        # Table grants already assigned to app_user / app_admin in 0009; membership inherits.
-        # Do NOT re-GRANT INSERT on knowledge_patterns to the app role (curator-write only).
 
     def rewrite(user: str, password: str) -> str:
         # postgresql://user:pass@host:port/db
@@ -213,6 +222,41 @@ def test_isolation_user_a_cannot_see_b(app_dsns: tuple[str, str, str]) -> None:
         )
         assert cur.rowcount == 0
         conn.rollback()
+
+
+def test_two_user_isolation_as_restricted_role(app_dsns: tuple[str, str, str]) -> None:
+    """D-DB-001: user A and user B sessions on strategem_app cannot cross-read."""
+    _, app_dsn, _ = app_dsns
+    with psycopg.connect(app_dsn) as conn_a:
+        conn_a.execute("SELECT set_config('app.current_user_id', %s, true)", (str(USER_A),))
+        a_charts = {r[0] for r in conn_a.execute("SELECT id FROM charts").fetchall()}
+        assert a_charts == {uuid.UUID("31111111-1111-4111-8111-111111111111")}
+
+    with psycopg.connect(app_dsn) as conn_b:
+        conn_b.execute("SELECT set_config('app.current_user_id', %s, true)", (str(USER_B),))
+        b_charts = {r[0] for r in conn_b.execute("SELECT id FROM charts").fetchall()}
+        assert b_charts == {uuid.UUID("32222222-2222-4222-8222-222222222222")}
+        # B must not see A's query store row
+        store = conn_b.execute(
+            "SELECT id FROM app_query_store WHERE id = %s",
+            ("51111111-1111-4111-8111-111111111111",),
+        ).fetchall()
+        assert store == []
+
+
+def test_runtime_role_is_not_privileged(app_dsns: tuple[str, str, str]) -> None:
+    """strategem_app login must be NOSUPERUSER NOBYPASSRLS (D-DB-001)."""
+    from db_schema.runtime_role import connection_is_privileged
+
+    _, app_dsn, _ = app_dsns
+    with psycopg.connect(app_dsn) as conn:
+        assert connection_is_privileged(conn) is False
+        row = conn.execute(
+            "SELECT current_user, rolcreatedb FROM pg_roles WHERE oid = current_user::regrole"
+        ).fetchone()
+        assert row is not None
+        assert row[0] == "strategem_app"
+        assert row[1] is False
 
 
 def test_admin_bypass_explicit(app_dsns: tuple[str, str, str]) -> None:

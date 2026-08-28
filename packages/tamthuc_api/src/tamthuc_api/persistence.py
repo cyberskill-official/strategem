@@ -6,6 +6,8 @@ import os
 from dataclasses import dataclass, field
 from typing import Any
 
+from db_schema.runtime_role import assert_unprivileged_runtime_role
+
 from tamthuc_api.pg_store import PgQueryStore, database_url, require_database_or_memory
 from tamthuc_api.repositories import (
     ChartRepo,
@@ -41,6 +43,8 @@ class PersistenceService:
         if mode == "postgres":
             dsn = database_url()
             assert dsn
+            # D-DB-001: refuse superuser / BYPASSRLS (RLS would not bind).
+            assert_unprivileged_runtime_role(dsn)
             return cls(pg=PgQueryStore(dsn=dsn), backend="postgres")
         return cls(backend="memory")
 

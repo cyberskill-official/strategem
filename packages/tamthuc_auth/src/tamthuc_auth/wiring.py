@@ -74,6 +74,10 @@ def build_auth_service() -> AuthService:
     if mode == "postgres":
         dsn = database_url()
         assert dsn
+        # D-DB-001: refuse superuser / BYPASSRLS (RLS would not bind).
+        from db_schema.runtime_role import assert_unprivileged_runtime_role
+
+        assert_unprivileged_runtime_role(dsn)
         store = PostgresUserStore(dsn)
         rev = PostgresRevocationStore(dsn)
         tokens = TokenService(store=rev)

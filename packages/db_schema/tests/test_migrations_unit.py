@@ -32,6 +32,7 @@ def test_ordered_migration_files() -> None:
         "0014_refresh_token_revocations.sql",
         "0015_payment_fulfillments.sql",
         "0016_operator_llm_settings.sql",
+        "0017_runtime_app_role.sql",
     ]
     # Lexicographic order is apply order
     assert names == sorted(names)
@@ -57,6 +58,14 @@ def test_app_query_store_rls_migration() -> None:
     assert "FORCE ROW LEVEL SECURITY" in text
     assert "app_query_store_owner" in text
     assert "app.current_user_id" in text
+
+
+def test_runtime_app_role_migration() -> None:
+    text = (migrations_dir() / "0017_runtime_app_role.sql").read_text(encoding="utf-8")
+    assert "strategem_app" in text
+    assert "NOSUPERUSER" in text
+    assert "NOBYPASSRLS" in text
+    assert "NOCREATEDB" in text
 
 
 def test_gin_indexes_present() -> None:

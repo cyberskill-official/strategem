@@ -19,12 +19,16 @@ Forward-only SQL migrations for the Tam Thuc Strategem data tier. No ORM owns th
 | `0012_app_query_store_rls.sql` | RLS on `app_query_store` (TT-008); after `0011_anon_user` on main |
 | `0013_auth_users_columns.sql` | AUTH columns on `users` (TT-024) |
 | `0014_refresh_token_revocations.sql` | Durable refresh jti denylist (TT-024) |
+| `0015_payment_fulfillments.sql` | PayOS webhook idempotency |
+| `0016_operator_llm_settings.sql` | Operator BYOK LLM settings |
+| `0017_runtime_app_role.sql` | `strategem_app` LOGIN (`NOSUPERUSER NOBYPASSRLS NOCREATEDB`) for API runtime (D-DB-001) |
 
 ## Apply path (human / CI)
 
 Against an empty database (Postgres 16+ recommended):
 
 ```bash
+# Privileged role for migrate only
 export DATABASE_URL=postgresql://postgres:postgres@localhost:5432/strategem
 
 # One-shot apply (preferred helper)
@@ -45,6 +49,17 @@ uv run python -m db_schema.migrate
 Migrations use a ledger table `public._strategem_schema_migrations` (same as
 `deploy/vps/migrate.sh`). Re-running `db_schema.migrate` skips already-applied
 files; each new file is applied in its own transaction.
+
+After migrate, point the **API** at the restricted role (not `postgres`):
+
+```bash
+export DATABASE_URL=postgresql://strategem_app:strategem_app@localhost:5432/strategem
+# optional: keep migrate URL separate
+export DATABASE_URL_MIGRATE=postgresql://postgres:postgres@localhost:5432/strategem
+```
+
+Startup refuses superuser / `BYPASSRLS` connections unless `ALLOW_PRIVILEGED_DB=1`
+(break-glass only). See [`../rls/session.md`](../rls/session.md).
 
 ## RLS session contract
 

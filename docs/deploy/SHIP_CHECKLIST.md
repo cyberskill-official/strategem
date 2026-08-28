@@ -49,8 +49,8 @@ echo '{"system":"liuren","lich_phap":{"datetime":"2004-01-01T10:30:00","tz":"+07
 
 | # | Surface | Action |
 |---|---------|--------|
-| 1 | **Supabase** | Create project; set `DATABASE_URL`; run `deploy/vps/migrate.sh` or apply `db/migrations/*` (includes `0010_app_query_store.sql` for COV-010) |
-| 1b | **Local Docker Postgres** | `docker compose -f deploy/compose/docker-compose.local.yml up -d postgres` then `DATABASE_URL=postgresql://postgres:postgres@127.0.0.1:15432/strategem python -m db_schema.migrate` (see `docs/deploy/local-docker-lmstudio.md` §5) |
+| 1 | **Supabase** | Create project; migrate with privileged `DATABASE_URL_MIGRATE`; set API `DATABASE_URL` to `strategem_app` (D-DB-001); see `docs/deploy/supabase.md` |
+| 1b | **Local Docker Postgres** | `docker compose -f deploy/compose/docker-compose.local.yml up -d postgres migrate` (API uses `strategem_app`; migrate uses `postgres`) |
 | 2 | **VPS API** | Provision host; copy `deploy/vps/.env.example` → `.env`; set `CAST_CLI` in image; `deploy/vps/deploy.sh` |
 | 3 | **Vercel web** | Link monorepo; set `NEXT_PUBLIC_API_BASE=https://api.<domain>`; deploy |
 | 4 | **CORS** | VPS allows Vercel production + preview origins |

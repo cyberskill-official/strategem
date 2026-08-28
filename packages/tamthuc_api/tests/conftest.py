@@ -11,6 +11,9 @@ import pytest
 def _auth_env_defaults(monkeypatch: pytest.MonkeyPatch) -> None:
     """Ensure create_app / AuthService can boot in tests without production secrets."""
     monkeypatch.setenv("ENV", "test")
+    # CI / local integration still often use postgres superuser DSN; production
+    # compose and APP_ENV=production must use strategem_app (D-DB-001).
+    monkeypatch.setenv("ALLOW_PRIVILEGED_DB", "1")
     monkeypatch.setenv(
         "TAMTHUC_AUTH_JWT_SECRET",
         "test-jwt-secret-at-least-32-bytes-long!!",
