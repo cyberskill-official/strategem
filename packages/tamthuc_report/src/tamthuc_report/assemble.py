@@ -15,6 +15,10 @@ from tamthuc_report.models import (
     StructuredReport,
 )
 
+_PENDING_STATUSES = frozenset({"pending", "rejected"})
+_WITHHELD = "This interpretation is under human review."
+_REJECTED = "Interpretation not released."
+
 
 class AssembleError(ValueError):
     pass
@@ -49,19 +53,30 @@ def assemble(
                 )
             )
 
-    beginner = str(interp.get("beginner") or interp.get("text") or "")
-    expert = str(interp.get("expert") or beginner)
-    citations = [Citation(**c) for c in (interp.get("citations") or []) if isinstance(c, dict)]
-    if beginner and not citations:
-        raise AssembleError("interpretation claim without citations")
-
     disc_raw = interp.get("ai_disclosure") or {}
     if not disc_raw or not disc_raw.get("model"):
         raise AssembleError("ai_disclosure required")
+    review_status = str(
+        disc_raw.get("review_status") or interp.get("review_status") or "not_required"
+    )
+    withheld = review_status in _PENDING_STATUSES
+    if withheld:
+        beginner = _WITHHELD if review_status == "pending" else _REJECTED
+        expert = beginner
+        recommendations: list[Any] = []
+    else:
+        beginner = str(interp.get("beginner") or interp.get("text") or "")
+        expert = str(interp.get("expert") or beginner)
+        recommendations = list(interp.get("recommendations") or [])
+
+    citations = [Citation(**c) for c in (interp.get("citations") or []) if isinstance(c, dict)]
+    if beginner and not citations and not withheld:
+        raise AssembleError("interpretation claim without citations")
+
     disclosure = AIDisclosure(
         model=str(disc_raw["model"]),
         limits=str(disc_raw.get("limits", "")),
-        review_status=str(disc_raw.get("review_status", "not_required")),
+        review_status=review_status,
     )
     if not disclosure.model.strip():
         raise AssembleError("empty ai_disclosure")
@@ -81,7 +96,7 @@ def assemble(
         interpretation=Interpretation(
             beginner=beginner,
             expert=expert,
-            recommendations=list(interp.get("recommendations") or []),
+            recommendations=recommendations,
         ),
         citations=citations,
         confidence=confidence,

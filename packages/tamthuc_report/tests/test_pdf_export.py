@@ -75,3 +75,19 @@ def test_readonly() -> None:
     before = r.model_dump()
     _ = export_pdf(r)
     assert r.model_dump() == before
+
+
+def test_pending_review_pdf_withholds_prose() -> None:
+    """D-REVIEW-001: PDF/HTML must not emit pending interpretation prose."""
+    r = _report()
+    r.ai_disclosure.review_status = "pending"
+    r.interpretation.beginner = "SECRET_PDF_LEAK_BEGINNER"
+    r.interpretation.expert = "SECRET_PDF_LEAK_EXPERT"
+    r.interpretation.recommendations = ["SECRET_PDF_REC"]
+    html = render_html(r)
+    assert "SECRET_PDF_LEAK" not in html
+    assert "under human review" in html.lower()
+    pdf = export_pdf(r)
+    assert pdf.startswith(b"%PDF")
+    # ReportLab may encode text; assert secret plaintext is absent from bytes.
+    assert b"SECRET_PDF_LEAK" not in pdf

@@ -9,6 +9,7 @@ from tamthuc_rag.fuse import RankedHit
 from tamthuc_rag.guard import framing_ok, strip_unknown_citations
 from tamthuc_rag.llm import LlmClient, llm_from_env
 from tamthuc_rag.prompt_builder import PROMPT_VERSION, build_prompt
+from tamthuc_rag.review.policy import LOW_CONFIDENCE_THRESHOLD
 from tamthuc_rag.schema import CitationCard, Interpretation
 
 
@@ -64,7 +65,7 @@ def interpret(
         recommendations=recs,
         citations=cards,
         confidence=conf,
-        requires_human_review=conf < 0.5 or not recs,
+        requires_human_review=conf < LOW_CONFIDENCE_THRESHOLD or not recs,
         ai_disclosure=build_disclosure(
             model=client.model,
             prompt_version=PROMPT_VERSION,

@@ -166,12 +166,90 @@ def answer_follow_up(
     if isinstance(env["dau_vao"], dict):
         env["dau_vao"] = {**env["dau_vao"], "follow_up": text}
 
+    # D-REVIEW-001: do not expand on a parent cast still under review.
+    parent_interp = query_result.get("interpretation") or {}
+    if isinstance(parent_interp, dict):
+        parent_status = str(
+            (parent_interp.get("ai_disclosure") or {}).get("review_status")
+            or parent_interp.get("review_status")
+            or ""
+        )
+        if (
+            parent_status in {"pending", "rejected"}
+            or parent_interp.get("human_review_gate") == "pending"
+        ):
+            ethics = _ethics_line(locale)
+            summary = (
+                "Interpretation not released."
+                if parent_status == "rejected"
+                else "This interpretation is under human review."
+            )
+            return {
+                "query_id": qid,
+                "message": text,
+                "answer": {
+                    "beginner": f"{summary}\n\n{ethics}",
+                    "expert": summary,
+                    "recommendations": [],
+                    "citations": [],
+                    "confidence": float(parent_interp.get("confidence") or 0.0),
+                    "requires_human_review": True,
+                },
+                "ai_disclosure": {
+                    "is_ai_generated": True,
+                    "model": "follow-up-withheld",
+                    "prompt_version": "followup@1",
+                    "retrieved_citation_ids": [],
+                    "limits": ethics,
+                    "review_status": parent_status or "pending",
+                    "degraded": False,
+                    "mode_badge": "review-pending",
+                },
+                "refused": True,
+                "refuse_reason": "review_pending",
+            }
+
     retrieved = client.retrieve(env, patterns)
     interp = client.interpret(env, patterns, retrieved=retrieved)
     if not isinstance(interp, dict):
         interp = {}
 
     ethics = _ethics_line(locale)
+    interp_status = str(
+        (interp.get("ai_disclosure") or {}).get("review_status")
+        or interp.get("review_status")
+        or ""
+    )
+    if interp_status in {"pending", "rejected"} or interp.get("human_review_gate") == "pending":
+        summary = (
+            "Interpretation not released."
+            if interp_status == "rejected"
+            else "This interpretation is under human review."
+        )
+        return {
+            "query_id": qid,
+            "message": text,
+            "answer": {
+                "beginner": f"{summary}\n\n{ethics}",
+                "expert": summary,
+                "recommendations": [],
+                "citations": list(interp.get("citations") or []),
+                "confidence": float(interp.get("confidence") or 0.0),
+                "requires_human_review": True,
+            },
+            "ai_disclosure": {
+                **dict(interp.get("ai_disclosure") or {}),
+                "is_ai_generated": True,
+                "model": (interp.get("ai_disclosure") or {}).get("model") or "follow-up-withheld",
+                "prompt_version": "followup@1",
+                "limits": ethics,
+                "review_status": interp_status or "pending",
+                "mode_badge": "review-pending",
+            },
+            "refused": True,
+            "refuse_reason": "review_pending",
+        }
+
     beginner = str(interp.get("beginner") or interp.get("summary") or "").strip()
     expert = str(interp.get("expert") or beginner).strip()
     if not beginner:
