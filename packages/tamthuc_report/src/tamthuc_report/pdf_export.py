@@ -27,6 +27,22 @@ FULL_LEGAL_DISCLAIMER_EN = (
 
 _UMBER = HexColor("#45210E")
 _OCHRE = HexColor("#F4BA17")
+_WITHHELD_PENDING = "This interpretation is under human review."
+_WITHHELD_REJECTED = "Interpretation not released."
+
+
+def _safe_interpretation_text(report: StructuredReport) -> tuple[str, str, list[Any]]:
+    """D-REVIEW-001: never emit pending/rejected AI prose in PDF/HTML."""
+    status = str(report.ai_disclosure.review_status or "not_required")
+    if status == "pending":
+        return _WITHHELD_PENDING, _WITHHELD_PENDING, []
+    if status == "rejected":
+        return _WITHHELD_REJECTED, _WITHHELD_REJECTED, []
+    return (
+        report.interpretation.beginner,
+        report.interpretation.expert,
+        list(report.interpretation.recommendations),
+    )
 
 
 def _vernacular_pattern_name(name: str) -> str:
@@ -66,10 +82,8 @@ def render_html(
         f"漢:{c.han or '—'} · BT:{c.bach_thoai or '—'} · D:{c.dich or '—'}</li>"
         for c in report.citations
     )
-    beginner = report.interpretation.beginner
-    expert = report.interpretation.expert
+    beginner, expert, recs = _safe_interpretation_text(report)
     disc = report.ai_disclosure
-    recs = report.interpretation.recommendations
     rec_items = "".join(
         f"<li>{r if isinstance(r, str) else (r.get('text') if isinstance(r, dict) else r)}</li>"
         for r in recs
@@ -246,12 +260,13 @@ def export_pdf(
     else:
         story.append(Paragraph("No patterns listed.", body))
 
+    beginner, expert, recs = _safe_interpretation_text(report)
     story.append(Paragraph("AI interpretation", h2))
-    story.append(Paragraph(_esc(report.interpretation.beginner or "—"), body))
-    story.append(Paragraph(_esc(report.interpretation.expert or "—"), body))
+    story.append(Paragraph(_esc(beginner or "—"), body))
+    story.append(Paragraph(_esc(expert or "—"), body))
 
     story.append(Paragraph("Recommendations", h2))
-    for r in report.interpretation.recommendations:
+    for r in recs:
         text = r if isinstance(r, str) else str(r)
         story.append(Paragraph(_esc(f"• {text}"), body))
 

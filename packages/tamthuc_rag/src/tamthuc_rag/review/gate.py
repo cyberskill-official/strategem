@@ -8,6 +8,27 @@ from tamthuc_rag.review.policy import ReviewPolicy
 from tamthuc_rag.review.queue import ReviewQueue
 from tamthuc_rag.schema import Interpretation
 
+WITHHELD_SUMMARY = "This interpretation is under human review."
+
+
+def withheld_view(interp: Interpretation) -> dict[str, Any]:
+    """Stable client shape with no pending beginner/expert prose released."""
+    return {
+        "review_status": "pending",
+        "summary": WITHHELD_SUMMARY,
+        "beginner": WITHHELD_SUMMARY,
+        "expert": WITHHELD_SUMMARY,
+        "recommendations": [],
+        "citations": [c.model_dump() for c in interp.citations],
+        "confidence": float(interp.confidence),
+        "requires_human_review": True,
+        "human_review_gate": "pending",
+        "ai_disclosure": {
+            **interp.ai_disclosure.model_dump(),
+            "review_status": "pending",
+        },
+    }
+
 
 def process_interpretation(
     interp: Interpretation,
@@ -19,51 +40,24 @@ def process_interpretation(
     """Gate interpretation release.
 
     - No review needed → release with review_status=not_required.
-    - Soft review (low conf / flag, not high-stakes) → still release beginner/expert
-      text so product/e2e surfaces stay stable; enqueue a pending ticket.
-    - High-stakes (medical/legal/financial) → hard withhold full reading; withheld_view
-      keeps a stable shape including beginner/expert placeholders + summary.
+    - Any review (high-stakes health/legal/finance OR confidence < 0.55 OR
+      requires_human_review) → hard withhold; do not release pending prose.
     """
     pol = policy or ReviewPolicy()
     needs = pol.requires_review(interp, high_stakes=high_stakes)
     if not needs:
         disc = interp.ai_disclosure.model_copy(update={"limits": interp.ai_disclosure.limits})
-        # attach review_status via dict view
         out = interp.model_dump()
         out["review_status"] = "not_required"
         out["ai_disclosure"] = disc.model_dump()
         return {"released": True, "interpretation": out, "ticket": None}
 
     ticket = queue.enqueue(ReviewTicket(interpretation=interp, review_status="pending"))
-
-    # Soft path: educational / low-confidence — show the reading, flag pending review.
-    if not high_stakes:
-        out = interp.model_dump()
-        out["review_status"] = "pending"
-        out["human_review_gate"] = "pending"
-        out["ai_disclosure"] = {
-            **interp.ai_disclosure.model_dump(),
-            "review_status": "pending",
-        }
-        return {"released": True, "interpretation": out, "ticket": ticket.model_dump()}
-
-    # High-stakes: withhold free-form claims; keep API keys stable for clients/tests.
-    summary = "This interpretation is under human review."
-    withheld = {
-        "review_status": "pending",
-        "summary": summary,
-        "beginner": summary,
-        "expert": summary,
-        "recommendations": [],
-        "citations": [c.model_dump() for c in interp.citations],
-        "confidence": float(interp.confidence),
-        "requires_human_review": True,
-        "ai_disclosure": {
-            **interp.ai_disclosure.model_dump(),
-            "review_status": "pending",
-        },
+    return {
+        "released": False,
+        "withheld_view": withheld_view(interp),
+        "ticket": ticket.model_dump(),
     }
-    return {"released": False, "withheld_view": withheld, "ticket": ticket.model_dump()}
 
 
 def decide(
@@ -90,6 +84,9 @@ def decide(
             "withheld_view": {
                 "review_status": "rejected",
                 "summary": "Interpretation not released.",
+                "beginner": "Interpretation not released.",
+                "expert": "Interpretation not released.",
+                "recommendations": [],
             },
         }
     ticket.reason = decision.reason

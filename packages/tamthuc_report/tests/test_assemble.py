@@ -52,3 +52,24 @@ def test_missing_citation_rejected() -> None:
 def test_missing_disclosure_rejected() -> None:
     with pytest.raises(AssembleError):
         assemble(_env(), {**_interp(), "ai_disclosure": {}}, uuid4())
+
+
+def test_pending_review_withholds_prose() -> None:
+    """D-REVIEW-001: assemble must not copy pending beginner/expert into the report."""
+    leaked = {
+        **_interp(),
+        "beginner": "SECRET_LEAK_BEGINNER",
+        "expert": "SECRET_LEAK_EXPERT",
+        "recommendations": ["SECRET_REC"],
+        "ai_disclosure": {
+            "model": "stub",
+            "limits": "not advice",
+            "review_status": "pending",
+        },
+    }
+    r = assemble(_env(), leaked, uuid4())
+    assert "SECRET_LEAK" not in r.interpretation.beginner
+    assert "SECRET_LEAK" not in r.interpretation.expert
+    assert r.interpretation.recommendations == []
+    assert r.ai_disclosure.review_status == "pending"
+    assert "under human review" in r.interpretation.beginner.lower()

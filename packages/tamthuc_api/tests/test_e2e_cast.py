@@ -38,12 +38,14 @@ def test_qimen_cast_persist_and_fetch() -> None:
     assert isinstance(ban.get("thien_ban"), list)
     assert body["patterns"]
     assert body["ai_disclosure"] is not None
-    # Interpretation is either released (beginner/expert) or high-stakes withheld
-    # (stable keys + summary). Soft review still releases beginner text.
+    # Interpretation is either released (beginner/expert) or withheld under review
+    # (stable keys + summary). Pending review must never surface raw AI prose.
     interp = body["interpretation"]
     assert isinstance(interp, dict)
     beginner = interp.get("beginner") or interp.get("summary")
     assert beginner, f"expected beginner or summary, got keys={list(interp.keys())}"
+    if interp.get("review_status") == "pending" or interp.get("human_review_gate") == "pending":
+        assert "under human review" in str(beginner).lower()
     assert body.get("report_id")
     assert body.get("report", {}).get("report_id") == body["report_id"]
 

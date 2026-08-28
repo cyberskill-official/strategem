@@ -45,6 +45,34 @@ def test_follow_up_unit_refuses_invented_palace() -> None:
         "không thể bịa" in out["answer"]["beginner"].lower()
         or "không thể bịa" in out["answer"]["beginner"]
     )
+
+
+def test_follow_up_withholds_when_parent_pending() -> None:
+    """D-REVIEW-001: follow-up must not expand on a pending parent reading."""
+    result = {
+        "query_id": "q-pending",
+        "charts": {"qimen": {"he": "ky_mon", "ban": {"dia_ban": [None] * 9}}},
+        "patterns": [{"name": "青龍返首", "cung": 1, "citations": ["yba_1"]}],
+        "interpretation": {
+            "beginner": "SECRET_PARENT_PENDING_PROSE",
+            "expert": "SECRET_PARENT_PENDING_EXPERT",
+            "review_status": "pending",
+            "human_review_gate": "pending",
+            "confidence": 0.4,
+            "ai_disclosure": {"review_status": "pending", "model": "stub"},
+        },
+    }
+    out = answer_follow_up(
+        query_result=result,
+        message="Giải thích thêm về cách cục",
+        rag=StubRagClient(),
+        locale="vi",
+    )
+    assert out["refused"] is True
+    assert out["refuse_reason"] == "review_pending"
+    assert "SECRET_PARENT_PENDING" not in out["answer"]["beginner"]
+    assert "SECRET_PARENT_PENDING" not in out["answer"]["expert"]
+    assert "under human review" in out["answer"]["beginner"].lower()
     assert out["ai_disclosure"]["retrieved_citation_ids"] == []
 
 
