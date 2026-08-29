@@ -24,7 +24,7 @@ export function HistoryList({ items }: { items: ChartRef[] }) {
 
   return (
     <div data-testid="history-list" className="cs-card">
-      <div style={{ display: "flex", gap: 8, marginBottom: 12, flexWrap: "wrap" }}>
+      <div className="cs-history-filters">
         <label>
           {t("history.filterSystem")}
           <select

@@ -11,10 +11,6 @@ export function QuickCast() {
         href="/cast"
         data-testid="quick-cast-button"
         className="cs-link-btn cs-link-btn--accent"
-        style={{
-          height: 44,
-          minHeight: 44,
-        }}
       >
         {t("cast.button")}
       </Link>

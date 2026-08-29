@@ -20,6 +20,12 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Keep keyboard focus clear of sticky chrome (WCAG focus-not-obscured). */
+html {
+  scroll-padding-top: 4.5rem;
+  scroll-padding-bottom: 5.5rem;
+}
+
 a {
   color: var(--cs-color-text-accent);
   text-underline-offset: 0.15em;
@@ -312,6 +318,14 @@ body,
   background: var(--cs-color-surface-raised);
 }
 
+.cs-theme-toggle .cs-icon,
+.cs-theme-toggle svg.cs-icon {
+  width: 20px !important;
+  height: 20px !important;
+  max-width: 20px;
+  max-height: 20px;
+}
+
 .cs-locale-switcher select {
   width: auto;
   min-width: 8.5rem;
@@ -463,6 +477,16 @@ body,
   font-weight: 600;
   text-decoration: none;
   border: 1px solid transparent;
+  cursor: pointer;
+}
+
+.cs-link-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+button.cs-link-btn {
+  font: inherit;
 }
 
 .cs-link-btn--primary {

@@ -33,19 +33,13 @@ const FLOWS = [
 export function FlowEntryCards() {
   const { t } = useLocale();
   return (
-    <section data-testid="flow-entry-cards">
-      <h2>{t("dashboard.flows")}</h2>
+    <section data-testid="flow-entry-cards" className="cs-section">
+      <h2 className="cs-section-heading">{t("dashboard.flows")}</h2>
       <div className="cs-grid-3">
         {FLOWS.map((f) => (
-          <Link
-            key={f.id}
-            href={f.href}
-            data-flow={f.id}
-            className="cs-card"
-            style={{ textDecoration: "none", color: "inherit" }}
-          >
-            <div style={{ fontWeight: 600 }}>{t(f.titleKey)}</div>
-            <div className="cs-muted">{t(f.descKey)}</div>
+          <Link key={f.id} href={f.href} data-flow={f.id} className="cs-flow-card">
+            <span className="cs-flow-card__title">{t(f.titleKey)}</span>
+            <span className="cs-muted">{t(f.descKey)}</span>
           </Link>
         ))}
       </div>
