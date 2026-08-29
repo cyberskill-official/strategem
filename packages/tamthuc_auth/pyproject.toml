@@ -13,6 +13,7 @@ dependencies = [
   "fastapi>=0.111",
   "httpx>=0.27",
   "psycopg[binary]>=3.2",
+  "db-schema",
 ]
 
 [build-system]
@@ -21,6 +22,9 @@ build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/tamthuc_auth"]
+
+[tool.uv.sources]
+db-schema = { workspace = true }
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

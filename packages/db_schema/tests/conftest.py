@@ -20,6 +20,11 @@ def database_url() -> str:
     dsn = _dsn()
     if not dsn:
         pytest.skip("DATABASE_URL not set — skipping Postgres integration tests")
+    try:
+        with psycopg.connect(dsn) as conn:
+            conn.execute("SELECT 1")
+    except psycopg.OperationalError as exc:
+        pytest.skip(f"Postgres not reachable via DATABASE_URL: {exc}")
     return dsn
 
 

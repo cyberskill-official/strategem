@@ -29,6 +29,7 @@ services:
       context: ../..
       dockerfile: deploy/docker/api.Dockerfile
     environment:
+      # Privileged migrate role only — never use for API runtime (D-DB-001).
       DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
     command: ["python", "-m", "db_schema.migrate"]
     depends_on:
@@ -45,7 +46,9 @@ services:
     environment:
       HOST: "0.0.0.0"
       PORT: "8000"
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
+      # Restricted LOGIN from 0017_runtime_app_role.sql (NOSUPERUSER NOBYPASSRLS).
+      DATABASE_URL: postgresql://strategem_app:${STRATEGEM_APP_PASSWORD:-strategem_app}@postgres:5432/strategem
+      DATABASE_URL_MIGRATE: postgresql://postgres:${POSTGRES_PASSWORD:-postgres}@postgres:5432/strategem
       CAST_CLI: /src/cast-cli
       READY_REQUIRE_CAST_CLI: "1"
       READY_REQUIRE_LLM: ${READY_REQUIRE_LLM:-0}

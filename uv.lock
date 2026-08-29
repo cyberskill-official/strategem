@@ -1133,6 +1133,7 @@ name = "tamthuc-api"
 version = "0.1.0"
 source = { editable = "packages/tamthuc_api" }
 dependencies = [
+    { name = "db-schema" },
     { name = "fastapi" },
     { name = "httpx" },
     { name = "psycopg", extra = ["binary"] },
@@ -1147,6 +1148,7 @@ dependencies = [
 
 [package.metadata]
 requires-dist = [
+    { name = "db-schema", editable = "packages/db_schema" },
     { name = "fastapi", specifier = ">=0.111" },
     { name = "httpx", specifier = ">=0.27" },
     { name = "psycopg", extras = ["binary"], specifier = ">=3.2" },
@@ -1166,6 +1168,7 @@ source = { editable = "packages/tamthuc_auth" }
 dependencies = [
     { name = "argon2-cffi" },
     { name = "cryptography" },
+    { name = "db-schema" },
     { name = "email-validator" },
     { name = "fastapi" },
     { name = "httpx" },
@@ -1179,6 +1182,7 @@ dependencies = [
 requires-dist = [
     { name = "argon2-cffi", specifier = ">=23.1" },
     { name = "cryptography", specifier = ">=50.0.0" },
+    { name = "db-schema", editable = "packages/db_schema" },
     { name = "email-validator", specifier = ">=2.1" },
     { name = "fastapi", specifier = ">=0.111" },
     { name = "httpx", specifier = ">=0.27" },

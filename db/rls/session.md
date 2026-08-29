@@ -38,10 +38,11 @@ The second argument `true` means "missing GUC → NULL, do not error".
 
 | Role | Purpose |
 |---|---|
-| `app_user` | Normal application connections (owner policies) |
-| `app_admin` | Explicit admin bypass policies only |
+| `app_user` | NOLOGIN group: owner policies + DML grants |
+| `app_admin` | NOLOGIN group: explicit admin bypass policies only |
+| `strategem_app` | LOGIN runtime role (`NOSUPERUSER NOBYPASSRLS NOCREATEDB`); inherits `app_user`. Created by `0017_runtime_app_role.sql`. **This is what `DATABASE_URL` must use for the API.** |
 
-Table owner still has `FORCE ROW LEVEL SECURITY`, so superuser-less owners cannot silently bypass. Superuser (migration apply, CI setup) can bypass RLS for bootstrap; production app credentials must **not** be superuser.
+Table owner still has `FORCE ROW LEVEL SECURITY`, so superuser-less owners cannot silently bypass. Superuser (migration apply, CI setup) can bypass RLS for bootstrap; production app credentials must **not** be superuser. The API refuses to start on a privileged connection unless `ALLOW_PRIVILEGED_DB=1`.
 
 ## Tables
 

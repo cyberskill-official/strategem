@@ -28,9 +28,12 @@ Tear down: `just local-down`.
 ## What `local-up` does
 
 1. `docker compose -f deploy/compose/docker-compose.local.yml up --build -d`
-2. **migrate** one-shot runs `python -m db_schema.migrate` before API starts
-3. API waits on migrate success; web waits on API healthcheck
-4. Prints readiness matrix (including optional host LM Studio)
+2. **migrate** one-shot runs `python -m db_schema.migrate` as `postgres` (creates `strategem_app`)
+3. **api** connects as `strategem_app` (`NOSUPERUSER NOBYPASSRLS`); startup rejects privileged DSNs
+4. API waits on migrate success; web waits on API healthcheck
+5. Prints readiness matrix (including optional host LM Studio)
+
+Override local runtime password with `STRATEGEM_APP_PASSWORD` only after matching `ALTER ROLE strategem_app PASSWORD ...` on the DB.
 
 ## LM Studio (host)
 

@@ -23,7 +23,8 @@ services:
     ports:
       - "${STAGING_API_PORT:-8000}:8000"
     environment:
-      DATABASE_URL: postgresql://postgres:${POSTGRES_PASSWORD}@postgres:5432/strategem
+      # Prefer strategem_app after migrate (D-DB-001); override via env for hosted DB.
+      DATABASE_URL: ${DATABASE_URL:-postgresql://strategem_app:${STRATEGEM_APP_PASSWORD:-strategem_app}@postgres:5432/strategem}
       TAMTHUC_AUTH_JWT_SECRET: ${TAMTHUC_AUTH_JWT_SECRET:?set secret}
       # COV-020: cast readiness gate for staging/prod
       CAST_CLI: ${CAST_CLI:-/src/cast-cli}

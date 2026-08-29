@@ -13,6 +13,7 @@ dependencies = [
   "tamthuc-auth",
   "tamthuc-kb",
   "tamthuc-edu",
+  "db-schema",
   "psycopg[binary]>=3.2",
 ]
 
@@ -29,3 +30,4 @@ tamthuc-strat = { workspace = true }
 tamthuc-auth = { workspace = true }
 tamthuc-kb = { workspace = true }
 tamthuc-edu = { workspace = true }
+db-schema = { workspace = true }
