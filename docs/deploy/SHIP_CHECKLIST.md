@@ -94,6 +94,19 @@ marketing launch and store submission may not.**
 
 **Hold (unchanged this pass):** PayOS live credentials, durable CF API token rotation, VPS password rotation, counsel firm-name polish.
 
+## CD HITL — production Environment + branch protection (D-CD-001)
+
+Agents enable `environment: production` in `.github/workflows/deploy-vps.yml` and document the gate; **operators** must configure GitHub UI protection. Until this is done, treat VPS prod rolls as ungated.
+
+| # | Surface | Action |
+|---|---------|--------|
+| A | **Environment `production`** | Settings → Environments → `production` → **Required reviewers** (named people/teams). Exact path: `docs/deploy/branch-protection-main.md` |
+| B | **Branch protection `main`** | Required checks + ≥1 PR review + `enforce_admins: true` (API snippet in same doc). Verify with `gh api …/branches/main/protection` (not 404) |
+| C | **Digest pin** | Confirm a successful deploy job sets `API_IMAGE=…@sha256:…` on the VPS (not `:main`) |
+| D | **Do not weaken** | Do not remove `environment: production`, do not document admin bypass, do not change `cd.yml` image builds to `push: true` for unattended prod |
+
+See also `docs/deploy/cd-split.md`.
+
 ## Staging (COV-020)
 
 See `docs/deploy/staging-runbook.md` and `bash scripts/smoke-staging.sh`.

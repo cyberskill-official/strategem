@@ -1,6 +1,7 @@
-# Strategem API stack on VPS (TASK-PLAT-013).
+# Strategem API stack on VPS (TASK-PLAT-013 / D-CD-001).
 # Usage:
 #   docker compose --env-file .env -f docker-compose.api.yml up -d
+# Prefer API_IMAGE=…@sha256:… from CI; :main fallback is for bootstrap only.
 services:
   api:
     image: ${API_IMAGE:-ghcr.io/cyberskill-official/strategem-api:main}

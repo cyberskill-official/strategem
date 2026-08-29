@@ -26,6 +26,18 @@ Pattern mirrors CyberOS `deploy/vps/deploy.sh`: **CI builds images → GHCR → 
 curl -fsS https://api.<domain>/healthz
 ```
 
+## Image pin (D-CD-001 / D-IMAGE-001)
+
+CI (`deploy-vps.yml`) writes `API_IMAGE` as an **immutable digest** reference:
+
+```text
+ghcr.io/cyberskill-official/strategem-api@sha256:<digest>
+```
+
+Do not point production at floating `:main`. The `:main` GHCR tag may exist as a convenience pointer only.
+
+Production SSH rolls wait on GitHub Environment **`production`** required reviewers — see `docs/deploy/branch-protection-main.md`.
+
 ## Rollback
 
-Retag / set `API_IMAGE_TAG` to a previous git SHA and re-run `deploy.sh`.
+Set `API_IMAGE` in `deploy/vps/.env` to a **previous known-good digest** (from the prior Actions run summary or `docker inspect`) and re-run `deploy.sh`. Prefer digest over a mutable tag.
