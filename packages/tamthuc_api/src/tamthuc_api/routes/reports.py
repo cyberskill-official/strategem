@@ -65,21 +65,27 @@ def download_report_pdf(report_id: str, request: Request) -> Response:
             status_code=404,
             content=error_envelope("NOT_FOUND", f"report {rid} not found"),
         )
-    # Prefer real PDF exporter when available
+    # Prefer real PDF exporter when available; never mask export failure as 200 stub (D-REPORT-001).
     try:
         from tamthuc_report import pdf_export
 
         export_fn = getattr(pdf_export, "export_pdf", None)
         if callable(export_fn):
-            pdf_bytes = export_fn(data)
-            return Response(
-                content=pdf_bytes,
-                media_type="application/pdf",
-                headers={"Content-Disposition": f'attachment; filename="report-{rid}.pdf"'},
-            )
-    except Exception:
+            try:
+                pdf_bytes = export_fn(data)
+                return Response(
+                    content=pdf_bytes,
+                    media_type="application/pdf",
+                    headers={"Content-Disposition": f'attachment; filename="report-{rid}.pdf"'},
+                )
+            except Exception:
+                return JSONResponse(
+                    status_code=503,
+                    content=error_envelope("INTERNAL", "report PDF export failed"),
+                )
+    except ImportError:
         pass
-    # Minimal valid-ish PDF bytes for download path testing
+    # Minimal valid-ish PDF bytes when exporter package is absent (dev / early stack)
     body = (
         b"%PDF-1.1\n"
         b"1 0 obj<<>>endobj\n"
