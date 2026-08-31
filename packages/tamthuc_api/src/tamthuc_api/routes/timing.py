@@ -19,6 +19,26 @@ DISCLAIMER = (
 )
 
 
+def _require_premium_strat(request: Request, *, capability: str) -> object | JSONResponse:
+    """AUTHZ-001: JWT principal required; free tier denied (tier from verified JWT only)."""
+    user = getattr(request.state, "current_user", None)
+    if user is None:
+        return JSONResponse(
+            status_code=401,
+            content=error_envelope("UNAUTHORIZED", "authentication required"),
+        )
+    tier = (getattr(user, "tier", None) or "free").lower()
+    if tier in {"free", ""}:
+        return JSONResponse(
+            status_code=403,
+            content=error_envelope(
+                "FORBIDDEN_TIER",
+                f"{capability} requires premium+ (free cast remains open)",
+            ),
+        )
+    return user
+
+
 class TimingOptimizeBody(BaseModel):
     model_config = ConfigDict(extra="ignore")
     start: datetime
@@ -45,22 +65,10 @@ def timing_optimize(body: TimingOptimizeBody, request: Request) -> dict[str, Any
             content=error_envelope("NOT_IMPLEMENTED", "tamthuc_strat not installed"),
         )
 
-    # COV-009 / TT-002: tier from verified JWT only (middleware requires auth)
-    user = getattr(request.state, "current_user", None)
-    if user is None:
-        return JSONResponse(
-            status_code=401,
-            content=error_envelope("UNAUTHORIZED", "authentication required"),
-        )
-    tier = (user.tier or "free").lower()
-    if tier in {"free", ""}:
-        return JSONResponse(
-            status_code=403,
-            content=error_envelope(
-                "FORBIDDEN_TIER",
-                "timing_optimize requires premium+ (free cast remains open)",
-            ),
-        )
+    # COV-009 / TT-002 / AUTHZ-001: tier from verified JWT only
+    gated = _require_premium_strat(request, capability="timing_optimize")
+    if isinstance(gated, JSONResponse):
+        return gated
 
     orch = request.app.state.orch
     kinh = (
@@ -163,6 +171,11 @@ def scenario_compare(body: ScenarioCompareBody, request: Request) -> dict[str, A
             content=error_envelope("NOT_IMPLEMENTED", "tamthuc_strat not installed"),
         )
 
+    # AUTHZ-001: same premium posture as timing/optimize (JWT tier only)
+    gated = _require_premium_strat(request, capability="scenario_compare")
+    if isinstance(gated, JSONResponse):
+        return gated
+
     if not body.scenarios or len(body.scenarios) < 2:
         return JSONResponse(
             status_code=400,
@@ -250,7 +263,7 @@ class CrossSystemBody(BaseModel):
     question_type: str | None = None
     systems: list[str] = Field(default_factory=lambda: ["qimen", "liuren", "taiyi"])
     co_truong_phai: dict[str, Any] = Field(default_factory=dict)
-    tier: str = "premium"
+    # Client-supplied tier is ignored (AUTHZ-001); entitlement from JWT only.
 
 
 @router.post("/cross-system/validate", response_model=None)
@@ -264,7 +277,11 @@ def cross_system_validate(body: CrossSystemBody, request: Request) -> dict[str, 
             content=error_envelope("NOT_IMPLEMENTED", "tamthuc_strat not installed"),
         )
 
-    # Free tier: still allow dual-system; all-three prefers premium (soft)
+    # AUTHZ-001: premium+ from verified JWT (no client-tier spoof)
+    gated = _require_premium_strat(request, capability="cross_system_validate")
+    if isinstance(gated, JSONResponse):
+        return gated
+
     orch = request.app.state.orch
     kinh = (
         body.kinh_do

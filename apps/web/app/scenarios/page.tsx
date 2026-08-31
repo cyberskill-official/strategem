@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
-import { authHeaders } from "../../src/lib/auth/session";
+import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
 
 type ScenarioRow = {
   label: string;
@@ -27,6 +27,10 @@ export default function ScenariosPage() {
     setLoading(true);
     setError(null);
     try {
+      if (!getAccessToken()) {
+        setError(t("scenarios.error"));
+        return;
+      }
       const res = await fetch(`${apiBase()}/api/v1/scenario/compare`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders() },

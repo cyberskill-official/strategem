@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { useLocale } from "../../src/components/i18n/locale-provider";
 import { apiBase } from "../../src/lib/api/client";
-import { authHeaders } from "../../src/lib/auth/session";
+import { authHeaders, getAccessToken } from "../../src/lib/auth/session";
 
 type SystemRead = {
   he: string;
@@ -35,6 +35,10 @@ export default function CrossSystemPage() {
     setLoading(true);
     setError(null);
     try {
+      if (!getAccessToken()) {
+        setError(t("cross.error"));
+        return;
+      }
       const res = await fetch(`${apiBase()}/api/v1/cross-system/validate`, {
         method: "POST",
         headers: { "Content-Type": "application/json", ...authHeaders() },
