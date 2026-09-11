@@ -216,7 +216,7 @@ def connect_redis_counter(url: str | None = None) -> RedisCounter | None:
     if not url:
         return None
     try:
-        import redis  # type: ignore[import-untyped]
+        import redis
     except ImportError:
         log.error("ratelimit.redis_package_missing")
         return None

@@ -14,7 +14,7 @@ from tamthuc_api.security.headers import security_headers
 
 class SecurityHeadersMiddleware(BaseHTTPMiddleware):
     async def dispatch(self, request: Request, call_next: Callable[..., Any]) -> Response:
-        response = await call_next(request)
+        response: Response = await call_next(request)
         for key, value in security_headers().items():
             response.headers.setdefault(key, value)
         return response
