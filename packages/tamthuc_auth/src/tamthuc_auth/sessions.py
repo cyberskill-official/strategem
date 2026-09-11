@@ -172,7 +172,7 @@ class PostgresSessionStore:
             if isinstance(v, datetime):
                 if v.tzinfo is None:
                     v = v.replace(tzinfo=UTC)
-                return v.timestamp()
+                return float(v.timestamp())
             return float(v)
 
         return SessionRecord(
