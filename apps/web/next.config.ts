@@ -37,8 +37,9 @@ const SECURITY_HEADERS: { key: string; value: string }[] = [
 ];
 
 const nextConfig: NextConfig = {
-  // Required for deploy/docker/web.Dockerfile multi-stage COPY of .next/standalone
-  output: "standalone",
+  // Docker needs standalone; Vercel+Next 16.3 ENOENT on next-server.js.nft.json
+  // when standalone is combined with the platform adapter (vercel/next.js#96646).
+  output: process.env.VERCEL ? undefined : "standalone",
   // The DS ships raw JSX component sources (see src/ds/index.ts shim); the
   // bundler must transpile them since node_modules is skipped by default.
   transpilePackages: ["@cyberskill/design"],
