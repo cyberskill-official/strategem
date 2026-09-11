@@ -32,6 +32,7 @@ assert.match(signupRoute, /httpOnly:\s*true/);
 assert.match(refreshRoute, /httpOnly:\s*true/);
 assert.match(refreshRoute, /tamthuc_refresh/);
 assert.match(refreshRoute, /\/auth\/refresh/);
+assert.match(refreshRoute, /origin check failed|originAllowed|Origin/);
 assert.match(logoutRoute, /\/auth\/logout/);
 assert.match(logoutRoute, /httpOnly:\s*true/);
 // Server must not fall back to NEXT_PUBLIC_API_BASE (host URL inside Docker).

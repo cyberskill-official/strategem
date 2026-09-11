@@ -9,9 +9,10 @@ from uuid import UUID
 from tamthuc_auth.email import EmailSender, get_email_sender
 from tamthuc_auth.errors import AuthError
 from tamthuc_auth.passwords import hash_password
+from tamthuc_auth.sessions import SessionStoreProtocol, get_session_store
 from tamthuc_auth.store import UserStore
-from tamthuc_auth.token_store import EmailTokenStore, get_email_token_store
-from tamthuc_auth.tokens import RevocationStore, get_revocation_store
+from tamthuc_auth.token_store import EmailTokenStore, EmailTokenStoreProtocol, get_email_token_store
+from tamthuc_auth.tokens import RevocationStore, get_revocation_store, revoke_refresh
 
 log = logging.getLogger("tamthuc_auth.reset")
 
@@ -30,7 +31,7 @@ def request_password_reset(
     email: str,
     *,
     store: UserStore,
-    tokens: EmailTokenStore | None = None,
+    tokens: EmailTokenStore | EmailTokenStoreProtocol | None = None,
     mail: EmailSender | None = None,
     ttl_s: int = 3600,
 ) -> dict[str, Any]:
@@ -56,13 +57,15 @@ def confirm_password_reset(
     new_password: str,
     *,
     store: UserStore,
-    tokens: EmailTokenStore | None = None,
-    revocation: RevocationStore | None = None,
+    tokens: EmailTokenStore | EmailTokenStoreProtocol | None = None,
+    revocation: RevocationStore | Any | None = None,
+    sessions: SessionStoreProtocol | None = None,
     active_refresh_jtis: list[str] | None = None,
 ) -> dict[str, Any]:
     """Validate + consume token; argon2 re-hash password; revoke outstanding refresh."""
     tokens = tokens or get_email_token_store()
     revocation = revocation or get_revocation_store()
+    sessions = sessions or get_session_store()
     try:
         rec = tokens.consume(token, "password_reset")
     except ValueError as e:
@@ -72,8 +75,9 @@ def confirm_password_reset(
         raise ResetError("user_missing")
     user.password_hash = hash_password(new_password)
     store.update(user)
-    for jti in active_refresh_jtis or []:
-        revocation.revoke(jti)
-    # also mark user-scoped revocation if caller tracks that way
+    jtis = list(active_refresh_jtis or [])
+    jtis.extend(sessions.revoke_all(rec.user_id))
+    for jti in jtis:
+        revoke_refresh(jti, store=revocation)
     log.info("auth.reset.confirmed", extra={"user_id": rec.user_id})
     return {"status": "ok", "sessions_revoked": True}

@@ -14,6 +14,7 @@ from tamthuc_auth.models import BirthData
 from tamthuc_auth.passwords import hash_password, verify_password
 from tamthuc_auth.routes import create_auth_app
 from tamthuc_auth.service import AuthService, drain_verification_events
+from tamthuc_auth.sessions import InMemorySessionStore
 from tamthuc_auth.social import mint_test_id_token
 from tamthuc_auth.store import InMemoryUserStore
 from tamthuc_auth.tokens import (
@@ -42,7 +43,12 @@ def svc(settings: AuthSettings) -> AuthService:
     drain_verification_events()
     store = InMemoryUserStore()
     rev = RevocationStore()
-    return AuthService(store=store, settings=settings, revocation=rev)
+    return AuthService(
+        store=store,
+        settings=settings,
+        revocation=rev,
+        sessions=InMemorySessionStore(),
+    )
 
 
 @pytest.fixture
@@ -124,12 +130,14 @@ def test_refresh_rotation_and_revocation(svc: AuthService) -> None:
     rotated = svc.refresh(pair.refresh)
     assert rotated.access != pair.access
     assert rotated.refresh != pair.refresh
-    # old refresh revoked
-    with pytest.raises(TokenRevoked):
-        svc.refresh(pair.refresh)
-    # new refresh works
+    # new refresh works (do not replay old first — reuse detection revokes the family)
     again = svc.refresh(rotated.refresh)
     assert again.access
+    # replay of a prior refresh is reuse → family dead
+    with pytest.raises(TokenRevoked):
+        svc.refresh(rotated.refresh)
+    with pytest.raises(TokenRevoked):
+        svc.refresh(again.refresh)
     _ = reg
 
 

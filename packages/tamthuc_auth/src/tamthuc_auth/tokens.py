@@ -34,10 +34,11 @@ class RefreshClaims(BaseModel):
     exp: int
     jti: str
     typ: str = "refresh"
+    fid: str | None = None  # refresh family / session id (AUTH-001 follow-up)
 
 
 class RevocationStore:
-    """In-process jti denylist; replace with Redis/DB in TASK-AUTH-003 multi-device work."""
+    """In-process jti denylist; PostgresRevocationStore used when DATABASE_URL is set."""
 
     def __init__(self) -> None:
         self._revoked: dict[str, float] = {}  # jti -> exp
@@ -93,18 +94,22 @@ def issue_refresh(
     *,
     settings: AuthSettings | None = None,
     now: int | None = None,
+    family_id: str | None = None,
+    jti: str | None = None,
 ) -> str:
     s = settings or get_settings()
     iat = int(now if now is not None else time.time())
     exp = iat + s.refresh_ttl_seconds
-    claims = {
+    claims: dict[str, Any] = {
         "sub": user_id,
         "iat": iat,
         "exp": exp,
-        "jti": str(uuid.uuid4()),
+        "jti": jti or str(uuid.uuid4()),
         "typ": "refresh",
         "iss": s.issuer,
     }
+    if family_id:
+        claims["fid"] = family_id
     return jwt.encode(claims, s.jwt_secret, algorithm=s.jwt_algorithm)
 
 
@@ -145,6 +150,7 @@ def verify_refresh(
     *,
     settings: AuthSettings | None = None,
     store: Any | None = None,
+    check_revocation: bool = True,
 ) -> RefreshClaims:
     s = settings or get_settings()
     rev = store or get_revocation_store()
@@ -162,14 +168,18 @@ def verify_refresh(
     if payload.get("typ") != "refresh":
         raise TokenInvalid("wrong token type")
     jti = str(payload.get("jti", ""))
-    if not jti or rev.is_revoked(jti):
+    if not jti:
         raise TokenRevoked()
+    if check_revocation and rev.is_revoked(jti):
+        raise TokenRevoked()
+    fid_raw = payload.get("fid")
     return RefreshClaims(
         sub=str(payload["sub"]),
         iat=int(payload["iat"]),
         exp=int(payload["exp"]),
         jti=jti,
         typ="refresh",
+        fid=str(fid_raw) if fid_raw else None,
     )
 
 
@@ -182,10 +192,17 @@ def issue_token_pair(
     tier: str,
     *,
     settings: AuthSettings | None = None,
+    family_id: str | None = None,
+    refresh_jti: str | None = None,
 ) -> dict[str, str]:
     return {
         "access": issue_access(user_id, tier, settings=settings),
-        "refresh": issue_refresh(user_id, settings=settings),
+        "refresh": issue_refresh(
+            user_id,
+            settings=settings,
+            family_id=family_id,
+            jti=refresh_jti,
+        ),
     }
 
 
@@ -202,8 +219,11 @@ class TokenService:
     def rotate_refresh(self, refresh_token: str) -> dict[str, str]:
         claims = verify_refresh(refresh_token, settings=self.settings, store=self.store)
         revoke_refresh(claims.jti, store=self.store, exp=float(claims.exp))
-        # tier default free on refresh; caller may reload user
         return {
             "access": issue_access(claims.sub, "free", settings=self.settings),
-            "refresh": issue_refresh(claims.sub, settings=self.settings),
+            "refresh": issue_refresh(
+                claims.sub,
+                settings=self.settings,
+                family_id=claims.fid,
+            ),
         }

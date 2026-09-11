@@ -118,3 +118,20 @@ class MeResponse(BaseModel):
     @classmethod
     def _email_ok(cls, v: str) -> str:
         return v
+
+
+class SessionInfo(BaseModel):
+    """Active refresh family (device/session) for list/revoke APIs."""
+
+    model_config = ConfigDict(extra="forbid")
+    id: str
+    created_at: float
+    last_seen_at: float
+    expires_at: float
+    label: str | None = None
+    current: bool = False
+
+
+class SessionsResponse(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    sessions: list[SessionInfo]
