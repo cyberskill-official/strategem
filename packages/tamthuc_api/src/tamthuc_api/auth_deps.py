@@ -4,13 +4,15 @@ Public (optional JWT):
   POST /calculate/{qimen|liuren|taiyi}  — anonymous cast allowed
   GET  /queries/{id}, GET /reports/{id} — cast-journey fetch by id
   POST /queries/{id}/follow-up          — cited follow-up chat on a cast
-  POST /timing/optimize (anonymous)     — local smoke; free JWT still gated
 
-Protected (require Bearer JWT):
-  GET  /queries                 — manage history
-  POST /calculate/all           — premium capability
-  POST /payments/checkout       — account-bound checkout
-  GET  /payments/tier/{user_id} — own tier only
+Protected (require Bearer JWT + premium where noted):
+  POST /timing/optimize                 — premium (AUTHZ-001)
+  POST /scenario/compare                — premium (AUTHZ-001)
+  POST /cross-system/validate           — premium (AUTHZ-001)
+  GET  /queries                         — manage history
+  POST /calculate/all                   — premium capability
+  POST /payments/checkout               — account-bound checkout
+  GET  /payments/tier/{user_id}         — own tier only
 """
 
 from __future__ import annotations
