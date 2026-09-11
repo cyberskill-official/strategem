@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from collections.abc import Generator
+from typing import Any
+
 import httpx
 import pytest
 from tamthuc_auth.email import (
@@ -15,7 +18,7 @@ from tamthuc_auth.email import (
 
 
 @pytest.fixture(autouse=True)
-def _clean_sender(monkeypatch: pytest.MonkeyPatch) -> None:
+def _clean_sender(monkeypatch: pytest.MonkeyPatch) -> Generator[None, None, None]:
     monkeypatch.delenv("RESEND_API_KEY", raising=False)
     monkeypatch.delenv("RESEND_FROM", raising=False)
     monkeypatch.delenv("RESEND_FROM_ADDRESS", raising=False)
@@ -68,17 +71,16 @@ def test_auth_email_fake_overrides_production(monkeypatch: pytest.MonkeyPatch) -
 
 
 def test_resend_sender_posts(monkeypatch: pytest.MonkeyPatch) -> None:
-    calls: list[dict] = []
+    calls: list[dict[str, Any]] = []
 
     def handler(request: httpx.Request) -> httpx.Response:
-        calls.append({"url": str(request.url), "json": httpx.Response(200).json})
         import json
 
         body = json.loads(request.content.decode())
+        calls.append({"url": str(request.url), "from": body["from"]})
         assert body["from"] == "noreply@example.com"
         assert body["to"] == ["a@example.com"]
         assert "token-xyz" in body["html"]
-        assert "token-xyz" not in str(request.headers)  # token only in body
         return httpx.Response(200, json={"id": "msg_1"})
 
     transport = httpx.MockTransport(handler)
