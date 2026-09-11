@@ -69,6 +69,29 @@ class RefreshRequest(BaseModel):
     refresh: str = Field(min_length=1)
 
 
+class LogoutRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    refresh: str = Field(min_length=1)
+
+
+class EmailRequest(BaseModel):
+    """Enumeration-safe verify / reset request body."""
+
+    model_config = ConfigDict(extra="forbid")
+    email: EmailStr
+
+
+class VerifyConfirmRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    token: str = Field(min_length=1)
+
+
+class PasswordResetConfirmRequest(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    token: str = Field(min_length=1)
+    new_password: str = Field(min_length=8, max_length=256)
+
+
 class TokenPair(BaseModel):
     model_config = ConfigDict(extra="forbid")
     access: str

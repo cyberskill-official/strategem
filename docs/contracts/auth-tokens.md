@@ -29,6 +29,20 @@ On `/auth/refresh`, the presented refresh `jti` is revoked and a new pair is iss
 
 See TASK-AUTH-001 §3. Bearer scheme on `/auth/me`.
 
+AUTH-001 foundations also mount (enumeration-safe where noted):
+
+| Method | Path | Notes |
+|---|---|---|
+| POST | `/auth/verify/request` | email body; generic OK |
+| POST | `/auth/verify/confirm` | `{token}` |
+| POST | `/auth/password-reset/request` | email body; generic OK |
+| POST | `/auth/password-reset/confirm` | `{token, new_password}`; revokes refresh jtis when provided |
+| POST | `/auth/logout` | `{refresh}` — revoke jti; idempotent |
+| POST | `/auth/dsar/export` | Bearer + fresh auth window |
+| POST | `/auth/dsar/erase` | Bearer + fresh auth window |
+
+Web BFF (`apps/web/app/api/auth/*`): refresh stays in HttpOnly cookie `tamthuc_refresh`; access returned in JSON. Operator email HITL: `docs/deploy/auth-email-resend.md`.
+
 ## Errors
 
 All failures use:
