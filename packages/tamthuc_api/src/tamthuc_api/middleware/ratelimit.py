@@ -1,4 +1,4 @@
-"""ASGI rate-limit middleware — TASK-API-003."""
+"""ASGI rate-limit middleware — TASK-API-003 / D-API-001."""
 
 from __future__ import annotations
 
@@ -11,7 +11,23 @@ from starlette.responses import JSONResponse, Response
 
 from tamthuc_api.abuse import AbuseDetector, RequestEvent
 from tamthuc_api.errors import error_envelope
-from tamthuc_api.ratelimit import LocalFallbackLimiter, RateLimiter
+from tamthuc_api.ratelimit import LocalFallbackLimiter, RateLimiter, build_rate_limiter_from_env
+from tamthuc_api.trusted_proxy import client_ip
+
+# Metered path prefixes (versioned and unversioned).
+_METERED_PREFIXES: tuple[str, ...] = (
+    "/api/v1/calculate",
+    "/calculate",
+    "/auth/login",
+    "/auth/register",
+    "/auth/password-reset",
+)
+
+
+def _is_metered(path: str) -> bool:
+    return any(
+        path == p or path.startswith(p + "/") or path.startswith(p) for p in _METERED_PREFIXES
+    )
 
 
 class RateLimitMiddleware(BaseHTTPMiddleware):
@@ -22,13 +38,12 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         abuse: AbuseDetector | None = None,
     ) -> None:
         super().__init__(app)
-        self.limiter: RateLimiter = limiter or LocalFallbackLimiter()
+        self.limiter: RateLimiter = limiter or build_rate_limiter_from_env()
         self.abuse = abuse or AbuseDetector()
 
     async def dispatch(self, request: Request, call_next: Callable[..., Any]) -> Response:
-        # only meter calculate routes
         path = request.url.path
-        if not path.startswith("/api/v1/calculate"):
+        if not _is_metered(path):
             resp: Response = await call_next(request)
             return resp
 
@@ -36,11 +51,11 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         from tamthuc_api.authz import resolve_principal
 
         resolved = resolve_principal(request)
-        source_ip = request.client.host if request.client else "0.0.0.0"
+        source_ip = client_ip(request)
         if resolved is not None:
             principal_id, tier = resolved
         else:
-            # Anonymous free-cast routes: IP-keyed quota, free tier only
+            # Anonymous / pre-auth: IP-keyed quota, free tier only
             principal_id = f"ip:{source_ip}"
             tier = "free"
 
@@ -89,3 +104,7 @@ class RateLimitMiddleware(BaseHTTPMiddleware):
         response.headers["X-RateLimit-Remaining"] = str(decision.remaining)
         response.headers["X-RateLimit-Reset"] = str(decision.reset_at)
         return response
+
+
+# Re-export for tests that construct LocalFallbackLimiter explicitly.
+__all__ = ["RateLimitMiddleware", "LocalFallbackLimiter"]

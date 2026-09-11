@@ -10,14 +10,20 @@ from typing import Any
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import JSONResponse, Response
+from tamthuc_auth.config import is_local_or_test_env
 
 from tamthuc_api.errors import error_envelope
 
-# Exact public paths (unversioned ops + OpenAPI).
-_PUBLIC_EXACT: frozenset[str] = frozenset(
+# Exact public paths (unversioned ops). OpenAPI/docs only when docs are enabled.
+_PUBLIC_OPS: frozenset[str] = frozenset(
     {
         "/healthz",
         "/ready",
+    }
+)
+
+_PUBLIC_DOCS: frozenset[str] = frozenset(
+    {
         "/openapi.json",
         "/docs",
         "/docs/oauth2-redirect",
@@ -65,6 +71,16 @@ def auth_required_enabled() -> bool:
     return raw not in {"0", "false", "no", "off"}
 
 
+def api_docs_enabled() -> bool:
+    """OpenAPI UI is local/test only unless ENABLE_API_DOCS=1 (operator break-glass)."""
+    flag = os.environ.get("ENABLE_API_DOCS", "").strip().lower()
+    if flag in {"1", "true", "yes", "on"}:
+        return True
+    if flag in {"0", "false", "no", "off"}:
+        return False
+    return is_local_or_test_env()
+
+
 def _api_suffix(path: str) -> str | None:
     m = _API_PREFIX_RE.match(path)
     if not m:
@@ -73,7 +89,9 @@ def _api_suffix(path: str) -> str | None:
 
 
 def is_public_path(path: str) -> bool:
-    if path in _PUBLIC_EXACT or path.startswith("/docs"):
+    if path in _PUBLIC_OPS:
+        return True
+    if api_docs_enabled() and (path in _PUBLIC_DOCS or path.startswith("/docs")):
         return True
     for prefix in _AUTH_PUBLIC_PREFIXES:
         if path == prefix or path.startswith(prefix + "/"):

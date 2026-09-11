@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from "next/server";
+import { setCsrfCookie } from "../../../../src/lib/auth/csrf";
 
 /**
- * COV-009: proxy register then login; set httpOnly refresh cookie.
+ * COV-009: proxy register then login; set httpOnly refresh + CSRF cookies.
  */
 /** Server-only API origin. Do NOT use NEXT_PUBLIC_API_BASE (browser/host URL breaks inside Docker). */
 function serverApiBase(): string {
@@ -51,6 +52,7 @@ export async function POST(req: NextRequest) {
       secure: process.env.NODE_ENV === "production",
       maxAge: 60 * 60 * 24 * 14,
     });
+    setCsrfCookie(out);
   }
   return out;
 }

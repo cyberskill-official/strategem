@@ -1,7 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
+import { clearCsrfCookie, cookieCsrfOk } from "../../../../src/lib/auth/csrf";
 
 /**
  * AUTH-001: revoke refresh on API (best-effort) and clear httpOnly cookie.
+ * Cookie logout requires double-submit CSRF token matching tamthuc_csrf.
  */
 function serverApiBase(): string {
   return (
@@ -13,6 +15,12 @@ function serverApiBase(): string {
 
 export async function POST(req: NextRequest) {
   const refresh = req.cookies.get("tamthuc_refresh")?.value;
+  if (refresh && !cookieCsrfOk(req)) {
+    return NextResponse.json(
+      { error: { code: "forbidden", message: "csrf check failed" } },
+      { status: 403 },
+    );
+  }
   if (refresh) {
     try {
       await fetch(`${serverApiBase()}/auth/logout`, {
@@ -31,5 +39,6 @@ export async function POST(req: NextRequest) {
     path: "/",
     maxAge: 0,
   });
+  clearCsrfCookie(out);
   return out;
 }

@@ -52,6 +52,14 @@ assert.match(histPage, /HistoryList|getHistory/);
 assert.doesNotMatch(histPage, /demoHistory/);
 assert.doesNotMatch(histPage, /history-demo-banner/);
 assert.match(setPage, /SchoolFlagsForm/);
+assert.match(setPage, /SessionsPanel/);
+
+const sessions = read("src/components/manage/sessions-panel.tsx");
+assert.match(sessions, /sessions-panel/);
+assert.match(sessions, /\/auth\/sessions/);
+assert.match(sessions, /revoke-all|sessions-revoke-all/);
+assert.match(sessions, /session-revoke/);
+assert.match(sessions, /sessions-refresh/);
 
 assert.match(school, /loadSchoolConfig|SCHOOL_FLAGS_STORAGE_KEY/);
 assert.match(school, /toCastPayloadFlags/);

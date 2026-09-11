@@ -580,5 +580,17 @@
   "graph.neighbors": "邻居",
   "graph.note": "来源：仅已存图",
   "graph.empty": "还没有边。",
-  "graph.error": "打不开关系图。"
+  "graph.error": "打不开关系图。",
+  "sessions.title": "已登录会话",
+  "sessions.lead": "查看并撤销仍持有活动会话的设备。",
+  "sessions.signInRequired": "登录后可管理会话。",
+  "sessions.loadError": "无法加载会话列表。",
+  "sessions.revokeError": "无法撤销会话。",
+  "sessions.empty": "没有活动会话。",
+  "sessions.device": "设备",
+  "sessions.current": "当前设备",
+  "sessions.lastSeen": "最近活动",
+  "sessions.revoke": "撤销",
+  "sessions.revokeAll": "撤销所有会话",
+  "sessions.refresh": "加载会话"
 }

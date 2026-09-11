@@ -1,14 +1,18 @@
-"""Rate limiting — TASK-API-003. Quotas from AUTH-002 / rbac-tiers.json."""
+"""Rate limiting — TASK-API-003 / D-API-001. Quotas from AUTH-002 / rbac-tiers.json."""
 
 from __future__ import annotations
 
 import json
+import logging
+import os
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Any, Literal, Protocol
 
 TierLimit = int | Literal["unmetered", "custom"]
+
+log = logging.getLogger("tamthuc_api.ratelimit")
 
 
 def load_tier_quotas(path: Path | None = None) -> dict[str, TierLimit]:
@@ -56,6 +60,33 @@ class RateDecision:
 
 class RateLimiter(Protocol):
     def check_and_count(self, principal_id: str, tier: str) -> RateDecision: ...
+
+
+class RedisCounter(Protocol):
+    """Minimal counter surface: atomic INCR + EXPIRE."""
+
+    def incr(self, key: str) -> int: ...
+
+    def expire(self, key: str, seconds: int) -> None: ...
+
+
+@dataclass
+class MemoryRedisCounter:
+    """Process-local stand-in for Redis INCR (tests / single-process)."""
+
+    counters: dict[str, int] = field(default_factory=dict)
+    ttls: dict[str, float] = field(default_factory=dict)
+
+    def incr(self, key: str) -> int:
+        exp = self.ttls.get(key)
+        if exp is not None and exp < time.time():
+            self.counters.pop(key, None)
+            self.ttls.pop(key, None)
+        self.counters[key] = self.counters.get(key, 0) + 1
+        return self.counters[key]
+
+    def expire(self, key: str, seconds: int) -> None:
+        self.ttls[key] = time.time() + max(1, seconds)
 
 
 @dataclass
@@ -110,14 +141,108 @@ class LocalFallbackLimiter:
 
 
 class RedisRateLimiter:
-    """Placeholder Redis limiter; falls back to LocalFallbackLimiter."""
+    """Atomic daily counters via Redis; conservative local fallback on outage."""
 
-    def __init__(self, redis_client: Any | None = None) -> None:
+    def __init__(
+        self,
+        redis_client: RedisCounter | None = None,
+        *,
+        local: LocalFallbackLimiter | None = None,
+    ) -> None:
         self.redis = redis_client
-        self.local = LocalFallbackLimiter()
+        self.local = local or LocalFallbackLimiter()
 
-    def check_and_count(self, principal_id: str, tier: str) -> RateDecision:
+    def check_and_count(
+        self,
+        principal_id: str,
+        tier: str,
+        *,
+        enterprise_custom: int | None = None,
+    ) -> RateDecision:
         if self.redis is None:
-            return self.local.check_and_count(principal_id, tier, redis_unavailable=True)
-        # real Redis path would INCR rl:{principal}:{yyyymmdd}
-        return self.local.check_and_count(principal_id, tier)
+            return self.local.check_and_count(
+                principal_id, tier, enterprise_custom=enterprise_custom, redis_unavailable=True
+            )
+        limit = quota_for(tier, enterprise_custom=enterprise_custom)
+        day = time.strftime("%Y%m%d")
+        # Reset at next UTC midnight approximation (+86400 from now is fine for headers).
+        reset_at = int(time.time()) + 86_400
+        if limit == "unmetered":
+            return RateDecision(True, "unmetered", remaining=10**9, reset_at=reset_at)
+        key = f"rl:{principal_id}:{day}"
+        try:
+            used = int(self.redis.incr(key))
+            if used == 1:
+                # Expire shortly after day boundary (26h buffer for clock skew / TZ).
+                self.redis.expire(key, 86_400 + 7200)
+        except Exception:
+            log.warning("ratelimit.redis_unavailable", exc_info=True)
+            return self.local.check_and_count(
+                principal_id, tier, enterprise_custom=enterprise_custom, redis_unavailable=True
+            )
+        cap = int(limit)
+        if used > cap:
+            return RateDecision(
+                allowed=False,
+                limit=limit,
+                remaining=0,
+                reset_at=reset_at,
+                retry_after=max(1, reset_at - int(time.time())),
+            )
+        return RateDecision(
+            allowed=True,
+            limit=limit,
+            remaining=max(0, cap - used),
+            reset_at=reset_at,
+        )
+
+
+class _RedisPyCounter:
+    """Adapter around redis-py client (optional dependency)."""
+
+    def __init__(self, client: Any) -> None:
+        self._client = client
+
+    def incr(self, key: str) -> int:
+        return int(self._client.incr(key))
+
+    def expire(self, key: str, seconds: int) -> None:
+        self._client.expire(key, seconds)
+
+
+def connect_redis_counter(url: str | None = None) -> RedisCounter | None:
+    """Connect when REDIS_URL is set. Returns None if unset or connection fails."""
+    url = (url if url is not None else os.environ.get("REDIS_URL", "")).strip()
+    if not url:
+        return None
+    try:
+        import redis  # type: ignore[import-untyped]
+    except ImportError:
+        log.error("ratelimit.redis_package_missing")
+        return None
+    try:
+        client = redis.Redis.from_url(url, decode_responses=True, socket_connect_timeout=1.5)
+        client.ping()
+        return _RedisPyCounter(client)
+    except Exception:
+        log.warning("ratelimit.redis_connect_failed", exc_info=True)
+        return None
+
+
+def build_rate_limiter_from_env() -> RateLimiter:
+    """Production: Redis when available; otherwise conservative local fallback.
+
+    Local/test without REDIS_URL keeps full in-process quotas (single worker).
+    """
+    from tamthuc_auth.config import is_local_or_test_env
+
+    counter = connect_redis_counter()
+    if counter is not None:
+        return RedisRateLimiter(counter)
+    if (
+        is_local_or_test_env()
+        or not (os.environ.get("APP_ENV") or os.environ.get("ENV") or "").strip()
+    ):
+        return LocalFallbackLimiter()
+    # Staging/production without Redis: fail closed to conservative per-instance caps.
+    return RedisRateLimiter(None)

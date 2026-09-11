@@ -2,6 +2,7 @@
 
 import { useLocale } from "../../../src/components/i18n/locale-provider";
 import { SchoolFlagsForm } from "../../../src/components/manage/school-flags-form";
+import { SessionsPanel } from "../../../src/components/manage/sessions-panel";
 
 export default function ManageSettingsPage() {
   const { t } = useLocale();
@@ -17,6 +18,7 @@ export default function ManageSettingsPage() {
       <div className="cs-card">
         <SchoolFlagsForm />
       </div>
+      <SessionsPanel />
     </div>
   );
 }

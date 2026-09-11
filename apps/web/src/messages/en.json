@@ -580,5 +580,17 @@
   "graph.neighbors": "Neighbors",
   "graph.note": "Source: stored graph only",
   "graph.empty": "No edges yet.",
-  "graph.error": "Couldn’t open the graph."
+  "graph.error": "Couldn’t open the graph.",
+  "sessions.title": "Signed-in sessions",
+  "sessions.lead": "Review and revoke devices that hold an active session.",
+  "sessions.signInRequired": "Sign in to manage sessions.",
+  "sessions.loadError": "Could not load sessions.",
+  "sessions.revokeError": "Could not revoke session.",
+  "sessions.empty": "No active sessions.",
+  "sessions.device": "Device",
+  "sessions.current": "this device",
+  "sessions.lastSeen": "Last seen",
+  "sessions.revoke": "Revoke",
+  "sessions.revokeAll": "Revoke all sessions",
+  "sessions.refresh": "Load sessions"
 }

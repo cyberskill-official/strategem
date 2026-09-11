@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
-# Apply db/migrations/*.sql to DATABASE_URL (prefer Supabase direct URL).
-# Idempotent ledger: public._strategem_schema_migrations
+# Apply db/migrations via the Python migrator (D-MIG-001).
+# Checksum ledger + advisory lock + one transaction per file.
+# Prefer DATABASE_URL_MIGRATE (privileged) over runtime DATABASE_URL.
 set -euo pipefail
 
 ROOT="$(cd "$(dirname "$0")/../.." && pwd)"
-MIG_DIR="${ROOT}/db/migrations"
 URL="${DATABASE_URL_MIGRATE:-${DATABASE_URL:-}}"
 
 if [[ -z "${URL}" ]]; then
@@ -12,39 +12,24 @@ if [[ -z "${URL}" ]]; then
   exit 2
 fi
 
-if ! command -v psql >/dev/null 2>&1; then
-  echo "migrate.sh: psql not found (install postgresql-client)" >&2
-  exit 2
-fi
+export DATABASE_URL_MIGRATE="$URL"
+export DATABASE_URL="${DATABASE_URL:-$URL}"
 
-export PGPASSWORD="${PGPASSWORD:-}"
-PSQL=(psql "$URL" -v ON_ERROR_STOP=1 -q)
+cd "$ROOT"
 
-echo "==> ensuring migrations ledger"
-"${PSQL[@]}" <<'SQL'
-CREATE TABLE IF NOT EXISTS public._strategem_schema_migrations (
-  filename text PRIMARY KEY,
-  applied_at timestamptz NOT NULL DEFAULT now()
-);
-SQL
-
-shopt -s nullglob
-files=("${MIG_DIR}"/*.sql)
-if [[ ${#files[@]} -eq 0 ]]; then
-  echo "migrate.sh: no files in ${MIG_DIR}" >&2
-  exit 2
-fi
-
-for f in "${files[@]}"; do
-  base="$(basename "$f")"
-  applied="$("${PSQL[@]}" -tAc "SELECT 1 FROM public._strategem_schema_migrations WHERE filename = '${base}'" | tr -d '[:space:]')"
-  if [[ "$applied" == "1" ]]; then
-    echo "skip  ${base}"
-    continue
+pick_python() {
+  if [[ -x "${ROOT}/.venv/bin/python" ]]; then
+    echo "${ROOT}/.venv/bin/python"
+    return
   fi
-  echo "apply ${base}"
-  "${PSQL[@]}" -f "$f"
-  "${PSQL[@]}" -c "INSERT INTO public._strategem_schema_migrations (filename) VALUES ('${base}');"
-done
+  if command -v python3 >/dev/null 2>&1; then
+    command -v python3
+    return
+  fi
+  echo "migrate.sh: python3 not found (install venv or python3)" >&2
+  exit 2
+}
 
-echo "==> migrations complete"
+PY="$(pick_python)"
+echo "==> migrate via db_schema.migrate (checksum + advisory lock)"
+exec "$PY" -m db_schema.migrate
