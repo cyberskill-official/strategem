@@ -2,6 +2,8 @@
 
 from __future__ import annotations
 
+from collections.abc import Generator
+
 import pytest
 from fastapi.testclient import TestClient
 from tamthuc_auth.config import reset_settings_cache
@@ -13,7 +15,7 @@ from tamthuc_auth.tokens import RevocationStore
 
 
 @pytest.fixture
-def mail() -> FakeEmailSender:
+def mail() -> Generator[FakeEmailSender, None, None]:
     sender = FakeEmailSender()
     set_email_sender(sender)
     yield sender
