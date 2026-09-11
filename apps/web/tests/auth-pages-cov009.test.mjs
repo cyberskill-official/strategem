@@ -15,6 +15,8 @@ const login = readFileSync(join(root, "app/login/page.tsx"), "utf8");
 const signup = readFileSync(join(root, "app/signup/page.tsx"), "utf8");
 const loginRoute = readFileSync(join(root, "app/api/auth/login/route.ts"), "utf8");
 const signupRoute = readFileSync(join(root, "app/api/auth/signup/route.ts"), "utf8");
+const refreshRoute = readFileSync(join(root, "app/api/auth/refresh/route.ts"), "utf8");
+const logoutRoute = readFileSync(join(root, "app/api/auth/logout/route.ts"), "utf8");
 const compose = readFileSync(
   join(root, "../../deploy/compose/docker-compose.local.yml"),
   "utf8",
@@ -27,6 +29,11 @@ assert.match(signup, /data-testid="signup-page"/);
 assert.match(loginRoute, /httpOnly:\s*true/);
 assert.match(loginRoute, /tamthuc_refresh/);
 assert.match(signupRoute, /httpOnly:\s*true/);
+assert.match(refreshRoute, /httpOnly:\s*true/);
+assert.match(refreshRoute, /tamthuc_refresh/);
+assert.match(refreshRoute, /\/auth\/refresh/);
+assert.match(logoutRoute, /\/auth\/logout/);
+assert.match(logoutRoute, /httpOnly:\s*true/);
 // Server must not fall back to NEXT_PUBLIC_API_BASE (host URL inside Docker).
 assert.match(loginRoute, /serverApiBase|API_URL/);
 assert.doesNotMatch(
@@ -35,6 +42,10 @@ assert.doesNotMatch(
 );
 assert.doesNotMatch(
   signupRoute.replace(/\/\*\*[\s\S]*?\*\//g, "").replace(/\/\/.*/g, ""),
+  /NEXT_PUBLIC_API_BASE/,
+);
+assert.doesNotMatch(
+  refreshRoute.replace(/\/\*\*[\s\S]*?\*\//g, "").replace(/\/\/.*/g, ""),
   /NEXT_PUBLIC_API_BASE/,
 );
 assert.match(compose, /API_URL:\s*\$\{API_URL:-http:\/\/api:8000\}/);

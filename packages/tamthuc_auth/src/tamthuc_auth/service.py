@@ -8,6 +8,7 @@ from uuid import UUID
 
 from tamthuc_auth.config import AuthSettings, get_settings
 from tamthuc_auth.crypto import encrypt_birth_data
+from tamthuc_auth.email import EmailSender, require_transactional_email
 from tamthuc_auth.errors import InvalidCredentials, SocialTokenInvalid
 from tamthuc_auth.models import (
     BirthData,
@@ -20,6 +21,7 @@ from tamthuc_auth.models import (
 from tamthuc_auth.passwords import hash_password, verify_password
 from tamthuc_auth.social import IdTokenVerifier, JwtIdTokenVerifier
 from tamthuc_auth.store import InMemoryUserStore, UserStore, new_user
+from tamthuc_auth.token_store import EmailTokenStore, get_email_token_store
 from tamthuc_auth.tokens import (
     RevocationStore,
     TokenService,
@@ -31,6 +33,7 @@ from tamthuc_auth.tokens import (
     verify_access,
     verify_refresh,
 )
+from tamthuc_auth.verification import issue_verification
 
 log = logging.getLogger("tamthuc_auth.service")
 
@@ -55,12 +58,16 @@ class AuthService:
         tokens: TokenService | None = None,
         social: IdTokenVerifier | None = None,
         revocation: RevocationStore | Any | None = None,
+        email_tokens: EmailTokenStore | None = None,
+        mail: EmailSender | None = None,
     ) -> None:
         self.store = store or InMemoryUserStore()
         self.settings = settings or get_settings()
         self.revocation = revocation or get_revocation_store()
         self.tokens = tokens or TokenService(settings=self.settings, store=self.revocation)
         self.social = social or JwtIdTokenVerifier(self.settings)
+        self.email_tokens = email_tokens or get_email_token_store()
+        self.mail = mail
 
     def register(
         self,
@@ -69,6 +76,8 @@ class AuthService:
         birth_data: BirthData | dict[str, Any] | None = None,
     ) -> RegisterResponse:
         log.info("auth.register.start", extra={"email_domain": email.split("@")[-1]})
+        # Fail closed before create when transactional email is unavailable in prod.
+        mail = self.mail or require_transactional_email()
         envelope = None
         if birth_data is not None:
             plain = (
@@ -91,8 +100,23 @@ class AuthService:
                 "email": created.email,
             }
         )
+        issue_verification(
+            str(created.id),
+            store=self.store,
+            tokens=self.email_tokens,
+            mail=mail,
+        )
         log.info("auth.register.ok", extra={"user_id": str(created.id), "email_verified": False})
         return RegisterResponse(user_id=created.id, email_verified=False)
+
+    def logout(self, refresh_token: str) -> dict[str, bool]:
+        """Revoke the presented refresh jti. Always returns ok (idempotent)."""
+        try:
+            claims = verify_refresh(refresh_token, settings=self.settings, store=self.revocation)
+            revoke_refresh(claims.jti, store=self.revocation, exp=float(claims.exp))
+        except Exception:
+            log.info("auth.logout.noop")
+        return {"ok": True}
 
     def login(self, email: str, password: str) -> TokenPair:
         user = self.store.get_by_email(email)

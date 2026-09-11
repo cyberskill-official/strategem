@@ -51,6 +51,9 @@ _AUTH_PUBLIC_PREFIXES: tuple[str, ...] = (
     "/auth/register",
     "/auth/login",
     "/auth/refresh",
+    "/auth/logout",
+    "/auth/verify",
+    "/auth/password-reset",
 )
 
 _API_PREFIX_RE = re.compile(r"^/api/v\d+")

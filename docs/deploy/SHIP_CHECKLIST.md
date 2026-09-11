@@ -19,6 +19,7 @@ bash scripts/check-counsel-signoff.sh
 | Sign-off record | `docs/legal/vn-legal-review/counsel-signoff-record.md` |
 | Pre-launch checklist | `docs/legal/vn-legal-review/checklist.md` |
 | Operator how-to | `docs/legal/vn-legal-review/operator-runbook.md` |
+| Auth email (Resend) HITL | `docs/deploy/auth-email-resend.md` |
 
 Agents must not invent an approval. Current expected result: script **exits 0**.
 
