@@ -19,7 +19,7 @@ DISCLAIMER = (
 )
 
 
-def _require_premium_strat(request: Request, *, capability: str) -> object | JSONResponse:
+def _require_premium_strat(request: Request, *, capability: str) -> JSONResponse | None:
     """AUTHZ-001: JWT principal required; free tier denied (tier from verified JWT only)."""
     user = getattr(request.state, "current_user", None)
     if user is None:
@@ -36,7 +36,7 @@ def _require_premium_strat(request: Request, *, capability: str) -> object | JSO
                 f"{capability} requires premium+ (free cast remains open)",
             ),
         )
-    return user
+    return None
 
 
 class TimingOptimizeBody(BaseModel):
@@ -67,7 +67,7 @@ def timing_optimize(body: TimingOptimizeBody, request: Request) -> dict[str, Any
 
     # COV-009 / TT-002 / AUTHZ-001: tier from verified JWT only
     gated = _require_premium_strat(request, capability="timing_optimize")
-    if isinstance(gated, JSONResponse):
+    if gated is not None:
         return gated
 
     orch = request.app.state.orch
@@ -173,7 +173,7 @@ def scenario_compare(body: ScenarioCompareBody, request: Request) -> dict[str, A
 
     # AUTHZ-001: same premium posture as timing/optimize (JWT tier only)
     gated = _require_premium_strat(request, capability="scenario_compare")
-    if isinstance(gated, JSONResponse):
+    if gated is not None:
         return gated
 
     if not body.scenarios or len(body.scenarios) < 2:
@@ -279,7 +279,7 @@ def cross_system_validate(body: CrossSystemBody, request: Request) -> dict[str, 
 
     # AUTHZ-001: premium+ from verified JWT (no client-tier spoof)
     gated = _require_premium_strat(request, capability="cross_system_validate")
-    if isinstance(gated, JSONResponse):
+    if gated is not None:
         return gated
 
     orch = request.app.state.orch
