@@ -15,6 +15,7 @@ dependencies = [
   "tamthuc-edu",
   "db-schema",
   "psycopg[binary]>=3.2",
+  "redis>=8.1.0",
 ]
 
 [build-system]

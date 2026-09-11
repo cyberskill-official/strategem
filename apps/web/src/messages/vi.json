@@ -580,5 +580,17 @@
   "graph.neighbors": "Lân cận",
   "graph.note": "Nguồn: đồ thị đã lưu",
   "graph.empty": "Chưa có cạnh.",
-  "graph.error": "Chưa mở được đồ thị."
+  "graph.error": "Chưa mở được đồ thị.",
+  "sessions.title": "Phiên đăng nhập",
+  "sessions.lead": "Xem và thu hồi thiết bị đang giữ phiên của bạn.",
+  "sessions.signInRequired": "Đăng nhập để quản lý phiên.",
+  "sessions.loadError": "Không tải được danh sách phiên.",
+  "sessions.revokeError": "Không thu hồi được phiên.",
+  "sessions.empty": "Không có phiên đang hoạt động.",
+  "sessions.device": "Thiết bị",
+  "sessions.current": "phiên hiện tại",
+  "sessions.lastSeen": "Lần thấy gần nhất",
+  "sessions.revoke": "Thu hồi",
+  "sessions.revokeAll": "Thu hồi mọi phiên",
+  "sessions.refresh": "Tải phiên"
 }

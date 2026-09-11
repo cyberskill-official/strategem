@@ -11,7 +11,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from tamthuc_auth.config import is_local_or_test_env
 
 from tamthuc_api.audit import AuditLog
-from tamthuc_api.authz import RequireAuthMiddleware
+from tamthuc_api.authz import RequireAuthMiddleware, api_docs_enabled
 from tamthuc_api.clients.engine import LocalEngineClient, default_engine, probe_cast_cli
 from tamthuc_api.errors import STATUS_BY_CODE, error_envelope
 from tamthuc_api.llm_probe import probe_llm
@@ -99,13 +99,33 @@ def _cors_origins() -> list[str] | None:
     raise RuntimeError("CORS_ORIGINS is required outside ENV/APP_ENV=development|dev|test (TT-010)")
 
 
+def _email_configured_check() -> bool:
+    """True when transactional email can send (Resend or allowed fake)."""
+    try:
+        from tamthuc_auth.email import EmailNotConfigured, resolve_email_sender
+
+        resolve_email_sender()
+        return True
+    except EmailNotConfigured:
+        return False
+    except Exception:
+        return False
+
+
 def create_app(
     orch: Orchestrator | None = None,
     *,
     enable_rate_limit: bool | None = None,
     enable_cors: bool = True,
 ) -> FastAPI:
-    app = FastAPI(title="tamthuc-api", version="0.1.0")
+    docs_on = api_docs_enabled()
+    app = FastAPI(
+        title="tamthuc-api",
+        version="0.1.0",
+        docs_url="/docs" if docs_on else None,
+        redoc_url="/redoc" if docs_on else None,
+        openapi_url="/openapi.json" if docs_on else None,
+    )
     # COV-010: Postgres when DATABASE_URL set; memory in dev/test; fail-closed in prod
     persistence = PersistenceService.from_env()
     audit = AuditLog()
@@ -152,6 +172,9 @@ def create_app(
     # TT-002: auth on all non-public routes (explicit allowlist in authz.py)
     app.add_middleware(RequireAuthMiddleware)
     app.add_middleware(HttpMetricsMiddleware)
+    from tamthuc_api.middleware.security_headers import SecurityHeadersMiddleware
+
+    app.add_middleware(SecurityHeadersMiddleware)
 
     if enable_cors:
         origins = _cors_origins()
@@ -208,12 +231,17 @@ def create_app(
             if k not in {"llm_base_url", "llm_models_sample", "cast_cli_path"}
         }
         public_checks["payments_enabled"] = is_local_or_test_env()
+        public_checks["api_docs_enabled"] = api_docs_enabled()
+        public_checks["email_configured"] = _email_configured_check()
+        # Redis URL presence only — never expose the URL itself.
+        public_checks["redis_configured"] = bool((os.environ.get("REDIS_URL") or "").strip())
         body = {
             "status": "ok" if ok else "not_ready",
             "checks": public_checks,
             "degraded": {
                 "llm": not bool(llm_checks.get("llm_reachable")),
                 "cast_cli": not bool(checks.get("cast_cli_present")),
+                "email": not public_checks["email_configured"],
             },
         }
         return JSONResponse(status_code=200 if ok else 503, content=body)

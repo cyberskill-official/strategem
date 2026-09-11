@@ -33,8 +33,15 @@ assert.match(refreshRoute, /httpOnly:\s*true/);
 assert.match(refreshRoute, /tamthuc_refresh/);
 assert.match(refreshRoute, /\/auth\/refresh/);
 assert.match(refreshRoute, /origin check failed|originAllowed|Origin/);
+assert.match(refreshRoute, /csrf check failed|cookieCsrfOk|tamthuc_csrf/);
 assert.match(logoutRoute, /\/auth\/logout/);
 assert.match(logoutRoute, /httpOnly:\s*true/);
+assert.match(logoutRoute, /csrf check failed|cookieCsrfOk/);
+assert.match(loginRoute, /setCsrfCookie|tamthuc_csrf/);
+assert.match(signupRoute, /setCsrfCookie|tamthuc_csrf/);
+const csrf = readFileSync(join(root, "src/lib/auth/csrf.ts"), "utf8");
+assert.match(csrf, /tamthuc_csrf/);
+assert.match(csrf, /x-csrf-token|CSRF_HEADER/);
 // Server must not fall back to NEXT_PUBLIC_API_BASE (host URL inside Docker).
 assert.match(loginRoute, /serverApiBase|API_URL/);
 assert.doesNotMatch(

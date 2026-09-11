@@ -8,7 +8,7 @@ from unittest.mock import MagicMock, patch
 
 import db_schema
 import db_schema.migrate as migrate_mod
-from db_schema.migrate import _redact_dsn, main
+from db_schema.migrate import _redact_dsn, file_checksum, main
 
 
 def test_redact_dsn_with_credentials() -> None:
@@ -24,6 +24,7 @@ def test_redact_dsn_without_at() -> None:
 
 def test_main_requires_database_url(monkeypatch: Any, capsys: Any) -> None:
     monkeypatch.delenv("DATABASE_URL", raising=False)
+    monkeypatch.delenv("DATABASE_URL_MIGRATE", raising=False)
     code = main()
     assert code == 2
     err = capsys.readouterr().err
@@ -68,26 +69,19 @@ def test_apply_migrations_uses_explicit_file_list(tmp_path: Path) -> None:
     mock_cm = MagicMock()
     mock_cm.__enter__.return_value = mock_conn
     mock_cm.__exit__.return_value = False
-    # transaction() context manager
     tx_cm = MagicMock()
     tx_cm.__enter__.return_value = None
     tx_cm.__exit__.return_value = False
     mock_conn.transaction.return_value = tx_cm
-    # First SELECT for ledger miss → None; then apply SQL + insert
-    mock_conn.execute.side_effect = [
-        MagicMock(),  # ensure_ledger CREATE TABLE
-        None,  # SELECT 1 FROM ledger → treated via fetchone below
-        MagicMock(),  # apply SQL
-        MagicMock(),  # INSERT ledger
-    ]
-    # fetchone on second execute (ledger check)
     ledger_cur = MagicMock()
     ledger_cur.fetchone.return_value = None
     mock_conn.execute.side_effect = [
         MagicMock(),  # ensure_ledger
+        MagicMock(),  # advisory lock
         ledger_cur,  # SELECT ledger
         MagicMock(),  # apply sql
         MagicMock(),  # INSERT
+        MagicMock(),  # unlock
     ]
     with patch.object(psycopg, "connect", return_value=mock_cm) as connect:
         n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])
@@ -101,15 +95,18 @@ def test_apply_migrations_skips_ledgered_file(tmp_path: Path) -> None:
 
     sql = tmp_path / "0001_noop.sql"
     sql.write_text("SELECT 1;", encoding="utf-8")
+    checksum = file_checksum(sql)
     mock_conn = MagicMock()
     mock_cm = MagicMock()
     mock_cm.__enter__.return_value = mock_conn
     mock_cm.__exit__.return_value = False
     ledger_cur = MagicMock()
-    ledger_cur.fetchone.return_value = (1,)
+    ledger_cur.fetchone.return_value = (checksum, "applied")
     mock_conn.execute.side_effect = [
         MagicMock(),  # ensure_ledger
+        MagicMock(),  # lock
         ledger_cur,  # already applied
+        MagicMock(),  # unlock
     ]
     with patch.object(psycopg, "connect", return_value=mock_cm):
         n = migrate_mod.apply_migrations("postgresql://x", migrations=[sql])

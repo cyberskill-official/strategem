@@ -2,6 +2,13 @@
 
 All product tasks are **done** (BACKLOG: 93). Remaining work is **operator linking**, not code.
 
+## Remaining code vs operator (post AUTH-001)
+
+See `docs/deploy/prod-ready-remainings.md` for the single PR that closes
+implementable production-readiness code gaps (migrator lock/checksum, Redis
+rate limits, `/docs` lockdown, session UI, CSRF double-submit). Operator HITL
+(Resend DNS, Redis host secrets, PITR drills, deploy) remains out of band.
+
 ## LEGAL-004 counsel gate (RISK-4)
 
 **Status:** `approved` (2026-07-26). Re-run the check after material copy /

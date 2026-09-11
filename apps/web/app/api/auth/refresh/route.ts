@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
+import { cookieCsrfOk, setCsrfCookie } from "../../../../src/lib/auth/csrf";
 
 /**
  * AUTH-001: rotate refresh via httpOnly cookie BFF.
  * Access token returned in JSON; new refresh stays in Secure HttpOnly cookie.
- * Cookie-bearing requests require a same-site Origin/Referer (CSRF hardening).
+ * Cookie-bearing requests require same-site Origin/Referer + double-submit CSRF.
  */
 function serverApiBase(): string {
   return (
@@ -70,12 +71,20 @@ export async function POST(req: NextRequest) {
     // cookie-only refresh is fine
   }
 
-  // CSRF: cookie-authenticated refresh must present a matching Origin or Referer.
-  if (cookieRefresh && !originAllowed(req)) {
-    return NextResponse.json(
-      { error: { code: "forbidden", message: "origin check failed" } },
-      { status: 403 },
-    );
+  // CSRF: cookie-authenticated refresh must present Origin/Referer + double-submit token.
+  if (cookieRefresh) {
+    if (!originAllowed(req)) {
+      return NextResponse.json(
+        { error: { code: "forbidden", message: "origin check failed" } },
+        { status: 403 },
+      );
+    }
+    if (!cookieCsrfOk(req)) {
+      return NextResponse.json(
+        { error: { code: "forbidden", message: "csrf check failed" } },
+        { status: 403 },
+      );
+    }
   }
 
   const refresh = cookieRefresh || bodyRefresh;
@@ -119,5 +128,6 @@ export async function POST(req: NextRequest) {
       maxAge: 60 * 60 * 24 * 14,
     });
   }
+  setCsrfCookie(out);
   return out;
 }

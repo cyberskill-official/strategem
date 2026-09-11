@@ -52,11 +52,16 @@ Next.js BFF under `apps/web/app/api/auth/`:
 
 Access tokens stay in memory / `sessionStorage` (short-lived Bearer). Refresh must not be readable by page JS.
 
-## Deferred (follow-up slices)
+## Deferred (follow-up slices / operator)
 
-- Session list / revoke UI in the web app (API exists: `/auth/sessions*`).
 - Rich HTML email templates + deep links with branded URLs.
-- Full CSRF matrix beyond Origin/Referer on cookie refresh (double-submit token).
 - AUTH-002 real Google/Apple OIDC (still kill-switched outside local/test).
 - Live Postgres integration tests for `PostgresEmailTokenStore` / `PostgresSessionStore`
   (unit coverage uses in-memory; wiring selects Postgres when `DATABASE_URL` is set).
+- Production Resend domain DNS + controlled inbox smoke (this doc).
+
+## Shipped in prod-ready remainings PR
+
+- Session list / revoke UI (`SessionsPanel` on `/manage/settings`).
+- Double-submit CSRF (`tamthuc_csrf` + `X-CSRF-Token`) on cookie refresh/logout BFF.
+- `/ready` exposes `email_configured` (true/false only; never secrets).
