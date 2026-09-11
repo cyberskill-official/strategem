@@ -9,7 +9,7 @@ from uuid import UUID
 from tamthuc_auth.email import EmailSender, get_email_sender
 from tamthuc_auth.errors import AuthError
 from tamthuc_auth.store import UserStore
-from tamthuc_auth.token_store import EmailTokenStore, get_email_token_store
+from tamthuc_auth.token_store import EmailTokenStore, EmailTokenStoreProtocol, get_email_token_store
 
 log = logging.getLogger("tamthuc_auth.verification")
 
@@ -25,7 +25,7 @@ def issue_verification(
     user_id: str,
     *,
     store: UserStore,
-    tokens: EmailTokenStore | None = None,
+    tokens: EmailTokenStore | EmailTokenStoreProtocol | None = None,
     mail: EmailSender | None = None,
     ttl_s: int = 3600,
 ) -> dict[str, Any]:
@@ -52,7 +52,7 @@ def request_verification_by_email(
     email: str,
     *,
     store: UserStore,
-    tokens: EmailTokenStore | None = None,
+    tokens: EmailTokenStore | EmailTokenStoreProtocol | None = None,
     mail: EmailSender | None = None,
 ) -> dict[str, Any]:
     """Enumeration-safe: same response whether or not the email exists."""
@@ -69,7 +69,7 @@ def confirm_verification(
     token: str,
     *,
     store: UserStore,
-    tokens: EmailTokenStore | None = None,
+    tokens: EmailTokenStore | EmailTokenStoreProtocol | None = None,
 ) -> dict[str, Any]:
     tokens = tokens or get_email_token_store()
     try:

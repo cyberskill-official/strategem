@@ -1,8 +1,9 @@
-"""Auth backend wiring — TT-024.
+"""Auth backend wiring — TT-024 / AUTH-001 follow-up.
 
 - `ENV=test`: in-memory by default (unit tests). Set `AUTH_USE_POSTGRES=1` +
   `DATABASE_URL` for durable-auth integration tests.
-- `ENV=development|dev` with `DATABASE_URL`: Postgres UserStore + revocation.
+- `ENV=development|dev` with `DATABASE_URL`: Postgres UserStore + revocation +
+  email tokens + refresh families.
 - Production/staging without `DATABASE_URL`: fail closed (unless
   `ALLOW_MEMORY_AUTH=1` break-glass).
 
@@ -18,7 +19,9 @@ from tamthuc_auth.config import is_dev_or_test_env
 from tamthuc_auth.pg_store import PostgresUserStore, database_url
 from tamthuc_auth.revocation import PostgresRevocationStore
 from tamthuc_auth.service import AuthService
+from tamthuc_auth.sessions import PostgresSessionStore
 from tamthuc_auth.store import InMemoryUserStore
+from tamthuc_auth.token_store import PostgresEmailTokenStore
 from tamthuc_auth.tokens import RevocationStore, TokenService, get_revocation_store
 
 log = logging.getLogger("tamthuc_auth.wiring")
@@ -80,9 +83,17 @@ def build_auth_service() -> AuthService:
         assert_unprivileged_runtime_role(dsn)
         store = PostgresUserStore(dsn)
         rev = PostgresRevocationStore(dsn)
+        email_tokens = PostgresEmailTokenStore(dsn)
+        sessions = PostgresSessionStore(dsn)
         tokens = TokenService(store=rev)
         log.info("auth.backend", extra={"backend": "postgres"})
-        return AuthService(store=store, tokens=tokens, revocation=rev)
+        return AuthService(
+            store=store,
+            tokens=tokens,
+            revocation=rev,
+            email_tokens=email_tokens,
+            sessions=sessions,
+        )
     log.info("auth.backend", extra={"backend": "memory"})
     return AuthService(
         store=InMemoryUserStore(),

@@ -54,8 +54,9 @@ Access tokens stay in memory / `sessionStorage` (short-lived Bearer). Refresh mu
 
 ## Deferred (follow-up slices)
 
-- Durable email-token table (today: process-local `EmailTokenStore` unless extended).
-- Refresh-family rows, session list / revoke-one / revoke-all UI.
-- CSRF / Origin hardening matrix for cookie refresh.
-- Rich HTML templates + deep links with branded URLs.
+- Session list / revoke UI in the web app (API exists: `/auth/sessions*`).
+- Rich HTML email templates + deep links with branded URLs.
+- Full CSRF matrix beyond Origin/Referer on cookie refresh (double-submit token).
 - AUTH-002 real Google/Apple OIDC (still kill-switched outside local/test).
+- Live Postgres integration tests for `PostgresEmailTokenStore` / `PostgresSessionStore`
+  (unit coverage uses in-memory; wiring selects Postgres when `DATABASE_URL` is set).

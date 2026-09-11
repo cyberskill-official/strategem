@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 /**
  * AUTH-001: rotate refresh via httpOnly cookie BFF.
  * Access token returned in JSON; new refresh stays in Secure HttpOnly cookie.
+ * Cookie-bearing requests require a same-site Origin/Referer (CSRF hardening).
  */
 function serverApiBase(): string {
   return (
@@ -13,6 +14,49 @@ function serverApiBase(): string {
 }
 
 const COOKIE = "tamthuc_refresh";
+
+function allowedOrigins(req: NextRequest): Set<string> {
+  const host = req.headers.get("host");
+  const extras = [
+    process.env.WEB_ORIGIN,
+    process.env.NEXT_PUBLIC_SITE_URL,
+    process.env.AUTH_CSRF_ORIGINS,
+  ]
+    .filter(Boolean)
+    .flatMap((v) => String(v).split(","))
+    .map((s) => s.trim().replace(/\/$/, ""))
+    .filter(Boolean);
+  const set = new Set<string>(extras);
+  if (host) {
+    set.add(`https://${host}`);
+    set.add(`http://${host}`);
+  }
+  // Local / preview convenience
+  set.add("http://127.0.0.1:3000");
+  set.add("http://localhost:3000");
+  set.add("http://127.0.0.1:13000");
+  set.add("http://localhost:13000");
+  return set;
+}
+
+function originAllowed(req: NextRequest): boolean {
+  const allowed = allowedOrigins(req);
+  const origin = req.headers.get("origin");
+  if (origin) {
+    return allowed.has(origin.replace(/\/$/, ""));
+  }
+  const referer = req.headers.get("referer");
+  if (referer) {
+    try {
+      const u = new URL(referer);
+      return allowed.has(u.origin);
+    } catch {
+      return false;
+    }
+  }
+  // No Origin/Referer: allow only non-browser / same-origin tooling without cookies
+  return false;
+}
 
 export async function POST(req: NextRequest) {
   const cookieRefresh = req.cookies.get(COOKIE)?.value;
@@ -25,6 +69,15 @@ export async function POST(req: NextRequest) {
   } catch {
     // cookie-only refresh is fine
   }
+
+  // CSRF: cookie-authenticated refresh must present a matching Origin or Referer.
+  if (cookieRefresh && !originAllowed(req)) {
+    return NextResponse.json(
+      { error: { code: "forbidden", message: "origin check failed" } },
+      { status: 403 },
+    );
+  }
+
   const refresh = cookieRefresh || bodyRefresh;
   if (!refresh) {
     return NextResponse.json(

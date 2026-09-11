@@ -10,6 +10,7 @@ from tamthuc_auth.config import reset_settings_cache
 from tamthuc_auth.email import FakeEmailSender, reset_email_sender, set_email_sender
 from tamthuc_auth.routes import create_auth_app
 from tamthuc_auth.service import AuthService
+from tamthuc_auth.sessions import InMemorySessionStore
 from tamthuc_auth.token_store import EmailTokenStore
 from tamthuc_auth.tokens import RevocationStore
 
@@ -32,7 +33,8 @@ def client(monkeypatch: pytest.MonkeyPatch, mail: FakeEmailSender) -> TestClient
     reset_settings_cache()
     tokens = EmailTokenStore()
     rev = RevocationStore()
-    svc = AuthService(email_tokens=tokens, revocation=rev, mail=mail)
+    sessions = InMemorySessionStore()
+    svc = AuthService(email_tokens=tokens, revocation=rev, mail=mail, sessions=sessions)
     return TestClient(create_auth_app(svc))
 
 
@@ -113,10 +115,10 @@ def test_refresh_rotation_and_logout(client: TestClient) -> None:
     assert rotated.status_code == 200, rotated.text
     new_refresh = rotated.json()["refresh"]
     assert new_refresh != old_refresh
-    # reuse of old refresh fails (revoked)
+    # reuse of old refresh fails (family revoked via reuse detection)
     reuse = client.post("/auth/refresh", json={"refresh": old_refresh})
     assert reuse.status_code == 401
-    # logout revokes current
+    # family already dead; logout remains idempotent
     out = client.post("/auth/logout", json={"refresh": new_refresh})
     assert out.status_code == 200
     assert out.json()["ok"] is True

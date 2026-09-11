@@ -33,6 +33,8 @@ def test_ordered_migration_files() -> None:
         "0015_payment_fulfillments.sql",
         "0016_operator_llm_settings.sql",
         "0017_runtime_app_role.sql",
+        "0018_email_tokens.sql",
+        "0019_refresh_token_families.sql",
     ]
     # Lexicographic order is apply order
     assert names == sorted(names)

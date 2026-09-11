@@ -22,6 +22,8 @@ Forward-only SQL migrations for the Tam Thuc Strategem data tier. No ORM owns th
 | `0015_payment_fulfillments.sql` | PayOS webhook idempotency |
 | `0016_operator_llm_settings.sql` | Operator BYOK LLM settings |
 | `0017_runtime_app_role.sql` | `strategem_app` LOGIN (`NOSUPERUSER NOBYPASSRLS NOCREATEDB`) for API runtime (D-DB-001) |
+| `0018_email_tokens.sql` | Durable hashed email verify / password-reset tokens (AUTH-001 follow-up) |
+| `0019_refresh_token_families.sql` | Refresh families for session list / revoke (AUTH-001 follow-up) |
 
 ## Apply path (human / CI)
 

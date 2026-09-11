@@ -29,6 +29,7 @@ from tamthuc_auth.models import (
     RefreshRequest,
     RegisterRequest,
     RegisterResponse,
+    SessionsResponse,
     SocialLoginRequest,
     TokenPair,
     VerifyConfirmRequest,
@@ -141,6 +142,56 @@ def logout(
     return svc.logout(body.refresh)
 
 
+@router.get("/sessions", response_model=SessionsResponse)
+def list_sessions(
+    svc: Annotated[AuthService, Depends(get_auth_service)],
+    creds: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)],
+) -> SessionsResponse:
+    if creds is None:
+        raise HTTPException(
+            status_code=401,
+            detail={"error": {"code": "unauthorized", "message": "authentication failed"}},
+        )
+    try:
+        sessions = svc.list_sessions(creds.credentials)
+        return SessionsResponse(sessions=sessions)
+    except AuthError as e:
+        raise _http_error(e) from e
+
+
+@router.post("/sessions/{session_id}/revoke")
+def revoke_session(
+    session_id: str,
+    svc: Annotated[AuthService, Depends(get_auth_service)],
+    creds: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)],
+) -> dict[str, bool]:
+    if creds is None:
+        raise HTTPException(
+            status_code=401,
+            detail={"error": {"code": "unauthorized", "message": "authentication failed"}},
+        )
+    try:
+        return svc.revoke_session(creds.credentials, session_id)
+    except AuthError as e:
+        raise _http_error(e) from e
+
+
+@router.post("/sessions/revoke-all")
+def revoke_all_sessions(
+    svc: Annotated[AuthService, Depends(get_auth_service)],
+    creds: Annotated[HTTPAuthorizationCredentials | None, Depends(_bearer)],
+) -> dict[str, Any]:
+    if creds is None:
+        raise HTTPException(
+            status_code=401,
+            detail={"error": {"code": "unauthorized", "message": "authentication failed"}},
+        )
+    try:
+        return svc.revoke_all_sessions(creds.credentials)
+    except AuthError as e:
+        raise _http_error(e) from e
+
+
 @router.get("/me", response_model=MeResponse)
 def me(user: Annotated[CurrentUser, Depends(get_current_user)]) -> MeResponse:
     return MeResponse(
@@ -219,6 +270,7 @@ def password_reset_confirm(
             store=svc.store,
             tokens=svc.email_tokens,
             revocation=svc.revocation,
+            sessions=svc.sessions,
         )
     except ResetError as e:
         raise _http_error(e) from e
